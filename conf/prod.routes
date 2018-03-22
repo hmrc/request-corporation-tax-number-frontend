@@ -1,5 +1,5 @@
 # Add all the application routes to the app.routes file
-->         /request-corporation-tax-number-frontend                    app.Routes
+->         /request-corporation-tax-number                    app.Routes
 ->         /                          health.Routes
 ->     	   /template                  template.Routes
 
