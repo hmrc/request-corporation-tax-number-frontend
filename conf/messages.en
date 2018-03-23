@@ -1,3 +1,5 @@
+global.start_now = Start now
+
 checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
 checkYourAnswers.guidance = Guidance for check your answers
@@ -21,9 +23,15 @@ error.required = Please enter a value
 error.summary.title = There’s been a problem
 error.summary.text = Check the following
 
-index.title = request-corporation-tax-number-frontend
-index.heading = request-corporation-tax-number-frontend
+index.title = Request your Corporation Tax UTR
+index.heading = Request your Corporation Tax UTR
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
+index.useForm.title = Use this service to:
+index.useForm.item1 = Request your Corporation Tax Unique Taxpayer Reference
+index.beforeYouStart.heading = Before you start
+index.beforeYouStart.title = You will need your:
+index.beforeYouStart.item1 = company registration number
+index.beforeYouStart.item2 = registered company name
 
 session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset

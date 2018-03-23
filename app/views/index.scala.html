@@ -16,14 +16,30 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, call: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("index.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("index.heading")
+    <h1 class="heading-xlarge">@messages("index.heading")</h1>
 
-    <p>@messages("index.guidance")</p>
+    <p>@messages("index.useForm.title")
+    <ul class="list list-bullet">
+        <li>@messages("index.useForm.item1")</li>
+    </ul>
+    </p>
+
+    <div class="form-field">
+        <a href="@call" id="start-now" class="button button--get-started" role="button">@messages("global.start_now")</a>
+    </div>
+
+    <h2>@messages("index.beforeYouStart.heading")</h2>
+    <p>@messages("index.beforeYouStart.title")
+    <ul class="list list-bullet">
+        <li>@messages("index.beforeYouStart.item1")</li>
+        <li>@messages("index.beforeYouStart.item2")</li>
+    </ul>
+    </p>
 }
