@@ -36,9 +36,7 @@ class CompanyDetailsController @Inject()(appConfig: FrontendAppConfig,
                                                   override val messagesApi: MessagesApi,
                                                   dataCacheConnector: DataCacheConnector,
                                                   navigator: Navigator,
-                                                  authenticate: AuthAction,
                                                   getData: DataRetrievalAction,
-                                                  requireData: DataRequiredAction,
                                                   formProvider: CompanyDetailsFormProvider) extends FrontendController with I18nSupport {
 
   val form = formProvider()

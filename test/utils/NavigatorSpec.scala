@@ -34,6 +34,12 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         case object UnknownIdentifier extends Identifier
         navigator.nextPage(UnknownIdentifier, NormalMode)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
       }
+
+      "go to EmployerName from CapacityRegistering when personalBudgetHolderDirect is selected" in {
+        val answers = mock[UserAnswers]
+        when(answers.companyDetails) thenReturn Some(CompanyDetails("Big Company", "12345678"))
+        navigator.nextPage(CompanyDetailsId, NormalMode)(answers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      }
     }
 
     "in Check mode" must {
