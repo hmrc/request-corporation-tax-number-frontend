@@ -14,6 +14,25 @@
  * limitations under the License.
  */
 
-package identifiers
+package models
 
-trait Identifier
+import base.SpecBase
+
+class CompanyDetailsSpec extends SpecBase {
+
+  "answered lines" must {
+
+    "contain company name and reference number " in {
+      val companyDetails = CompanyDetails("Big Company", "12345678")
+      CompanyDetails.answeredLines(companyDetails) mustBe Seq("Big Company", "12345678")
+    }
+  }
+
+  "as string" must {
+
+    "give a comma-separated string of all of the answered lines" in {
+      val companyDetails = CompanyDetails("Big Company", "12345678")
+      CompanyDetails.asString(companyDetails) mustBe "Big Company, 12345678"
+    }
+  }
+}

@@ -17,19 +17,19 @@
 package controllers.actions
 
 import base.SpecBase
+import connectors.DataCacheConnector
+import models.requests.OptionalDataRequest
 import org.mockito.Matchers
 import org.mockito.Mockito._
-import org.scalatest.{RecoverMethods, Succeeded}
+import org.scalatest.RecoverMethods
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.mvc.Request
-import connectors.DataCacheConnector
-import models.requests.OptionalDataRequest
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutures with RecoverMethods {
 

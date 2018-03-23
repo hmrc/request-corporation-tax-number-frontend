@@ -23,11 +23,11 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
 
   val form = new CompanyDetailsFormProvider()()
 
-  ".field1" must {
+  ".companyName" must {
 
-    val fieldName = "field1"
-    val requiredKey = "companyDetails.error.field1.required"
-    val lengthKey = "companyDetails.error.field1.length"
+    val fieldName = "companyName"
+    val requiredKey = "companyDetails.error.companyName.required"
+    val lengthKey = "companyDetails.error.companyName.length"
     val maxLength = 40
 
     behave like fieldThatBindsValidData(
@@ -50,11 +50,11 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
     )
   }
 
-  ".field2" must {
+  ".companyReferenceNumber" must {
 
-    val fieldName = "field2"
-    val requiredKey = "companyDetails.error.field2.required"
-    val lengthKey = "companyDetails.error.field2.length"
+    val fieldName = "companyReferenceNumber"
+    val requiredKey = "companyDetails.error.companyReferenceNumber.required"
+    val lengthKey = "companyDetails.error.companyReferenceNumber.length"
     val maxLength = 8
 
     behave like fieldThatBindsValidData(

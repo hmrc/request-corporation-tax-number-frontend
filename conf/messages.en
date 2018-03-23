@@ -45,10 +45,10 @@ unauthorised.heading = You can’t access this service with this account
 
 companyDetails.title = Enter company details
 companyDetails.heading = Enter company details
-companyDetails.field1 = Company name
-companyDetails.field2 = Company reference number
+companyDetails.companyName = Company name
+companyDetails.companyReferenceNumber = Company reference number
 companyDetails.checkYourAnswersLabel = Enter company details
-companyDetails.error.field1.required = Enter company name
-companyDetails.error.field2.required = Enter company reference number
-companyDetails.error.field1.length = Company name must be 40 characters or less
-companyDetails.error.field2.length = Company reference number must be 8 characters or less
+companyDetails.error.companyName.required = Enter company name
+companyDetails.error.companyName.length = Company name must be 40 characters or less
+companyDetails.error.companyReferenceNumber.length = Company reference number must be 8 characters or less
+companyDetails.error.companyReferenceNumber.required = Enter company reference number
