@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-package viewmodels
+package models
 
-case class AnswerRow(label: String, answer: String, answerIsMessageKey: Boolean, changeUrl: String)
+import play.api.libs.json._
+
+case class CompanyDetails (field1: String, field2: String)
+
+object CompanyDetails {
+  implicit val format = Json.format[CompanyDetails]
+}

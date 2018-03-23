@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-package models.requests
+package forms
 
-import play.api.mvc.{Request, WrappedRequest}
-import utils.UserAnswers
+import javax.inject.Inject
 
-case class OptionalDataRequest[A] (request: Request[A], externalId: String, userAnswers: Option[UserAnswers]) extends WrappedRequest[A](request)
+import forms.mappings.Mappings
+import play.api.data.Form
+import play.api.data.Forms._
+import models.CompanyDetails
 
-case class DataRequest[A] (request: Request[A], externalId: String, userAnswers: UserAnswers) extends WrappedRequest[A](request)
+class CompanyDetailsFormProvider @Inject() extends Mappings {
+
+   def apply(): Form[CompanyDetails] = Form(
+     mapping(
+      "field1" -> text("companyDetails.error.field1.required")
+        .verifying(maxLength(40, "companyDetails.error.field1.length")),
+      "field2" -> text("companyDetails.error.field2.required")
+        .verifying(maxLength(8, "companyDetails.error.field2.length"))
+    )(CompanyDetails.apply)(CompanyDetails.unapply)
+   )
+ }
