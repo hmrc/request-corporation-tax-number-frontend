@@ -78,11 +78,11 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "return OK and correct view fir a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -90,7 +90,7 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
       val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }
