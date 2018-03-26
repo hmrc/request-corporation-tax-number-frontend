@@ -10,8 +10,6 @@ GET        /this-service-has-been-reset                 controllers.SessionExpir
 
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 
-GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
-
 GET        /companyDetails                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = NormalMode)
 POST       /companyDetails                       controllers.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /changeCompanyDetails                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)

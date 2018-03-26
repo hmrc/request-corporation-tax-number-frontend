@@ -55,9 +55,6 @@ site.continue = Continue
 site.service_name = Request your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
-
 companyDetails.title = Enter company details
 companyDetails.heading = Enter company details
 companyDetails.companyName = Company name
