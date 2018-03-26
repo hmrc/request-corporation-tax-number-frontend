@@ -73,3 +73,6 @@ confirmation.whatHappensNext.line3 = If the information you have provided is inc
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)
 
+
+failedToSubmit.title = failedToSubmit
+failedToSubmit.heading = failedToSubmit

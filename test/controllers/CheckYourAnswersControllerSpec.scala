@@ -56,13 +56,6 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
     }
 
-    "Redirect to Confimration page on a POST when submission is successful" in {
-      val result = controller(someData).onSubmit(NormalMode)(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
-    }
-
     "Redirect to Failed to submit on a POST when submission fails" in {
       val result = controller(someData).onSubmit(NormalMode)(fakeRequest)
 
