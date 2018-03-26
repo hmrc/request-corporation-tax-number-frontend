@@ -16,3 +16,5 @@ GET        /companyDetails                       controllers.CompanyDetailsContr
 POST       /companyDetails                       controllers.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /changeCompanyDetails                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /changeCompanyDetails                       controllers.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /confirmation                       controllers.ConfirmationController.onPageLoad()

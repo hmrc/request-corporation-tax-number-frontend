@@ -63,3 +63,6 @@ companyDetails.error.companyName.required = Enter company name
 companyDetails.error.companyName.length = Company name must be 40 characters or less
 companyDetails.error.companyReferenceNumber.length = Company reference number must be 8 characters or less
 companyDetails.error.companyReferenceNumber.required = Enter company reference number
+
+confirmation.title = confirmation
+confirmation.heading = confirmation
