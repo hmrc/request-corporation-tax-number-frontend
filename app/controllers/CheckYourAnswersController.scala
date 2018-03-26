@@ -19,12 +19,15 @@ package controllers
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
+import models.Mode
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Result
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
+
+import scala.concurrent.Future
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,
@@ -53,5 +56,9 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
       }
 
       result.getOrElse(Redirect(routes.IndexController.onPageLoad()))
+  }
+
+  def onSubmit(mode: Mode) = (getData andThen requireData).async {
+    Future.successful(???)
   }
 }

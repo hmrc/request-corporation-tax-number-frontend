@@ -16,28 +16,31 @@
 
 package controllers
 
+import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
+import models.NormalMode
 import play.api.test.Helpers._
-import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction, FakeAuthAction}
-import viewmodels.AnswerSection
-import views.html.check_your_answers
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
+  def onwardRoute = routes.IndexController.onPageLoad()
+
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CheckYourAnswersController(frontendAppConfig, messagesApi, FakeAuthAction, dataRetrievalAction, new DataRequiredActionImpl)
+    new CheckYourAnswersController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
 
   "Check Your Answers Controller" must {
-    "return 200 and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
-      status(result) mustBe OK
-      contentAsString(result) mustBe check_your_answers(frontendAppConfig, Seq(AnswerSection(None, Seq())))(fakeRequest, messages).toString
-    }
-
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "return 303 and correct view for a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to Index for a POST if no existing data is found" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
+      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }
