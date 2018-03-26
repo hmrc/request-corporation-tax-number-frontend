@@ -51,9 +51,6 @@ site.save_and_continue = Save and continue
 site.service_name = request-corporation-tax-number-frontend
 site.textarea.char_limit = (Limit is {0} characters)
 
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
-
 companyDetails.title = Enter company details
 companyDetails.heading = Enter company details
 companyDetails.companyName = Company name
