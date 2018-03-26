@@ -28,6 +28,12 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     new CheckYourAnswersController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
 
   "Check Your Answers Controller" must {
+    "return 200 for a GET" in {
+      val result = controller(someData).onPageLoad()(fakeRequest)
+
+      status(result) mustBe OK
+    }
+
     "return 303 and correct view for a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
 
