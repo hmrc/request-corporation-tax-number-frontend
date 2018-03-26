@@ -19,7 +19,6 @@ package controllers
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
-import models.NormalMode
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Result
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -53,6 +52,6 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
         Ok(check_your_answers(appConfig, sections))
       }
 
-      result.getOrElse(Redirect(routes.CompanyDetailsController.onPageLoad(NormalMode)))
+      result.getOrElse(Redirect(routes.IndexController.onPageLoad()))
   }
 }
