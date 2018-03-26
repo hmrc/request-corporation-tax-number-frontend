@@ -3,6 +3,9 @@ global.start_now = Start now
 checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
 checkYourAnswers.guidance = Guidance for check your answers
+checkYourAnswers.companyDetails_section = Company Details
+companyDetailsReferenceNumber.checkYourAnswersLabel = Company reference number
+companyDetailsName.checkYourAnswersLabel = Company name
 
 date.day = Day
 date.month = Month

@@ -32,14 +32,14 @@ import views.html.companyDetails
 
 import scala.concurrent.Future
 
-class CompanyDetailsController @Inject()(appConfig: FrontendAppConfig,
-                                                  override val messagesApi: MessagesApi,
-                                                  dataCacheConnector: DataCacheConnector,
-                                                  navigator: Navigator,
-                                                  authenticate: AuthAction,
-                                                  getData: DataRetrievalAction,
-                                                  requireData: DataRequiredAction,
-                                                  formProvider: CompanyDetailsFormProvider) extends FrontendController with I18nSupport {
+class CompanyDetailsController @Inject()(
+                                          appConfig: FrontendAppConfig,
+                                          override val messagesApi: MessagesApi,
+                                          dataCacheConnector: DataCacheConnector,
+                                          navigator: Navigator,
+                                          getData: DataRetrievalAction,
+                                          formProvider: CompanyDetailsFormProvider
+                                        ) extends FrontendController with I18nSupport {
 
   val form = formProvider()
 

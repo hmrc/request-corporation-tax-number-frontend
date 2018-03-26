@@ -22,9 +22,15 @@ import viewmodels.AnswerRow
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) {
 
-  def companyDetails: Option[AnswerRow] = userAnswers.companyDetails map {
-    x => AnswerRow("companyDetails.checkYourAnswersLabel",
-      s"${x.companyName} ${x.companyReferenceNumber}", false,
+  def companyDetailsReference: Option[AnswerRow] = userAnswers.companyDetails map {
+    x => AnswerRow("companyDetailsReferenceNumber.checkYourAnswersLabel",
+      s"${x.companyReferenceNumber}", false,
+      routes.CompanyDetailsController.onPageLoad(CheckMode).url)
+  }
+
+  def companyDetailsName: Option[AnswerRow] = userAnswers.companyDetails map {
+    x => AnswerRow("companyDetailsName.checkYourAnswersLabel",
+      s"${x.companyName}", false,
       routes.CompanyDetailsController.onPageLoad(CheckMode).url)
   }
 }

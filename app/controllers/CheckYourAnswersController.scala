@@ -17,24 +17,41 @@
 package controllers
 
 import com.google.inject.Inject
+import config.FrontendAppConfig
+import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import play.api.i18n.{I18nSupport, MessagesApi}
-import controllers.actions.{AuthAction, DataRequiredAction, DataRetrievalAction}
+import play.api.mvc.Result
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
-import config.FrontendAppConfig
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,
-                                           authenticate: AuthAction,
                                            getData: DataRetrievalAction,
-                                           requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                           requireData: DataRequiredAction
+                                          ) extends FrontendController with I18nSupport {
 
-  def onPageLoad() = (authenticate andThen getData andThen requireData) {
+  def onPageLoad() = (getData andThen requireData) {
     implicit request =>
-      val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
-      val sections = Seq(AnswerSection(None, Seq()))
-      Ok(check_your_answers(appConfig, sections))
+
+      val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
+
+      val result: Option[Result] = for {
+        name      <- cyaHelper.companyDetailsName
+        reference <- cyaHelper.companyDetailsReference
+      } yield {
+
+        val sections = Seq(
+          AnswerSection(
+            Some("checkYourAnswers.companyDetails_section"),
+            Seq(name, reference)
+          )
+        )
+
+        Ok(check_your_answers(appConfig, sections))
+      }
+
+      result.getOrElse(Redirect(routes.IndexController.onPageLoad()))
   }
 }

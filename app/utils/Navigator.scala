@@ -27,7 +27,7 @@ import models.{CheckMode, Mode, NormalMode}
 class Navigator @Inject()() {
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-
+    CompanyDetailsId -> (_ => routes.CheckYourAnswersController.onPageLoad())
   )
 
   private val editRouteMap: Map[Identifier, UserAnswers => Call] = Map(
