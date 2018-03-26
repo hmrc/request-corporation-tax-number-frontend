@@ -36,8 +36,8 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CompanyDetailsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+    new CompanyDetailsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, formProvider)
 
   def viewAsString(form: Form[_] = form) = companyDetails(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
@@ -78,7 +78,7 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "return OK and correct view fir a GET if no existing data is found" in {
+    "return OK and correct view for a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK

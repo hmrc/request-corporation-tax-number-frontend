@@ -23,7 +23,7 @@ import views.html.index
 
 class IndexControllerSpec extends ControllerSpecBase {
 
-  def call(implicit request: Request[_]) : Call = routes.CheckYourAnswersController.onPageLoad()
+  def call(implicit request: Request[_]) : Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
   "Index Controller" must {
     "return 200 for a GET" in {
