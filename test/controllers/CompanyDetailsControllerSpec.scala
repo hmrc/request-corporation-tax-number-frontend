@@ -16,16 +16,13 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.Json
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
-import play.api.test.Helpers._
 import forms.CompanyDetailsFormProvider
-import identifiers.CompanyDetailsId
-import models.{NormalMode, CompanyDetails}
+import models.{CompanyDetails, NormalMode}
+import play.api.data.Form
+import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.companyDetails
 
 class CompanyDetailsControllerSpec extends ControllerSpecBase {
@@ -51,10 +48,7 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(CompanyDetailsId.toString -> Json.toJson(CompanyDetails("Big Company", "12345678")))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(someData).onPageLoad(NormalMode)(fakeRequest)
 
       contentAsString(result) mustBe viewAsString(form.fill(CompanyDetails("Big Company", "12345678")))
     }
