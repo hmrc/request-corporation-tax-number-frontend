@@ -23,5 +23,21 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("confirmation.heading")
+    <div class="govuk-box-highlight">
+        @components.heading("confirmation.heading", "heading-xlarge")
+    </div>
+
+    <h2 class="heading-medium">@messages("confirmation.whatHappensNext.title")</h2>
+
+    <p>@messages("confirmation.whatHappensNext.line1")</p>
+
+    <p>@messages("confirmation.whatHappensNext.line2")</p>
+
+    <p>@messages("confirmation.whatHappensNext.line3")</p>
+
+    <div>
+        <p><a id="survey-link" href="@appConfig.feedbackSurveyUrl">@messages("confirmation.survey.linkText")</a> @messages("confirmation.survey.time")</p>
+    </div>
+
+
 }

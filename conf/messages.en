@@ -65,4 +65,11 @@ companyDetails.error.companyReferenceNumber.length = Company reference number mu
 companyDetails.error.companyReferenceNumber.required = Enter company reference number
 
 confirmation.title = confirmation
-confirmation.heading = confirmation
+confirmation.heading = Request complete
+confirmation.whatHappensNext.title = What happens next
+confirmation.whatHappensNext.line1 = Your request has been sent.
+confirmation.whatHappensNext.line2 = If the information you have provided is correct, we will send your Unique Taxpayer Reference (UTR) to the company's registered office address, as shown on Companies House, within 5 working days.
+confirmation.whatHappensNext.line3 = If the information you have provided is incorrect, you will not receive a response.
+confirmation.survey.linkText = What did you think of this service?
+confirmation.survey.time = (takes 30 seconds)
+
