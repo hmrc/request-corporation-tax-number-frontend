@@ -21,7 +21,7 @@ import views.html.failedToSubmit
 
 class FailedToSubmitViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "failedToSubmit"
+  val messageKeyPrefix = "failed_to_submit"
 
   def createView = () => failedToSubmit(frontendAppConfig)(fakeRequest, messages)
 

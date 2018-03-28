@@ -23,8 +23,7 @@ import views.html.failedToSubmit
 class FailedToSubmitControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new FailedToSubmitController(frontendAppConfig, messagesApi, FakeAuthAction,
-      dataRetrievalAction, new DataRequiredActionImpl)
+    new FailedToSubmitController(frontendAppConfig, messagesApi)
 
   def viewAsString() = failedToSubmit(frontendAppConfig)(fakeRequest, messages).toString
 
