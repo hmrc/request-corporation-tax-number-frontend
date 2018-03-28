@@ -17,22 +17,19 @@
 package controllers
 
 import javax.inject.Inject
-
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import play.api.mvc.{Action, AnyContent}
 import views.html.failedToSubmit
 
 import scala.concurrent.Future
 
 class FailedToSubmitController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         authenticate: AuthAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                         val messagesApi: MessagesApi) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (authenticate andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = Action  {
     implicit request =>
       Ok(failedToSubmit(appConfig))
   }

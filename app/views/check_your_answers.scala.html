@@ -14,8 +14,10 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
 @import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
+@import uk.gov.hmrc.play.views.html._
+@import controllers.routes._
+@import config.FrontendAppConfig
 
 @(appConfig: FrontendAppConfig, answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
 
@@ -24,16 +26,25 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    <h1>@components.heading("checkYourAnswers.heading")</h1>
+    @helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off"){
 
-    <p>@messages("checkYourAnswers.guidance")</p>
+        <h1>@components.heading("checkYourAnswers.heading")</h1>
 
-    @for(section <- answerSections){
-        @{
-            section match {
-                case a: AnswerSection => components.answer_section(a)
-                case r: RepeaterAnswerSection => components.repeater_answer_section(r)
+        <p>@messages("checkYourAnswers.guidance")</p>
+
+        @for(section <- answerSections){
+            @{
+                section match {
+                    case a: AnswerSection => components.answer_section(a)
+                    case r: RepeaterAnswerSection => components.repeater_answer_section(r)
+                }
             }
         }
+
+        @components.submit_button()
     }
+
+    <h2>@messages("checkYourAnswers.subHeading")</h2>
+
+    <p>@messages("checkYourAnswers.guidance")</p>
 }

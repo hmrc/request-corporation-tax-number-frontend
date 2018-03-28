@@ -17,15 +17,22 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models.NormalMode
+import models.{NormalMode, SubmissionFailed, SubmissionSuccessful}
 import play.api.test.Helpers._
+import services.SubmissionService
+import uk.gov.hmrc.http.HeaderCarrier
+import utils.UserAnswers
+
+import scala.concurrent.Future
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CheckYourAnswersController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
+                 submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
+    new CheckYourAnswersController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
+      submissionService)
 
   "Check Your Answers Controller" must {
     "return 200 for a GET" in {
@@ -43,24 +50,32 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     "redirect to Index for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "Redirect to Confimration page on a POST when submission is successful" in {
-      val result = controller(someData).onSubmit(NormalMode)(fakeRequest)
+      val result = controller(someData,FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
     }
 
     "Redirect to Failed to submit on a POST when submission fails" in {
-      val result = controller(someData).onSubmit(NormalMode)(fakeRequest)
+      val result = controller(someData, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
     }
   }
+}
+
+object FakeSuccessfulSubmissionService extends SubmissionService {
+  override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier) = Future.successful(SubmissionSuccessful)
+}
+
+object FakeFailingSubmissionService extends SubmissionService {
+  override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier) = Future.successful(SubmissionFailed)
 }

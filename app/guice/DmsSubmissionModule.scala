@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package models.requests
+package guice
 
-import play.api.mvc.{Request, WrappedRequest}
+import com.google.inject.AbstractModule
+import services.{DmsSubmissionService, SubmissionService}
 
-case class AuthenticatedRequest[A] (request: Request[A], externalId: String) extends WrappedRequest[A](request)
+class DmsSubmissionModule extends AbstractModule {
+  override def configure() =
+  bind(classOf[SubmissionService]).to(classOf[DmsSubmissionService])
+}

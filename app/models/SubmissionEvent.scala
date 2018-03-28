@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
+package models
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+import javax.inject.Inject
 
-@main_template(
-    title = messages("unauthorised.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+import controllers.routes
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.audit.AuditExtensions._
+import uk.gov.hmrc.play.audit.model.DataEvent
 
-    @components.heading("unauthorised.heading")
-
-}
+class SubmissionEvent @Inject()(data: Map[String, String])(implicit hc: HeaderCarrier)
+  extends DataEvent(
+    auditSource = "request-corporation-tax-number",
+    auditType = "submission",
+    detail = hc.toAuditDetails(data.toSeq :_*),
+    tags = hc.toAuditTags(
+      "Submission from Request Corporation Tax number Frontend",
+      routes.CheckYourAnswersController.onPageLoad().url))

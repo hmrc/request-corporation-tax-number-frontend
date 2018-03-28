@@ -14,20 +14,29 @@
  * limitations under the License.
  */
 
-package controllers
+package models
 
-import javax.inject.Inject
+import identifiers._
+import play.api.libs.json.Json
+import utils.UserAnswers
 
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import config.FrontendAppConfig
-import views.html.unauthorised
+case class Submission(companyDetails: CompanyDetails)
 
-class UnauthorisedController @Inject()(val appConfig: FrontendAppConfig,
-                                       val messagesApi: MessagesApi) extends FrontendController with I18nSupport {
+object Submission {
 
-  def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(unauthorised(appConfig))
+  implicit val format = Json.format[Submission]
+
+  def apply(answers: UserAnswers): Submission = {
+
+    require(answers.companyDetails.isDefined, "Company details was not answered")
+
+    Submission(answers.companyDetails.get)
+  }
+
+  def asMap(e: Submission): Map[String, String] = {
+
+    Map(
+      CompanyDetailsId.toString -> e.companyDetails.toString
+    )
   }
 }

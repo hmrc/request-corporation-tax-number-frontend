@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package views
+package models
 
-import views.behaviours.ViewBehaviours
-import views.html.unauthorised
+import play.api.libs.json.Json
 
-class UnauthorisedViewSpec extends ViewBehaviours {
+case class SubmissionResponse(id: String, filename : String)
 
-  def view = () => unauthorised(frontendAppConfig)(fakeRequest, messages)
-
-  "Unauthorised view" must {
-
-    behave like normalPage(view, "unauthorised")
-  }
+object SubmissionResponse {
+  implicit val format = Json.format[SubmissionResponse]
 }

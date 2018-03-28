@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package controllers.actions
+package services
 
-import play.api.mvc.{Request, Result}
-import models.requests.AuthenticatedRequest
+import models.SubmissionResult
+import uk.gov.hmrc.http.HeaderCarrier
+import utils.UserAnswers
 
 import scala.concurrent.Future
 
-object FakeAuthAction extends AuthAction {
-  override def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[Result]): Future[Result] =
-    block(AuthenticatedRequest(request, "id"))
+trait SubmissionService {
+  def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult]
 }
-
