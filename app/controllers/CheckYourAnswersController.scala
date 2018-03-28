@@ -19,21 +19,24 @@ package controllers
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
-import models.Mode
+import models.{Mode, SubmissionSuccessful}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Result
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
+import services.SubmissionService
 
-import scala.concurrent.Future
+
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
-                                           requireData: DataRequiredAction
-                                          ) extends FrontendController with I18nSupport {
+                                           requireData: DataRequiredAction,
+                                           submissionService: SubmissionService) extends FrontendController with I18nSupport {
 
   def onPageLoad() = (getData andThen requireData) {
     implicit request =>
@@ -58,7 +61,15 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
       result.getOrElse(Redirect(routes.IndexController.onPageLoad()))
   }
 
-  def onSubmit(mode: Mode) = (getData andThen requireData).async {
-    Future.successful(???)
+  def onSubmit() = (getData andThen requireData).async {
+    implicit request =>
+
+      implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+
+      submissionService.ctutrSubmission(request.userAnswers) map {
+        case SubmissionSuccessful => Redirect(routes.ConfirmationController.onPageLoad())
+        case _ =>                    Redirect(routes.FailedToSubmitController.onPageLoad())
+      }
+
   }
 }

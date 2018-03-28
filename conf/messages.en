@@ -5,6 +5,8 @@ checkYourAnswers.heading = Check Your Answers
 checkYourAnswers.subHeading = Now send your request
 checkYourAnswers.guidance = By sending this request you are confirming that, to the best of your knowledge, the details you are providing are correct.
 checkYourAnswers.companyDetails_section = Company Details
+checkYourAnswers.submit = Accept and send
+
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company reference number
 companyDetailsName.checkYourAnswersLabel = Company name
 
@@ -55,6 +57,15 @@ site.continue = Continue
 site.service_name = Request your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 
+unauthorised.title = You can’t access this service with this account
+unauthorised.heading = You can’t access this service with this account
+
+failed_to_submit.title = We are experiencing technical problems
+failed_to_submit.heading = We are experiencing technical problems
+failed_to_submit.guidance1 = Something has gone wrong with this service. We have not received your application. Please try again later.
+failed_to_submit.guidance2 = If you would like to continue your application offline you can contact us on Telephone: 0300 123 4494
+failed_to_submit.guidance3 = Opening times 8:00am to 4:00pm, Monday to Friday
+
 companyDetails.title = Enter company details
 companyDetails.heading = Enter company details
 companyDetails.companyName = Company name
@@ -66,3 +77,16 @@ companyDetails.error.companyName.required = Enter company name
 companyDetails.error.companyName.length = Company name must be 40 characters or less
 companyDetails.error.companyReferenceNumber.length = Company reference number must be 8 characters or less
 companyDetails.error.companyReferenceNumber.required = Enter company reference number
+
+confirmation.title = confirmation
+confirmation.heading = Request complete
+confirmation.whatHappensNext.title = What happens next
+confirmation.whatHappensNext.line1 = Your request has been sent.
+confirmation.whatHappensNext.line2 = If the information you have provided is correct, we will send your Unique Taxpayer Reference (UTR) to the company's registered office address, as shown on Companies House, within 15 working days.
+confirmation.whatHappensNext.line3 = If the information you have provided is incorrect, you will not receive a response.
+confirmation.survey.linkText = What did you think of this service?
+confirmation.survey.time = (takes 30 seconds)
+
+
+failedToSubmit.title = failedToSubmit
+failedToSubmit.heading = failedToSubmit
