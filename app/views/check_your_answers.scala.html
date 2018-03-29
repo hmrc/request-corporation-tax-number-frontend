@@ -26,13 +26,13 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off"){
+    @helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
         <h1>@components.heading("checkYourAnswers.heading")</h1>
 
         <p>@messages("checkYourAnswers.guidance")</p>
 
-        @for(section <- answerSections){
+        @for(section <- answerSections) {
             @{
                 section match {
                     case a: AnswerSection => components.answer_section(a)
@@ -41,10 +41,12 @@
             }
         }
 
+
+        <h2>@messages("checkYourAnswers.subHeading")</h2>
+
+        <p>@messages("checkYourAnswers.guidance")</p>
+
         @components.submit_button()
+
     }
-
-    <h2>@messages("checkYourAnswers.subHeading")</h2>
-
-    <p>@messages("checkYourAnswers.guidance")</p>
 }

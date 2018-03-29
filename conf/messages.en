@@ -1,10 +1,10 @@
 global.start_now = Start now
 
-checkYourAnswers.title = Check Your Answers
-checkYourAnswers.heading = Check Your Answers
+checkYourAnswers.title = Check your answers
+checkYourAnswers.heading = Check your answers
 checkYourAnswers.subHeading = Now send your request
 checkYourAnswers.guidance = By sending this request you are confirming that, to the best of your knowledge, the details you are providing are correct.
-checkYourAnswers.companyDetails_section = Company Details
+checkYourAnswers.companyDetails_section = Company details
 checkYourAnswers.submit = Accept and send
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company reference number
