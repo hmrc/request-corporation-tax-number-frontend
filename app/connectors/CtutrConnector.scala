@@ -34,7 +34,7 @@ class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
   def ctutrSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
 
 //    val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax/submission"
-    val submissionUrl = s"http://localhost:8203/request-corporation-tax-numberw1/submission"
+    val submissionUrl = s"http://localhost:8203/request-corporation-tax-number/submission"
 
     http.POST(submissionUrl, submissionJson).map {
       response =>
