@@ -11,10 +11,10 @@ GET        /this-service-has-been-reset                 controllers.SessionExpir
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit
 
-GET        /companyDetails                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = NormalMode)
-POST       /companyDetails                       controllers.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
-GET        /changeCompanyDetails                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
-POST       /changeCompanyDetails                       controllers.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
+GET        /enter-company-details                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-company-details                       controllers.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /change-company-details                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-company-details                       controllers.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /confirmation                       controllers.ConfirmationController.onPageLoad()
 

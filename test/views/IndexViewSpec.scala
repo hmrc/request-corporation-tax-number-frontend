@@ -17,7 +17,6 @@
 package views
 
 import controllers.routes
-import models.NormalMode
 import views.behaviours.ViewBehaviours
 import views.html.index
 
@@ -45,7 +44,6 @@ class IndexViewSpec extends ViewBehaviours {
 
   "Page should contain before you start content" in {
     val doc = asDocument(view())
-    assertContainsText(doc, messagesApi("index.beforeYouStart.heading"))
     assertContainsText(doc, messagesApi("index.beforeYouStart.title"))
     assertContainsText(doc, messagesApi("index.beforeYouStart.item1"))
     assertContainsText(doc, messagesApi("index.beforeYouStart.item2"))

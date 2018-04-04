@@ -18,14 +18,14 @@ package models
 
 import play.api.libs.json._
 
-case class CompanyDetails (companyName: String, companyReferenceNumber: String)
+case class CompanyDetails (companyReferenceNumber: String, companyName: String)
 
 object CompanyDetails {
   implicit val format = Json.format[CompanyDetails]
 
   def answeredLines(companyDetails: CompanyDetails) = Seq(
-    Some(companyDetails.companyName),
-    Some(companyDetails.companyReferenceNumber)).flatten
+    Some(companyDetails.companyReferenceNumber),
+    Some(companyDetails.companyName)).flatten
 
   def asString(companyDetails: CompanyDetails) = answeredLines(companyDetails).mkString(", ")
 }

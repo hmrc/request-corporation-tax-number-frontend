@@ -23,7 +23,7 @@
 @(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("companyDetails.title"),
+    title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -33,6 +33,8 @@
 
         @components.heading("companyDetails.heading")
 
+        <p>@messages("companyDetails.hint")</p>
+
         @components.input_text(
             field = form("companyReferenceNumber"),
             label = messages("companyDetails.companyReferenceNumber"),
@@ -41,8 +43,7 @@
 
         @components.input_text(
             field = form("companyName"),
-            label = messages("companyDetails.companyName"),
-            hint = Some(messages("companyDetails.companyName.hint"))
+            label = messages("companyDetails.companyName")
         )
 
         @components.submit_button()
