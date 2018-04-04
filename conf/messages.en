@@ -71,7 +71,7 @@ companyDetails.companyReferenceNumber.hint = You can find this on Companies Hous
 companyDetails.checkYourAnswersLabel = Your company details
 companyDetails.error.companyName.required = Enter your registered company name
 companyDetails.error.companyName.length = Company name must be 40 characters or less
-companyDetails.error.companyReferenceNumber.length = Company registration number must be 8 characters or less
+companyDetails.error.companyReferenceNumber.regex = Enter a company registration number in the right format
 companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 
 confirmation.title = confirmation – request your Corporation Tax Unique Tax Reference – GOV.UK
