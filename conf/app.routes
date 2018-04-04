@@ -13,9 +13,9 @@ POST       /check-your-answers                          controllers.CheckYourAns
 
 GET        /enter-company-details                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-company-details                       controllers.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
-GET        /change-company-details                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
-POST       /change-company-details                       controllers.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
+GET        /change-company-details                      controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-company-details                      controllers.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
 
-GET        /confirmation                       controllers.ConfirmationController.onPageLoad()
+GET        /company-details-received                    controllers.ConfirmationController.onPageLoad()
 
-GET        /failedToSubmit                       controllers.FailedToSubmitController.onPageLoad()
+GET        /not-sent                                    controllers.FailedToSubmitController.onPageLoad()

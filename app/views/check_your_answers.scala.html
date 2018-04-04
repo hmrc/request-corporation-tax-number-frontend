@@ -30,8 +30,6 @@
 
         <h1>@components.heading("checkYourAnswers.heading")</h1>
 
-        <p>@messages("checkYourAnswers.guidance")</p>
-
         @for(section <- answerSections) {
             @{
                 section match {
@@ -40,11 +38,6 @@
                 }
             }
         }
-
-
-        <h2>@messages("checkYourAnswers.subHeading")</h2>
-
-        <p>@messages("checkYourAnswers.guidance")</p>
 
         @components.submit_button()
 
