@@ -2,8 +2,6 @@ global.start_now = Start now
 
 checkYourAnswers.title = Check your answers – request your Corporation Tax Unique Tax Reference – GOV.UK
 checkYourAnswers.heading = Check your answers before sending your application
-checkYourAnswers.companyDetails_section = Company details
-checkYourAnswers.submit = Accept and send
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company registration number
 companyDetailsName.checkYourAnswersLabel = Company name
@@ -72,10 +70,11 @@ companyDetails.error.companyName.length = Company name must be 40 characters or 
 companyDetails.error.companyReferenceNumber.regex = Enter a company registration number in the right format
 companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 
-confirmation.title = confirmation – request your Corporation Tax Unique Tax Reference – GOV.UK
-confirmation.heading = Request sent
+confirmation.title = Company details received – request your Corporation Tax Unique Tax Reference – GOV.UK
+confirmation.heading = Company details received
 confirmation.whatHappensNext.title = What happens next
-confirmation.whatHappensNext.line1 = If the information you have given is correct, we will send your Corporation Tax Unique Taxpayer Reference (UTR) to the company's registered office address, as shown on Companies House, within 15 working days.
-confirmation.whatHappensNext.line2 = If the information you have provided is incorrect, you will not receive a response.
+confirmation.whatHappensNext.line1 = If the information you provided matches our records, we will send your Corporation Tax UTR within 15 working days.
+confirmation.whatHappensNext.line2 = We will send it by post to the company's registered address as listed on the Companies House register.
+confirmation.whatHappensNext.line3 = If the information you provided does not match our records, you will not get a letter.
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)

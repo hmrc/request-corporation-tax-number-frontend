@@ -17,7 +17,7 @@
 package views
 
 import views.behaviours.ViewBehaviours
-import views.html.{confirmation, session_expired}
+import views.html.confirmation
 
 class ConfirmationViewSpec extends ViewBehaviours {
 
@@ -40,6 +40,7 @@ class ConfirmationViewSpec extends ViewBehaviours {
     assertContainsText(doc, messagesApi("confirmation.whatHappensNext.title"))
     assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line1"))
     assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line2"))
+    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line3"))
   }
 
   "have a link to an exit survey" in {
