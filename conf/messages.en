@@ -60,11 +60,10 @@ site.textarea.char_limit = (Limit is {0} characters)
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
-failed_to_submit.title = We are experiencing technical problems
+failed_to_submit.title = Failed to submit - request your Corporation Tax Unique Tax Reference – GOV.UK
 failed_to_submit.heading = We are experiencing technical problems
 failed_to_submit.guidance1 = Something has gone wrong with this service. We have not received your application. Please try again later.
-failed_to_submit.guidance2 = If you would like to continue your application offline you can contact us on Telephone: 0300 123 4494
-failed_to_submit.guidance3 = Opening times 8:00am to 4:00pm, Monday to Friday
+failed_to_submit.guidance2 = Contact HMRC to request your Corporation Tax Unique Taxpayer Reference
 
 companyDetails.title = Enter company details
 companyDetails.heading = Enter company details
@@ -86,7 +85,3 @@ confirmation.whatHappensNext.line2 = If the information you have provided is cor
 confirmation.whatHappensNext.line3 = If the information you have provided is incorrect, you will not receive a response.
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)
-
-
-failedToSubmit.title = failedToSubmit
-failedToSubmit.heading = failedToSubmit
