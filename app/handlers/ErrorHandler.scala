@@ -42,6 +42,17 @@ class ErrorHandler @Inject()(
       appConfig)
   }
 
+  override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
+    views.html.error_template_InternalServerError(
+      Messages("error.internalError.title"),
+      Messages("error.internalError.title"),
+      Messages("error.internalError.message1"),
+      Messages("error.internalError.message2"),
+      Messages("error.internalError.messageLink"),
+      appConfig)
+  }
+
+
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
     views.html.error_template(pageTitle, heading, message, appConfig)
 }
