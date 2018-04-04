@@ -27,10 +27,10 @@ class CompanyDetailsFormProvider @Inject() extends Mappings {
 
    def apply(): Form[CompanyDetails] = Form(
      mapping(
-      "companyName" -> text("companyDetails.error.companyName.required")
-        .verifying(maxLength(40, "companyDetails.error.companyName.length")),
       "companyReferenceNumber" -> text("companyDetails.error.companyReferenceNumber.required")
-        .verifying(maxLength(8, "companyDetails.error.companyReferenceNumber.length"))
+        .verifying(maxLength(8, "companyDetails.error.companyReferenceNumber.length")),
+       "companyName" -> text("companyDetails.error.companyName.required")
+         .verifying(maxLength(40, "companyDetails.error.companyName.length"))
     )(CompanyDetails.apply)(CompanyDetails.unapply)
    )
  }
