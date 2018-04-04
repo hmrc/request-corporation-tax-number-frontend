@@ -30,7 +30,7 @@ class CompanyDetailsFormProvider @Inject() extends Mappings {
       "companyReferenceNumber" -> text("companyDetails.error.companyReferenceNumber.required")
         .verifying(maxLength(8, "companyDetails.error.companyReferenceNumber.length")),
        "companyName" -> text("companyDetails.error.companyName.required")
-         .verifying(maxLength(40, "companyDetails.error.companyName.length"))
+         .verifying(maxLength(60, "companyDetails.error.companyName.length"))
     )(CompanyDetails.apply)(CompanyDetails.unapply)
    )
  }

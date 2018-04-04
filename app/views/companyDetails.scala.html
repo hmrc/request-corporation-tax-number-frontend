@@ -23,7 +23,7 @@
 @(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("companyDetails.title"),
+    title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 

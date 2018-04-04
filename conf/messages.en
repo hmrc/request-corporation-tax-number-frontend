@@ -26,8 +26,7 @@ error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
-error.summary.title = There’s been a problem
-error.summary.text = Check the following
+error.summary.title = There is a problem
 
 index.title = Request your Corporation Tax UTR – request your Corporation Tax Unique Tax Reference – GOV.UK
 index.heading = Request your Corporation Tax UTR
