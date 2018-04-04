@@ -19,16 +19,16 @@ package controllers
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
-import models.{Mode, SubmissionSuccessful}
+import models.SubmissionSuccessful
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Result
+import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
-import services.SubmissionService
 
 
 
@@ -44,21 +44,21 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
       val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
 
       val result: Option[Result] = for {
-        name      <- cyaHelper.companyDetailsName
         reference <- cyaHelper.companyDetailsReference
+        name      <- cyaHelper.companyDetailsName
       } yield {
 
         val sections = Seq(
           AnswerSection(
             Some("checkYourAnswers.companyDetails_section"),
-            Seq(name, reference)
+            Seq(reference, name)
           )
         )
 
         Ok(check_your_answers(appConfig, sections))
       }
 
-      result.getOrElse(Redirect(routes.IndexController.onPageLoad()))
+      result.getOrElse(Redirect(routes.SessionExpiredController.onPageLoad()))
   }
 
   def onSubmit() = (getData andThen requireData).async {

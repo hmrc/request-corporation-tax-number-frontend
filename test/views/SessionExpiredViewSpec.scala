@@ -16,12 +16,15 @@
 
 package views
 
+import controllers.routes
 import views.behaviours.ViewBehaviours
 import views.html.session_expired
 
 class SessionExpiredViewSpec extends ViewBehaviours {
 
-  def view = () => session_expired(frontendAppConfig)(fakeRequest, messages)
+  def call = routes.IndexController.onPageLoad
+
+  def view = () => session_expired(frontendAppConfig, call)(fakeRequest, messages)
 
   "Session Expired view" must {
 

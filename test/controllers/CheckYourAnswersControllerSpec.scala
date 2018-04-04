@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models.{NormalMode, SubmissionFailed, SubmissionSuccessful}
+import models.{SubmissionFailed, SubmissionSuccessful}
 import play.api.test.Helpers._
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
@@ -27,7 +27,7 @@ import scala.concurrent.Future
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def sessionExpired = routes.SessionExpiredController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
                  submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
@@ -45,15 +45,15 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      redirectLocation(result) mustBe Some(sessionExpired.url)
     }
 
-    "redirect to Index for a POST if no existing data is found" in {
+    "redirect to session expired for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      redirectLocation(result) mustBe Some(sessionExpired.url)
     }
 
     "Redirect to Confimration page on a POST when submission is successful" in {

@@ -34,15 +34,15 @@
         @components.heading("companyDetails.heading")
 
         @components.input_text(
-            field = form("companyName"),
-            label = messages("companyDetails.companyName"),
-            hint = Some(messages("companyDetails.companyName.hint"))
-        )
-
-        @components.input_text(
             field = form("companyReferenceNumber"),
             label = messages("companyDetails.companyReferenceNumber"),
             hint = Some(messages("companyDetails.companyReferenceNumber.hint"))
+        )
+
+        @components.input_text(
+            field = form("companyName"),
+            label = messages("companyDetails.companyName"),
+            hint = Some(messages("companyDetails.companyName.hint"))
         )
 
         @components.submit_button()

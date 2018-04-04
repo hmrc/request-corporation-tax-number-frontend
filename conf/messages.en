@@ -1,9 +1,9 @@
 global.start_now = Start now
 
-checkYourAnswers.title = Check your answers
+checkYourAnswers.title = Check your answers – request your Corporation Tax Unique Tax Reference – GOV.UK
 checkYourAnswers.heading = Check your answers
 checkYourAnswers.subHeading = Now send your request
-checkYourAnswers.guidance = By sending this request you are confirming that, to the best of your knowledge, the details you are providing are correct.
+checkYourAnswers.guidance = By sending this request you are confirming that the details you are providing are correct, to the best of your knowledge and belief.
 checkYourAnswers.companyDetails_section = Company details
 checkYourAnswers.submit = Accept and send
 
@@ -29,22 +29,22 @@ error.required = Please enter a value
 error.summary.title = There’s been a problem
 error.summary.text = Check the following
 
-index.title = Request your Corporation Tax UTR
+index.title = Request your Corporation Tax UTR – request your Corporation Tax Unique Tax Reference – GOV.UK
 index.heading = Request your Corporation Tax UTR
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
-index.useForm.title = Use this service to Request your Corporation Tax Unique Taxpayer Reference (UTR)
-index.useForm.title2 = You will not be able to request a Corporation Tax UTR for companies that have:
+index.useForm.title = You will not be able to request a Corporation Tax UTR for companies that have been:
 index.useForm.item1 = dissolved
-index.useForm.item2 = been struck off
-index.useForm.item3 = converted to a different type of entity
+index.useForm.item2 = struck off
+index.useForm.item3 = converted to a different type of legal entity
 index.beforeYouStart.heading = Before you start
 index.beforeYouStart.title = You will need your:
 index.beforeYouStart.item1 = company registration number
 index.beforeYouStart.item2 = registered company name
 
-session_expired.title = For your security, this service has been reset
-session_expired.heading = For your security, this service has been reset
-session_expired.guidance = The details you have given have been deleted because you did not continue the service for 1 hour.
+session_expired.title = Start again – request your Corporation Tax Unique Tax Reference – GOV.UK
+session_expired.heading = You will have to start again
+session_expired.guidance = For your security, we cleared your details because you did not do anything for 15 minutes.
+session_expired.button = Start again
 
 site.back = Back
 site.delete = Remove
@@ -57,36 +57,27 @@ site.continue = Continue
 site.service_name = Request your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
-
-failed_to_submit.title = We are experiencing technical problems
+failed_to_submit.title = Failed to submit – request your Corporation Tax Unique Tax Reference – GOV.UK
 failed_to_submit.heading = We are experiencing technical problems
 failed_to_submit.guidance1 = Something has gone wrong with this service. We have not received your application. Please try again later.
-failed_to_submit.guidance2 = If you would like to continue your application offline you can contact us on Telephone: 0300 123 4494
-failed_to_submit.guidance3 = Opening times 8:00am to 4:00pm, Monday to Friday
+failed_to_submit.guidance2 = Contact HMRC to request your Corporation Tax Unique Taxpayer Reference
 
-companyDetails.title = Enter company details
+companyDetails.title = Enter company details – request your Corporation Tax Unique Tax Reference – GOV.UK
 companyDetails.heading = Enter company details
-companyDetails.companyName = Company name
-companyDetails.companyName.hint = You can find this on companies house or any letters they have sent you. For example, 84956472
-companyDetails.companyReferenceNumber = Company reference number
-companyDetails.companyReferenceNumber.hint = Enter this exactly as it is shown on Companies House
-companyDetails.checkYourAnswersLabel = Enter company details
-companyDetails.error.companyName.required = Enter company name
+companyDetails.companyName = Registered company name
+companyDetails.companyName.hint = Enter this exactly as it is shown on Companies House
+companyDetails.companyReferenceNumber = Company registration number
+companyDetails.companyReferenceNumber.hint = You can find this on Companies House or any letters they have sent you. For example, 12345678 or SC123456
+companyDetails.checkYourAnswersLabel = Your company details
+companyDetails.error.companyName.required = Enter your registered company name
 companyDetails.error.companyName.length = Company name must be 40 characters or less
-companyDetails.error.companyReferenceNumber.regex = Company reference number must be valid
-companyDetails.error.companyReferenceNumber.required = Enter company reference number
+companyDetails.error.companyReferenceNumber.regex = Company registration number must 6, 7 or 8 numbers, or 2 letters and 6 numbers
+companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 
-confirmation.title = confirmation
-confirmation.heading = Request complete
+confirmation.title = confirmation – request your Corporation Tax Unique Tax Reference – GOV.UK
+confirmation.heading = Request sent
 confirmation.whatHappensNext.title = What happens next
-confirmation.whatHappensNext.line1 = Your request has been sent.
-confirmation.whatHappensNext.line2 = If the information you have provided is correct, we will send your Unique Taxpayer Reference (UTR) to the company's registered office address, as shown on Companies House, within 15 working days.
-confirmation.whatHappensNext.line3 = If the information you have provided is incorrect, you will not receive a response.
+confirmation.whatHappensNext.line1 = If the information you have given is correct, we will send your Corporation Tax Unique Taxpayer Reference (UTR) to the company's registered office address, as shown on Companies House, within 15 working days.
+confirmation.whatHappensNext.line2 = If the information you have provided is incorrect, you will not receive a response.
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)
-
-
-failedToSubmit.title = failedToSubmit
-failedToSubmit.heading = failedToSubmit
