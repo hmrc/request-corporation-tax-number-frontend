@@ -42,9 +42,10 @@ index.beforeYouStart.title = You will need your:
 index.beforeYouStart.item1 = company registration number
 index.beforeYouStart.item2 = registered company name
 
-session_expired.title = For your security, this service has been reset
-session_expired.heading = For your security, this service has been reset
-session_expired.guidance = The details you have given have been deleted because you did not continue the service for 1 hour.
+session_expired.title = Start again - request your Corporation Tax Unique Tax Reference – GOV.UK
+session_expired.heading = You will have to start again
+session_expired.guidance = For your security, we cleared your details because you did not do anything for 15 minutes.
+session_expired.button = Start again
 
 site.back = Back
 site.delete = Remove
@@ -56,9 +57,6 @@ site.yes = Yes
 site.continue = Continue
 site.service_name = Request your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
-
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
 
 failed_to_submit.title = Failed to submit - request your Corporation Tax Unique Tax Reference – GOV.UK
 failed_to_submit.heading = We are experiencing technical problems
