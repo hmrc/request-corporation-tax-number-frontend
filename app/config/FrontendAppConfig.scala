@@ -41,6 +41,7 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
   lazy val loginUrl = loadConfig("urls.login")
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
   lazy val feedbackSurveyUrl = loadConfig("urls.feedback-survey")
+  lazy val contactUsUrl = loadConfig("urls.contactUs")
 
   lazy val ctutrUrl = baseUrl("request-corporation-tax-number")
 

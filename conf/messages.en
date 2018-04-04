@@ -58,11 +58,10 @@ site.continue = Continue
 site.service_name = Request your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 
-failed_to_submit.title = We are experiencing technical problems
+failed_to_submit.title = Failed to submit - request your Corporation Tax Unique Tax Reference – GOV.UK
 failed_to_submit.heading = We are experiencing technical problems
 failed_to_submit.guidance1 = Something has gone wrong with this service. We have not received your application. Please try again later.
-failed_to_submit.guidance2 = If you would like to continue your application offline you can contact us on Telephone: 0300 123 4494
-failed_to_submit.guidance3 = Opening times 8:00am to 4:00pm, Monday to Friday
+failed_to_submit.guidance2 = Contact HMRC to request your Corporation Tax Unique Taxpayer Reference
 
 companyDetails.title = Enter company details
 companyDetails.heading = Enter company details
