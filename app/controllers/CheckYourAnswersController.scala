@@ -44,14 +44,14 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
       val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
 
       val result: Option[Result] = for {
-        name      <- cyaHelper.companyDetailsName
         reference <- cyaHelper.companyDetailsReference
+        name      <- cyaHelper.companyDetailsName
       } yield {
 
         val sections = Seq(
           AnswerSection(
             Some("checkYourAnswers.companyDetails_section"),
-            Seq(name, reference)
+            Seq(reference, name)
           )
         )
 
