@@ -54,7 +54,7 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val fieldName = "companyReferenceNumber"
     val requiredKey = "companyDetails.error.companyReferenceNumber.required"
-    val lengthKey = "companyDetails.error.companyReferenceNumber.length"
+    val regexKey = "companyDetails.error.companyReferenceNumber.regex"
     val maxLength = 8
 
     behave like fieldThatBindsValidData(
@@ -63,11 +63,11 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
       stringsWithMaxLength(maxLength)
     )
 
-    behave like fieldWithMaxLength(
+    behave like fieldWithRegex(
       form,
       fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      "4S23E",
+      FormError(fieldName, regexKey)
     )
 
     behave like mandatoryField(
