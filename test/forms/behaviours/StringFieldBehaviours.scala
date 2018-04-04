@@ -34,4 +34,15 @@ trait StringFieldBehaviours extends FieldBehaviours {
       }
     }
   }
+
+  def fieldWithRegex(form: Form[_],
+                     fieldName: String,
+                     invalidString: String,
+                     error: FormError): Unit = {
+
+    "not bind strings invalidated by regex" in {
+      val result = form.bind(Map(fieldName -> invalidString)).apply(fieldName)
+      result.errors shouldEqual Seq(error)
+    }
+  }
 }
