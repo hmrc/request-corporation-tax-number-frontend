@@ -1,6 +1,6 @@
 global.start_now = Start now
 
-checkYourAnswers.title = Check your answers – ask for a copy of your Corporation Tax UTR – GOV.UK
+checkYourAnswers.title = Check your answers – Ask for a copy of your Corporation Tax UTR – GOV.UK
 checkYourAnswers.heading = Check your answers
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company registration number
@@ -36,7 +36,7 @@ index.beforeYouStart.title = You will need your:
 index.beforeYouStart.item1 = company registration number
 index.beforeYouStart.item2 = registered company name
 
-session_expired.title = Start again – ask for a copy of your Corporation Tax UTR – GOV.UK
+session_expired.title = Start again – Ask for a copy of your Corporation Tax UTR – GOV.UK
 session_expired.heading = You will have to start again
 session_expired.guidance = For your security, we cleared your details because you did not do anything for 15 minutes.
 session_expired.button = Start again
@@ -52,12 +52,12 @@ site.continue = Continue
 site.service_name = Ask for a copy of your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 
-failed_to_submit.title = Failed to submit – ask for a copy of your Corporation Tax UTR – GOV.UK
-failed_to_submit.heading = We are experiencing technical problems
-failed_to_submit.guidance1 = Something has gone wrong with this service. We have not received your application. Please try again later.
-failed_to_submit.guidance2 = Contact HMRC to ask for a copy of your Corporation Tax UTR
+failed_to_submit.title = Failed to submit – Ask for a copy of your Corporation Tax UTR – GOV.UK
+failed_to_submit.heading = Sorry, there is a problem with the service
+failed_to_submit.guidance1 = Your request has not been sent. Try again later or
+failed_to_submit.guidance2 = contact HMRC to ask for a copy of your Corporation Tax UTR
 
-companyDetails.title = Enter company details – ask for a copy of your Corporation Tax UTR – GOV.UK
+companyDetails.title = Enter company details – Ask for a copy of your Corporation Tax UTR – GOV.UK
 companyDetails.heading = Enter company details
 companyDetails.hint = The company name and registration number should be entered exactly as they appear on the Companies House register or any letter from Companies House.
 companyDetails.companyName = Registered company name
@@ -65,27 +65,27 @@ companyDetails.companyReferenceNumber = Company registration number
 companyDetails.companyReferenceNumber.hint = This can be 6, 7 or 8 numbers, or 2 letters and 6 numbers. For example, 123456, 1234567, 01234567, SC123456.
 companyDetails.checkYourAnswersLabel = Your company details
 companyDetails.error.companyName.required = Enter your registered company name
-companyDetails.error.companyName.length = Company name must be 40 characters or less
+companyDetails.error.companyName.length = Registered company name must be 160 characters or less
 companyDetails.error.companyReferenceNumber.regex = Enter a company registration number in the right format
 companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 
-confirmation.title = Company details received – ask for a copy of your Corporation Tax UTR – GOV.UK
+confirmation.title = Company details received – Ask for a copy of your Corporation Tax UTR – GOV.UK
 confirmation.heading = Company details received
 confirmation.whatHappensNext.title = What happens next
 confirmation.whatHappensNext.line1 = If the information you provided matches our records, we will send your Corporation Tax UTR within 15 working days.
-confirmation.whatHappensNext.line2 = We will send it by post to the company's registered address as listed on the Companies House register.
+confirmation.whatHappensNext.line2 = We will send it by post to the company’s registered address as listed on the Companies House register.
 confirmation.whatHappensNext.line3 = If the information you provided does not match our records, you will not get a letter.
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)
 
-error.pageNotFound.title = Page not found – ask for a copy of your Corporation Tax UTR – GOV.UK
+error.pageNotFound.title = Page not found – Ask for a copy of your Corporation Tax UTR – GOV.UK
 error.pageNotFound.heading = Page not found
 error.pageNotFound.message1 = If you typed the web address, check it is correct.
 error.pageNotFound.message2 = If you pasted the web address, check you copied the entire address.
 error.pageNotFound.message3 = If the web address is correct or you selected a link or button,
 error.pageNotFound.messageLink = contact HMRC to ask for a copy of your Corporation Tax UTR
 
-error.internalError.title = Service unavailable – ask for a copy of your Corporation Tax UTR – GOV.UK
+error.internalError.title = Service unavailable – Ask for a copy of your Corporation Tax UTR – GOV.UK
 error.internalError.heading = Sorry, there is a problem with the service
 error.internalError.message1 = Try again later.
 error.internalError.messageLink = Contact HMRC to ask for a copy of your Corporation Tax UTR
