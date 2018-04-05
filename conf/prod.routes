@@ -1,6 +1,6 @@
 # Add all the application routes to the app.routes file
-->         /request-corporation-tax-number                    app.Routes
-->         /                          health.Routes
-->     	   /template                  template.Routes
+->         /ask-for-copy-of-your-corporation-tax-utr                    app.Routes
+->         /                                                            health.Routes
+->     	   /template                                                    template.Routes
 
-GET        /admin/metrics             @com.kenshoo.play.metrics.MetricsController.metrics
+GET        /admin/metrics                                               @com.kenshoo.play.metrics.MetricsController.metrics

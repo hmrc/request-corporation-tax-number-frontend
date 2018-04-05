@@ -1,6 +1,6 @@
 global.start_now = Start now
 
-checkYourAnswers.title = Check your answers – request your Corporation Tax Unique Tax Reference – GOV.UK
+checkYourAnswers.title = Check your answers – ask for a copy of your Corporation Tax UTR – GOV.UK
 checkYourAnswers.heading = Check your answers
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company registration number
@@ -24,8 +24,8 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-index.title = Request your Corporation Tax UTR – request your Corporation Tax Unique Tax Reference – GOV.UK
-index.heading = Request your Corporation Tax UTR
+index.title = Ask for a copy of your Corporation Tax UTR – GOV.UK
+index.heading = Ask for a copy of your Corporation Tax UTR
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
 index.useForm.title = You will not be able to request a Corporation Tax UTR for companies that have been:
 index.useForm.item1 = officially closed or dissolved
@@ -36,7 +36,7 @@ index.beforeYouStart.title = You will need your:
 index.beforeYouStart.item1 = company registration number
 index.beforeYouStart.item2 = registered company name
 
-session_expired.title = Start again – request your Corporation Tax Unique Tax Reference – GOV.UK
+session_expired.title = Start again – ask for a copy of your Corporation Tax UTR – GOV.UK
 session_expired.heading = You will have to start again
 session_expired.guidance = For your security, we cleared your details because you did not do anything for 15 minutes.
 session_expired.button = Start again
@@ -49,15 +49,15 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
-site.service_name = Request your Corporation Tax UTR
+site.service_name = Ask for a copy of your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 
-failed_to_submit.title = Failed to submit – request your Corporation Tax Unique Tax Reference – GOV.UK
+failed_to_submit.title = Failed to submit – ask for a copy of your Corporation Tax UTR – GOV.UK
 failed_to_submit.heading = We are experiencing technical problems
 failed_to_submit.guidance1 = Something has gone wrong with this service. We have not received your application. Please try again later.
-failed_to_submit.guidance2 = Contact HMRC to request your Corporation Tax Unique Taxpayer Reference
+failed_to_submit.guidance2 = Contact HMRC to ask for a copy of your Corporation Tax UTR
 
-companyDetails.title = Enter company details – request your Corporation Tax Unique Tax Reference – GOV.UK
+companyDetails.title = Enter company details – ask for a copy of your Corporation Tax UTR – GOV.UK
 companyDetails.heading = Enter company details
 companyDetails.hint = The company name and registration number should be entered exactly as they appear on the Companies House register or any letter from Companies House.
 companyDetails.companyName = Registered company name
@@ -70,7 +70,7 @@ companyDetails.error.companyName.length = Company name must be 40 characters or 
 companyDetails.error.companyReferenceNumber.regex = Enter a company registration number in the right format
 companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 
-confirmation.title = Company details received – request your Corporation Tax Unique Tax Reference – GOV.UK
+confirmation.title = Company details received – ask for a copy of your Corporation Tax UTR – GOV.UK
 confirmation.heading = Company details received
 confirmation.whatHappensNext.title = What happens next
 confirmation.whatHappensNext.line1 = If the information you provided matches our records, we will send your Corporation Tax UTR within 15 working days.
