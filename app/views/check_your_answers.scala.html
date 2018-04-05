@@ -28,7 +28,7 @@
 
     @helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
-        <h1>@components.heading("checkYourAnswers.heading")</h1>
+        @components.heading("checkYourAnswers.heading")
 
         @for(section <- answerSections) {
             @{
