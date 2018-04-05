@@ -34,7 +34,7 @@ class CompanyDetailsFormProvider @Inject() extends Mappings {
                "(SC|NI|AC|FC|GE|GN|GS|IC|IP|LP|NA|NF|NL|NO|NP|NR|NZ|OC|R|RC|SA|SF|SI|SL|SO|SP|SR|SZ|ZC|)" +
                "\\d{6})$")),
       "companyName" -> text("companyDetails.error.companyName.required")
-        .verifying(maxLength(60, "companyDetails.error.companyName.length"))
+        .verifying(maxLength(160, "companyDetails.error.companyName.length"))
     )(CompanyDetails.apply)(CompanyDetails.unapply)
    )
  }
