@@ -22,7 +22,6 @@
         message2: String,
         message3: String,
         messageLink: String,
-        message4: String,
         appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @main_template(
@@ -34,6 +33,6 @@
 
     <p>@message1</p>
     <p>@message2</p>
-    <p>@message3 <a href="@appConfig.contactUsUrl">@messageLink</a> @message4</p>
+    <p>@message3 <a href="@appConfig.contactUsUrl">@messageLink</a></p>
 
 }
