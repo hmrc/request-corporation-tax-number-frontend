@@ -28,7 +28,7 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
     val fieldName = "companyName"
     val requiredKey = "companyDetails.error.companyName.required"
     val lengthKey = "companyDetails.error.companyName.length"
-    val maxLength = 60
+    val maxLength = 160
 
     behave like fieldThatBindsValidData(
       form,
