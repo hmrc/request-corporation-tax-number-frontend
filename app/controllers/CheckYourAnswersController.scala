@@ -49,8 +49,7 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
       } yield {
 
         val sections = Seq(
-          AnswerSection(
-            Some("checkYourAnswers.companyDetails_section"),
+          AnswerSection(None,
             Seq(reference, name)
           )
         )

@@ -23,8 +23,8 @@
     <h2>@messages(answerSection.headingKey.get)</h2>
 }
 
-<ul role="list" class="tabular-data tabular-data--list">
+<div class="govuk-check-your-answers cya-questions-short">
     @for(row <- answerSection.rows){
         @components.answer_row(row)
     }
-</ul>
+</div>

@@ -1,13 +1,9 @@
 global.start_now = Start now
 
 checkYourAnswers.title = Check your answers – request your Corporation Tax Unique Tax Reference – GOV.UK
-checkYourAnswers.heading = Check your answers
-checkYourAnswers.subHeading = Now send your request
-checkYourAnswers.guidance = By sending this request you are confirming that the details you are providing are correct, to the best of your knowledge and belief.
-checkYourAnswers.companyDetails_section = Company details
-checkYourAnswers.submit = Accept and send
+checkYourAnswers.heading = Check your answers before sending your application
 
-companyDetailsReferenceNumber.checkYourAnswersLabel = Company reference number
+companyDetailsReferenceNumber.checkYourAnswersLabel = Company registration number
 companyDetailsName.checkYourAnswersLabel = Company name
 
 date.day = Day
@@ -74,10 +70,25 @@ companyDetails.error.companyName.length = Company name must be 40 characters or 
 companyDetails.error.companyReferenceNumber.regex = Enter a company registration number in the right format
 companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 
-confirmation.title = confirmation – request your Corporation Tax Unique Tax Reference – GOV.UK
-confirmation.heading = Request sent
+confirmation.title = Company details received – request your Corporation Tax Unique Tax Reference – GOV.UK
+confirmation.heading = Company details received
 confirmation.whatHappensNext.title = What happens next
-confirmation.whatHappensNext.line1 = If the information you have given is correct, we will send your Corporation Tax Unique Taxpayer Reference (UTR) to the company's registered office address, as shown on Companies House, within 15 working days.
-confirmation.whatHappensNext.line2 = If the information you have provided is incorrect, you will not receive a response.
+confirmation.whatHappensNext.line1 = If the information you provided matches our records, we will send your Corporation Tax UTR within 15 working days.
+confirmation.whatHappensNext.line2 = We will send it by post to the company's registered address as listed on the Companies House register.
+confirmation.whatHappensNext.line3 = If the information you provided does not match our records, you will not get a letter.
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)
+
+error.pageNotFound.title = Page not found
+error.pageNotFound.heading = Page not found
+error.pageNotFound.message1 = If you typed the web address, check it is correct.
+error.pageNotFound.message2 = If you pasted the web address, check you copied the entire address.
+error.pageNotFound.message3 = If the web address is correct or you selected a link or button, you can
+error.pageNotFound.messageLink = contact the Corporation Tax Helpline
+error.pageNotFound.message4 = to find your lost Corporation Tax UTR.
+
+error.internalError.title = Service unavailable
+error.internalError.heading = Sorry, there is a problem with the service
+error.internalError.message1 = Try again later.
+error.internalError.messageLink = Contact the Corporation Tax Helpline
+error.internalError.message2 = to find your lost Corporation Tax UTR.

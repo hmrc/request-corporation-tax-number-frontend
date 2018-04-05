@@ -14,23 +14,22 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerRow
+@import config.FrontendAppConfig
+@(
+        pageTitle: String,
+        heading: String,
+        message1: String,
+        message2: String,
+        messageLink: String,
+        appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
-@(row: AnswerRow)(implicit messages: Messages)
+@main_template(
+    title = pageTitle,
+    appConfig = appConfig,
+    bodyClasses = None) {
 
-<div>
-    <div class="cya-question">@messages(row.label)</div>
-    <div class="cya-answer">
-    @if(row.answerIsMessageKey){
-        @messages(row.answer)
-    } else{
-        @row.answer
-    }
-    </div>
-    <div class="cya-change">
-        <a href='@row.changeUrl'>
-            <span aria-hidden="true">@messages("site.edit")</span>
-            <span class="visually-hidden">@messages("site.hidden-edit", messages(row.label))</span>
-        </a>
-    </div>
-</div>
+    <h1 class="heading-large">@heading</h1>
+
+    <p>@message1</p>
+    <p><a href="@appConfig.contactUsUrl">@messageLink</a>@message2</p>
+}
