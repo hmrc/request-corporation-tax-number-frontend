@@ -33,21 +33,19 @@ class ErrorHandler @Inject()(
   override def notFoundTemplate(implicit request: Request[_]): Html = {
     views.html.error_template_NotFound(
       Messages("error.pageNotFound.title"),
-      Messages("error.pageNotFound.title"),
+      Messages("error.pageNotFound.heading"),
       Messages("error.pageNotFound.message1"),
       Messages("error.pageNotFound.message2"),
       Messages("error.pageNotFound.message3"),
       Messages("error.pageNotFound.messageLink"),
-      Messages("error.pageNotFound.message4"),
       appConfig)
   }
 
   override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
     views.html.error_template_InternalServerError(
       Messages("error.internalError.title"),
-      Messages("error.internalError.title"),
+      Messages("error.internalError.heading"),
       Messages("error.internalError.message1"),
-      Messages("error.internalError.message2"),
       Messages("error.internalError.messageLink"),
       appConfig)
   }
