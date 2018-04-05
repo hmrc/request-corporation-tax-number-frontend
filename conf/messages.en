@@ -83,7 +83,7 @@ error.pageNotFound.title = Page not found
 error.pageNotFound.heading = Page not found
 error.pageNotFound.message1 = If you typed the web address, check it is correct.
 error.pageNotFound.message2 = If you pasted the web address, check you copied the entire address.
-error.pageNotFound.message3 = If the web address is correct or you selected a link or button, you can
+error.pageNotFound.message3 = If the web address is correct or you selected a link or button,
 error.pageNotFound.messageLink = contact the Corporation Tax Helpline
 error.pageNotFound.message4 = to find your lost Corporation Tax UTR.
 
