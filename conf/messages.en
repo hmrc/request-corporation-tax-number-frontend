@@ -1,7 +1,7 @@
 global.start_now = Start now
 
 checkYourAnswers.title = Check your answers – request your Corporation Tax Unique Tax Reference – GOV.UK
-checkYourAnswers.heading = Check your answers before sending your application
+checkYourAnswers.heading = Check your answers
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company registration number
 companyDetailsName.checkYourAnswersLabel = Company name
