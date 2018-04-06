@@ -30,9 +30,7 @@ class CompanyDetailsFormProvider @Inject() extends Mappings {
        "companyReferenceNumber" -> text("companyDetails.error.companyReferenceNumber.required")
          .verifying("companyDetails.error.companyReferenceNumber.regex",
            companyReferenceNumber => companyReferenceNumber.matches(
-             "^([0-9]\\d{6,7}|\\d{6,7}|" +
-               "(SC|NI|AC|FC|GE|GN|GS|IC|IP|LP|NA|NF|NL|NO|NP|NR|NZ|OC|R|RC|SA|SF|SI|SL|SO|SP|SR|SZ|ZC|)" +
-               "\\d{6})$")),
+             "^([0-9]\\d{6,7}|\\d{6,7}|[a-zA-Z]{2}\\d{6})$")),
       "companyName" -> text("companyDetails.error.companyName.required")
         .verifying(maxLength(160, "companyDetails.error.companyName.length"))
     )(CompanyDetails.apply)(CompanyDetails.unapply)
