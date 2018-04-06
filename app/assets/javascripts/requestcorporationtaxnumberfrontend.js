@@ -109,11 +109,11 @@ $(document).ready(function() {
       // this ensures on-screen keyboards display the correct style
       // don't do this for FF as it has issues with trailing zeroes
       // =====================================================
-      if($('html.touchevents').length > 0 && window.navigator.userAgent.indexOf("Firefox") == -1){
-          $('[data-type="currency"] > input[type="text"], [data-type="percentage"] > input[type="text"]').each(function(){
-            $(this).attr('type', 'number');
-            $(this).attr('step', 'any'); 
-            $(this).attr('min', '0');
+      if ($('html.touchevents').length > 0 && window.navigator.userAgent.indexOf("Firefox") == -1) {
+          $('[data-type="currency"] > input[type="text"], [data-type="percentage"] > input[type="text"]').each(function () {
+              $(this).attr('type', 'number');
+              $(this).attr('step', 'any');
+              $(this).attr('min', '0');
           });
       }
 
@@ -121,16 +121,36 @@ $(document).ready(function() {
       // Disable mouse wheel and arrow keys (38,40) for number inputs to prevent mis-entry
       // also disable commas (188) as they will silently invalidate entry on Safari 10.0.3 and IE11
       // =====================================================
-      $("form").on("focus", "input[type=number]", function(e) {
-          $(this).on('wheel', function(e) {
+      $("form").on("focus", "input[type=number]", function (e) {
+          $(this).on('wheel', function (e) {
               e.preventDefault();
           });
       });
-      $("form").on("blur", "input[type=number]", function(e) {
+      $("form").on("blur", "input[type=number]", function (e) {
           $(this).off('wheel');
       });
-      $("form").on("keydown", "input[type=number]", function(e) {
-          if ( e.which == 38 || e.which == 40 || e.which == 188 )
+      $("form").on("keydown", "input[type=number]", function (e) {
+          if (e.which == 38 || e.which == 40 || e.which == 188)
               e.preventDefault();
       });
+
+      $(window).load(function () {
+          // Only set focus for the error example pages
+          if ($('.js-error-example').length) {
+              // If there is an error summary, set focus to the summary
+              if ($('.error-summary').length) {
+                  $('.error-summary').focus()
+                  $('.error-summary a').click(function (e) {
+                      e.preventDefault()
+                      var href = $(this).attr('href')
+                      $(href).focus()
+                  })
+              } else {
+                  // Otherwise, set focus to the field with the error
+                  $('.error input:first').focus()
+              }
+          }
+      });
   }
+
+  
