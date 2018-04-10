@@ -51,6 +51,7 @@ site.yes = Yes
 site.continue = Continue
 site.service_name = Ask for a copy of your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
+site.submit = Accept and send
 
 failed_to_submit.title = Failed to submit – Ask for a copy of your Corporation Tax UTR – GOV.UK
 failed_to_submit.heading = Sorry, there is a problem with the service
