@@ -33,6 +33,6 @@ class ConfirmationController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad = (getData andThen requireData) {
     implicit request =>
-      Ok(confirmation(appConfig))
+      Ok(confirmation(appConfig)).withNewSession
   }
 }
