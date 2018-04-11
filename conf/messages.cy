@@ -51,6 +51,7 @@ site.yes = Iawn
 site.continue = Yn eich blaen
 site.service_name = Gofynnwch am gopi o'ch UTR Treth Gorfforaeth
 site.textarea.char_limit = (Y terfyn yw {0} o gymeriadau)
+site.submit = Derbyn ac anfon
 
 failed_to_submit.title = Wedi methu â chyflwyno – Gofynnwch am gopi o'ch UTR Treth Gorfforaeth – GOV.UK
 failed_to_submit.heading = Mae'n ddrwg gennym, mae problem gyda'r gwasanaeth
