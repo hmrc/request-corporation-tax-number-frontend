@@ -14,6 +14,6 @@ This is set via the location in; https://github.com/hmrc/mdtp-frontend-routes/bl
 
 #Routes
 -------
-| Url | Description |
+| *Url* | *Description* |
 | /enter-company-details | main page for entering details |
 | /check-your-answers | displays details users have entered |
