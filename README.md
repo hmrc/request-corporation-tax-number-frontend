@@ -1,5 +1,4 @@
 # Frontend for the Ask for a copy of your Corporation Tax UTR service #
-===============================================================================
 
 Service Manager:    CTUTR_ALL
 Backend repository: https://github.com/hmrc/request-corporation-tax-number
@@ -15,5 +14,6 @@ This is set via the location in; https://github.com/hmrc/mdtp-frontend-routes/bl
 #Routes
 -------
 | *Url* | *Description* |
+|-------|---------------|
 | /enter-company-details | main page for entering details |
 | /check-your-answers | displays details users have entered |
