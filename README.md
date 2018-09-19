@@ -1,5 +1,7 @@
 # Request corporation tax number frontend
 
+CT UTR is a microservice that interacts with Digital Mail Service/robotics. The customer enters two peices of information, the Company Registration Number (CRN) and the company name. The CRN is used by robotics to check against the Corporation Tax HOD which will issue a hard copy CT UTR to the customer's registered company address. If robotics cannot process the files received from DMS, the case is sent to a worklist and manually worked by back office staff.
+
 ## Info
 
 This service is also known as Ask for a copy of your Corporation Tax UTR
