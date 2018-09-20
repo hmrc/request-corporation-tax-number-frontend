@@ -24,7 +24,7 @@ import models.requests.OptionalDataRequest
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnector) extends DataRetrievalAction {
 
@@ -40,6 +40,8 @@ class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnect
         }
     }
   }
+
+  override protected def executionContext: ExecutionContext = ???
 }
 
 @ImplementedBy(classOf[DataRetrievalActionImpl])
