@@ -38,31 +38,26 @@ class DmsSubmissionService @Inject()(appConfig: FrontendAppConfig,
 
     val submission = Submission(answers)
 
-    ctutrConnector.ctutrSubmission(Json.toJson(submission)).map(
-      response => {
+    ctutrConnector.ctutrSubmission(Json.toJson(submission)).map {
+      case Some(submissionResponse) =>
 
-        response match {
-          case Some(submissionResponse) =>
+        val detailToAudit =
+          Submission.asMap(submission) ++
+            Map(
+              "filename" -> submissionResponse.filename,
+              "envelopeId" -> submissionResponse.id
+            )
 
-            val detailToAudit =
-              Submission.asMap(submission) ++
-                Map(
-                  "filename" -> submissionResponse.filename,
-                  "envelopeId" -> submissionResponse.id
-                )
+        val event = new SubmissionEvent(detailToAudit)
 
-            val event = new SubmissionEvent(detailToAudit)
+        auditConnector.sendEvent(event)
 
-            auditConnector.sendEvent(event)
+        Logger.info(s"[DmsSubmissionService][submitSubmission] - submission successful")
 
-            Logger.info(s"[DmsSubmissionService][submitSubmission] - submission successful")
+        SubmissionSuccessful
 
-            SubmissionSuccessful
-
-          case None =>
-            SubmissionFailed
-        }
-      }
-    )
+      case None =>
+        SubmissionFailed
+    }
   }
 }
