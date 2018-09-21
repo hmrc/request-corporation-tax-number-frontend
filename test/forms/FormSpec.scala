@@ -25,7 +25,7 @@ trait FormSpec extends WordSpec with OptionValues with Matchers {
 
     form.bind(data).fold(
       formWithErrors => {
-        for (error <- expectedErrors) formWithErrors.errors should contain(FormError(error.key, error.message, error.args))
+        for (error <- expectedErrors) formWithErrors.errors should contain(error)
         formWithErrors.errors.size shouldBe expectedErrors.size
       },
       form => {

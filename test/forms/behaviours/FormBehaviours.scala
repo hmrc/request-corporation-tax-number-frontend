@@ -43,17 +43,11 @@ trait FormBehaviours extends FormSpec {
     }
   }
 
-  def formWithMandatoryTextFields(fields: Field*) = {
+  def formWithMandatoryTextFields(fields: MandatoryField*) = {
     for (field <- fields) {
-      s"fail to bind when ${field.name} is omitted" in {
-        val data = validData - field.name
-        val expectedError = error(field.name, field.errorKeys(Required))
-        checkForError(form, data, expectedError)
-      }
-
-      s"fail to bind when ${field.name} is blank" in {
-        val data = validData + (field.name -> "")
-        val expectedError = error(field.name, field.errorKeys(Required))
+      s"fail to bind when ${field.fieldName} is omitted" in {
+        val data = validData + (field.fieldName -> "")
+        val expectedError = error(field.fieldName, field.errorMessageKey)
         checkForError(form, data, expectedError)
       }
     }
@@ -208,5 +202,27 @@ trait FormBehaviours extends FormSpec {
       checkForError(form, data, expectedError)
     }
 
+  }
+
+  def formWithMaxLengthTextFields(fields: MaxLengthField*) = {
+    for (field <- fields) {
+      s"fail to bind when ${field.fieldName} has more characters than ${field.maxLength}" in {
+        val invalid = "A" * (field.maxLength + 1)
+        val data = validData + (field.fieldName -> invalid)
+        val expectedError = error(field.fieldName, field.errorMessageKey, field.maxLength)
+        checkForError(form, data, expectedError)
+      }
+    }
+  }
+
+  def formWithRegex(fields: RegexField*) = {
+    for (field <- fields) {
+      s"fail regex validation ${field.invalidValue}" in {
+        val invalid = field.invalidValue
+        val data = validData + (field.fieldName -> invalid)
+        val expectedError = error(field.fieldName, field.errorMessageKey)
+        checkForError(form, data, expectedError)
+      }
+    }
   }
 }

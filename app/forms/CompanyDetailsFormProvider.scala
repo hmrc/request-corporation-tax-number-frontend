@@ -28,17 +28,21 @@ class CompanyDetailsFormProvider @Inject() extends FormErrorHelper with Constrai
   private val companyReferenceNumberError = "companyDetails.error.companyReferenceNumber.regex"
   private val companyReferenceNumberLLPRegex = "(?i)^(?!OC|SL|SO|LP|NC|NL)([0-9]\\d{6,7}|\\d{6,7}|[A-Z]{2}\\d{6})*$"
   private val companyReferenceNumberLLPError = "companyDetails.error.companyReferenceNumber.llp.regex"
+  private val companyReferenceNumberBlank = "companyDetails.error.companyReferenceNumber.required"
 
   private val companyNameMaxLength = 160
   private val companyNameLengthError = "companyDetails.error.companyName.length"
+  private val companyNameBlank = "companyDetails.error.companyName.required"
 
   def apply(): Form[CompanyDetails] = Form(
     mapping(
       "companyReferenceNumber" -> text.verifying(
-          firstError(regexp(companyReferenceNumberRegex, companyReferenceNumberError),
-          regexp(companyReferenceNumberLLPRegex, companyReferenceNumberLLPError))),
+          firstError(nonEmpty(companyReferenceNumberBlank),
+            regexValidation(companyReferenceNumberRegex, companyReferenceNumberError),
+            regexValidation(companyReferenceNumberLLPRegex, companyReferenceNumberLLPError))),
       "companyName" -> text.verifying(
-          maxLength(companyNameMaxLength, companyNameLengthError))
+            firstError(nonEmpty(companyNameBlank),
+            maxLength(companyNameMaxLength, companyNameLengthError)))
     )(CompanyDetails.apply)(CompanyDetails.unapply)
   )
  }
