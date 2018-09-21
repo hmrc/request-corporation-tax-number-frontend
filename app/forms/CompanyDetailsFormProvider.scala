@@ -17,22 +17,28 @@
 package forms
 
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.Constraints
 import play.api.data.Form
 import play.api.data.Forms._
 import models.CompanyDetails
 
-class CompanyDetailsFormProvider @Inject() extends Mappings {
+class CompanyDetailsFormProvider @Inject() extends FormErrorHelper with Constraints {
 
-   def apply(): Form[CompanyDetails] = Form(
-     mapping(
-       "companyReferenceNumber" -> text("companyDetails.error.companyReferenceNumber.required")
-         .verifying("companyDetails.error.companyReferenceNumber.regex",
-           companyReferenceNumber => companyReferenceNumber.matches(
-             "^([0-9]\\d{6,7}|\\d{6,7}|[a-zA-Z]{2}\\d{6})$")),
-      "companyName" -> text("companyDetails.error.companyName.required")
-        .verifying(maxLength(160, "companyDetails.error.companyName.length"))
+  private val companyReferenceNumberRegex = "(?i)^([0-9]\\d{6,7}|\\d{6,7}|[A-Z]{2}\\d{6})$"
+  private val companyReferenceNumberError = "companyDetails.error.companyReferenceNumber.regex"
+  private val companyReferenceNumberLLPRegex = "(?i)^(?!OC|SL|SO|LP|NC|NL)([0-9]\\d{6,7}|\\d{6,7}|[A-Z]{2}\\d{6})*$"
+  private val companyReferenceNumberLLPError = "companyDetails.error.companyReferenceNumber.llp.regex"
+
+  private val companyNameMaxLength = 160
+  private val companyNameLengthError = "companyDetails.error.companyName.length"
+
+  def apply(): Form[CompanyDetails] = Form(
+    mapping(
+      "companyReferenceNumber" -> text.verifying(
+          firstError(regexp(companyReferenceNumberRegex, companyReferenceNumberError),
+          regexp(companyReferenceNumberLLPRegex, companyReferenceNumberLLPError))),
+      "companyName" -> text.verifying(
+          maxLength(companyNameMaxLength, companyNameLengthError))
     )(CompanyDetails.apply)(CompanyDetails.unapply)
-   )
+  )
  }
