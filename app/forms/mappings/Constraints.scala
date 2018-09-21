@@ -29,6 +29,14 @@ trait Constraints {
           .getOrElse(Valid)
     }
 
+  def nonEmpty(error: String = "error.required"): Constraint[String] =
+    Constraint {
+      case "" =>
+        Invalid(error)
+      case _ =>
+        Valid
+    }
+
   protected def minimumValue[A](minimum: A, errorKey: String)(implicit ev: Ordering[A]): Constraint[A] =
     Constraint {
       input =>
@@ -55,12 +63,12 @@ trait Constraints {
         }
     }
 
-  protected def regexp(regex: String, errorKey: String): Constraint[String] =
+  def regexValidation(regexString: String, errorMessage: String = "error.invalid"): Constraint[String] =
     Constraint {
-      case str if str.matches(regex) =>
-        Valid
+      case str if !str.matches(regexString) =>
+        Invalid(errorMessage)
       case _ =>
-        Invalid(errorKey, regex)
+        Valid
     }
 
   protected def maxLength(maximum: Int, errorKey: String): Constraint[String] =

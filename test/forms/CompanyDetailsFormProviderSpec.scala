@@ -16,12 +16,18 @@
 
 package forms
 
-import forms.behaviours.StringFieldBehaviours
-import play.api.data.FormError
+import forms.behaviours.{FormBehaviours, StringFieldBehaviours}
+import models.{MandatoryField, MaxLengthField, RegexField}
+import play.api.data.Form
 
-class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
+class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBehaviours {
 
-  val form = new CompanyDetailsFormProvider()()
+  override val form: Form[_] = new CompanyDetailsFormProvider()()
+
+  val validData: Map[String, String] = Map(
+    "companyReferenceNumber" -> "AB123123",
+    "companyName" -> "qwerty"
+  )
 
   ".companyName" must {
 
@@ -31,22 +37,24 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
     val maxLength = 160
 
     behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      stringsWithMaxLength(maxLength)
+      form = form,
+      fieldName = fieldName,
+      validDataGenerator = stringsWithMaxLength(maxLength)
     )
 
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+    behave like formWithMaxLengthTextFields(
+      MaxLengthField(
+        fieldName = fieldName,
+        errorMessageKey = lengthKey,
+        maxLength = maxLength
+      )
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+    behave like formWithMandatoryTextFields(
+      MandatoryField(
+        fieldName = fieldName,
+        errorMessageKey = requiredKey
+      )
     )
   }
 
@@ -54,26 +62,79 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
 
     val fieldName = "companyReferenceNumber"
     val requiredKey = "companyDetails.error.companyReferenceNumber.required"
-    val regexKey = "companyDetails.error.companyReferenceNumber.regex"
+    val invalidRegexKey = "companyDetails.error.companyReferenceNumber.regex"
+    val invalidLLPRegexKey = "companyDetails.error.companyReferenceNumber.llp.regex"
+
     val maxLength = 8
 
     behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      stringsWithMaxLength(maxLength)
+      form = form,
+      fieldName = fieldName,
+      validDataGenerator = stringsWithMaxLength(maxLength)
     )
 
-    behave like fieldWithRegex(
-      form,
-      fieldName,
-      "4S23E",
-      FormError(fieldName, regexKey)
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidRegexKey,
+        invalidValue = "123"
+      )
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidLLPRegexKey,
+        invalidValue = "SL123123"
+      )
+    )
+
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidLLPRegexKey,
+        invalidValue = "OC123123"
+      )
+    )
+
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidLLPRegexKey,
+        invalidValue = "SO123123"
+      )
+    )
+
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidLLPRegexKey,
+        invalidValue = "LP123123"
+      )
+    )
+
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidLLPRegexKey,
+        invalidValue = "NC123123"
+      )
+    )
+
+    behave like formWithRegex(
+      RegexField(
+        fieldName = fieldName,
+        errorMessageKey = invalidLLPRegexKey,
+        invalidValue = "NL123123"
+      )
+    )
+
+
+    behave like formWithMandatoryTextFields(
+      MandatoryField(
+        fieldName = fieldName,
+        errorMessageKey = requiredKey
+      )
     )
   }
 }

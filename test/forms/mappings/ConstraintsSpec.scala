@@ -25,22 +25,22 @@ class ConstraintsSpec extends WordSpec with MustMatchers with Constraints {
   "firstError" must {
 
     "return Valid when all constraints pass" in {
-      val result = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))("foo")
+      val result = firstError(maxLength(10, "error.length"), regexValidation("""^\w+$""", "error.regexp"))("foo")
       result mustEqual Valid
     }
 
     "return Invalid when the first constraint fails" in {
-      val result = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))("a" * 11)
+      val result = firstError(maxLength(10, "error.length"),  nonEmpty())("a" * 11)
       result mustEqual Invalid("error.length", 10)
     }
 
     "return Invalid when the second constraint fails" in {
-      val result = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))("")
-      result mustEqual Invalid("error.regexp", """^\w+$""")
+      val result = firstError(maxLength(10, "error.length"),  nonEmpty())("")
+      result mustEqual Invalid("error.required")
     }
 
     "return Invalid for the first error when both constraints fail" in {
-      val result = firstError(maxLength(-1, "error.length"), regexp("""^\w+$""", "error.regexp"))("")
+      val result = firstError(maxLength(-1, "error.length"),  nonEmpty())("")
       result mustEqual Invalid("error.length", -1)
     }
   }
@@ -83,14 +83,14 @@ class ConstraintsSpec extends WordSpec with MustMatchers with Constraints {
 
   "regexp" must {
 
-    "return Valid for an input that matches the expression" in {
-      val result = regexp("""^\w+$""", "error.invalid")("foo")
+    "return Valid for matching regex" in {
+      val result = regexValidation("""^\w+$""")("foo")
       result mustEqual Valid
     }
 
-    "return Invalid for an input that does not match the expression" in {
-      val result = regexp("""^\d+$""", "error.invalid")("foo")
-      result mustEqual Invalid("error.invalid", """^\d+$""")
+    "return Invalid for none matching regex" in {
+      val result = regexValidation("""^[abc]$""")("foo")
+      result mustEqual Invalid("error.invalid")
     }
   }
 
