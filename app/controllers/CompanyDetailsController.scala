@@ -31,6 +31,7 @@ import utils.{Navigator, UserAnswers}
 import views.html.companyDetails
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class CompanyDetailsController @Inject()(
                                           appConfig: FrontendAppConfig,

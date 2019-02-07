@@ -29,7 +29,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
-
+import scala.concurrent.ExecutionContext.Implicits.global
 
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
