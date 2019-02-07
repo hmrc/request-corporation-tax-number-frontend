@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,22 @@
 package services
 
 import base.SpecBase
-import connectors.{CtutrConnector}
+import connectors.CtutrConnector
 import models._
 import org.mockito.Mockito._
 import org.mockito.{ArgumentCaptor, Matchers}
 import org.mockito.Matchers._
+import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
+import org.scalatest.time.Seconds
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import uk.gov.hmrc.play.bootstrap.audit.DefaultAuditConnector
-import utils.{MockUserAnswers}
+import utils.MockUserAnswers
 
+import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
 import scala.concurrent.{ExecutionContext, Future}
 
 class DmsSubmissionServiceSpec extends SpecBase with MockitoSugar with ScalaFutures {
@@ -54,7 +58,7 @@ class DmsSubmissionServiceSpec extends SpecBase with MockitoSugar with ScalaFutu
         val eventCaptor = ArgumentCaptor.forClass(classOf[SubmissionEvent])
         val futureResult = service.ctutrSubmission(answers)
 
-        whenReady(futureResult) { result =>
+        whenReady(futureResult, Timeout(5 seconds)) { result =>
           result mustBe SubmissionSuccessful
         }
       }
