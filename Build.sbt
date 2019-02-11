@@ -14,21 +14,21 @@ lazy val appDependencies: Seq[ModuleID] = compile ++ test()
 lazy val plugins : Seq[Plugins] = Seq.empty
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
-val playHealthVersion = "3.5.0-play-25"
-val logbackJsonLoggerVersion = "3.1.0"
-val govukTemplateVersion = "5.3.0"
-val playUiVersion = "7.4.0"
-val hmrcTestVersion = "3.0.0"
-val scalaTestVersion = "3.0.4"
+val playHealthVersion = "3.10.0-play-25"
+val logbackJsonLoggerVersion = "4.3.0"
+val govukTemplateVersion = "5.27.0-play-25"
+val playUiVersion = "7.31.0-play-25"
+val hmrcTestVersion = "3.4.0-play-25"
+val scalaTestVersion = "3.0.5"
 val scalaTestPlusPlayVersion = "2.0.1"
 val pegdownVersion = "1.6.0"
 val mockitoAllVersion = "1.10.19"
 
-val httpCachingClientVersion = "7.0.0"
+val httpCachingClientVersion = "8.0.0"
 val playReactivemongoVersion = "6.2.0"
 val playConditionalFormMappingVersion = "0.2.0"
 val playLanguageVersion = "3.4.0"
-val bootstrapVersion = "3.6.0"
+val bootstrapVersion = "4.8.0"
 val scalacheckVersion = "1.14.0"
 val whitelistVersion = "2.0.0"
 
