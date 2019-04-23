@@ -47,6 +47,6 @@ class ConfirmationViewSpec extends ViewBehaviours {
     val doc = asDocument(createView())
     val link = doc.getElementById("survey-link")
     link.text mustBe messages("confirmation.survey.linkText")
-    link.attr("href") must include("/feedback-survey/?origin=CTUTR")
+    link.attr("href") must include("/feedback/CTUTR")
   }
 }
