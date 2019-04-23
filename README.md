@@ -25,7 +25,7 @@ Service Manager: CTUTR_ALL
 |Stub|https://github.com/hmrc/request-corporation-tax-number-stubs|
 |Performance tests|https://github.com/hmrc/request-corporation-tax-number-performance-test|
 
-Routes
+## Routes
 -------
 Start the service locally by going to http://localhost:9200/ask-for-copy-of-your-corporation-tax-utr
 
