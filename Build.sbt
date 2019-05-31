@@ -28,7 +28,7 @@ val httpCachingClientVersion = "8.0.0"
 val playReactivemongoVersion = "6.2.0"
 val playConditionalFormMappingVersion = "0.2.0"
 val playLanguageVersion = "3.4.0"
-val bootstrapVersion = "4.8.0"
+val bootstrapVersion = "4.11.0"
 val scalacheckVersion = "1.14.0"
 val whitelistVersion = "2.0.0"
 
