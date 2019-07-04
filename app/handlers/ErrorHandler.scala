@@ -46,7 +46,6 @@ class ErrorHandler @Inject()(
       Messages("error.internalError.title"),
       Messages("error.internalError.heading"),
       Messages("error.internalError.message1"),
-      Messages("error.internalError.messageLink"),
       appConfig)
   }
 
