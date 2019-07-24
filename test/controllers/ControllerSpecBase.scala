@@ -35,4 +35,5 @@ trait ControllerSpecBase extends SpecBase {
 
   def someData = new FakeDataRetrievalAction(
     Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(CompanyDetails("Big Company", "12345678"))))))
+
 }

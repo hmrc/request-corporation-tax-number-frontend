@@ -27,8 +27,8 @@ val mockitoAllVersion = "1.10.19"
 val httpCachingClientVersion = "8.0.0"
 val playReactivemongoVersion = "6.2.0"
 val playConditionalFormMappingVersion = "0.2.0"
-val playLanguageVersion = "3.4.0"
-val bootstrapVersion = "4.11.0"
+val playLanguageVersion = "4.0.0"
+val bootstrapVersion = "4.13.0"
 val scalacheckVersion = "1.14.0"
 val whitelistVersion = "2.0.0"
 
@@ -95,8 +95,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(resolvers ++= Seq(
     Resolver.bintrayRepo("hmrc", "releases"),
     Resolver.jcenterRepo,
-    Resolver.bintrayRepo("emueller", "maven")
-  ))
+    Resolver.bintrayRepo("emueller", "maven")))
   .settings(
     // concatenate js
     Concat.groups := Seq(
