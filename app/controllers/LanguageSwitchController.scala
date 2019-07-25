@@ -35,5 +35,5 @@ class LanguageSwitchController @Inject() (
         "cymraeg" -> Lang("cy")
       )
 
-      override def fallbackURL: String = "https://www.gov.uk/fallback"
+      override def fallbackURL: String = routes.IndexController.onPageLoad().url
 }
