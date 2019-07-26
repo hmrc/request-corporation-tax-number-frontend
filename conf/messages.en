@@ -53,10 +53,10 @@ site.service_name = Ask for a copy of your Corporation Tax UTR
 site.textarea.char_limit = (Limit is {0} characters)
 site.submit = Accept and send
 
-failed_to_submit.title = Failed to submit – Ask for a copy of your Corporation Tax UTR – GOV.UK
+failed_to_submit.title = Sorry, there is a problem with the service – Ask for a copy of your Corporation Tax UTR – GOV.UK
 failed_to_submit.heading = Sorry, there is a problem with the service
-failed_to_submit.guidance1 = Your request has not been sent. Try again later or
-failed_to_submit.guidance2 = contact HMRC to ask for a copy of your Corporation Tax UTR
+failed_to_submit.guidance1 = Try again later.
+
 
 companyDetails.title = Enter company details – Ask for a copy of your Corporation Tax UTR – GOV.UK
 companyDetails.heading = Enter company details
@@ -87,7 +87,6 @@ error.pageNotFound.message2 = If you pasted the web address, check you copied th
 error.pageNotFound.message3 = If the web address is correct or you selected a link or button,
 error.pageNotFound.messageLink = contact HMRC to ask for a copy of your Corporation Tax UTR
 
-error.internalError.title = Service unavailable – Ask for a copy of your Corporation Tax UTR – GOV.UK
+error.internalError.title = Sorry, there is a problem with the service – Ask for a copy of your Corporation Tax UTR – GOV.UK
 error.internalError.heading = Sorry, there is a problem with the service
 error.internalError.message1 = Try again later.
-error.internalError.messageLink = Contact HMRC to ask for a copy of your Corporation Tax UTR

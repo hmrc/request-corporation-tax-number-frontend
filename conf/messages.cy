@@ -53,10 +53,9 @@ site.service_name = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth
 site.textarea.char_limit = (Y terfyn yw {0} o gymeriadau)
 site.submit = Derbyn ac anfon
 
-failed_to_submit.title = Wedi methu â chyflwyno – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
+failed_to_submit.title = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 failed_to_submit.heading = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth
-failed_to_submit.guidance1 = Nid yw’ch cais wedi ei anfon. Rhowch gynnig arall arni yn nes ymlaen neu
-failed_to_submit.guidance2 = cysylltwch â CThEM i ofyn am gopi o’ch UTR Treth Gorfforaeth
+failed_to_submit.guidance1 = Rhowch gynnig arall arni yn nes ymlaen.
 
 companyDetails.title = Nodwch fanylion y cwmni – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 companyDetails.heading = Nodwch fanylion y cwmni
@@ -86,7 +85,6 @@ error.pageNotFound.message2 = Os gwnaethoch bastio’r cyfeiriad we, dylech wiri
 error.pageNotFound.message3 = Os yw’r cyfeiriad gwe yn gywir neu os ydych wedi dewis cysylltiad neu fotwm,
 error.pageNotFound.messageLink = cysylltwch â CThEM i ofyn am gopi o’ch UTR Treth Gorfforaeth
 
-error.internalError.title = Nid yw’r gwasanaeth ar gael – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
+error.internalError.title = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 error.internalError.heading = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth
 error.internalError.message1 = Rhowch gynnig arall arni nes ymlaen.
-error.internalError.messageLink = Cysylltwch â CThEM i ofyn am gopi o’ch UTR Treth Gorfforaeth
