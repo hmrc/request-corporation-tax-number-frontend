@@ -26,12 +26,11 @@ import config.FrontendAppConfig
 import forms.CompanyDetailsFormProvider
 import identifiers.CompanyDetailsId
 import models.{CompanyDetails, Mode}
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.{Navigator, UserAnswers}
 import views.html.companyDetails
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
 class CompanyDetailsController @Inject()(
                                           appConfig: FrontendAppConfig,
@@ -41,11 +40,12 @@ class CompanyDetailsController @Inject()(
                                           getData: DataRetrievalAction,
                                           formProvider: CompanyDetailsFormProvider,
                                           cc: MessagesControllerComponents
-                                        ) extends FrontendController(cc) with I18nSupport {
+                                        )(implicit executionContext: ExecutionContext)
+  extends FrontendController(cc) with I18nSupport {
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = getData {
+  def onPageLoad(mode: Mode): Action[AnyContent] = getData {
     implicit request =>
       val preparedForm = request.userAnswers.flatMap(x => x.companyDetails) match {
         case None => form
@@ -54,7 +54,7 @@ class CompanyDetailsController @Inject()(
       Ok(companyDetails(appConfig, preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode) = getData.async {
+  def onSubmit(mode: Mode): Action[AnyContent] = getData.async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>

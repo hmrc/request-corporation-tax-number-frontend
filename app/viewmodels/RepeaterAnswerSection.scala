@@ -16,7 +16,7 @@
 
 package viewmodels
 
-case class RepeaterAnswerSection (headingKey: String,
+case class RepeaterAnswerSection(headingKey: String,
                                   relevanceRow: AnswerRow,
                                   rows: Seq[RepeaterAnswerRow],
                                   addLinkKey: String,

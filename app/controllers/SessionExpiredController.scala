@@ -25,9 +25,10 @@ import views.html.session_expired
 
 class SessionExpiredController @Inject()(val appConfig: FrontendAppConfig,
                                          cc: MessagesControllerComponents,
-                                         override val messagesApi: MessagesApi) extends FrontendController(cc) with I18nSupport {
+                                         override val messagesApi: MessagesApi)
+  extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(session_expired(appConfig, routes.IndexController.onPageLoad))
+    Ok(session_expired(appConfig, routes.IndexController.onPageLoad()))
   }
 }

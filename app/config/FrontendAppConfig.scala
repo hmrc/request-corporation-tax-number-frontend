@@ -23,7 +23,6 @@ import play.api.i18n.Lang
 
 @Singleton
 class FrontendAppConfig @Inject() (configuration: Configuration) {
-
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "requestcorporationtaxnumberfrontend"
 

@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import models.SubmissionSuccessful
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{MessagesControllerComponents, Result}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -30,17 +30,18 @@ import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
+import scala.concurrent.ExecutionContext
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            cc: MessagesControllerComponents,
-                                           submissionService: SubmissionService) extends FrontendController(cc) with I18nSupport {
+                                           submissionService: SubmissionService)
+                                          (implicit executionContext: ExecutionContext)
+  extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad(): Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
       val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
@@ -62,7 +63,7 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
       result.getOrElse(Redirect(routes.SessionExpiredController.onPageLoad()))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
       implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
