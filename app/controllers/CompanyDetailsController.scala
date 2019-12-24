@@ -17,7 +17,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -26,7 +25,8 @@ import controllers.actions._
 import config.FrontendAppConfig
 import forms.CompanyDetailsFormProvider
 import identifiers.CompanyDetailsId
-import models.{Mode, CompanyDetails}
+import models.{CompanyDetails, Mode}
+import play.api.mvc.MessagesControllerComponents
 import utils.{Navigator, UserAnswers}
 import views.html.companyDetails
 
@@ -39,8 +39,9 @@ class CompanyDetailsController @Inject()(
                                           dataCacheConnector: DataCacheConnector,
                                           navigator: Navigator,
                                           getData: DataRetrievalAction,
-                                          formProvider: CompanyDetailsFormProvider
-                                        ) extends FrontendController with I18nSupport {
+                                          formProvider: CompanyDetailsFormProvider,
+                                          cc: MessagesControllerComponents
+                                        ) extends FrontendController(cc) with I18nSupport {
 
   val form = formProvider()
 

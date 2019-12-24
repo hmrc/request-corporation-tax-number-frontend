@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import models.SubmissionSuccessful
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Result
+import play.api.mvc.{MessagesControllerComponents, Result}
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
@@ -29,6 +29,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.check_your_answers
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
@@ -36,7 +37,8 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
-                                           submissionService: SubmissionService) extends FrontendController with I18nSupport {
+                                           cc: MessagesControllerComponents,
+                                           submissionService: SubmissionService) extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad() = (getData andThen requireData) {
     implicit request =>

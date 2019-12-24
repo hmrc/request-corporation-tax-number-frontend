@@ -20,6 +20,7 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import play.api.Configuration
 import play.api.i18n.{Lang, MessagesApi}
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.play.language.{LanguageController, LanguageUtils}
 
 
@@ -27,8 +28,9 @@ class LanguageSwitchController @Inject() (
                         configuration: Configuration,
                         appConfig: FrontendAppConfig,
                         languageUtils: LanguageUtils,
-                        val messagesApi: MessagesApi
-                        ) extends LanguageController(configuration, languageUtils) {
+                        cc: MessagesControllerComponents,
+                        override val messagesApi: MessagesApi
+                        ) extends LanguageController(configuration, languageUtils, cc) {
 
       override def languageMap: Map[String, Lang] = Map(
         "english" -> Lang("en"),

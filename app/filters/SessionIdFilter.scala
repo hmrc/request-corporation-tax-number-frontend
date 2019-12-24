@@ -59,7 +59,7 @@ class SessionIdFilter (
         HeaderNames.COOKIE -> cookies
       )
 
-      f(rh.copy(headers = headers)).map {
+      f(rh.withHeaders(headers)).map {
         result =>
 
           val cookies =

@@ -21,13 +21,14 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import play.api.mvc.{Action, AnyContent}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.failedToSubmit
 
 import scala.concurrent.Future
 
 class FailedToSubmitController @Inject()(appConfig: FrontendAppConfig,
-                                         val messagesApi: MessagesApi) extends FrontendController with I18nSupport {
+                                         cc: MessagesControllerComponents,
+                                         override val messagesApi: MessagesApi) extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action  {
     implicit request =>

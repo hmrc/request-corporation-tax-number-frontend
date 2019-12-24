@@ -40,7 +40,7 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
 
   lazy val ctutrUrl = configuration.get[Service]("request-corporation-tax-number")
 
-  lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation").getOrElse(true)
+  lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
