@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import org.scalatestplus.play.OneAppPerSuite
 import play.api.Configuration
 import play.api.i18n.MessagesApi
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.language.LanguageUtils
@@ -27,12 +28,14 @@ import uk.gov.hmrc.play.test.UnitSpec
 
 class LanguageSwitchControllerSpec extends UnitSpec with OneAppPerSuite {
 
-  val messagesApi = app.injector.instanceOf(classOf[MessagesApi])
-  val langUtils : LanguageUtils = app.injector.instanceOf[LanguageUtils]
+  implicit val cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
+
+  val messagesApi: MessagesApi = app.injector.instanceOf(classOf[MessagesApi])
+  val langUtils: LanguageUtils = app.injector.instanceOf[LanguageUtils]
   val config: Configuration = app.injector.instanceOf[Configuration]
   val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
-  object TestLanguageSwitchController extends LanguageSwitchController(config, appConfig, langUtils, messagesApi)
+  object TestLanguageSwitchController extends LanguageSwitchController(config, appConfig, langUtils, cc, messagesApi)
 
   "Hitting language selection endpoint" must {
 

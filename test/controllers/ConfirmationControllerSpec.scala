@@ -17,16 +17,21 @@
 package controllers
 
 import controllers.actions._
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
 import views.html.confirmation
 
 class ConfirmationControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new ConfirmationController(frontendAppConfig, messagesApi,
-      dataRetrievalAction, new DataRequiredActionImpl)
+  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  def viewAsString() = confirmation(frontendAppConfig)(fakeRequest, messages).toString
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ConfirmationController(frontendAppConfig,
+    messagesApi,
+    dataRetrievalAction,
+    cc,
+    new DataRequiredActionImpl)
+
+  def viewAsString(): String = confirmation(frontendAppConfig)(fakeRequest, messages).toString
 
   "Confirmation Controller" must {
 
@@ -38,7 +43,3 @@ class ConfirmationControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

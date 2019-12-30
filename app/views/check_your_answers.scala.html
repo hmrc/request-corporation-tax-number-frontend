@@ -25,8 +25,7 @@
     title = messages("checkYourAnswers.title"),
     appConfig = appConfig,
     bodyClasses = None) {
-
-    @helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
+    (helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
         @components.heading("checkYourAnswers.heading")
 
@@ -39,7 +38,6 @@
             }
         }
 
-        @components.submit_button(messageOverride = Some(messages("site.submit")))
-
+        @components.submit_button(messageOverride = Some(messages("site.submit"))))
     }
 }

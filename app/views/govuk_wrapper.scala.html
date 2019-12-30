@@ -32,9 +32,9 @@
 @import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 
 @head = {
-    @uiLayouts.head(
+    (uiLayouts.head(
       linkElem = None,
-      headScripts = None)
+      headScripts = None))
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/requestcorporationtaxnumberfrontend-app.css")' />
 }
@@ -42,22 +42,22 @@
 @headerNavLinks = {}
 
 @insideHeader = {
-    @uiLayouts.header_nav(
+    (uiLayouts.header_nav(
       navTitle = Some(messages("site.service_name")),
       navTitleLink = None,
       showBetaLink = false,
-      navLinks = Some(headerNavLinks))
+      navLinks = Some(headerNavLinks)))
 }
 
 @afterHeader = {}
 
 @bodyEnd = {
-    @uiLayouts.footer(
+    (uiLayouts.footer(
       analyticsToken = Some(appConfig.analyticsToken),
       analyticsHost = appConfig.analyticsHost,
       ssoUrl = None,
       scriptElem = scriptElem,
-      gaCalls = None)
+      gaCalls = None))
       <script src='@routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.min.js")'> </script>
 }
 
@@ -65,10 +65,10 @@
 @footerLinks = {}
 
 @serviceInfo = {
-    @uiLayouts.serviceInfo(
+    (uiLayouts.serviceInfo(
       betaBanner = HtmlFormat.empty,
       includeGridWrapper = false,
-      serviceInfoContent = Some(serviceInfoContent))
+      serviceInfoContent = Some(serviceInfoContent)))
 }
 
 @mainContentHeader = {
@@ -81,21 +81,21 @@
     }
 
     @if(contentHeader.isDefined) {
-        @uiLayouts.main_content_header(contentHeader = contentHeader.get)
+        (uiLayouts.main_content_header(contentHeader = contentHeader.get))
     }
 }
 
-@getHelpForm = @{uiHelpers.reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl)}
+@getHelpForm = {(uiHelpers.reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl))}
 
 @content = {
-    @uiLayouts.main_content(
+    (uiLayouts.main_content(
       article = mainContent,
       mainClass = mainClass,
       mainDataAttributes = mainDataAttributes,
       mainContentHeader = mainContentHeader,
       serviceInfo = serviceInfo,
       getHelpForm = getHelpForm,
-      sidebar = sidebar)
+      sidebar = sidebar))
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links()), true)(content)
+(hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links()), true)(content))

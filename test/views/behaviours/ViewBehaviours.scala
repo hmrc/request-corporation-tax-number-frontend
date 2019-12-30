@@ -16,10 +16,13 @@
 
 package views.behaviours
 
+import play.api.i18n.Lang
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 
 trait ViewBehaviours extends ViewSpecBase {
+
+  implicit val lang: Lang = injector.instanceOf[Lang]
 
   def normalPage(view: () => HtmlFormat.Appendable,
                  messageKeyPrefix: String,

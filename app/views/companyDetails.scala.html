@@ -27,7 +27,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @helpers.form(action = CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
+    (helpers.form(action = CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
@@ -46,6 +46,6 @@
             label = messages("companyDetails.companyName")
         )
 
-        @components.submit_button()
+        @components.submit_button())
     }
 }

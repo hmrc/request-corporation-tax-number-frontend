@@ -24,7 +24,7 @@ import org.mockito.Mockito._
 import org.scalatest.RecoverMethods
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
-import play.api.mvc.Request
+import play.api.mvc.{BodyParsers, Request}
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -33,7 +33,9 @@ import scala.concurrent.Future
 
 class DataRetrievalActionSpec extends SpecBase with MockitoSugar with ScalaFutures with RecoverMethods {
 
-  class Harness(dataCacheConnector: DataCacheConnector) extends DataRetrievalActionImpl(dataCacheConnector) {
+  implicit val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
+
+  class Harness(dataCacheConnector: DataCacheConnector) extends DataRetrievalActionImpl(dataCacheConnector, parser) {
     def callTransform[A](request: Request[A]): Future[OptionalDataRequest[A]] = transform(request)
   }
 

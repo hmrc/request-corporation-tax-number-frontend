@@ -30,11 +30,11 @@
 
 @sidebar = {
     @if(sidebarLinks.isDefined) {
-        @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+        (layouts.sidebar(sidebarLinks.get, Some("sidebar")))
     }
 }
 
-@govuk_wrapper(appConfig = appConfig,
+(govuk_wrapper(appConfig = appConfig,
                title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
@@ -43,4 +43,4 @@
                mainContent = layouts.article(mainContent),
                serviceInfoContent = serviceInfoContent,
                scriptElem = scriptElem
-)
+))

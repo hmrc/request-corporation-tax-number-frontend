@@ -16,17 +16,22 @@
 
 package controllers.actions
 
-import play.api.mvc.Request
-import uk.gov.hmrc.http.cache.client.CacheMap
+import com.google.inject.Inject
 import models.requests.OptionalDataRequest
+import play.api.mvc.{AnyContent, BodyParser, Request}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap]) extends DataRetrievalAction {
+class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap], ec: ExecutionContext) extends DataRetrievalAction {
+
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = cacheMapToReturn match {
     case None => Future(OptionalDataRequest(request, "id", None))
     case Some(cacheMap)=> Future(OptionalDataRequest(request, "id", Some(new UserAnswers(cacheMap))))
   }
+
+  override def parser: BodyParser[AnyContent] = ???
+  override protected def executionContext: ExecutionContext = ec
 }
