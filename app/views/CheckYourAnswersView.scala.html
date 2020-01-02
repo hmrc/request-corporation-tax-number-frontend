@@ -19,11 +19,15 @@
 @import controllers.routes._
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig, answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
+@this(
+    appConfig: FrontendAppConfig,
+    main_template: MainTemplate
+)
+
+@(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("checkYourAnswers.title"),
-    appConfig = appConfig,
     bodyClasses = None) {
     (helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 

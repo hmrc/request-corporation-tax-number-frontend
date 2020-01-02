@@ -21,15 +21,16 @@ import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.failedToSubmit
+import views.html.FailedToSubmitView
 
 class FailedToSubmitController @Inject()(appConfig: FrontendAppConfig,
                                          cc: MessagesControllerComponents,
+                                         view: FailedToSubmitView,
                                          override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action  {
     implicit request =>
-      Ok(failedToSubmit(appConfig))
+      Ok(view())
   }
 }

@@ -15,24 +15,20 @@
  *@
 
 @import config.FrontendAppConfig
-@(
-        pageTitle: String,
-        heading: String,
-        message1: String,
-        message2: String,
-        message3: String,
-        messageLink: String,
-        appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = pageTitle,
-    appConfig = appConfig,
-    bodyClasses = None) {
+@this(
+ appConfig: FrontendAppConfig,
+ govuk_wrapper: GovukWrapper
+)
 
-    <h1 class="heading-large">@heading</h1>
+@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages)
 
-    <p>@message1</p>
-    <p>@message2</p>
-    <p>@message3 <a href="@appConfig.contactUsUrl">@messageLink</a>.</p>
-
+@contentHeader = {
+  <h1>@heading</h1>
 }
+
+@mainContent = {
+  <p>@message</p>
+}
+
+@govuk_wrapper(title = pageTitle, contentHeader = Some(contentHeader), mainContent = mainContent)

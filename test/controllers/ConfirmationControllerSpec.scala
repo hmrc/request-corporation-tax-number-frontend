@@ -19,19 +19,21 @@ package controllers
 import controllers.actions._
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
-import views.html.confirmation
+import views.html.ConfirmationView
 
 class ConfirmationControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view = app.injector.instanceOf[ConfirmationView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ConfirmationController(frontendAppConfig,
     messagesApi,
     dataRetrievalAction,
     cc,
-    new DataRequiredActionImpl)
+    new DataRequiredActionImpl,
+    view)
 
-  def viewAsString(): String = confirmation(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString(): String = view()(fakeRequest, messages).toString
 
   "Confirmation Controller" must {
 

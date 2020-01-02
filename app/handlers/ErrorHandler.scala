@@ -17,40 +17,39 @@
 package handlers
 
 import javax.inject.{Inject, Singleton}
-
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Request
 import play.twirl.api.Html
-import config.FrontendAppConfig
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
+import views.html.{ErrorTemplateInternalServerErrorView, ErrorTemplateNotFoundView, ErrorTemplateView}
 
 @Singleton
 class ErrorHandler @Inject()(
-                              appConfig: FrontendAppConfig,
+                              notFoundView: ErrorTemplateNotFoundView,
+                              internalServerErrorView: ErrorTemplateInternalServerErrorView,
+                              view: ErrorTemplateView,
                               val messagesApi: MessagesApi
                             ) extends FrontendErrorHandler with I18nSupport {
 
   override def notFoundTemplate(implicit request: Request[_]): Html = {
-    views.html.error_template_NotFound(
+    notFoundView(
       Messages("error.pageNotFound.title"),
       Messages("error.pageNotFound.heading"),
       Messages("error.pageNotFound.message1"),
       Messages("error.pageNotFound.message2"),
       Messages("error.pageNotFound.message3"),
-      Messages("error.pageNotFound.messageLink"),
-      appConfig)
+      Messages("error.pageNotFound.messageLink"))
   }
 
   override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
-    views.html.error_template_InternalServerError(
+    internalServerErrorView(
       Messages("error.internalError.title"),
       Messages("error.internalError.heading"),
-      Messages("error.internalError.message1"),
-      appConfig)
+      Messages("error.internalError.message1"))
   }
 
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
-    views.html.error_template(pageTitle, heading, message, appConfig)
+    view(pageTitle, heading, message)
 }
 

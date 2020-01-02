@@ -22,17 +22,18 @@ import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.confirmation
+import views.html.ConfirmationView
 
 class ConfirmationController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                          getData: DataRetrievalAction,
-                                          cc: MessagesControllerComponents,
-                                         requireData: DataRequiredAction)
+                                       override val messagesApi: MessagesApi,
+                                       getData: DataRetrievalAction,
+                                       cc: MessagesControllerComponents,
+                                       requireData: DataRequiredAction,
+                                       view: ConfirmationView)
   extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(confirmation(appConfig)).withNewSession
+      Ok(view()).withNewSession
   }
 }

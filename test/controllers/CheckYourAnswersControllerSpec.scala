@@ -23,12 +23,14 @@ import play.api.test.Helpers._
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.UserAnswers
+import views.html.CheckYourAnswersView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view = app.injector.instanceOf[CheckYourAnswersView]
 
   def sessionExpired: Call = routes.SessionExpiredController.onPageLoad()
 
@@ -39,7 +41,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
                                                 dataRetrievalAction,
                                                 new DataRequiredActionImpl,
                                                 cc,
-                                                submissionService)
+                                                submissionService,
+                                                view)
 
   "Check Your Answers Controller" must {
     "return 200 for a GET" in {

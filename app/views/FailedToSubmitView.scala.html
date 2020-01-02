@@ -16,12 +16,14 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@this(
+    appConfig: FrontendAppConfig,
+    main_template: MainTemplate
+)
 
-@main_template(
-    title = messages("failed_to_submit.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+@()(implicit request: Request[_], messages: Messages)
+
+@main_template(title = messages("failed_to_submit.title")) {
 
     @components.heading("failed_to_submit.heading")
 

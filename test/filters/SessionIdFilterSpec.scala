@@ -81,6 +81,9 @@ class SessionIdFilterSpec extends WordSpec with MustMatchers with GuiceOneAppPer
         bind[HttpFilters].to[Filters],
         bind[SessionIdFilter].to[TestSessionIdFilter]
       )
+      .configure(
+      "play.filters.disabled" -> List("uk.gov.hmrc.play.bootstrap.filters.frontend.crypto.SessionCookieCryptoFilter")
+      )
       .router(router)
       .build()
   }

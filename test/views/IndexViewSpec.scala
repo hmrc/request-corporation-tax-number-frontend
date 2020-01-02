@@ -18,26 +18,28 @@ package views
 
 import controllers.routes
 import views.behaviours.ViewBehaviours
-import views.html.index
+import views.html.IndexView
 
 class IndexViewSpec extends ViewBehaviours {
 
-  def view = () => index(frontendAppConfig, call)(fakeRequest, messages)
+  val view = app.injector.instanceOf[IndexView]
+
+  def createView = () => view(call)(fakeRequest, messages)
 
   val call = routes.CheckYourAnswersController.onPageLoad()
 
   "Index view" must {
 
-    behave like normalPage(view, "index")
+    behave like normalPage(createView, "index")
   }
 
   "link should direct the user to check-your-answers page" in {
-    val doc = asDocument(view())
+    val doc = asDocument(createView())
     doc.getElementById("start-now").attr("href") must include("/check-your-answers")
   }
 
   "Page should contain all to use this form content" in {
-    val doc = asDocument(view())
+    val doc = asDocument(createView())
     assertContainsText(doc, messages("index.guidance"))
     assertContainsText(doc, messages("index.useForm.title"))
     assertContainsText(doc, messages("index.useForm.item1"))
@@ -46,7 +48,7 @@ class IndexViewSpec extends ViewBehaviours {
   }
 
   "Page should contain before you start content" in {
-    val doc = asDocument(view())
+    val doc = asDocument(createView())
     assertContainsText(doc, messages("index.beforeYouStart.title"))
     assertContainsText(doc, messages("index.beforeYouStart.item1"))
     assertContainsText(doc, messages("index.beforeYouStart.item2"))

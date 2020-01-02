@@ -17,13 +17,14 @@
 package views
 
 import views.behaviours.ViewBehaviours
-import views.html.confirmation
+import views.html.ConfirmationView
 
 class ConfirmationViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "confirmation"
+  val view = app.injector.instanceOf[ConfirmationView]
 
-  def createView = () => confirmation(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => view()(fakeRequest, messages)
 
   "Confirmation view" must {
     behave like normalPage(createView, messageKeyPrefix)

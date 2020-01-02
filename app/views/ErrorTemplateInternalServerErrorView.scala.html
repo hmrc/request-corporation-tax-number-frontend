@@ -15,16 +15,18 @@
  *@
 
 @import config.FrontendAppConfig
+
+@this(
+    appConfig: FrontendAppConfig,
+    main_template: MainTemplate
+)
+
 @(
         pageTitle: String,
         heading: String,
-        message1: String,
-        appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+        message1: String)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = pageTitle,
-    appConfig = appConfig,
-    bodyClasses = None) {
+@main_template(title = pageTitle) {
 
     <h1 class="heading-large">@heading</h1>
 

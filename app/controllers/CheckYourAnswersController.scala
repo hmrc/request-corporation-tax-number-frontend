@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
-import views.html.check_your_answers
+import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
 
@@ -37,7 +37,8 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            cc: MessagesControllerComponents,
-                                           submissionService: SubmissionService)
+                                           submissionService: SubmissionService,
+                                           view: CheckYourAnswersView)
                                           (implicit executionContext: ExecutionContext)
   extends FrontendController(cc) with I18nSupport {
 
@@ -57,7 +58,7 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
           )
         )
 
-        Ok(check_your_answers(appConfig, sections))
+        Ok(view(sections))
       }
 
       result.getOrElse(Redirect(routes.SessionExpiredController.onPageLoad()))

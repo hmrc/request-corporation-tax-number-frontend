@@ -29,11 +29,8 @@ trait ViewBehaviours extends ViewSpecBase {
       "rendered" must {
         "have the correct banner title" in {
           val doc = asDocument(view())
-          println("£££££££££££££££££ doc: " + doc)
           val nav = doc.getElementById("proposition-menu")
-          println("£££££££££££££££££ nav: " + nav)
           val span = nav.children.first
-          println("£££££££££££££££££ span: " + span)
           span.text mustBe messages("site.service_name")
         }
 

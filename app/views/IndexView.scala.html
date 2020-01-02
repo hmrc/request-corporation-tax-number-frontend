@@ -16,12 +16,14 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig, call: Call)(implicit request: Request[_], messages: Messages)
+@this(
+    appConfig: FrontendAppConfig,
+    main_template: MainTemplate
+)
 
-@main_template(
-    title = messages("index.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+@(call: Call)(implicit request: Request[_], messages: Messages)
+
+@main_template(title = messages("index.title")) {
 
     <h1 class="heading-xlarge">@messages("index.heading")</h1>
 

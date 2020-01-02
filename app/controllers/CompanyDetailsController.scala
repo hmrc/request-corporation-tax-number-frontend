@@ -16,19 +16,19 @@
 
 package controllers
 
-import javax.inject.Inject
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.CompanyDetailsFormProvider
 import identifiers.CompanyDetailsId
+import javax.inject.Inject
 import models.{CompanyDetails, Mode}
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Navigator, UserAnswers}
-import views.html.companyDetails
+import views.html.CompanyDetailsView
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -39,7 +39,8 @@ class CompanyDetailsController @Inject()(
                                           navigator: Navigator,
                                           getData: DataRetrievalAction,
                                           formProvider: CompanyDetailsFormProvider,
-                                          cc: MessagesControllerComponents
+                                          cc: MessagesControllerComponents,
+                                          view: CompanyDetailsView
                                         )(implicit executionContext: ExecutionContext)
   extends FrontendController(cc) with I18nSupport {
 
@@ -51,14 +52,14 @@ class CompanyDetailsController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(companyDetails(appConfig, preparedForm, mode))
+      Ok(view(preparedForm, mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = getData.async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(companyDetails(appConfig, formWithErrors, mode))),
+          Future.successful(BadRequest(view(formWithErrors, mode))),
         (value) =>
           dataCacheConnector.save[CompanyDetails](request.externalId, CompanyDetailsId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(CompanyDetailsId, mode)(new UserAnswers(cacheMap))))

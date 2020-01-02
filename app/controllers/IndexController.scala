@@ -16,20 +16,21 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import models.NormalMode
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import config.FrontendAppConfig
-import models.NormalMode
-import views.html.index
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.IndexView
 
 class IndexController @Inject()(val appConfig: FrontendAppConfig,
                                 cc: MessagesControllerComponents,
+                                view: IndexView,
                                 override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(index(appConfig, routes.CompanyDetailsController.onPageLoad(NormalMode)))
+    Ok(view(routes.CompanyDetailsController.onPageLoad(NormalMode)))
   }
 }

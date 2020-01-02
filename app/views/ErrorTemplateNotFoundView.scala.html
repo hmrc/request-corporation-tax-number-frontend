@@ -16,16 +16,25 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig, startPage : Call)(implicit request: Request[_], messages: Messages)
+@this(
+        appConfig: FrontendAppConfig,
+        main_template: MainTemplate
+)
 
-@main_template(
-    title = messages("session_expired.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+@(
+        pageTitle: String,
+        heading: String,
+        message1: String,
+        message2: String,
+        message3: String,
+        messageLink: String)(implicit request: Request[_], messages: Messages)
 
-    @components.heading("session_expired.heading")
+@main_template(title = pageTitle) {
 
-    <p>@messages("session_expired.guidance")</p>
+    <h1 class="heading-large">@heading</h1>
 
-    @components.button_link("session_expired.button", startPage.url)
+    <p>@message1</p>
+    <p>@message2</p>
+    <p>@message3 <a href="@appConfig.contactUsUrl">@messageLink</a>.</p>
+
 }

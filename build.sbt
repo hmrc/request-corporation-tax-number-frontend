@@ -31,6 +31,13 @@ lazy val microservice = Project(appName, file("."))
   .enablePlugins(plugins : _*)
   .settings(playSettings,
     RoutesKeys.routesImport ++= Seq("models._"),
+    TwirlKeys.templateImports ++= Seq(
+      "play.twirl.api.HtmlFormat",
+      "play.twirl.api.HtmlFormat._",
+      "views.html.layouts.GovUkTemplate",
+      "uk.gov.hmrc.play.views.html.helpers._",
+      "uk.gov.hmrc.play.views.html.layouts._"
+    ),
     parallelExecution in Test := false,
     scalaSettings,
     publishingSettings,

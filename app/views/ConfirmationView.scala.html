@@ -16,12 +16,14 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@this(
+    appConfig: FrontendAppConfig,
+    main_template: MainTemplate
+)
 
-@main_template(
-    title = messages("confirmation.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+@()(implicit request: Request[_], messages: Messages)
+
+@main_template(title = messages("confirmation.title")){
 
     <div class="govuk-box-highlight">
         @components.heading("confirmation.heading", "heading-xlarge")
@@ -38,5 +40,4 @@
     <div>
         <p><a id="survey-link" href="@appConfig.feedbackSurveyUrl">@messages("confirmation.survey.linkText")</a> @messages("confirmation.survey.time")</p>
     </div>
-
 }
