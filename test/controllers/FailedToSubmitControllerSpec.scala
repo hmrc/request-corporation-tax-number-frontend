@@ -17,14 +17,11 @@
 package controllers
 
 import controllers.actions._
-import play.api.mvc.{ActionBuilder, AnyContent, BodyParser, MessagesControllerComponents, Request, Result}
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
 import views.html.failedToSubmit
 
-import scala.concurrent.{ExecutionContext, Future}
-
-class FailedToSubmitControllerSpec extends ControllerSpecBase
-with ActionBuilder[Request, AnyContent] {
+class FailedToSubmitControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
@@ -45,9 +42,4 @@ with ActionBuilder[Request, AnyContent] {
     }
   }
 
-  override def parser: BodyParser[AnyContent] = ???
-
-  override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] = ???
-
-  override protected def executionContext: ExecutionContext = ???
 }

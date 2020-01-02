@@ -37,10 +37,10 @@ class ConfirmationViewSpec extends ViewBehaviours {
 
   "page should have all what happens next text" in {
     val doc = asDocument(createView())
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.title"))
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line1"))
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line2"))
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line3"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.title"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.line1"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.line2"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.line3"))
   }
 
   "have a link to an exit survey" in {

@@ -16,13 +16,10 @@
 
 package views.behaviours
 
-import play.api.i18n.Lang
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 
 trait ViewBehaviours extends ViewSpecBase {
-
-  implicit val lang: Lang = injector.instanceOf[Lang]
 
   def normalPage(view: () => HtmlFormat.Appendable,
                  messageKeyPrefix: String,
@@ -32,9 +29,12 @@ trait ViewBehaviours extends ViewSpecBase {
       "rendered" must {
         "have the correct banner title" in {
           val doc = asDocument(view())
+          println("£££££££££££££££££ doc: " + doc)
           val nav = doc.getElementById("proposition-menu")
+          println("£££££££££££££££££ nav: " + nav)
           val span = nav.children.first
-          span.text mustBe messagesApi("site.service_name")
+          println("£££££££££££££££££ span: " + span)
+          span.text mustBe messages("site.service_name")
         }
 
         "display the correct browser title" in {

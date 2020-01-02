@@ -37,7 +37,7 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val feedbackSurveyUrl = configuration.get[String]("urls.feedback-survey")
   lazy val contactUsUrl = configuration.get[String]("urls.contactUs")
 
-  lazy val ctutrUrl = configuration.get[Service]("request-corporation-tax-number")
+  lazy val ctutrUrl = configuration.get[Service]("microservice.services.request-corporation-tax-number")
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
