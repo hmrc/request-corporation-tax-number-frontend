@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import org.scalatestplus.play.OneAppPerSuite
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Configuration
 import play.api.i18n.MessagesApi
 import play.api.mvc.MessagesControllerComponents
@@ -26,7 +26,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.play.language.LanguageUtils
 import uk.gov.hmrc.play.test.UnitSpec
 
-class LanguageSwitchControllerSpec extends UnitSpec with OneAppPerSuite {
+class LanguageSwitchControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
 
   implicit val cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
 

@@ -20,18 +20,17 @@ import java.util.UUID
 
 import akka.stream.Materializer
 import com.google.inject.Inject
-import filters.SessionIdFilterSpec._
 import org.scalatest.{MustMatchers, WordSpec}
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Application
+import org.scalatestplus.play.components.OneAppPerSuiteWithComponents
 import play.api.http.{DefaultHttpFilters, HttpFilters}
 import play.api.inject._
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import play.api.mvc.{ControllerComponents, Results, SessionCookieBaker}
+import play.api.mvc.{Results, SessionCookieBaker}
 import play.api.routing.Router
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import play.api.{Application, BuiltInComponents, BuiltInComponentsFromContext, NoHttpFiltersComponents}
 import uk.gov.hmrc.http.{HeaderNames, SessionKeys}
 
 import scala.concurrent.ExecutionContext
@@ -48,28 +47,32 @@ object SessionIdFilterSpec {
                             extends SessionIdFilter(mat, UUID.fromString(sessionId), sessionCookieBaker, ec)
 }
 
-class SessionIdFilterSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite {
+class SessionIdFilterSpec extends WordSpec with MustMatchers with OneAppPerSuiteWithComponents {
+  import SessionIdFilterSpec.sessionId
 
-  val router: Router = {
+  override def components: BuiltInComponents = new BuiltInComponentsFromContext(context) with NoHttpFiltersComponents {
 
-    import play.api.routing.sird._
+    val router: Router = {
 
-    Router.from {
+      import play.api.routing.sird._
 
-      case GET(p"/test") => app.injector.instanceOf[ControllerComponents].actionBuilder {
-        request =>
-          val fromHeader = request.headers.get(HeaderNames.xSessionId).getOrElse("")
-          val fromSession = request.session.get(SessionKeys.sessionId).getOrElse("")
-          Results.Ok(
-            Json.obj(
-              "fromHeader" -> fromHeader,
-              "fromSession" -> fromSession
+      Router.from {
+
+        case GET(p"/test") => defaultActionBuilder {
+          request =>
+            val fromHeader = request.headers.get(HeaderNames.xSessionId).getOrElse("")
+            val fromSession = request.session.get(SessionKeys.sessionId).getOrElse("")
+            Results.Ok(
+              Json.obj(
+                "fromHeader" -> fromHeader,
+                "fromSession" -> fromSession
+              )
             )
-          )
-      }
-      case GET(p"/test2") => app.injector.instanceOf[ControllerComponents].actionBuilder {
-        implicit request =>
-          Results.Ok.addingToSession("foo" -> "bar")
+        }
+        case GET(p"/test2") => defaultActionBuilder {
+          implicit request =>
+            Results.Ok.addingToSession("foo" -> "bar")
+        }
       }
     }
   }
@@ -78,19 +81,16 @@ class SessionIdFilterSpec extends WordSpec with MustMatchers with GuiceOneAppPer
 
     new GuiceApplicationBuilder()
       .overrides(
-        bind[HttpFilters].to[Filters],
-        bind[SessionIdFilter].to[TestSessionIdFilter]
+        bind[HttpFilters].to[SessionIdFilterSpec.Filters],
+        bind[SessionIdFilter].to[SessionIdFilterSpec.TestSessionIdFilter]
       )
-      .configure(
-      "play.filters.disabled" -> List("uk.gov.hmrc.play.bootstrap.filters.frontend.crypto.SessionCookieCryptoFilter")
-      )
-      .router(router)
+      .router(components.router)
       .build()
   }
 
   ".apply" must {
 
-    "add a sessionId if one doesn't already exist" in {
+    "add a sessionId if one doesn't already exist" in  {
 
       val Some(result) = route(app, FakeRequest("GET", "/test"))
 
