@@ -29,16 +29,15 @@ import scala.concurrent.{ExecutionContext, Future}
 class SessionIdFilter (
                         override val mat: Materializer,
                         uuid: => UUID,
-                        sessionCookieBaker: SessionCookieBaker,
                         implicit val ec: ExecutionContext
                       ) extends Filter {
 
   @Inject
-  def this(mat: Materializer, ec: ExecutionContext, sessionCookieBaker: SessionCookieBaker) {
-    this(mat, UUID.randomUUID(), sessionCookieBaker, ec)
+  def this(mat: Materializer, ec: ExecutionContext) {
+    this(mat, UUID.randomUUID(), ec)
   }
 
-  override def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
+  override def apply(f: RequestHeader => Future[Result])(rh: RequestHeader): Future[Result] = {
 
     lazy val sessionId: String = s"session-$uuid"
 

@@ -26,7 +26,7 @@ import play.api.http.{DefaultHttpFilters, HttpFilters}
 import play.api.inject._
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import play.api.mvc.{Results, SessionCookieBaker}
+import play.api.mvc.Results
 import play.api.routing.Router
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -41,16 +41,14 @@ object SessionIdFilterSpec {
 
   class Filters @Inject()(sessionId: SessionIdFilter) extends DefaultHttpFilters(sessionId)
 
-  class TestSessionIdFilter @Inject()(override val mat: Materializer,
-                                      sessionCookieBaker: SessionCookieBaker,
-                                      ec: ExecutionContext)
-                            extends SessionIdFilter(mat, UUID.fromString(sessionId), sessionCookieBaker, ec)
+  class TestSessionIdFilter @Inject()(override val mat: Materializer, ec: ExecutionContext)
+                            extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
 }
 
 class SessionIdFilterSpec extends WordSpec with MustMatchers with OneAppPerSuiteWithComponents {
   import SessionIdFilterSpec.sessionId
 
-  override def components: BuiltInComponents = new BuiltInComponentsFromContext(context) with NoHttpFiltersComponents {
+     override def components: BuiltInComponents = new BuiltInComponentsFromContext(context) with NoHttpFiltersComponents {
 
     val router: Router = {
 
