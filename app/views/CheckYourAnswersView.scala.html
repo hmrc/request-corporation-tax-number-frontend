@@ -21,7 +21,8 @@
 
 @this(
     appConfig: FrontendAppConfig,
-    main_template: MainTemplate
+    main_template: MainTemplate,
+    formHelper: FormWithCSRF
 )
 
 @(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
@@ -29,7 +30,7 @@
 @main_template(
     title = messages("checkYourAnswers.title"),
     bodyClasses = None) {
-    (helpers.form(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
         @components.heading("checkYourAnswers.heading")
 
@@ -42,6 +43,6 @@
             }
         }
 
-        @components.submit_button(messageOverride = Some(messages("site.submit"))))
+        @components.submit_button(messageOverride = Some(messages("site.submit")))
     }
 }
