@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Configuration
 import play.api.i18n.MessagesApi
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Cookie, Cookies, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.language.LanguageUtils
@@ -39,17 +39,22 @@ class LanguageSwitchControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
 
   "Hitting language selection endpoint" must {
 
-    "redirect to English translated start page if English language is selected" ignore {
+    def testLanguageSelection(language: String, expectedCookieValue: String): Unit = {
       val request = FakeRequest()
-      val result = TestLanguageSwitchController.switchToLanguage("english")(request)
-      header("Set-Cookie", result) shouldBe Some("PLAY_LANG=en; Path=/;;PLAY_FLASH=switching-language=true; Path=/; HTTPOnly")
+      val result = TestLanguageSwitchController.switchToLanguage(language)(request)
+      val resultCookies: Cookies = cookies(result)
+      resultCookies.size shouldBe 1
+      val cookie: Cookie = resultCookies.head
+      cookie.name shouldBe "PLAY_LANG"
+      cookie.value shouldBe expectedCookieValue
     }
 
-    "redirect to Welsh translated start page if Welsh language is selected" ignore {
-      val request = FakeRequest()
-      val result = TestLanguageSwitchController.switchToLanguage("cymraeg")(request)
-      header("Set-Cookie", result) shouldBe Some("PLAY_LANG=cy; Path=/;;PLAY_FLASH=switching-language=true; Path=/; HTTPOnly")
+    "redirect to English translated start page if English language is selected" in {
+      testLanguageSelection("english", "en")
     }
 
+    "redirect to Welsh translated start page if Welsh language is selected" in {
+      testLanguageSelection("cymraeg", "cy")
+    }
   }
 }
