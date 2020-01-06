@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,31 @@ package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
 import models.{SubmissionFailed, SubmissionSuccessful}
+import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.UserAnswers
+import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
-  def sessionExpired = routes.SessionExpiredController.onPageLoad()
+  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view = app.injector.instanceOf[CheckYourAnswersView]
+
+  def sessionExpired: Call = routes.SessionExpiredController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
                  submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
-    new CheckYourAnswersController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      submissionService)
+                  new CheckYourAnswersController(frontendAppConfig,
+                                                messagesApi,
+                                                dataRetrievalAction,
+                                                new DataRequiredActionImpl,
+                                                cc,
+                                                submissionService,
+                                                view)
 
   "Check Your Answers Controller" must {
     "return 200 for a GET" in {
@@ -57,7 +67,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     }
 
     "Redirect to Confimration page on a POST when submission is successful" in {
-      val result = controller(someData,FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
+      val result = controller(someData, FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)

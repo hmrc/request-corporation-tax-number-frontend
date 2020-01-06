@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,22 +21,32 @@ import controllers.actions._
 import forms.CompanyDetailsFormProvider
 import models.{CompanyDetails, NormalMode}
 import play.api.data.Form
+import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
 import utils.FakeNavigator
-import views.html.companyDetails
+import views.html.CompanyDetailsView
 
 class CompanyDetailsControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  val formProvider = new CompanyDetailsFormProvider()
-  val form = formProvider()
+  def onwardRoute: Call = routes.IndexController.onPageLoad()
+
+  val formProvider: CompanyDetailsFormProvider = new CompanyDetailsFormProvider()
+  val form: Form[CompanyDetails] = formProvider()
+  val view = app.injector.instanceOf[CompanyDetailsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CompanyDetailsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, formProvider)
+    new CompanyDetailsController(frontendAppConfig,
+      messagesApi,
+      FakeDataCacheConnector,
+      new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction,
+      formProvider,
+      cc,
+      view)
 
-  def viewAsString(form: Form[_] = form) = companyDetails(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form): String = view(form, NormalMode)(fakeRequest, messages).toString
 
   "CompanyDetails Controller" must {
 

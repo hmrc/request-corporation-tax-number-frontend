@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,23 @@
 
 package views
 
-import play.api.data.Form
 import controllers.routes
 import forms.CompanyDetailsFormProvider
-import models.{NormalMode, CompanyDetails}
+import models.{CompanyDetails, NormalMode}
+import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
-import views.html.companyDetails
+import views.html.CompanyDetailsView
 
 class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetails] {
 
   val messageKeyPrefix = "companyDetails"
 
   override val form = new CompanyDetailsFormProvider()()
+  val view = app.injector.instanceOf[CompanyDetailsView]
 
-  def createView = () => companyDetails(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => companyDetails(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages)
 
 
   "CompanyDetails view" must {

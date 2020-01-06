@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,21 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent}
 import config.FrontendAppConfig
+import javax.inject.Inject
 import models.NormalMode
-import views.html.index
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.IndexView
 
 class IndexController @Inject()(val appConfig: FrontendAppConfig,
-                                val messagesApi: MessagesApi) extends FrontendController with I18nSupport {
+                                cc: MessagesControllerComponents,
+                                view: IndexView,
+                                override val messagesApi: MessagesApi)
+  extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(index(appConfig, routes.CompanyDetailsController.onPageLoad(NormalMode)))
+    Ok(view(routes.CompanyDetailsController.onPageLoad(NormalMode)))
   }
 }

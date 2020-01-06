@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,36 +17,44 @@
 package controllers
 
 import config.FrontendAppConfig
-import org.scalatestplus.play.OneAppPerSuite
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Configuration
 import play.api.i18n.MessagesApi
+import play.api.mvc.{Cookie, Cookies, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.language.LanguageUtils
 import uk.gov.hmrc.play.test.UnitSpec
 
-class LanguageSwitchControllerSpec extends UnitSpec with OneAppPerSuite {
+class LanguageSwitchControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  val messagesApi = app.injector.instanceOf(classOf[MessagesApi])
-  val langUtils : LanguageUtils = app.injector.instanceOf[LanguageUtils]
+  implicit val cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
+
+  val messagesApi: MessagesApi = app.injector.instanceOf(classOf[MessagesApi])
+  val langUtils: LanguageUtils = app.injector.instanceOf[LanguageUtils]
   val config: Configuration = app.injector.instanceOf[Configuration]
   val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
-  object TestLanguageSwitchController extends LanguageSwitchController(config, appConfig, langUtils, messagesApi)
+  object TestLanguageSwitchController extends LanguageSwitchController(config, appConfig, langUtils, cc, messagesApi)
+
+  def testLanguageSelection(language: String, expectedCookieValue: String): Unit = {
+    val request = FakeRequest()
+    val result = TestLanguageSwitchController.switchToLanguage(language)(request)
+    val resultCookies: Cookies = cookies(result)
+    resultCookies.size shouldBe 1
+    val cookie: Cookie = resultCookies.head
+    cookie.name shouldBe "PLAY_LANG"
+    cookie.value shouldBe expectedCookieValue
+  }
 
   "Hitting language selection endpoint" must {
 
     "redirect to English translated start page if English language is selected" in {
-      val request = FakeRequest()
-      val result = TestLanguageSwitchController.switchToLanguage("english")(request)
-      header("Set-Cookie", result) shouldBe Some("PLAY_LANG=en; Path=/;;PLAY_FLASH=switching-language=true; Path=/; HTTPOnly")
+      testLanguageSelection("english", "en")
     }
 
     "redirect to Welsh translated start page if Welsh language is selected" in {
-      val request = FakeRequest()
-      val result = TestLanguageSwitchController.switchToLanguage("cymraeg")(request)
-      header("Set-Cookie", result) shouldBe Some("PLAY_LANG=cy; Path=/;;PLAY_FLASH=switching-language=true; Path=/; HTTPOnly")
+      testLanguageSelection("cymraeg", "cy")
     }
-
   }
 }

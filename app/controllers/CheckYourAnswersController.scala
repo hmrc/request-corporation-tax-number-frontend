@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +21,28 @@ import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import models.SubmissionSuccessful
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Result
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
-import views.html.check_your_answers
-import scala.concurrent.ExecutionContext.Implicits.global
+import views.html.CheckYourAnswersView
 
+import scala.concurrent.ExecutionContext
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
-                                           submissionService: SubmissionService) extends FrontendController with I18nSupport {
+                                           cc: MessagesControllerComponents,
+                                           submissionService: SubmissionService,
+                                           view: CheckYourAnswersView)
+                                          (implicit executionContext: ExecutionContext)
+  extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad(): Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
       val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
@@ -54,13 +58,13 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
           )
         )
 
-        Ok(check_your_answers(appConfig, sections))
+        Ok(view(sections))
       }
 
       result.getOrElse(Redirect(routes.SessionExpiredController.onPageLoad()))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
       implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))

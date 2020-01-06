@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,24 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
-import views.html.confirmation
-
-import scala.concurrent.Future
+import controllers.actions._
+import javax.inject.Inject
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import views.html.ConfirmationView
 
 class ConfirmationController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                          getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                       override val messagesApi: MessagesApi,
+                                       getData: DataRetrievalAction,
+                                       cc: MessagesControllerComponents,
+                                       requireData: DataRequiredAction,
+                                       view: ConfirmationView)
+  extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(confirmation(appConfig)).withNewSession
+      Ok(view()).withNewSession
   }
 }

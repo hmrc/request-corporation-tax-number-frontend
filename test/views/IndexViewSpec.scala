@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,37 +18,39 @@ package views
 
 import controllers.routes
 import views.behaviours.ViewBehaviours
-import views.html.index
+import views.html.IndexView
 
 class IndexViewSpec extends ViewBehaviours {
 
-  def view = () => index(frontendAppConfig, call)(fakeRequest, messages)
+  val view = app.injector.instanceOf[IndexView]
+
+  def createView = () => view(call)(fakeRequest, messages)
 
   val call = routes.CheckYourAnswersController.onPageLoad()
 
   "Index view" must {
 
-    behave like normalPage(view, "index")
+    behave like normalPage(createView, "index")
   }
 
   "link should direct the user to check-your-answers page" in {
-    val doc = asDocument(view())
+    val doc = asDocument(createView())
     doc.getElementById("start-now").attr("href") must include("/check-your-answers")
   }
 
   "Page should contain all to use this form content" in {
-    val doc = asDocument(view())
-    assertContainsText(doc, messagesApi("index.guidance"))
-    assertContainsText(doc, messagesApi("index.useForm.title"))
-    assertContainsText(doc, messagesApi("index.useForm.item1"))
-    assertContainsText(doc, messagesApi("index.useForm.item2"))
-    assertContainsText(doc, messagesApi("index.useForm.item3"))
+    val doc = asDocument(createView())
+    assertContainsText(doc, messages("index.guidance"))
+    assertContainsText(doc, messages("index.useForm.title"))
+    assertContainsText(doc, messages("index.useForm.item1"))
+    assertContainsText(doc, messages("index.useForm.item2"))
+    assertContainsText(doc, messages("index.useForm.item3"))
   }
 
   "Page should contain before you start content" in {
-    val doc = asDocument(view())
-    assertContainsText(doc, messagesApi("index.beforeYouStart.title"))
-    assertContainsText(doc, messagesApi("index.beforeYouStart.item1"))
-    assertContainsText(doc, messagesApi("index.beforeYouStart.item2"))
+    val doc = asDocument(createView())
+    assertContainsText(doc, messages("index.beforeYouStart.title"))
+    assertContainsText(doc, messages("index.beforeYouStart.item1"))
+    assertContainsText(doc, messages("index.beforeYouStart.item2"))
   }
 }

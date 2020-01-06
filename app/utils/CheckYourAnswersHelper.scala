@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,13 +24,13 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) {
 
   def companyDetailsReference: Option[AnswerRow] = userAnswers.companyDetails map {
     x => AnswerRow("companyDetailsReferenceNumber.checkYourAnswersLabel",
-      s"${x.companyReferenceNumber}", false,
+      s"${x.companyReferenceNumber}", answerIsMessageKey = false,
       routes.CompanyDetailsController.onPageLoad(CheckMode).url)
   }
 
   def companyDetailsName: Option[AnswerRow] = userAnswers.companyDetails map {
     x => AnswerRow("companyDetailsName.checkYourAnswersLabel",
-      s"${x.companyName}", false,
+      s"${x.companyName}", answerIsMessageKey = false,
       routes.CompanyDetailsController.onPageLoad(CheckMode).url)
   }
 }

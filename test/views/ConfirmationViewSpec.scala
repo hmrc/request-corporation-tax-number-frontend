@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,14 @@
 package views
 
 import views.behaviours.ViewBehaviours
-import views.html.confirmation
+import views.html.ConfirmationView
 
 class ConfirmationViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "confirmation"
+  val view = app.injector.instanceOf[ConfirmationView]
 
-  def createView = () => confirmation(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => view()(fakeRequest, messages)
 
   "Confirmation view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -37,10 +38,10 @@ class ConfirmationViewSpec extends ViewBehaviours {
 
   "page should have all what happens next text" in {
     val doc = asDocument(createView())
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.title"))
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line1"))
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line2"))
-    assertContainsText(doc, messagesApi("confirmation.whatHappensNext.line3"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.title"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.line1"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.line2"))
+    assertContainsText(doc, messages("confirmation.whatHappensNext.line3"))
   }
 
   "have a link to an exit survey" in {

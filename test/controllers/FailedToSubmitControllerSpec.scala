@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,23 @@
 package controllers
 
 import controllers.actions._
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
-import views.html.failedToSubmit
+import views.html.FailedToSubmitView
 
 class FailedToSubmitControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new FailedToSubmitController(frontendAppConfig, messagesApi)
+  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view = app.injector.instanceOf[FailedToSubmitView]
 
-  def viewAsString() = failedToSubmit(frontendAppConfig)(fakeRequest, messages).toString
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+    new FailedToSubmitController(frontendAppConfig,
+      cc,
+      view,
+      messagesApi
+      )
+
+  def viewAsString() = view()(fakeRequest, messages).toString
 
   "FailedToSubmit Controller" must {
 
@@ -36,8 +44,5 @@ class FailedToSubmitControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString()
     }
   }
+
 }
-
-
-
-

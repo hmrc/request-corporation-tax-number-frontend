@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,26 @@ import controllers.actions.FakeDataRetrievalAction
 import identifiers.CompanyDetailsId
 import models.CompanyDetails
 import play.api.libs.json.Json
+import play.api.mvc.BodyParsers
 import uk.gov.hmrc.http.cache.client.CacheMap
 
+import scala.concurrent.ExecutionContext
+
 trait ControllerSpecBase extends SpecBase {
+
+  implicit val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
+  val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
 
   val cacheMapId = "id"
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
+  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), ec, parser)
 
-  def dontGetAnyData = new FakeDataRetrievalAction(None)
+  def dontGetAnyData = new FakeDataRetrievalAction(None, ec, parser)
 
   def someData = new FakeDataRetrievalAction(
-    Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(CompanyDetails("Big Company", "12345678"))))))
-
+    Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(CompanyDetails("Big Company", "12345678"))))),
+    ec,
+    parser)
 }

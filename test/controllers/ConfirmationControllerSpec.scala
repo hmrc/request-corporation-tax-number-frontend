@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,23 @@
 package controllers
 
 import controllers.actions._
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
-import views.html.confirmation
+import views.html.ConfirmationView
 
 class ConfirmationControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new ConfirmationController(frontendAppConfig, messagesApi,
-      dataRetrievalAction, new DataRequiredActionImpl)
+  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view = app.injector.instanceOf[ConfirmationView]
 
-  def viewAsString() = confirmation(frontendAppConfig)(fakeRequest, messages).toString
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ConfirmationController(frontendAppConfig,
+    messagesApi,
+    dataRetrievalAction,
+    cc,
+    new DataRequiredActionImpl,
+    view)
+
+  def viewAsString(): String = view()(fakeRequest, messages).toString
 
   "Confirmation Controller" must {
 
@@ -38,7 +45,3 @@ class ConfirmationControllerSpec extends ControllerSpecBase {
     }
   }
 }
-
-
-
-

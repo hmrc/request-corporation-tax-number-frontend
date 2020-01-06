@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ case class CompanyDetails (companyReferenceNumber: String, companyName: String)
 object CompanyDetails {
   implicit val format = Json.format[CompanyDetails]
 
-  def answeredLines(companyDetails: CompanyDetails) = Seq(
+  def answeredLines(companyDetails: CompanyDetails): Seq[String] = Seq(
     Some(companyDetails.companyReferenceNumber),
     Some(companyDetails.companyName)).flatten
 
-  def asString(companyDetails: CompanyDetails) = answeredLines(companyDetails).mkString(", ")
+  def asString(companyDetails: CompanyDetails): String = answeredLines(companyDetails).mkString(", ")
 }

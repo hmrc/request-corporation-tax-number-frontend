@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,24 @@
 
 package controllers
 
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
-import views.html.session_expired
+import views.html.SessionExpiredView
 
 class SessionExpiredControllerSpec extends ControllerSpecBase {
 
+  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view = app.injector.instanceOf[SessionExpiredView]
+
   "SessionExpired Controller" must {
     "return 200 for a GET" in {
-      val result = new SessionExpiredController(frontendAppConfig, messagesApi).onPageLoad()(fakeRequest)
+      val result = new SessionExpiredController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
       status(result) mustBe OK
     }
 
     "return the correct view for a GET" in {
-      val result = new SessionExpiredController(frontendAppConfig, messagesApi).onPageLoad()(fakeRequest)
-      contentAsString(result) mustBe session_expired(frontendAppConfig, routes.IndexController.onPageLoad)(fakeRequest, messages).toString
+      val result = new SessionExpiredController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
+      contentAsString(result) mustBe view(routes.IndexController.onPageLoad)(fakeRequest, messages).toString
     }
   }
 }

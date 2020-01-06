@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,21 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.CompanyDetailsFormProvider
 import identifiers.CompanyDetailsId
-import models.{Mode, CompanyDetails}
+import javax.inject.Inject
+import models.{CompanyDetails, Mode}
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Navigator, UserAnswers}
-import views.html.companyDetails
+import views.html.CompanyDetailsView
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
 class CompanyDetailsController @Inject()(
                                           appConfig: FrontendAppConfig,
@@ -39,25 +38,28 @@ class CompanyDetailsController @Inject()(
                                           dataCacheConnector: DataCacheConnector,
                                           navigator: Navigator,
                                           getData: DataRetrievalAction,
-                                          formProvider: CompanyDetailsFormProvider
-                                        ) extends FrontendController with I18nSupport {
+                                          formProvider: CompanyDetailsFormProvider,
+                                          cc: MessagesControllerComponents,
+                                          view: CompanyDetailsView
+                                        )(implicit executionContext: ExecutionContext)
+  extends FrontendController(cc) with I18nSupport {
 
   val form = formProvider()
 
-  def onPageLoad(mode: Mode) = getData {
+  def onPageLoad(mode: Mode): Action[AnyContent] = getData {
     implicit request =>
       val preparedForm = request.userAnswers.flatMap(x => x.companyDetails) match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(companyDetails(appConfig, preparedForm, mode))
+      Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode) = getData.async {
+  def onSubmit(mode: Mode): Action[AnyContent] = getData.async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(companyDetails(appConfig, formWithErrors, mode))),
+          Future.successful(BadRequest(view(formWithErrors, mode))),
         (value) =>
           dataCacheConnector.save[CompanyDetails](request.externalId, CompanyDetailsId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(CompanyDetailsId, mode)(new UserAnswers(cacheMap))))
