@@ -1,6 +1,6 @@
 package models
 
-import utils.{Enumerable, RadioOption, WithName}
+import utils.{Enumerable, RadioOption}
 
 sealed trait $className$
 
