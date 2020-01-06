@@ -37,17 +37,17 @@ class LanguageSwitchControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
 
   object TestLanguageSwitchController extends LanguageSwitchController(config, appConfig, langUtils, cc, messagesApi)
 
-  "Hitting language selection endpoint" must {
+  def testLanguageSelection(language: String, expectedCookieValue: String): Unit = {
+    val request = FakeRequest()
+    val result = TestLanguageSwitchController.switchToLanguage(language)(request)
+    val resultCookies: Cookies = cookies(result)
+    resultCookies.size shouldBe 1
+    val cookie: Cookie = resultCookies.head
+    cookie.name shouldBe "PLAY_LANG"
+    cookie.value shouldBe expectedCookieValue
+  }
 
-    def testLanguageSelection(language: String, expectedCookieValue: String): Unit = {
-      val request = FakeRequest()
-      val result = TestLanguageSwitchController.switchToLanguage(language)(request)
-      val resultCookies: Cookies = cookies(result)
-      resultCookies.size shouldBe 1
-      val cookie: Cookie = resultCookies.head
-      cookie.name shouldBe "PLAY_LANG"
-      cookie.value shouldBe expectedCookieValue
-    }
+  "Hitting language selection endpoint" must {
 
     "redirect to English translated start page if English language is selected" in {
       testLanguageSelection("english", "en")
