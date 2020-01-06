@@ -20,28 +20,29 @@ import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.Configuration
 import play.api.i18n.Lang
+import play.api.mvc.Call
 
 @Singleton
 class FrontendAppConfig @Inject() (configuration: Configuration) {
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "requestcorporationtaxnumberfrontend"
 
-  lazy val analyticsToken = configuration.get[String](s"google-analytics.token")
-  lazy val analyticsHost = configuration.get[String](s"google-analytics.host")
+  lazy val analyticsToken: String = configuration.get[String](s"google-analytics.token")
+  lazy val analyticsHost: String = configuration.get[String](s"google-analytics.host")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
 
-  lazy val loginUrl = configuration.get[String]("urls.login")
-  lazy val loginContinueUrl = configuration.get[String]("urls.loginContinue")
-  lazy val feedbackSurveyUrl = configuration.get[String]("urls.feedback-survey")
-  lazy val contactUsUrl = configuration.get[String]("urls.contactUs")
+  lazy val loginUrl: String = configuration.get[String]("urls.login")
+  lazy val loginContinueUrl: String = configuration.get[String]("urls.loginContinue")
+  lazy val feedbackSurveyUrl: String = configuration.get[String]("urls.feedback-survey")
+  lazy val contactUsUrl: String = configuration.get[String]("urls.contactUs")
 
-  lazy val ctutrUrl = configuration.get[Service]("microservice.services.request-corporation-tax-number")
+  lazy val ctutrUrl: Service = configuration.get[Service]("microservice.services.request-corporation-tax-number")
 
-  lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
+  lazy val languageTranslationEnabled: Boolean = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
-  def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+  def routeToSwitchLanguage: String => Call = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 }

@@ -17,10 +17,8 @@
 package utils
 
 import javax.inject.Singleton
-
 import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
 
 @Singleton
 class CascadeUpsert {
@@ -38,12 +36,4 @@ class CascadeUpsert {
 
   private def store[A](key:String, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]) =
     cacheMap copy (data = cacheMap.data + (key -> Json.toJson(value)))
-
-  private def clearIfFalse[A](key: String, value: A, keysToRemove: Set[String], cacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
-    val mapToStore = value match {
-      case JsBoolean(false) => cacheMap copy (data = cacheMap.data.filterKeys(s => !keysToRemove.contains(s)))
-      case _ => cacheMap
-    }
-    store(key, value, mapToStore)
-  }
 }
