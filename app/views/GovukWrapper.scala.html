@@ -76,7 +76,10 @@ footer_links: FooterLinks
     @serviceInfo(
       betaBanner = HtmlFormat.empty,
       includeGridWrapper = false,
-      serviceInfoContent = Some(serviceInfoContent))
+      serviceInfoContent = Some(serviceInfoContent),
+		includeHMRCBranding = true,
+		setLang = messages.lang.code
+	)
 }
 
 @mainContentHeader = {
