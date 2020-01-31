@@ -47,8 +47,8 @@ class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
             None
         }
     }.recover {
-      case _: Exception =>
-        Logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed")
+      case e: Exception =>
+        Logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
         None
     }
   }
