@@ -23,7 +23,7 @@ import org.mockito.Matchers
 import org.mockito.Mockito._
 import org.scalatest.RecoverMethods
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.{BodyParsers, Request}
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.http.cache.client.CacheMap

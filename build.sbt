@@ -8,15 +8,14 @@ import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 import uk.gov.hmrc.{SbtArtifactory, SbtAutoBuildPlugin}
 
 val appName = "request-corporation-tax-number-frontend"
-
 lazy val appDependencies: Seq[ModuleID] = AppDependencies.all
 lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory)
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
-def oneForkedJvmPerTest(tests: Seq[TestDefinition]) =
+/*def oneForkedJvmPerTest(tests: Seq[TestDefinition]) =
   tests map {
     test => new Group(test.name, Seq(test), SubProcess(ForkOptions(runJVMOptions = Seq("-Dtest.name=" + test.name))))
-  }
+  }*/
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
@@ -43,8 +42,9 @@ lazy val microservice = Project(appName, file("."))
     publishingSettings,
     defaultSettings(),
     scoverageSettings,
-    scalacOptions ++= Seq("-Xfatal-warnings", "-feature"),
+    scalacOptions ++= Seq("-feature"),
     libraryDependencies ++= appDependencies,
+    dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
     evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
@@ -67,3 +67,4 @@ lazy val microservice = Project(appName, file("."))
     includeFilter in uglify := GlobFilter("requestcorporationtaxnumberfrontend-*.js")
   )
   .settings(majorVersion := 1)
+  scalaVersion := "2.12.10"
