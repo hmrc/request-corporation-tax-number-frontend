@@ -18,19 +18,19 @@ package connectors
 
 import base.SpecBase
 import models.{Submission, SubmissionResponse}
-import org.scalatest.mockito.MockitoSugar
+import org.mockito.Matchers._
+import org.mockito.Mockito._
+import org.scalatest.concurrent.ScalaFutures
+import org.scalatestplus.mockito
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import org.mockito.Matchers._
-import org.mockito.Mockito._
 import utils.MockUserAnswers
 
-import scala.concurrent.Future
-import org.scalatest.concurrent.ScalaFutures
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
-class CtutrConnectorSpec extends SpecBase with MockitoSugar with ScalaFutures {
+class CtutrConnectorSpec extends SpecBase with mockito.MockitoSugar with ScalaFutures {
 
   "submission" must {
 

@@ -18,7 +18,7 @@ package utils
 
 import models.CompanyDetails
 import org.mockito.Mockito.when
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 
 object MockUserAnswers extends MockitoSugar {
 

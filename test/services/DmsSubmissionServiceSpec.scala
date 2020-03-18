@@ -19,21 +19,20 @@ package services
 import base.SpecBase
 import connectors.CtutrConnector
 import models._
-import org.mockito.Mockito._
-import org.mockito.{ArgumentCaptor, Matchers}
+import org.mockito.ArgumentCaptor
 import org.mockito.Matchers._
+import org.mockito.Mockito._
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.mockito.MockitoSugar
-import org.scalatest.time.Seconds
+import org.scalatestplus.mockito
+import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.audit.http.connector.AuditResult
 import uk.gov.hmrc.play.bootstrap.audit.DefaultAuditConnector
 import utils.MockUserAnswers
 
 import scala.concurrent.duration.DurationInt
-import scala.language.postfixOps
 import scala.concurrent.{ExecutionContext, Future}
+import scala.language.postfixOps
 
 class DmsSubmissionServiceSpec extends SpecBase with MockitoSugar with ScalaFutures {
 
