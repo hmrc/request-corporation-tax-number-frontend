@@ -62,7 +62,7 @@ trait ViewBehaviours extends ViewSpecBase {
     "behave like a page with a back link" must {
       "have a back link" in {
         val doc = asDocument(view())
-        assertRenderedById(doc, "back-link")
+        assertRenderedById(doc, "back")
       }
     }
   }
