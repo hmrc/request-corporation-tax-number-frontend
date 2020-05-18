@@ -31,6 +31,7 @@
 @main_template(
     title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title")
 ) {
+    <p><a href="@IndexController.onPageLoad" class="link-back" id="back">@messages("companyDetails.button.back")</a></p>
 
     @formHelper(action = CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
 

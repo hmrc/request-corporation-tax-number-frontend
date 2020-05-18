@@ -64,6 +64,7 @@ companyDetails.error.companyName.required = Nodwch enw’ch cwmni cofrestredig
 companyDetails.error.companyName.length = Mae’n rhaid i enw’r cwmni cofrestredig fod yn 160 cymeriad neu lai
 companyDetails.error.companyReferenceNumber.regex = Nodwch rif cofrestru’r cwmni yn y fformat cywir
 companyDetails.error.companyReferenceNumber.required = Rhowch eich Rhif Cofrestru’r Cwmni
+companyDetails.button.back = Nôl
 
 confirmation.title = Manylion y cwmni wedi dod i law – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 confirmation.heading = Manylion y cwmni wedi dod i law
