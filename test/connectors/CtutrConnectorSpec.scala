@@ -18,19 +18,19 @@ package connectors
 
 import base.SpecBase
 import models.{Submission, SubmissionResponse}
-import org.mockito.Matchers._
-import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatestplus.mockito
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.MockUserAnswers
 
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import org.mockito.Mockito._
+import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 
-class CtutrConnectorSpec extends SpecBase with mockito.MockitoSugar with ScalaFutures {
+class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
   "submission" must {
 
@@ -42,7 +42,7 @@ class CtutrConnectorSpec extends SpecBase with mockito.MockitoSugar with ScalaFu
 
       val submission = Submission(answers)
 
-      val httpMock = mock[HttpClient]
+      val httpMock = mock(classOf[HttpClient])
       when(httpMock.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
         .thenReturn(Future.successful(HttpResponse(200, Some(Json.parse("""{"id":"id","filename":"filename"}""")))))
 
@@ -61,7 +61,7 @@ class CtutrConnectorSpec extends SpecBase with mockito.MockitoSugar with ScalaFu
 
       val enrolment = Submission(answers)
 
-      val httpMock = mock[HttpClient]
+      val httpMock = mock(classOf[HttpClient])
       when(httpMock.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
         .thenReturn(Future.successful(HttpResponse(500, None)))
 

@@ -24,8 +24,6 @@ import org.mockito.Matchers._
 import org.mockito.Mockito._
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatestplus.mockito
-import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.audit.DefaultAuditConnector
 import utils.MockUserAnswers
@@ -33,8 +31,10 @@ import utils.MockUserAnswers
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.{ExecutionContext, Future}
 import scala.language.postfixOps
+import org.mockito.Mockito._
+import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 
-class DmsSubmissionServiceSpec extends SpecBase with MockitoSugar with ScalaFutures {
+class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
 
   implicit val hcCaptor = ArgumentCaptor.forClass(classOf[HeaderCarrier])
   implicit val ecCaptor = ArgumentCaptor.forClass(classOf[ExecutionContext])
@@ -44,11 +44,11 @@ class DmsSubmissionServiceSpec extends SpecBase with MockitoSugar with ScalaFutu
     "the submission is successful" must {
 
       "return success" in {
-        val mockAuditConnector = mock[DefaultAuditConnector]
+        val mockAuditConnector = mock(classOf[DefaultAuditConnector])
 
         val answers = MockUserAnswers.minimalValidUserAnswers
 
-        val mockCtutrConnector = mock[CtutrConnector]
+        val mockCtutrConnector = mock(classOf[CtutrConnector])
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(Some(SubmissionResponse("id", "filename")))
 
         val service = new DmsSubmissionService(frontendAppConfig, mockCtutrConnector, mockAuditConnector)
@@ -66,11 +66,11 @@ class DmsSubmissionServiceSpec extends SpecBase with MockitoSugar with ScalaFutu
     "the submission fails" must {
 
       "return failure" in {
-        val mockAuditConnector = mock[DefaultAuditConnector]
+        val mockAuditConnector = mock(classOf[DefaultAuditConnector])
 
         val answers = MockUserAnswers.minimalValidUserAnswers
 
-        val mockCtutrConnector = mock[CtutrConnector]
+        val mockCtutrConnector = mock(classOf[CtutrConnector])
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(None)
 
         val service = new DmsSubmissionService(frontendAppConfig, mockCtutrConnector, mockAuditConnector)

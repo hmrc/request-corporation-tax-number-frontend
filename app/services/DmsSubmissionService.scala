@@ -34,6 +34,8 @@ class DmsSubmissionService @Inject()(appConfig: FrontendAppConfig,
                                      ctutrConnector: CtutrConnector,
                                      auditConnector: DefaultAuditConnector) extends SubmissionService {
 
+  val logger = Logger(classOf[DmsSubmissionService])
+
   override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = {
 
     val submission = Submission(answers)
@@ -52,7 +54,7 @@ class DmsSubmissionService @Inject()(appConfig: FrontendAppConfig,
 
         auditConnector.sendEvent(event)
 
-        Logger.info(s"[DmsSubmissionService][submitSubmission] - submission successful")
+        logger.info(s"[DmsSubmissionService][submitSubmission] - submission successful")
 
         SubmissionSuccessful
 
