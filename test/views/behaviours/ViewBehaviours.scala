@@ -66,4 +66,10 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+  def pageWithCorrectHeadingSize(view: () => HtmlFormat.Appendable) = {
+    "display the correct size of page heading" in {
+      val doc = asDocument(view())
+      assertH1HasClass(doc, "h1", "heading-xlarge")
+    }
+  }
 }

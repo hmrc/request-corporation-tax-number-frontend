@@ -91,4 +91,8 @@ trait ViewSpecBase extends SpecBase {
       case _ => assert(!radio.hasAttr("checked") && radio.attr("checked") != "checked", s"\n\nElement $id is checked")
     }
   }
+
+  def assertH1HasClass(doc: Document, cssSelector: String, expectedClass: String) = {
+    assert(doc.select(cssSelector).hasClass(expectedClass), s"\n\nElement $cssSelector does not have class $expectedClass")
+  }
 }
