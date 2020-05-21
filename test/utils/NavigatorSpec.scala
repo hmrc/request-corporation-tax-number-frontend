@@ -21,10 +21,10 @@ import controllers.routes
 import identifiers._
 import models._
 import org.mockito.Mockito._
-import org.scalatestplus.mockito
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.Mockito._
+import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 
-class NavigatorSpec extends SpecBase with MockitoSugar {
+class NavigatorSpec extends SpecBase {
 
   val navigator = new Navigator
 
@@ -33,11 +33,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "in Normal mode" must {
       "go to Index from an identifier that doesn't exist in the route map" in {
         case object UnknownIdentifier extends Identifier
-        navigator.nextPage(UnknownIdentifier, NormalMode)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
+        navigator.nextPage(UnknownIdentifier, NormalMode)(mock(classOf[UserAnswers])) mustBe routes.IndexController.onPageLoad()
       }
 
       "go to EmployerName from CapacityRegistering when personalBudgetHolderDirect is selected" in {
-        val answers = mock[UserAnswers]
+        val answers = mock(classOf[UserAnswers])
         when(answers.companyDetails) thenReturn Some(CompanyDetails("Big Company", "12345678"))
         navigator.nextPage(CompanyDetailsId, NormalMode)(answers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
@@ -46,7 +46,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "in Check mode" must {
       "go to CheckYourAnswers from an identifier that doesn't exist in the edit route map" in {
         case object UnknownIdentifier extends Identifier
-        navigator.nextPage(UnknownIdentifier, CheckMode)(mock[UserAnswers]) mustBe routes.CheckYourAnswersController.onPageLoad()
+        navigator.nextPage(UnknownIdentifier, CheckMode)(mock(classOf[UserAnswers])) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
     }
   }

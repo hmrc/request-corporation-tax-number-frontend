@@ -30,6 +30,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
 
+  val logger = Logger(classOf[CtutrConnector])
+
   def ctutrSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
 
     val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/submission"
@@ -42,12 +44,12 @@ class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
             response.json.asOpt[SubmissionResponse]
 
           case other =>
-            Logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
+            logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
             None
         }
     }.recover {
       case e: Exception =>
-        Logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
+        logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
         None
     }
   }

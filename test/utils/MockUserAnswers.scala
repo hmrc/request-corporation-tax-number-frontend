@@ -17,14 +17,15 @@
 package utils
 
 import models.CompanyDetails
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.mockito.Mockito.{when, _}
 
-object MockUserAnswers extends MockitoSugar {
+
+
+object MockUserAnswers {
 
   def nothingAnswered: UserAnswers = {
 
-    val answers = mock[UserAnswers]
+    val answers = mock(classOf[UserAnswers])
     when(answers.companyDetails) thenReturn None
 
     answers
