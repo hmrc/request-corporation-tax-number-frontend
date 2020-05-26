@@ -17,6 +17,7 @@
 package views
 
 import controllers.routes
+import models.NormalMode
 import views.behaviours.ViewBehaviours
 import views.html.IndexView
 
@@ -26,7 +27,7 @@ class IndexViewSpec extends ViewBehaviours {
 
   def createView = () => view(call)(fakeRequest, messages)
 
-  val call = routes.CheckYourAnswersController.onPageLoad()
+  val call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
   "Index view" must {
 
@@ -35,7 +36,7 @@ class IndexViewSpec extends ViewBehaviours {
 
   "link should direct the user to check-your-answers page" in {
     val doc = asDocument(createView())
-    doc.getElementById("start-now").attr("href") must include("/check-your-answers")
+    doc.getElementById("start-now").attr("href") must include("/enter-company-details")
   }
 
   "Page should contain all to use this form content" in {

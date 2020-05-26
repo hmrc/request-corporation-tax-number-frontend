@@ -32,7 +32,7 @@
     bodyClasses = None) {
     @formHelper(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
-        @components.heading("checkYourAnswers.heading")
+        @components.heading("checkYourAnswers.heading", "heading-xlarge")
 
         @for(section <- answerSections) {
             @{
