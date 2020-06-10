@@ -45,6 +45,9 @@ footer_links: FooterLinks
       headScripts = None)
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/requestcorporationtaxnumberfrontend-app.css")' />
+    @if(appConfig.googleTagManagerId != "N/A") {
+        <script src='@routes.Assets.versioned("javascripts/google-tag-manager.js")'></script>
+    }
 }
 
 @headerNavLinks = {}
@@ -55,6 +58,11 @@ footer_links: FooterLinks
       navTitleLink = None,
       showBetaLink = false,
       navLinks = Some(headerNavLinks))
+    @if(appConfig.googleTagManagerId != "N/A") {
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=@appConfig.googleTagManagerId" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+        </noscript>
+    }
 }
 
 @afterHeader = {}
