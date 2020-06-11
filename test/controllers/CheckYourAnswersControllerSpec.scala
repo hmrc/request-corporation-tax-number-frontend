@@ -32,7 +32,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
   val view = app.injector.instanceOf[CheckYourAnswersView]
 
-  def sessionExpired: Call = routes.SessionExpiredController.onPageLoad()
+  def sessionExpired: Call = routes.SessionController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
                  submissionService: SubmissionService = FakeSuccessfulSubmissionService) =

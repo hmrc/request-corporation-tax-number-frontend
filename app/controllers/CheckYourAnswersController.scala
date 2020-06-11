@@ -61,7 +61,7 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
         Ok(view(sections))
       }
 
-      result.getOrElse(Redirect(routes.SessionExpiredController.onPageLoad()))
+      result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
   }
 
   def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {

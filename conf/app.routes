@@ -6,7 +6,7 @@ GET        /assets/*file                                controllers.Assets.versi
 
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
-GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
+GET        /this-service-has-been-reset                 controllers.SessionController.onPageLoad
 
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit
@@ -19,3 +19,5 @@ POST       /change-company-details                      controllers.CompanyDetai
 GET        /company-details-received                    controllers.ConfirmationController.onPageLoad()
 
 GET        /not-sent                                    controllers.FailedToSubmitController.onPageLoad()
+
+GET        /keep-alive                                  controllers.SessionController.keepAlive

@@ -23,7 +23,7 @@
 
 @(startPage : Call)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = messages("session_expired.title")) {
+@main_template(title = messages("session_expired.title"), hasTimeOut = false) {
 
     @components.heading("session_expired.heading")
 

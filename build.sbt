@@ -63,4 +63,4 @@ lazy val microservice = Project(appName, file("."))
   )
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(majorVersion := 1)
-  scalaVersion := "2.12.10"
+  scalaVersion := "2.12.11"
