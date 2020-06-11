@@ -87,3 +87,14 @@ error.pageNotFound.messageLink = contact HMRC to ask for a copy of your Corporat
 error.internalError.title = Sorry, there is a problem with the service – Ask for a copy of your Corporation Tax UTR – GOV.UK
 error.internalError.heading = Sorry, there is a problem with the service
 error.internalError.message1 = Try again later.
+
+##timeoutDialog
+
+ctutr.timeoutDialog.title= You are about to be signed out
+ctutr.timeoutDialog.seconds= seconds
+ctutr.timeoutDialog.second= second
+ctutr.timeoutDialog.minutes= minutes
+ctutr.timeoutDialog.minute= minute
+ctutr.timeoutDialog.button= Stay signed in
+ctutr.timeoutDialog.p1 = For security reasons, you will be signed out of this service in:
+ctutr.timeoutDialog.signOutButtonText= Sign out

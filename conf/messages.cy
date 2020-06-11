@@ -85,3 +85,12 @@ error.pageNotFound.messageLink = cysylltwch â CThEM i ofyn am gopi o’ch UTR T
 error.internalError.title = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 error.internalError.heading = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth
 error.internalError.message1 = Rhowch gynnig arall arni nes ymlaen.
+
+ctutr.timeoutDialog.title = Rydych ar fin cael eich allgofnodi
+ctutr.timeoutDialog.seconds = eiliad
+ctutr.timeoutDialog.second = eiliad
+ctutr.timeoutDialog.minutes = munud
+ctutr.timeoutDialog.minute = munud
+ctutr.timeoutDialog.button = Parhau i fod wedi’ch mewngofnodi
+ctutr.timeoutDialog.p1 = Am resymau diogelwch, cewch eich allgofnodi o’r gwasanaeth hwn ymhen:
+ctutr.timeoutDialog.signOutButtonText = Allgofnodi

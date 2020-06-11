@@ -20,20 +20,27 @@ import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
 import views.html.SessionExpiredView
 
-class SessionExpiredControllerSpec extends ControllerSpecBase {
+class SessionControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
   val view = app.injector.instanceOf[SessionExpiredView]
 
   "SessionExpired Controller" must {
     "return 200 for a GET" in {
-      val result = new SessionExpiredController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
+      val result = new SessionController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
       status(result) mustBe OK
     }
 
     "return the correct view for a GET" in {
-      val result = new SessionExpiredController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
+      val result = new SessionController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
       contentAsString(result) mustBe view(routes.IndexController.onPageLoad)(fakeRequest, messages).toString
+    }
+
+    "keep a session alive" when {
+      "keep alive action is called" in {
+        val result = new SessionController(frontendAppConfig, cc, view, messagesApi).keepAlive()(fakeRequest)
+        status(result) mustBe OK
+      }
     }
   }
 }

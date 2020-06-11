@@ -9,228 +9,450 @@
 [0m[[0minfo[0m] [0mConfiguring Artifactory... Host: not set. User: not set. Password defined: false[0m
 [0m[[0minfo[0m] [0mUpdating {file:/home/digital001830/Applications/hmrc-development-environment/hmrc/request-corporation-tax-number-frontend/}request-corporation-tax-number-frontend...[0m
 [0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#twirl-api_2.11;1.3.15 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.6 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-server_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#build-link;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-exceptions;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-netty-utils;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-api;1.7.25 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jul-to-slf4j;1.7.25 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jcl-over-slf4j;1.7.25 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-streams_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.reactivestreams#reactive-streams;1.0.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-stream_2.11;2.5.17 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.11;2.5.17 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe#config;1.3.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-protobuf_2.11;2.5.17 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe#ssl-config-core_2.11;0.2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-java8-compat_2.11;0.8.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-slf4j_2.11;2.5.17 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.8.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.8.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.8.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jsr310;2.8.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.8.11.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving commons-codec#commons-codec;1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.6.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.6.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.11.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.typelevel#macro-compat_2.11;1.1.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving joda-time#joda-time;2.9.9 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;22.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;1.3.9 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.errorprone#error_prone_annotations;2.0.18 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.j2objc#j2objc-annotations;1.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.codehaus.mojo#animal-sniffer-annotations;1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.jsonwebtoken#jjwt;0.7.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving javax.xml.bind#jaxb-api;2.3.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-lang3;3.6 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving javax.transaction#jta;1.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving javax.inject#javax.inject;1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.6 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#filters-helpers_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-logback_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-classic;1.2.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-core;1.2.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-akka-http-server_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-http-core_2.11;10.0.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-parsing_2.11;10.0.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone_2.11;1.1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-xml_2.11;1.1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-json_2.11;1.1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws-standalone_2.11;1.1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#cachecontrol_2.11;1.1.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.joda#joda-convert;1.9.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-asynchttpclient;1.1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-oauth;1.1.10 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving javax.cache#cache-api;1.0.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-reactivemongo_2.11;6.7.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#simple-reactivemongo_2.11;6.1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.reactivemongo#reactivemongo-play-json_2.11;0.12.6-play25 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.sksamuel.scapegoat#scalac-scapegoat-plugin_2.11;1.3.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo_2.11;0.15.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo-bson-macros_2.11;0.15.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo-bson_2.11;0.15.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo-shaded;0.15.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.netty#netty;3.10.6.Final ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-iteratees_2.11;2.5.12 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-stm#scala-stm_2.11;0.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.apache.logging.log4j#log4j-api;2.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.github.nscala-time#nscala-time_2.11;2.2.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#logback-json-logger_2.11;4.6.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.9.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.9.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.9.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.9.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jsr310;2.9.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#govuk-template_2.11;5.47.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-health_2.11;3.14.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving xerces#xercesImpl;2.12.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving xml-apis#xml-apis;1.4.01 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-ui_2.11;8.5.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.joda#joda-convert;2.0.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#http-caching-client_2.11;9.0.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#json-encryption_2.11;4.4.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#crypto_2.11;5.4.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#secure_2.11;7.9.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.bouncycastle#bcprov-jdk15on;1.60 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.6.13 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.6.13 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#http-verbs_2.11;10.0.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#http-core_2.11;2.2.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.9.8 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.9.8 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.9.8 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.9.8 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jsr310;2.9.8 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-conditional-form-mapping_2.11;1.2.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#bootstrap-play-26_2.11;1.3.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.kenshoo#metrics-play_2.11;2.6.6_0.6.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-core;3.2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-json;3.2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-jvm;3.2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-logback;3.2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#filters-helpers_2.11;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play_2.11;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#build-link;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-exceptions;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-netty-utils;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-streams_2.11;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#twirl-api_2.11;1.3.16 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving commons-codec#commons-codec;1.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.6.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.6.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;23.6.1-jre ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.checkerframework#checker-compat-qual;2.0.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.errorprone#error_prone_annotations;2.1.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving javax.xml.bind#jaxb-api;2.3.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving javax.activation#javax.activation-api;1.2.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-guice_2.11;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.inject#guice;4.1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving aopalliance#aopalliance;1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.inject.extensions#guice-assistedinject;4.1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws_2.11;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws_2.11;2.6.24 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone_2.11;1.1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe#ssl-config-core_2.11;0.3.8 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-xml_2.11;1.1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-json_2.11;1.1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws-standalone_2.11;1.1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#cachecontrol_2.11;1.1.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-asynchttpclient;1.1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-oauth;1.1.14 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-graphite;3.2.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-core;3.2.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#auth-client_2.11;2.27.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.iheart#ficus_2.11;1.4.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-auditing_2.11;4.2.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#time_2.11;3.6.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.github.nscala-time#nscala-time_2.11;2.16.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-stream_2.11;2.5.23 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.11;2.5.23 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-protobuf_2.11;2.5.23 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-slf4j_2.11;2.5.23 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-http-core_2.11;10.0.15 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-parsing_2.11;10.0.15 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-language_2.11;4.2.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.ibm.icu#icu4j;64.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#url-builder_2.11;3.3.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-whitelist-filter_2.11;3.1.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe#ssl-config-core_2.11;0.3.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-test_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving junit#junit;4.12 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-core;1.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.novocode#junit-interface;0.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#test-interface;1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;3.0.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-core;3.3.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-remote-driver;3.4.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving cglib#cglib-nodep;3.2.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-exec;1.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving commons-logging#commons-logging;1.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.google.code.gson#gson;2.8.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpclient;4.5.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcore;4.4.6 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#jna;4.1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#jna-platform;4.1.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.atteo.classindex#classindex;3.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#htmlunit-driver;2.27 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit;2.27 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving xalan#xalan;2.7.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving xalan#serializer;2.7.2 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpmime;4.5.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit-core-js;2.27 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#neko-htmlunit;2.27 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.cssparser#cssparser;0.9.23 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.w3c.css#sac;1.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty.websocket#websocket-client;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-util;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-io;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-client;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-http;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty.websocket#websocket-common;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty.websocket#websocket-api;9.4.5.v20170502 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-api;3.5.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-support;3.5.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-remote-driver;3.5.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-firefox-driver;3.5.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#hmrctest_2.11;3.9.0-play-26 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.pegdown#pegdown;1.6.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-java;1.1.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-core;1.1.7 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm;5.0.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-tree;5.0.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-analysis;5.0.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-util;5.0.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-test_2.11;2.6.21 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-akka-http-server_2.11;2.6.21 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-server_2.11;2.6.21 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scalatest#scalatest_2.11;3.0.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scalactic#scalactic_2.11;3.0.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scalatestplus.play#scalatestplus-play_2.11;2.0.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-java;2.53.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-chrome-driver;2.53.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-edge-driver;2.53.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-ie-driver;2.53.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-safari-driver;2.53.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-leg-rc;2.53.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.jsoup#jsoup;1.11.3 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.mockito#mockito-all;1.10.19 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scalacheck#scalacheck_2.11;1.14.0 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-omnidoc_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-docs_2.11;2.6.20 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-doc_2.11;1.8.1 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.11.11 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.5 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 ...[0m
-[A[2K[0m[[0minfo[0m] [0mResolving jline#jline;2.14.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#twirl-api_2.11;1.3.15 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.6 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-server_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#build-link;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-exceptions;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-netty-utils;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.slf4j#slf4j-api;1.7.25 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jul-to-slf4j;1.7.25 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.slf4j#jcl-over-slf4j;1.7.25 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-streams_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.reactivestreams#reactive-streams;1.0.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-stream_2.11;2.5.17 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.11;2.5.17 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe#config;1.3.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-protobuf_2.11;2.5.17 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe#ssl-config-core_2.11;0.2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-java8-compat_2.11;0.8.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-slf4j_2.11;2.5.17 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.8.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.8.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.8.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jsr310;2.8.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.8.11.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving commons-codec#commons-codec;1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.6.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.6.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-reflect;2.11.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.typelevel#macro-compat_2.11;1.1.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving joda-time#joda-time;2.9.9 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;22.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;1.3.9 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.errorprone#error_prone_annotations;2.0.18 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.j2objc#j2objc-annotations;1.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.codehaus.mojo#animal-sniffer-annotations;1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.jsonwebtoken#jjwt;0.7.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving javax.xml.bind#jaxb-api;2.3.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-lang3;3.6 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving javax.transaction#jta;1.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving javax.inject#javax.inject;1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.6 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#filters-helpers_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-logback_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-classic;1.2.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving ch.qos.logback#logback-core;1.2.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-akka-http-server_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-http-core_2.11;10.0.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-parsing_2.11;10.0.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone_2.11;1.1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-xml_2.11;1.1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-json_2.11;1.1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws-standalone_2.11;1.1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#cachecontrol_2.11;1.1.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.joda#joda-convert;1.9.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-asynchttpclient;1.1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-oauth;1.1.10 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving javax.cache#cache-api;1.0.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-reactivemongo_2.11;6.7.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#simple-reactivemongo_2.11;6.1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.reactivemongo#reactivemongo-play-json_2.11;0.12.6-play25 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.sksamuel.scapegoat#scalac-scapegoat-plugin_2.11;1.3.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo_2.11;0.15.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo-bson-macros_2.11;0.15.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo-bson_2.11;0.15.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#reactivemongo-shaded;0.15.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.netty#netty;3.10.6.Final ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-iteratees_2.11;2.5.12 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-stm#scala-stm_2.11;0.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.apache.logging.log4j#log4j-api;2.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.github.nscala-time#nscala-time_2.11;2.2.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#logback-json-logger_2.11;4.6.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.9.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.9.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.9.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.9.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jsr310;2.9.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#govuk-template_2.11;5.47.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-health_2.11;3.14.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving xerces#xercesImpl;2.12.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving xml-apis#xml-apis;1.4.01 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-ui_2.11;8.5.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.joda#joda-convert;2.0.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#http-caching-client_2.11;9.0.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#json-encryption_2.11;4.4.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#crypto_2.11;5.4.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#secure_2.11;7.9.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.bouncycastle#bcprov-jdk15on;1.60 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.6.13 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.6.13 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#http-verbs_2.11;10.0.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#http-core_2.11;2.2.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-core;2.9.8 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-databind;2.9.8 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.core#jackson-annotations;2.9.8 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jdk8;2.9.8 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.fasterxml.jackson.datatype#jackson-datatype-jsr310;2.9.8 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-conditional-form-mapping_2.11;1.2.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#bootstrap-play-26_2.11;1.3.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.kenshoo#metrics-play_2.11;2.6.6_0.6.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-core;3.2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-json;3.2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-jvm;3.2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-logback;3.2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#filters-helpers_2.11;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play_2.11;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#build-link;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-exceptions;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-netty-utils;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-streams_2.11;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#twirl-api_2.11;1.3.16 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving commons-codec#commons-codec;1.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-json_2.11;2.6.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-functional_2.11;2.6.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.guava#guava;23.6.1-jre ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.checkerframework#checker-compat-qual;2.0.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.errorprone#error_prone_annotations;2.1.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving javax.xml.bind#jaxb-api;2.3.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving javax.activation#javax.activation-api;1.2.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-guice_2.11;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.inject#guice;4.1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving aopalliance#aopalliance;1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.inject.extensions#guice-assistedinject;4.1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws_2.11;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws_2.11;2.6.24 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone_2.11;1.1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe#ssl-config-core_2.11;0.3.8 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-xml_2.11;1.1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ws-standalone-json_2.11;1.1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-ahc-ws-standalone_2.11;1.1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#cachecontrol_2.11;1.1.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-asynchttpclient;1.1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#shaded-oauth;1.1.14 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-graphite;3.2.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving io.dropwizard.metrics#metrics-core;3.2.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#auth-client_2.11;2.27.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.iheart#ficus_2.11;1.4.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-auditing_2.11;4.2.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#time_2.11;3.6.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.github.nscala-time#nscala-time_2.11;2.16.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-stream_2.11;2.5.23 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-actor_2.11;2.5.23 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-protobuf_2.11;2.5.23 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-slf4j_2.11;2.5.23 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-http-core_2.11;10.0.15 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.akka#akka-parsing_2.11;10.0.15 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-language_2.11;4.2.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.ibm.icu#icu4j;64.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#url-builder_2.11;3.3.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#play-whitelist-filter_2.11;3.1.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe#ssl-config-core_2.11;0.3.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-test_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving junit#junit;4.12 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.hamcrest#hamcrest-core;1.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.novocode#junit-interface;0.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-sbt#test-interface;1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.code.findbugs#jsr305;3.0.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.fluentlenium#fluentlenium-core;3.3.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-remote-driver;3.4.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving cglib#cglib-nodep;3.2.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.apache.commons#commons-exec;1.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving commons-logging#commons-logging;1.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.google.code.gson#gson;2.8.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpclient;4.5.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpcore;4.4.6 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#jna;4.1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving net.java.dev.jna#jna-platform;4.1.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.atteo.classindex#classindex;3.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving commons-io#commons-io;2.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#htmlunit-driver;2.27 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit;2.27 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving xalan#xalan;2.7.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving xalan#serializer;2.7.2 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.apache.httpcomponents#httpmime;4.5.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#htmlunit-core-js;2.27 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.htmlunit#neko-htmlunit;2.27 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving net.sourceforge.cssparser#cssparser;0.9.23 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.w3c.css#sac;1.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty.websocket#websocket-client;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-util;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-io;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-client;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty#jetty-http;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty.websocket#websocket-common;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.eclipse.jetty.websocket#websocket-api;9.4.5.v20170502 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-api;3.5.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-support;3.5.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-remote-driver;3.5.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-firefox-driver;3.5.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving uk.gov.hmrc#hmrctest_2.11;3.9.0-play-26 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.pegdown#pegdown;1.6.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-java;1.1.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.parboiled#parboiled-core;1.1.7 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm;5.0.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-tree;5.0.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-analysis;5.0.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.ow2.asm#asm-util;5.0.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-test_2.11;2.6.21 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-akka-http-server_2.11;2.6.21 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-server_2.11;2.6.21 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scalatest#scalatest_2.11;3.0.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scalactic#scalactic_2.11;3.0.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scalatestplus.play#scalatestplus-play_2.11;2.0.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-java;2.53.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-chrome-driver;2.53.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-edge-driver;2.53.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-ie-driver;2.53.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-safari-driver;2.53.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.seleniumhq.selenium#selenium-leg-rc;2.53.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.jsoup#jsoup;1.11.3 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.mockito#mockito-all;1.10.19 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scalacheck#scalacheck_2.11;1.14.0 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-omnidoc_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-docs_2.11;2.6.20 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving com.typesafe.play#play-doc_2.11;1.8.1 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang#scala-compiler;2.11.11 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-xml_2.11;1.0.5 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4 ...[0m
+[A
+[2K[0m[[0minfo[0m] [0mResolving jline#jline;2.14.3 ...[0m
 [0m[[0minfo[0m] [0mDone updating.[0m
 [0m[[33mwarn[0m] [0mFound version conflict(s) in library dependencies; some are suspected to be binary incompatible:[0m
 [0m[[33mwarn[0m] [0m[0m
@@ -390,7 +612,7 @@
 [0m[[0minfo[0m] [0m[32m- must return an Submission Response when the HTTP call succeeds[0m[0m
 [0m[[0minfo[0m] [0m[32m- must return nothing when the HTTP call fails[0m[0m
 2020-01-02 11:16:43,305 level=[WARN] logger=[application] thread=[pool-9-thread-7] message=[application.conf @ file:/home/digital001830/Applications/hmrc-development-environment/hmrc/request-corporation-tax-number-frontend/target/scala-2.11/classes/application.conf: 23: play.crypto.secret is deprecated, use play.http.secret.key instead] 
-[0m[[0minfo[0m] [0m[32mSessionExpiredControllerSpec:[0m[0m
+[0m[[0minfo[0m] [0m[32mSessionControllerSpec:[0m[0m
 [0m[[0minfo[0m] [0m[32mSessionExpired Controller[0m[0m
 [0m[[0minfo[0m] [0m[32m- must return 200 for a GET[0m[0m
 [0m[[0minfo[0m] [0m[32m- must return the correct view for a GET[0m[0m

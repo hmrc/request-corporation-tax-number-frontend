@@ -22,14 +22,19 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.SessionExpiredView
+import scala.concurrent.Future
 
-class SessionExpiredController @Inject()(val appConfig: FrontendAppConfig,
-                                         cc: MessagesControllerComponents,
-                                         view: SessionExpiredView,
-                                         override val messagesApi: MessagesApi)
+class SessionController @Inject()(val appConfig: FrontendAppConfig,
+                                  cc: MessagesControllerComponents,
+                                  view: SessionExpiredView,
+                                  override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(view(routes.IndexController.onPageLoad()))
+  }
+
+  def keepAlive(): Action[AnyContent] = Action.async {
+    implicit request => Future.successful(Ok("OK"))
   }
 }
