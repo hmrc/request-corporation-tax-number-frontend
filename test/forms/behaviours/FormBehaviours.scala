@@ -215,9 +215,9 @@ trait FormBehaviours extends FormSpec {
     }
   }
 
-  def formWithRegex(fields: RegexField*) = {
+  def formWithRegex(scenarioNumber: Int, fields: RegexField*) = {
     for (field <- fields) {
-      s"fail regex validation ${field.invalidValue}" in {
+      s"[Scenario $scenarioNumber] fail regex validation with value: ${field.invalidValue}" in {
         val invalid = field.invalidValue
         val data = validData + (field.fieldName -> invalid)
         val expectedError = error(field.fieldName, field.errorMessageKey)

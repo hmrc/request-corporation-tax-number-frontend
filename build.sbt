@@ -64,3 +64,14 @@ lazy val microservice = Project(appName, file("."))
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(majorVersion := 1)
   scalaVersion := "2.12.11"
+
+// Silence unused import in views and routes
+val silencerVersion = "1.7.0"
+libraryDependencies ++= Seq(
+  compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
+  "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
+)
+
+scalacOptions ++= Seq(
+  "-P:silencer:pathFilters=views;routes"
+)
