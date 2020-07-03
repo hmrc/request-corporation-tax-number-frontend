@@ -62,7 +62,7 @@ companyDetails.companyReferenceNumber = Rhif cofrestru’r cwmni
 companyDetails.companyReferenceNumber.hint = Gall hwn fod yn 6, 7 neu 8 rhif, neu 2 lythyren a 6 rhif. Er enghraifft, 123456, 1234567, 01234567, SC123456.
 companyDetails.error.companyName.required = Nodwch enw’ch cwmni cofrestredig
 companyDetails.error.companyName.length = Mae’n rhaid i enw’r cwmni cofrestredig fod yn 160 cymeriad neu lai
-companyDetails.error.companyReferenceNumber.regex = Nodwch rif cofrestru’r cwmni yn y fformat cywir
+companyDetails.error.companyReferenceNumber.regex = Mae’n rhaid i rif cofrestru’r cwmni gynnwys y llythrennau a i z a’r rhifau 0 i 9 yn unig
 companyDetails.error.companyReferenceNumber.required = Rhowch eich Rhif Cofrestru’r Cwmni
 companyDetails.button.back = Nôl
 

@@ -67,68 +67,36 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBeha
 
     val maxLength = 8
 
+    val invalidCrnFormat =
+      Seq("123", "123456789", "ABC", "123SL123", "@", "1234567#", "        ", " ", "1234567 ", "NL12312", "NL1231231")
+
+    val invalidCrnLL =
+      Seq("SL123123", "OC123123", "SO123123", "LP123123", "NC123123", "NL123123")
+
+
     behave like fieldThatBindsValidData(
       form = form,
       fieldName = fieldName,
       validDataGenerator = stringsWithMaxLength(maxLength)
     )
 
-    behave like formWithRegex(
+    invalidCrnFormat.zipWithIndex.foreach(invalidCrn =>
+    behave like formWithRegex(invalidCrn._2,
       RegexField(
         fieldName = fieldName,
         errorMessageKey = invalidRegexKey,
-        invalidValue = "123"
+        invalidValue = invalidCrn._1
       )
-    )
+    ))
 
-    behave like formWithRegex(
+    invalidCrnLL.zipWithIndex.foreach(invalidCrn =>
+    behave like formWithRegex(invalidCrn._2,
       RegexField(
         fieldName = fieldName,
         errorMessageKey = invalidLLPRegexKey,
-        invalidValue = "SL123123"
+        invalidValue = invalidCrn._1
       )
-    )
-
-    behave like formWithRegex(
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidLLPRegexKey,
-        invalidValue = "OC123123"
-      )
-    )
-
-    behave like formWithRegex(
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidLLPRegexKey,
-        invalidValue = "SO123123"
-      )
-    )
-
-    behave like formWithRegex(
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidLLPRegexKey,
-        invalidValue = "LP123123"
-      )
-    )
-
-    behave like formWithRegex(
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidLLPRegexKey,
-        invalidValue = "NC123123"
-      )
-    )
-
-    behave like formWithRegex(
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidLLPRegexKey,
-        invalidValue = "NL123123"
-      )
-    )
-
+    ))
 
     behave like formWithMandatoryTextFields(
       MandatoryField(
