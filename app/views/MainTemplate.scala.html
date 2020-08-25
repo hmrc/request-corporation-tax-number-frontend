@@ -29,6 +29,7 @@
   bodyClasses: Option[String] = None,
   mainClass: Option[String] = None,
   scriptElem: Option[Html] = None,
+  backLink: Option[String] = None,
   hasTimeOut:Boolean = true)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 
@@ -77,5 +78,6 @@ scriptElem.get
     contentHeader = contentHeader,
     mainContent = article(mainContent),
     serviceInfoContent = serviceInfoContent,
+    backLink = backLink,
     scriptElem = Some(scriptElement)
 )

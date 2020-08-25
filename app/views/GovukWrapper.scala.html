@@ -37,6 +37,7 @@ footer_links: FooterLinks
   contentHeader: Option[Html] = None,
   mainContent: Html = HtmlFormat.empty,
   serviceInfoContent: Html = HtmlFormat.empty,
+  backLink: Option[String] = None,
   scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
 
 @headContent = {
@@ -88,16 +89,19 @@ footer_links: FooterLinks
 		includeHMRCBranding = false,
 		setLang = messages.lang.code
 	)
-}
-
-@mainContentHeader = {
-
     @if(appConfig.languageTranslationEnabled) {
         @views.html.language_selection(
             appConfig.languageMap,
             appConfig.routeToSwitchLanguage,
-            Some("translate u-align--right"))
+            Some("text--right"))
     }
+    @if(backLink.isDefined) {
+        <p><a href="@backLink.get" class="link-back" id="back">@messages("companyDetails.button.back")</a></p>
+    }
+}
+
+@mainContentHeader = {
+
 
     @if(contentHeader.isDefined) {
         main_content_header(contentHeader = contentHeader.get)

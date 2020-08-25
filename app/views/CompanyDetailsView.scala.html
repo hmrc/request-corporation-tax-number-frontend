@@ -29,9 +29,9 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title")
+    title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title"),
+    backLink = Some(routes.IndexController.onPageLoad().toString)
 ) {
-    <p><a href="@IndexController.onPageLoad" class="link-back" id="back">@messages("companyDetails.button.back")</a></p>
 
     @formHelper(action = CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
 
