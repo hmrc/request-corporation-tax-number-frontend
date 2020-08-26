@@ -52,13 +52,9 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
         name      <- cyaHelper.companyDetailsName
       } yield {
 
-        val sections = Seq(
-          AnswerSection(None,
-            Seq(reference, name)
-          )
-        )
+        val answerSection = AnswerSection(None, Seq(reference, name))
 
-        Ok(view(sections))
+        Ok(view(answerSection))
       }
 
       result.getOrElse(Redirect(routes.SessionController.onPageLoad()))

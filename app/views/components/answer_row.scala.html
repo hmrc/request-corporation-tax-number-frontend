@@ -19,18 +19,18 @@
 @(row: AnswerRow)(implicit messages: Messages)
 
 <div>
-    <div class="tabular-data__data tabular-data__data--6-12 bold-small">@messages(row.label)</div>
-    <div class="cya-answer" style="word-break: break-all">
+    <dt class="tabular-data__data tabular-data__data--6-12 bold-small">@messages(row.label)</dt>
+    <dd class="cya-answer" style="word-break: break-all">
     @if(row.answerIsMessageKey){
         @messages(row.answer)
     } else{
         @row.answer
     }
-    </div>
-    <div class="cya-change">
+    </dd>
+    <dd class="cya-change">
         <a href='@row.changeUrl'>
             <span aria-hidden="true">@messages("site.edit")</span>
             <span class="visually-hidden">@messages("site.hidden-edit", messages(row.label))</span>
         </a>
-    </div>
+    </dd>
 </div>

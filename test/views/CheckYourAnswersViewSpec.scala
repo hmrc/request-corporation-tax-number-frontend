@@ -28,9 +28,9 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
   val answerRow = AnswerRow(label = "dummyLabel", answer = "dummyAnswer", answerIsMessageKey = true, changeUrl = "dummyChangeUrl")
 
-  val sections = Seq(AnswerSection(None, Seq(answerRow)))
+  val answerSection = AnswerSection(None, Seq(answerRow))
 
-  def createView = () => view(sections)(fakeRequest, messages)
+  def createView = () => view(answerSection)(fakeRequest, messages)
 
 
   "checkYourAnswers view" must {
