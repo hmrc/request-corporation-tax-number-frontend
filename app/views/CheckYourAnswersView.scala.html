@@ -30,10 +30,9 @@
 
 @main_template(
     title = messages("checkYourAnswers.title"),
-    bodyClasses = None) {
+    bodyClasses = None,
+    backLink = Some(routes.CompanyDetailsController.onPageLoad(NormalMode).toString)) {
     @formHelper(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
-
-        <p><a href="@CompanyDetailsController.onPageLoad(NormalMode)" class="link-back" id="back">@messages("companyDetails.button.back")</a></p>
 
         @components.heading("checkYourAnswers.heading", "heading-xlarge")
 
