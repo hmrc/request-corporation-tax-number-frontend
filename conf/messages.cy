@@ -1,7 +1,7 @@
 global.start_now = Dechrau nawr
 
 checkYourAnswers.title = Gwiriwch eich atebion – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
-checkYourAnswers.heading = Gwiriwch eich atebion
+checkYourAnswers.heading = Gwiriwch eich atebion cyn anfon eich cais
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Rhif cofrestru’r cwmni
 companyDetailsName.checkYourAnswersLabel = Enw’r cwmni

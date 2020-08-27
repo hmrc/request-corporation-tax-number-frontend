@@ -1,7 +1,7 @@
 global.start_now = Start now
 
 checkYourAnswers.title = Check your answers – Ask for a copy of your Corporation Tax UTR – GOV.UK
-checkYourAnswers.heading = Check your answers
+checkYourAnswers.heading = Check your answers before sending your application
 
 companyDetailsReferenceNumber.checkYourAnswersLabel = Company registration number
 companyDetailsName.checkYourAnswersLabel = Company name

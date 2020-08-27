@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
+@import viewmodels.{Section, AnswerSection}
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 @import config.FrontendAppConfig
@@ -26,7 +26,7 @@
     formHelper: FormWithCSRF
 )
 
-@(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
+@(answerSection: AnswerSection)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages("checkYourAnswers.title"),
@@ -36,14 +36,7 @@
 
         @components.heading("checkYourAnswers.heading", "heading-xlarge")
 
-        @for(section <- answerSections) {
-            @{
-                section match {
-                    case a: AnswerSection => components.answer_section(a)
-                    case r: RepeaterAnswerSection => components.repeater_answer_section(r)
-                }
-            }
-        }
+        @components.answer_section(answerSection)
 
         @components.submit_button(messageOverride = Some(messages("site.submit")))
     }
