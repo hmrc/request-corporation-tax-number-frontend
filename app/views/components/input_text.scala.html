@@ -23,15 +23,15 @@
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){form-field--error}">
-    <label class="form-label" for="@{field.id}">
+    <label class="form-label" for="@{field.id}" @if(hint.nonEmpty){aria-describedby="@{field.id}-hint"}>
         <span class="bold @if(labelClass.nonEmpty){@labelClass}">@label</span>
-        @if(hint.nonEmpty){
-            <span class="form-hint">@hint</span>
-        }
         @field.errors.map { error =>
             <span class="error-notification" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
         }
     </label>
+    @if(hint.nonEmpty){
+        <span class="form-hint" id="@{field.id}-hint">@hint</span>
+    }
     <div class="form-control-wrapper">
         <input
         class="form-control @inputClass"
