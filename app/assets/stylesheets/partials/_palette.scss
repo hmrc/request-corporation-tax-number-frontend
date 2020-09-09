@@ -9,3 +9,10 @@
 .govuk-box-highlight {
   background-color: #00703c;
 }
+
+a:focus {
+  background-color: #ffdd00;
+  outline: 3px solid #ffdd00; }
+
+.button:focus, input:focus, .error-summary:focus {
+  outline: 3px solid #ffdd00; }
