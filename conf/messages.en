@@ -32,6 +32,7 @@ index.useForm.item3 = changed to a different type of organisation and are no lon
 index.beforeYouStart.title = You will need your:
 index.beforeYouStart.item1 = company registration number
 index.beforeYouStart.item2 = registered company name
+index.warning = You can only use this service if the company is registered with Companies House.
 
 session_expired.title = Start again – Ask for a copy of your Corporation Tax UTR – GOV.UK
 session_expired.heading = You will have to start again
