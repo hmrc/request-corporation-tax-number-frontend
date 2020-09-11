@@ -32,6 +32,7 @@ index.useForm.item3 = wedi newid i fath gwahanol o sefydliad ac sydd ddim yn gwm
 index.beforeYouStart.title = Bydd angen yr wybodaeth ganlynol arnoch:
 index.beforeYouStart.item1 = rhif cofrestru’r cwmni
 index.beforeYouStart.item2 = enw’r cwmni cofrestredig
+index.warning = Dim ond os yw’r cwmni wedi’i gofrestru gyda Thŷ’r Cwmnïau y gallwch ddefnyddio’r gwasanaeth hwn.
 
 session_expired.title = Dechreuwch eto – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 session_expired.heading = Bydd yn rhaid i chi ddechrau o’r dechrau
