@@ -32,6 +32,13 @@
   backLink: Option[String] = None,
   hasTimeOut:Boolean = true)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
+@divcontent = {
+<div class="grid-row">
+    <div class="column-two-thirds">
+        @mainContent
+    </div>
+</div>
+}
 
 @serviceInfoContent = {}
 
@@ -76,7 +83,7 @@ scriptElem.get
     bodyClasses = bodyClasses,
     sidebar = sidebarContent,
     contentHeader = contentHeader,
-    mainContent = article(mainContent),
+    mainContent = divcontent,
     serviceInfoContent = serviceInfoContent,
     backLink = backLink,
     scriptElem = Some(scriptElement)
