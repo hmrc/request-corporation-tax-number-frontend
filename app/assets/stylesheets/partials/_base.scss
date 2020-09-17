@@ -38,3 +38,51 @@ Welsh/English language selector
 .translate + .content__body h1 {
   margin-top: 0.8em;
 }
+/*
+====================================
+Index page warning text
+====================================
+*/
+.govuk-warning-text {
+    position: relative;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+.govuk-warning-text__icon {
+    font-family: "GDS Transport",Arial,sans-serif;
+    font-weight: 700;
+    box-sizing: border-box;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    min-width: 35px;
+    min-height: 35px;
+    margin-top: 5px;
+    border: 3px solid #0b0c0c;
+    border-radius: 50%;
+    color: #fff;
+    background: #0b0c0c;
+    font-size: 30px;
+    line-height: 29px;
+    text-align: center;
+    user-select: none;
+}
+.govuk-warning-text__text {
+    font-family: "GDS Transport",Arial,sans-serif;
+    font-weight: 700;
+    color: #0b0c0c;
+    display: block;
+    padding-left: 45px;
+}
+.govuk-warning-text__assistive {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+}
