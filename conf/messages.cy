@@ -59,13 +59,13 @@ companyDetails.title = Nodwch fanylion y cwmni – Gofynnwch am gopi o’ch UTR 
 companyDetails.heading = Nodwch fanylion y cwmni
 companyDetails.hint = Dylid nodi enw’r cwmni a’r rhif cofrestru yn union fel y maent yn ymddangos ar gofrestr Tŷ’r Cwmnïau neu unrhyw lythyr gan Dŷ’r Cwmnïau.
 companyDetails.companyName = Enw’r cwmni cofrestredig
-companyDetails.companyReferenceNumber = Rhif cofrestru’r cwmni
+companyDetails.companyReferenceNumber = Rhif cofrestru’r cwmni (CRN)
 companyDetails.companyReferenceNumber.hint = Gall hwn fod yn 6, 7 neu 8 rhif, neu 2 lythyren a 6 rhif. Er enghraifft, 123456, 1234567, 01234567, SC123456.
 companyDetails.error.companyName.required = Nodwch enw’ch cwmni cofrestredig
 companyDetails.error.companyName.length = Mae’n rhaid i enw’r cwmni cofrestredig fod yn 160 cymeriad neu lai
-companyDetails.error.companyReferenceNumber.regex = Mae’n rhaid i rif cofrestru’r cwmni gynnwys y llythrennau a i z a’r rhifau 0 i 9 yn unig
+companyDetails.error.companyReferenceNumber.regex = Nodwch CRN yn y fformat cywir
 companyDetails.error.companyReferenceNumber.required = Rhowch eich Rhif Cofrestru’r Cwmni
-companyDetails.button.back = Nôl
+companyDetails.button.back = Yn ôl
 
 confirmation.title = Manylion y cwmni wedi dod i law – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 confirmation.heading = Manylion y cwmni wedi dod i law
