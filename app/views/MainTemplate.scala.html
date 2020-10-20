@@ -53,9 +53,10 @@
 scriptElem.get
 }
 
+<script src='@controllers.routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.js")'></script>
 @if(hasTimeOut && appConfig.enableRefresh) {
 <script>
-    window.GOVUK.timeoutDialog({
+                timeoutDialog({
                 timeout: @appConfig.timeOutSeconds,
                 countdown: @appConfig.timeOutCountDownSeconds,
                 keepAliveUrl: "@controllers.routes.SessionController.keepAlive",
