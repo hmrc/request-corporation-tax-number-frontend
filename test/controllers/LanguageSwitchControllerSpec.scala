@@ -19,18 +19,15 @@ package controllers
 import config.FrontendAppConfig
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Configuration
-import play.api.i18n.MessagesApi
 import play.api.mvc.{Cookie, Cookies, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.language.LanguageUtils
-import uk.gov.hmrc.play.test.UnitSpec
 
-class LanguageSwitchControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
+class LanguageSwitchControllerSpec extends ControllerSpecBase with GuiceOneAppPerSuite {
 
   implicit val cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
 
-  val messagesApi: MessagesApi = app.injector.instanceOf(classOf[MessagesApi])
   val langUtils: LanguageUtils = app.injector.instanceOf[LanguageUtils]
   val config: Configuration = app.injector.instanceOf[Configuration]
   val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
@@ -41,10 +38,10 @@ class LanguageSwitchControllerSpec extends UnitSpec with GuiceOneAppPerSuite {
     val request = FakeRequest()
     val result = TestLanguageSwitchController.switchToLanguage(language)(request)
     val resultCookies: Cookies = cookies(result)
-    resultCookies.size shouldBe 1
+    resultCookies.size mustBe 1
     val cookie: Cookie = resultCookies.head
-    cookie.name shouldBe "PLAY_LANG"
-    cookie.value shouldBe expectedCookieValue
+    cookie.name mustBe "PLAY_LANG"
+    cookie.value mustBe expectedCookieValue
   }
 
   "Hitting language selection endpoint" must {
