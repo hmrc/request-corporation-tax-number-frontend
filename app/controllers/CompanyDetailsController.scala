@@ -26,11 +26,11 @@ import models.{CompanyDetails, Mode}
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Navigator, UserAnswers}
 import views.html.CompanyDetailsView
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class CompanyDetailsController @Inject()(
                                           appConfig: FrontendAppConfig,
