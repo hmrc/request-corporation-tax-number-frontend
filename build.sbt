@@ -1,15 +1,14 @@
 import play.sbt.routes.RoutesKeys
-import sbt.Tests.{Group, SubProcess}
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
-import uk.gov.hmrc.{SbtArtifactory, SbtAutoBuildPlugin}
+import uk.gov.hmrc.SbtAutoBuildPlugin
 
 val appName = "request-corporation-tax-number-frontend"
 lazy val appDependencies: Seq[ModuleID] = AppDependencies.all
-lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory)
+lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin)
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
 lazy val scoverageSettings =

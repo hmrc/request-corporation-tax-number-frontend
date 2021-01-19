@@ -20,9 +20,9 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.SessionExpiredView
 import scala.concurrent.Future
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class SessionController @Inject()(val appConfig: FrontendAppConfig,
                                   cc: MessagesControllerComponents,

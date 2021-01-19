@@ -21,8 +21,8 @@ import javax.inject.Inject
 import models.NormalMode
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.IndexView
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class IndexController @Inject()(val appConfig: FrontendAppConfig,
                                 cc: MessagesControllerComponents,
