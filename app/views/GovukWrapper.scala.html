@@ -18,7 +18,7 @@
 
 @this(
 appConfig: FrontendAppConfig,
-head: Head,
+head: HeadWithTrackingConsent,
 header_nav: HeaderNav,
 footer: Footer,
 serviceInfo: ServiceInfo,
@@ -41,22 +41,13 @@ footer_links: FooterLinks
   scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
 
 @headContent = {
-    @head(
-      linkElem = None,
-      headScripts = None)
+    @head(linkElem = None, headScripts = None)
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/requestcorporationtaxnumberfrontend-app.css")' />
 @if(appConfig.optimizelyId != "N/A") {
-
 <script src="https://cdn.optimizely.com/js/@(appConfig.optimizelyId + ".js")"></script>
 }
-    @if(appConfig.googleTagManagerId != "N/A") {
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','@appConfig.googleTagManagerId');</script>
-    }
+
 }
 
 @headerNavLinks = {}
@@ -67,19 +58,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       navTitleLink = None,
       showBetaLink = false,
       navLinks = Some(headerNavLinks))
-    @if(appConfig.googleTagManagerId != "N/A") {
-        <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id=@appConfig.googleTagManagerId" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-        </noscript>
-    }
 }
 
 @afterHeader = {}
 
 @bodyEnd = {
     @footer(
-      analyticsToken = Some(appConfig.analyticsToken),
-      analyticsHost = appConfig.analyticsHost,
+      analyticsToken = None,
+      analyticsHost = "",
       ssoUrl = None,
       scriptElem = scriptElem,
       gaCalls = None)
@@ -94,9 +80,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       betaBanner = HtmlFormat.empty,
       includeGridWrapper = false,
       serviceInfoContent = Some(serviceInfoContent),
-		includeHMRCBranding = false,
-		setLang = messages.lang.code
-	)
+        includeHMRCBranding = false,
+        setLang = messages.lang.code
+    )
     @if(appConfig.languageTranslationEnabled) {
         @views.html.language_selection(
             appConfig.languageMap,
@@ -109,8 +95,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 @mainContentHeader = {
-
-
     @if(contentHeader.isDefined) {
         main_content_header(contentHeader = contentHeader.get)
     }
@@ -129,4 +113,4 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footer_links()), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footer_links()), nav = true)(content)

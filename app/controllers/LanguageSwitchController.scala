@@ -25,12 +25,10 @@ import uk.gov.hmrc.play.language.{LanguageController, LanguageUtils}
 
 
 class LanguageSwitchController @Inject() (
-                        configuration: Configuration,
-                        appConfig: FrontendAppConfig,
                         languageUtils: LanguageUtils,
                         cc: MessagesControllerComponents,
                         override val messagesApi: MessagesApi
-                        ) extends LanguageController(configuration, languageUtils, cc) {
+                        ) extends LanguageController(languageUtils, cc) {
 
       override def languageMap: Map[String, Lang] = Map(
         "english" -> Lang("en"),
