@@ -21,7 +21,7 @@ import play.api.http.DefaultHttpFilters
 import uk.gov.hmrc.play.bootstrap.frontend.filters.FrontendFilters
 
 class FiltersWithWhitelist @Inject() (
-                                       whitelistFilter: WhitelistFilter,
+                                       allowListFilter: AllowlistFilter,
                                        sessionIdFilter: SessionIdFilter,
                                        frontendFilters: FrontendFilters
-                                     ) extends DefaultHttpFilters(frontendFilters.filters :+ sessionIdFilter :+ whitelistFilter: _*)
+                                     ) extends DefaultHttpFilters(frontendFilters.filters :+ sessionIdFilter :+ allowListFilter: _*)

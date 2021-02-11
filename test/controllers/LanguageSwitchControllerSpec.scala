@@ -16,9 +16,7 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Configuration
 import play.api.mvc.{Cookie, Cookies, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -29,10 +27,8 @@ class LanguageSwitchControllerSpec extends ControllerSpecBase with GuiceOneAppPe
   implicit val cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
 
   val langUtils: LanguageUtils = app.injector.instanceOf[LanguageUtils]
-  val config: Configuration = app.injector.instanceOf[Configuration]
-  val appConfig: FrontendAppConfig = app.injector.instanceOf[FrontendAppConfig]
 
-  object TestLanguageSwitchController extends LanguageSwitchController(config, appConfig, langUtils, cc, messagesApi)
+  object TestLanguageSwitchController extends LanguageSwitchController(langUtils, cc, messagesApi)
 
   def testLanguageSelection(language: String, expectedCookieValue: String): Unit = {
     val request = FakeRequest()
