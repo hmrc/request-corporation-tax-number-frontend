@@ -38,8 +38,9 @@
         @components.error_summary(form.errors)
 
         @components.heading("companyDetails.heading", "heading-xlarge")
-
-        <p>@messages("companyDetails.hint")</p>
+        <div>
+            <p> @messages("companyDetails.hint.first") <a id="company-house-register-link" href="@appConfig.companyHouseRegisterUrl">@messages("companyDetails.hint.second")</a> @messages("companyDetails.hint.third")</p>
+        </div>
 
         @components.input_text(
             field = form("companyReferenceNumber"),
@@ -49,7 +50,8 @@
 
         @components.input_text(
             field = form("companyName"),
-            label = messages("companyDetails.companyName")
+            label = messages("companyDetails.companyName"),
+            hint = Some(messages("companyDetails.companyName.hint"))
         )
 
         @components.submit_button()
