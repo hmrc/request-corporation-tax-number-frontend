@@ -58,10 +58,13 @@ failed_to_submit.guidance1 = Try again later.
 
 companyDetails.title = Enter company details – Ask for a copy of your Corporation Tax UTR – GOV.UK
 companyDetails.heading = Enter company details
-companyDetails.hint = The company name and registration number should be entered exactly as they appear on the Companies House register or any letter from Companies House.
+companyDetails.hint.first = Enter the company number and name exactly as they appear on
+companyDetails.hint.second = the Companies House register (opens in a new tab)
+companyDetails.hint.third = . These details will also be on any letter from Companies House.
 companyDetails.companyName = Registered company name
-companyDetails.companyReferenceNumber = Company registration number (CRN)
-companyDetails.companyReferenceNumber.hint = This can be 6, 7 or 8 numbers, or 2 letters and 6 numbers. For example, 123456, 1234567, 01234567, SC123456.
+companyDetails.companyName.hint = This should be the same as what is listed on the Companies House register.
+companyDetails.companyReferenceNumber = Company Registration Number (CRN) or company number
+companyDetails.companyReferenceNumber.hint = This should be the same as what is listed on the Companies House register. It’s either 8 numbers or 2 letters and 6 numbers.
 companyDetails.error.companyName.required = Enter your registered company name
 companyDetails.error.companyName.length = Registered company name must be 160 characters or less
 companyDetails.error.companyReferenceNumber.regex = Enter a CRN in the correct format

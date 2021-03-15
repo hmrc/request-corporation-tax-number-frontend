@@ -57,13 +57,17 @@ failed_to_submit.guidance1 = Rhowch gynnig arall arni yn nes ymlaen.
 
 companyDetails.title = Nodwch fanylion y cwmni – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 companyDetails.heading = Nodwch fanylion y cwmni
-companyDetails.hint = Dylid nodi enw’r cwmni a’r rhif cofrestru yn union fel y maent yn ymddangos ar gofrestr Tŷ’r Cwmnïau neu unrhyw lythyr gan Dŷ’r Cwmnïau.
+companyDetails.hint.first = Nodwch rif ac enw’r cwmni yn union fel y maent yn ymddangos ar
+companyDetails.hint.second = gofrestr Tŷ’r Cwmnïau (yn agor tab newydd)
+companyDetails.hint.third = . Bydd y manylion hyn hefyd ar unrhyw lythyr oddi wrth Dŷ’r Cwmnïau.
 companyDetails.companyName = Enw’r cwmni cofrestredig
-companyDetails.companyReferenceNumber = Rhif cofrestru’r cwmni (CRN)
-companyDetails.companyReferenceNumber.hint = Gall hwn fod yn 6, 7 neu 8 rhif, neu 2 lythyren a 6 rhif. Er enghraifft, 123456, 1234567, 01234567, SC123456.
+companyDetails.companyName.hint = Dylai hyn fod yr un peth â’r hyn a restrir ar gofrestr Tŷ’r Cwmnïau.
+companyDetails.companyReferenceNumber = Rhif Cofrestru’r Cwmni (CRN) neu rif y cwmni
+companyDetails.companyReferenceNumber.hint = Dylai hyn fod yr un peth â’r hyn a restrir ar gofrestr Tŷ’r Cwmnïau. Mae’n naill ai 8 rhif neu 2 lythyren a 6 rhif.
 companyDetails.error.companyName.required = Nodwch enw’ch cwmni cofrestredig
 companyDetails.error.companyName.length = Mae’n rhaid i enw’r cwmni cofrestredig fod yn 160 cymeriad neu lai
 companyDetails.error.companyReferenceNumber.regex = Nodwch CRN yn y fformat cywir
+companyDetails.error.companyReferenceNumber.llp.regex = Mae rhif cofrestru’r cwmni hwn ar gyfer Partneriaeth Atebolrwydd Cyfyngedig.Bydd angen i chi gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM ar 0300 200 1900.
 companyDetails.error.companyReferenceNumber.required = Rhowch eich Rhif Cofrestru’r Cwmni
 companyDetails.button.back = Yn ôl
 
