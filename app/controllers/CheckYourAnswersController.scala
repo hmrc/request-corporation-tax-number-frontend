@@ -18,8 +18,9 @@ package controllers
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
+import connectors.CompanyHouseConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
-import models.SubmissionSuccessful
+import models.{Submission, SubmissionSuccessful}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.SubmissionService
@@ -29,7 +30,7 @@ import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
@@ -37,6 +38,7 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            cc: MessagesControllerComponents,
+                                           companyHouseConnector: CompanyHouseConnector,
                                            submissionService: SubmissionService,
                                            view: CheckYourAnswersView)
                                           (implicit executionContext: ExecutionContext)
@@ -62,12 +64,16 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
 
   def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
-
       implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
-      submissionService.ctutrSubmission(request.userAnswers) map {
-        case SubmissionSuccessful => Redirect(routes.ConfirmationController.onPageLoad())
-        case _ =>                    Redirect(routes.FailedToSubmitController.onPageLoad())
+      companyHouseConnector.validateCRN(Submission(request.userAnswers).companyDetails).flatMap {
+        case Some(false) => Future.successful(Redirect(routes.CompanyDetailsNoMatchController.onPageLoad()))
+        case Some(true) =>
+          submissionService.ctutrSubmission(request.userAnswers).map {
+            case SubmissionSuccessful => Redirect(routes.ConfirmationController.onPageLoad())
+            case _ =>                    Redirect(routes.FailedToSubmitController.onPageLoad())
+          }
+        case _ => Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
       }
 
   }

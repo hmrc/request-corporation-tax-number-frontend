@@ -77,12 +77,18 @@ companyDetails.error.companyReferenceNumber.llp.regex = This company registratio
 companyDetails.error.companyReferenceNumber.required = Enter your company registration number
 companyDetails.button.back = Back
 
+companyDetailsNoMatch.title = The CRN and registered company name do not match – Ask for a copy of your Corporation Tax UTR – GOV.UK
+companyDetailsNoMatch.heading = The CRN and registered company name do not match
+companyDetailsNoMatch.hint.first = You can
+companyDetailsNoMatch.hint.second = search the Companies House register to check the CRN and registered company name
+companyDetailsNoMatch.button = Try again
+
 confirmation.title = Company details received – Ask for a copy of your Corporation Tax UTR – GOV.UK
 confirmation.heading = Company details received
 confirmation.whatHappensNext.title = What happens next
-confirmation.whatHappensNext.line1 = If the information you provided matches our records, we will send your Corporation Tax UTR within 15 working days.
-confirmation.whatHappensNext.line2 = We will send it by post to the company’s registered address as listed on the Companies House register.
-confirmation.whatHappensNext.line3 = If the information you provided does not match our records, you will not get a letter.
+confirmation.whatHappensNext.line1 = We will send your Corporation Tax UTR within 15 working days
+confirmation.whatHappensNext.line2 = We will post it to the company’s registered address as listed on
+confirmation.whatHappensNext.line3 = the Companies House register (opens in a new tab)
 confirmation.survey.linkText = What did you think of this service?
 confirmation.survey.time = (takes 30 seconds)
 
