@@ -46,11 +46,20 @@ class IndexViewSpec extends ViewBehaviours {
     assertContainsText(doc, messages("index.useForm.item1"))
     assertContainsText(doc, messages("index.useForm.item2"))
     assertContainsText(doc, messages("index.useForm.item3"))
+    assertContainsText(doc, messages("index.useForm.item4"))
+  }
+
+  "Page should contain 'you will need' content" in {
+    val doc = asDocument(createView())
+    assertContainsText(doc, messages("index.youWillNeed.title"))
+    assertContainsText(doc, messages("index.youWillNeed.item1"))
+    assertContainsText(doc, messages("index.youWillNeed.item2"))
   }
 
   "Page should contain before you start content" in {
     val doc = asDocument(createView())
     assertContainsText(doc, messages("index.beforeYouStart.title"))
+    assertContainsText(doc, messages("index.beforeYouStart.p"))
     assertContainsText(doc, messages("index.beforeYouStart.item1"))
     assertContainsText(doc, messages("index.beforeYouStart.item2"))
   }
