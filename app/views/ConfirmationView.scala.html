@@ -33,9 +33,16 @@
 
     <p>@messages("confirmation.whatHappensNext.line1")</p>
 
-    <p>@messages("confirmation.whatHappensNext.line2")</p>
+    <div>
+        <p>@messages("confirmation.whatHappensNext.line2")
+            <a target="_blank" id="companies-house-search" href="@appConfig.companyHouseRegisterUrl">
+            @messages("confirmation.whatHappensNext.line3")
+        </a>.
+        </p>
 
-    <p>@messages("confirmation.whatHappensNext.line3")</p>
+
+    </div>
+
 
     <div>
         <p><a id="survey-link" href="@appConfig.feedbackSurveyUrl">@messages("confirmation.survey.linkText")</a> @messages("confirmation.survey.time")</p>

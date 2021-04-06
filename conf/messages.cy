@@ -76,12 +76,18 @@ companyDetails.error.companyReferenceNumber.llp.regex = Mae rhif cofrestru’r c
 companyDetails.error.companyReferenceNumber.required = Rhowch eich Rhif Cofrestru’r Cwmni
 companyDetails.button.back = Yn ôl
 
+companyDetailsNoMatch.title = Nid yw Rhif Cofrestru’r Cwmni (CRN) ac enw cofrestredig y cwmni yn cyd-fynd – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
+companyDetailsNoMatch.heading = Nid yw Rhif Cofrestru’r Cwmni (CRN) ac enw cofrestredig y cwmni yn cyd-fynd
+companyDetailsNoMatch.hint.first = Gallwch
+companyDetailsNoMatch.hint.second = bori drwy gofrestr Tŷ’r Cwmnïau i wirio’r CRN ac enw cofrestredig y cwmni
+companyDetailsNoMatch.button = Rhowch gynnig arall arni
+
 confirmation.title = Manylion y cwmni wedi dod i law – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 confirmation.heading = Manylion y cwmni wedi dod i law
 confirmation.whatHappensNext.title = Yr hyn sy’n digwydd nesaf
-confirmation.whatHappensNext.line1 = Os yw’r wybodaeth rydych wedi ei rhoi’n cyd-fynd â’r hyn sydd yn ein cofnodion, byddwn yn anfon eich UTR Treth Gorfforaeth cyn pen 15 diwrnod gwaith.
-confirmation.whatHappensNext.line2 = Byddwn yn ei anfon drwy’r post i gyfeiriad cofrestredig y cwmni fel y mae wedi ei restru ar gofrestr Tŷ’r Cwmnïau.
-confirmation.whatHappensNext.line3 = Os nad yw’r wybodaeth rydych wedi ei rhoi yn cyd-fynd â’n cofnodion, ni fyddwch yn cael llythyr.
+confirmation.whatHappensNext.line1 = Byddwn yn anfon eich UTR ar gyfer Treth Gorfforaeth atoch cyn pen 15 diwrnod gwaith.
+confirmation.whatHappensNext.line2 = Byddwn yn ei bostio i gyfeiriad y cwmni fel y’i rhestrir ar
+confirmation.whatHappensNext.line3 = gofrestr Tŷ’r Cwmnïau (yn agor tab newydd)
 confirmation.survey.linkText = Beth oedd eich barn am y gwasanaeth hwn?
 confirmation.survey.time = (mae’n cymryd 30 eiliad)
 

@@ -16,6 +16,8 @@ POST       /enter-company-details                       controllers.CompanyDetai
 GET        /change-company-details                      controllers.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-company-details                      controllers.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
 
+GET        /company-details-no-match                    controllers.CompanyDetailsNoMatchController.onPageLoad()
+
 GET        /company-details-received                    controllers.ConfirmationController.onPageLoad()
 
 GET        /not-sent                                    controllers.FailedToSubmitController.onPageLoad()

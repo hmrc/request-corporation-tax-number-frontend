@@ -17,19 +17,24 @@
 package controllers
 
 import base.SpecBase
+import connectors.CompanyHouseConnector
 import controllers.actions.FakeDataRetrievalAction
 import identifiers.CompanyDetailsId
 import models.CompanyDetails
+import org.mockito.Mockito.{mock, when}
 import play.api.libs.json.Json
 import play.api.mvc.BodyParsers
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 trait ControllerSpecBase extends SpecBase {
 
   implicit val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
   val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
+  val companyDetails: CompanyDetails = CompanyDetails("Big Company", "12345678")
+  val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])
+  when(companyHouseConnector.validateCRN(companyDetails)) thenReturn Future(Some(true))
 
   val cacheMapId = "id"
 
@@ -40,7 +45,7 @@ trait ControllerSpecBase extends SpecBase {
   def dontGetAnyData = new FakeDataRetrievalAction(None, ec, parser)
 
   def someData = new FakeDataRetrievalAction(
-    Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(CompanyDetails("Big Company", "12345678"))))),
+    Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(companyDetails)))),
     ec,
     parser)
 }
