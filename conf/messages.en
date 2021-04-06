@@ -24,14 +24,19 @@ error.summary.title = There is a problem
 
 index.title = Ask for a copy of your Corporation Tax UTR – GOV.UK
 index.heading = Ask for a copy of your Corporation Tax UTR
-index.guidance = We will send a copy of your Corporation Tax Unique Taxpayer Reference (UTR) by post to the company’s registered address as shown on Companies House.
+index.guidance = We will send a copy of your Corporation Tax Unique Taxpayer Reference (UTR) by post to the company’s registered address as shown on Companies House. It’s sent by post to keep your details secure.
 index.useForm.title = You will not be able to request a copy of a Corporation Tax UTR for companies that have been:
 index.useForm.item1 = officially closed or dissolved
 index.useForm.item2 = struck off and are no longer on the Companies House register
 index.useForm.item3 = changed to a different type of organisation and are no longer a registered company
-index.beforeYouStart.title = You will need your:
-index.beforeYouStart.item1 = company registration number
-index.beforeYouStart.item2 = registered company name
+index.useForm.item4 = recently incorporated - your UTR should arrive at the company’s registered address soon
+index.youWillNeed.title = You will need your:
+index.youWillNeed.item1 = company registration number
+index.youWillNeed.item2 = registered company name
+index.beforeYouStart.title = Before you start
+index.beforeYouStart.p = You might also find your Corporation Tax UTR:
+index.beforeYouStart.item1 = in your business tax account - if you have already registered for online tax services and attached the UTR to your profile
+index.beforeYouStart.item2 = on previous letters from us - like a reminder to file a Corporation Tax Return or on a previous Corporation Tax Return
 index.warning = You can only use this service if the company is registered with Companies House.
 
 session_expired.title = Start again – Ask for a copy of your Corporation Tax UTR – GOV.UK

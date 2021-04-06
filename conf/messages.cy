@@ -24,14 +24,19 @@ error.summary.title = Mae problem wedi codi
 
 index.title = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 index.heading = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth
-index.guidance = Byddwn yn anfon copi o’r UTR Treth Gorfforaeth drwy’r post i gyfeiriad cofrestredig y cwmni fel y’i dangosir yn Nhŷ’r Cwmnïau.
+index.guidance = Byddwn yn anfon copi o’r UTR Treth Gorfforaeth drwy’r post i gyfeiriad cofrestredig y cwmni fel y’i dangosir yn Nhŷ’r Cwmnïau. Bydd yn eich cyrraedd drwy’r post er mwyn cadw’ch manylion yn ddiogel.
 index.useForm.title = Ni fyddwch yn gallu gwneud cais am gopi o UTR Treth Gorfforaeth ar gyfer cwmni sydd:
 index.useForm.item1 = wedi ei gau’n swyddogol neu ei ddiddymu
 index.useForm.item2 = wedi ei dynnu oddi ar gofrestr Tŷ’r Cwmnïau
 index.useForm.item3 = wedi newid i fath gwahanol o sefydliad ac sydd ddim yn gwmni cofrestredig mwyach
-index.beforeYouStart.title = Bydd angen yr wybodaeth ganlynol arnoch:
-index.beforeYouStart.item1 = rhif cofrestru’r cwmni
-index.beforeYouStart.item2 = enw’r cwmni cofrestredig
+index.useForm.item4 = wedi’i ymgorffori yn ddiweddar - dylai eich UTR gyrraedd cyfeiriad cofrestredig y cwmni yn fuan
+index.youWillNeed.title = Bydd angen yr wybodaeth ganlynol arnoch:
+index.youWillNeed.item1 = rhif cofrestru’r cwmni
+index.youWillNeed.item2 = enw’r cwmni cofrestredig
+index.beforeYouStart.title = Cyn i chi ddechrau
+index.beforeYouStart.p = Efallai y gallwch hefyd ddod o hyd i’ch UTR ar gyfer Treth Gorfforaeth:
+index.beforeYouStart.item1 = yn eich cyfrif treth busnes - os ydych eisoes wedi cofrestru i ddefnyddio gwasanaethau treth ar-lein ac wedi cysylltu’r UTR â’ch proffil
+index.beforeYouStart.item2 = ar lythyrau blaenorol gennym - megis llythyr i’ch atgoffa i gyflwyno Ffurflen Treth Gorfforaeth neu ar Ffurflen Treth Gorfforaeth flaenorol
 index.warning = Dim ond os yw’r cwmni wedi’i gofrestru gyda Thŷ’r Cwmnïau y gallwch ddefnyddio’r gwasanaeth hwn.
 
 session_expired.title = Dechreuwch eto – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
