@@ -18,13 +18,15 @@ package connectors
 
 import config.FrontendAppConfig
 import models.CompanyDetails
-import play.api.Logger
+import play.api.{Configuration, Logger}
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpResponse}
+import http.ProxyHttpClient
+
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
+class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) {
 
   val logger = Logger(classOf[CompanyHouseConnector])
 
@@ -36,7 +38,13 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
   }
   def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
     implicit val hc = HeaderCarrier().withExtraHeaders(("Authorization", appConfig.companyHouseRequestAuth))
-    http.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber)
+    val httpClient =
+      if (appConfig.proxyRequired) {
+        proxyHttp
+      } else {
+        http
+      }
+    httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber)
 
       .map { response =>
       response.status match {
