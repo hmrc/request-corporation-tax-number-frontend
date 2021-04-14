@@ -38,6 +38,7 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val companyHouseRegisterUrl: String = configuration.get[String]("urls.company-house-register")
   lazy val getCompanyInformationUrl: String = configuration.get[String]("urls.get-information-about-a-company")
   lazy val contactUsUrl: String = configuration.get[String]("urls.contactUs")
+  lazy val proxyRequired: Boolean = configuration.get[Boolean]("proxy.proxyRequiredForThisEnvironment")
 
   lazy val companyHouseRequestUrl: String = configuration.get[String]("companyHouse.requestUrl")
   lazy val companyHouseRequestAuth: String = configuration.get[String]("companyHouse.requestAuth")
