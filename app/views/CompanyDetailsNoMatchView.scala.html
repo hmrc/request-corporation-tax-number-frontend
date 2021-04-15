@@ -28,7 +28,7 @@
     @components.heading("companyDetailsNoMatch.heading","govuk-heading-xl")
 
     <div>
-        <p> @messages("companyDetailsNoMatch.hint.first") <a id="get-information-about-a-company-link" href="@appConfig.getCompanyInformationUrl">@messages("companyDetailsNoMatch.hint.second")</a>.
+        <p> @messages("companyDetailsNoMatch.hint.first") <a id="get-information-about-a-company-link" target="_blank" href="@appConfig.getCompanyInformationUrl">@messages("companyDetailsNoMatch.hint.second")</a>.
     </div>
 
     <a id=try-again-link" href="@routes.CompanyDetailsController.onPageLoad(NormalMode)">@messages("companyDetailsNoMatch.button")</a>}
