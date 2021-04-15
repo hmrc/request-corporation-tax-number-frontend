@@ -80,7 +80,7 @@ companyDetails.button.back = Back
 companyDetailsNoMatch.title = The CRN and registered company name do not match – Ask for a copy of your Corporation Tax UTR – GOV.UK
 companyDetailsNoMatch.heading = The CRN and registered company name do not match
 companyDetailsNoMatch.hint.first = You can
-companyDetailsNoMatch.hint.second = search the Companies House register to check the CRN and registered company name
+companyDetailsNoMatch.hint.second = search the Companies House register to check the CRN and registered company name (opens in a new tab)
 companyDetailsNoMatch.button = Try again
 
 confirmation.title = Company details received – Ask for a copy of your Corporation Tax UTR – GOV.UK

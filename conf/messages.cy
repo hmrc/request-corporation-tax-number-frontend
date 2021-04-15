@@ -79,7 +79,7 @@ companyDetails.button.back = Yn ôl
 companyDetailsNoMatch.title = Nid yw Rhif Cofrestru’r Cwmni (CRN) ac enw cofrestredig y cwmni yn cyd-fynd – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 companyDetailsNoMatch.heading = Nid yw Rhif Cofrestru’r Cwmni (CRN) ac enw cofrestredig y cwmni yn cyd-fynd
 companyDetailsNoMatch.hint.first = Gallwch
-companyDetailsNoMatch.hint.second = bori drwy gofrestr Tŷ’r Cwmnïau i wirio’r CRN ac enw cofrestredig y cwmni
+companyDetailsNoMatch.hint.second = bori drwy gofrestr Tŷ’r Cwmnïau i wirio’r CRN ac enw cofrestredig y cwmni (yn agor tab newydd)
 companyDetailsNoMatch.button = Rhowch gynnig arall arni
 
 confirmation.title = Manylion y cwmni wedi dod i law – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
