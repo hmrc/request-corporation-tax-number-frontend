@@ -24,6 +24,7 @@ Service Manager: CTUTR_ALL
 |Backend|https://github.com/hmrc/request-corporation-tax-number|
 |Stub|https://github.com/hmrc/request-corporation-tax-number-stubs|
 |Performance tests|https://github.com/hmrc/request-corporation-tax-number-performance-test|
+|Acceptance tests|https://github.com/hmrc/request-corporation-tax-number-journey-tests|
 
 ## Routes
 -------
