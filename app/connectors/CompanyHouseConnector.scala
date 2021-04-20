@@ -54,6 +54,12 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
         case NOT_FOUND =>
           logger.debug("[CompanyHouseConnector][validateCRN] " + " CRN not found")
           Some(false)
+        case TOO_MANY_REQUESTS =>
+          logger.error("[CompanyHouseConnector][validateCRN] " + "request limit exceeded")
+          None
+        case _=>
+          logger.error("[CompanyHouseConnector][validateCRN] " + response)
+          None
       }
     }.recover{
       case e:Exception =>
