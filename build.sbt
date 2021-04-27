@@ -9,7 +9,6 @@ import uk.gov.hmrc.SbtAutoBuildPlugin
 val appName = "request-corporation-tax-number-frontend"
 lazy val appDependencies: Seq[ModuleID] = AppDependencies.all
 lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin)
-lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
@@ -22,7 +21,7 @@ lazy val scoverageSettings =
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(plugins : _*)
-  .settings(playSettings,
+  .settings(
     RoutesKeys.routesImport ++= Seq("models._"),
     TwirlKeys.templateImports ++= Seq(
       "play.twirl.api.HtmlFormat",
@@ -42,12 +41,6 @@ lazy val microservice = Project(appName, file("."))
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
     evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
-    resolvers ++= Seq(
-    Resolver.bintrayRepo("hmrc", "releases"),
-    Resolver.jcenterRepo,
-    "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/",
-    Resolver.bintrayRepo("emueller", "maven")),
-
     // concatenate js
     Concat.groups := Seq(
       "javascripts/requestcorporationtaxnumberfrontend-app.js" -> group(Seq("javascripts/show-hide-content.js", "javascripts/requestcorporationtaxnumberfrontend.js", "javascripts/timeoutDialog.js"))
