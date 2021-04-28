@@ -9,7 +9,7 @@ This service is also known as Ask for a copy of your Corporation Tax UTR
 This project is a Scala web application using [code scaffolds](https://github.com/hmrc/hmrc-frontend-scaffold.g8)
 
 Service has nginx limiter set, this is available in:
-    https://github.com/hmrc/aws-ami-public-routing-proxy/tree/master/files/nginx/frontend-conf
+https://github.com/hmrc/aws-ami-public-routing-proxy/tree/master/files/nginx/frontend-conf
 
 Example for this is here: https://github.com/hmrc/aws-ami-public-routing-proxy/blob/5322a3f66bbb73d1034a61f71d93e4516ab2488b/files/nginx/frontend-conf/frontend-external-production.conf#L9
 
