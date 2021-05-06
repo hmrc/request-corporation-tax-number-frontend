@@ -18,17 +18,17 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        main_template: MainTemplate
+        govukWrapper: GovukWrapper
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-@main_template(title = messages("companyDetailsNoMatch.title"), hasTimeOut = false) {
+@govukWrapper(title = messages("companyDetailsNoMatch.title"), hasTimeOut = false) {
 
-    @components.heading("companyDetailsNoMatch.heading","govuk-heading-xl")
+    @components.heading("companyDetailsNoMatch.heading")
 
     <div>
-        <p> @messages("companyDetailsNoMatch.hint.first") <a id="get-information-about-a-company-link" target="_blank" href="@appConfig.getCompanyInformationUrl">@messages("companyDetailsNoMatch.hint.second")</a>.
+        <p class="govuk-body"> @messages("companyDetailsNoMatch.hint.first") <a id="get-information-about-a-company-link" target="_blank" href="@appConfig.getCompanyInformationUrl">@messages("companyDetailsNoMatch.hint.second")</a>.
     </div>
 
-    <a id=try-again-link" href="@routes.CompanyDetailsController.onPageLoad(NormalMode)">@messages("companyDetailsNoMatch.button")</a>}
+    <p class="govuk-body"><a class="govuk-link" id=try-again-link" href="@routes.CompanyDetailsController.onPageLoad(NormalMode)">@messages("companyDetailsNoMatch.button")</a>}</p>

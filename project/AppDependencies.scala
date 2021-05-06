@@ -8,14 +8,13 @@ object AppDependencies {
     ws,
     "uk.gov.hmrc" %% "simple-reactivemongo" % "8.0.0-play-27",
     "uk.gov.hmrc" %% "logback-json-logger" % "5.1.0",
-    "uk.gov.hmrc" %% "govuk-template" % "5.65.0-play-27",
     "uk.gov.hmrc" %% "play-health" % "3.16.0-play-27",
-    "uk.gov.hmrc" %% "play-ui" % "9.1.0-play-27",
     "uk.gov.hmrc" %% "http-caching-client" % "9.2.0-play-27",
-    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.6.0-play-27",
+    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.9.0-play-27",
     "uk.gov.hmrc" %% "bootstrap-frontend-play-27" % "3.4.0",
     "uk.gov.hmrc" %% "play-language" % "4.12.0-play-27",
-    "uk.gov.hmrc" %% "play-allowlist-filter" % "1.0.0-play-27"
+    "uk.gov.hmrc" %% "play-allowlist-filter" % "1.0.0-play-27",
+    "uk.gov.hmrc" %% "play-frontend-hmrc" % "0.60.0-play-27"
   )
 
   val test: Seq[ModuleID] = Seq(

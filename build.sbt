@@ -24,11 +24,12 @@ lazy val microservice = Project(appName, file("."))
   .settings(
     RoutesKeys.routesImport ++= Seq("models._"),
     TwirlKeys.templateImports ++= Seq(
-      "play.twirl.api.HtmlFormat",
-      "play.twirl.api.HtmlFormat._",
-      "views.html.layouts.GovUkTemplate",
-      "uk.gov.hmrc.play.views.html.helpers._",
-      "uk.gov.hmrc.play.views.html.layouts._"
+      "views.html.GovukWrapper",
+      "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
+      "uk.gov.hmrc.govukfrontend.views.html.components._",
+      "uk.gov.hmrc.govukfrontend.views.html.helpers._",
+      "uk.gov.hmrc.hmrcfrontend.views.html.components._",
+      "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
     ),
     parallelExecution in Test := false,
     scalaSettings,

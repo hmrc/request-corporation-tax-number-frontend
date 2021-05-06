@@ -17,35 +17,30 @@
 package connectors
 
 import config.FrontendAppConfig
-import models.CompanyDetails
-import play.api.{Configuration, Logger}
-import play.api.http.Status._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpReads, HttpResponse}
 import http.ProxyHttpClient
+import models.CompanyDetails
+import play.api.Logger
+import play.api.http.Status._
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) {
 
-  val logger = Logger(classOf[CompanyHouseConnector])
+  val logger: Logger = Logger(classOf[CompanyHouseConnector])
 
-  implicit val httpReads: HttpReads[HttpResponse] = new HttpReads[HttpResponse] {
-    override def read(method: String, url: String, response: HttpResponse) = response
-  }
   def getName(response: HttpResponse): String ={
     (response.json \ "company_name").as[String].toLowerCase.replace(" ","")
   }
-  def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
-    implicit val hc = HeaderCarrier().withExtraHeaders(("Authorization", appConfig.companyHouseRequestAuth))
-    val httpClient =
-      if (appConfig.proxyRequired) {
-        proxyHttp
-      } else {
-        http
-      }
-    httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber)
 
+  def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
+    implicit val hc: HeaderCarrier = HeaderCarrier().withExtraHeaders(("Authorization", appConfig.companyHouseRequestAuth))
+
+    val httpClient = if (appConfig.proxyRequired) proxyHttp else http
+
+    httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber)
       .map { response =>
       response.status match {
         case OK =>

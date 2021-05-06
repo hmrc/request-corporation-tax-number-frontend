@@ -29,8 +29,8 @@ trait ViewBehaviours extends ViewSpecBase {
       "rendered" must {
         "have the correct banner title" in {
           val doc = asDocument(view())
-          val nav = doc.getElementById("proposition-menu")
-          val span = nav.children.first
+          val nav = doc.select(".govuk-header__content")
+          val span = nav.first
           span.text mustBe messages("site.service_name")
         }
 
@@ -51,7 +51,9 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display language toggles" in {
           val doc = asDocument(view())
-          assertRenderedById(doc, "cymraeg-switch")
+          val welshToggleSelect = doc.select(".hmrc-language-select__list-item").eachText
+          assert(welshToggleSelect.contains("English"), "Element " + welshToggleSelect + " was not rendered on the page.")
+          assert(welshToggleSelect.contains("Newid yr iaith ir Gymraeg Cymraeg"), "Element " + welshToggleSelect + " was not rendered on the page.")
         }
       }
     }
@@ -69,7 +71,7 @@ trait ViewBehaviours extends ViewSpecBase {
   def pageWithCorrectHeadingSize(view: () => HtmlFormat.Appendable) = {
     "display the correct size of page heading" in {
       val doc = asDocument(view())
-      assertH1HasClass(doc, "h1", "heading-xlarge")
+      assertH1HasClass(doc, "h1", "govuk-heading-xl")
     }
   }
 }

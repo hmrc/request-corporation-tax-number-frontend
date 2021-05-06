@@ -1,4 +1,5 @@
 global.start_now = Dechrau nawr
+service.name = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth
 
 checkYourAnswers.title = Gwiriwch eich atebion – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 checkYourAnswers.heading = Gwiriwch eich atebion cyn anfon eich cais

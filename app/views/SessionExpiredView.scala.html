@@ -17,17 +17,26 @@
 @import config.FrontendAppConfig
 
 @this(
-    appConfig: FrontendAppConfig,
-    main_template: MainTemplate
+        appConfig: FrontendAppConfig,
+        govukWrapper: GovukWrapper,
+        govukButton : GovukButton
 )
 
 @(startPage : Call)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = messages("session_expired.title"), hasTimeOut = false) {
+@govukWrapper(title = messages("session_expired.title"), hasTimeOut = false) {
 
     @components.heading("session_expired.heading")
 
-    <p>@messages("session_expired.guidance")</p>
+    <p class="govuk-body">@messages("session_expired.guidance")</p>
 
-    @components.button_link("session_expired.button", startPage.url)
+    <div class="section">
+     @govukButton(Button(
+      inputType = Some("submit"),
+      value = Some(messages("session_expired.button")),
+      content = Text(messages("session_expired.button")),
+      attributes = Map("id" -> "continue", "role" -> "button"),
+      href = Some(startPage.url)
+     ))
+    </div>
 }

@@ -14,30 +14,34 @@
  * limitations under the License.
  *@
 
-@import viewmodels.{Section, AnswerSection}
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
+@import viewmodels.AnswerSection
 @import config.FrontendAppConfig
 @import models.NormalMode
+@import uk.gov.hmrc.govukfrontend.views.html.helpers.{formWithCSRF => GovukCSRFForm}
 
 @this(
-    appConfig: FrontendAppConfig,
-    main_template: MainTemplate,
-    formHelper: FormWithCSRF
+        appConfig: FrontendAppConfig,
+        govukWrapper: GovukWrapper,
+        formHelper: GovukCSRFForm,
+        govukButton : GovukButton
 )
 
 @(answerSection: AnswerSection)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages("checkYourAnswers.title"),
-    bodyClasses = None,
-    backLink = Some(routes.CompanyDetailsController.onPageLoad(NormalMode).toString)) {
-    @formHelper(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
+@govukWrapper(title = messages("checkYourAnswers.title"), backLink = Some(routes.CompanyDetailsController.onPageLoad(NormalMode).toString)) {
+    @formHelper(action = routes.CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
-        @components.heading("checkYourAnswers.heading", "heading-xlarge")
+        @components.heading("checkYourAnswers.heading")
 
         @components.answer_section(answerSection)
 
-        @components.submit_button(messageOverride = Some(messages("site.submit")))
+        <div class="section">
+        @govukButton(Button(
+            inputType = Some("submit"),
+            value = Some(messages("site.submit")),
+            content = Text(messages("site.submit")),
+            attributes = Map("id" -> "submit")
+        ))
+        </div>
     }
 }
