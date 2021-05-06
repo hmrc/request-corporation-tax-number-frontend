@@ -14,103 +14,92 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukHeader, GovukLayout}
 @import config.FrontendAppConfig
 
 @this(
-appConfig: FrontendAppConfig,
-head: HeadWithTrackingConsent,
-header_nav: HeaderNav,
-footer: Footer,
-serviceInfo: ServiceInfo,
-hmrcGovUkTemplate: GovUkTemplate,
-main_content_header: MainContentHeader,
-main_content: MainContent,
-reportAProblemLink: ReportAProblemLink,
-footer_links: FooterLinks
+        appConfig: FrontendAppConfig,
+        govukLayout: GovukLayout,
+        header: GovukHeader,
+        hmrcHead: HmrcHead,
+        hmrcStandardHeader: HmrcStandardHeader,
+        hmrcStandardFooter: HmrcStandardFooter,
+        hmrcScripts: HmrcScripts,
+        hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper,
+        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
+        hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper,
+        hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
+        govukBackLink : GovukBackLink
 )
 
-@(title: String,
-  mainClass: Option[String] = None,
-  mainDataAttributes: Option[Html] = None,
-  bodyClasses: Option[String] = None,
-  sidebar: Html = HtmlFormat.empty,
-  contentHeader: Option[Html] = None,
-  mainContent: Html = HtmlFormat.empty,
-  serviceInfoContent: Html = HtmlFormat.empty,
-  backLink: Option[String] = None,
-  scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
+@(
+        title: String,
+        beforeContentHtml: Option[Html] = None,
+        hasTimeOut: Boolean = true,
+        backLink: Option[String] = None
+)(mainContent: Html)(implicit request: Request[_], messages: Messages)
 
-@headContent = {
-    @head(linkElem = None, headScripts = None)
+@head = {
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/requestcorporationtaxnumberfrontend-app.css")' />
-@if(appConfig.optimizelyId != "N/A") {
-<script src="https://cdn.optimizely.com/js/@(appConfig.optimizelyId + ".js")"></script>
-}
-
-}
-
-@headerNavLinks = {}
-
-@insideHeader = {
-    @header_nav(
-      navTitle = Some(messages("site.service_name")),
-      navTitleLink = None,
-      showBetaLink = false,
-      navLinks = Some(headerNavLinks))
-}
-
-@afterHeader = {}
-
-@bodyEnd = {
-    @footer(
-      analyticsToken = None,
-      analyticsHost = "",
-      ssoUrl = None,
-      scriptElem = scriptElem,
-      gaCalls = None)
-      <script src='@routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.min.js")'> </script>
-}
-
-@footerTop = {}
-@footerLinks = {}
-
-@serviceInfoBlock = {
-    @serviceInfo(
-      betaBanner = HtmlFormat.empty,
-      includeGridWrapper = false,
-      serviceInfoContent = Some(serviceInfoContent),
-        includeHMRCBranding = false,
-        setLang = messages.lang.code
-    )
-    @if(appConfig.languageTranslationEnabled) {
-        @views.html.language_selection(
-            appConfig.languageMap,
-            appConfig.routeToSwitchLanguage,
-            Some("text--right"))
+    <script src='@routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.min.js")'> </script>
+    @if(appConfig.optimizelyId != "N/A") {
+    <script src="https://cdn.optimizely.com/js/@(appConfig.optimizelyId + ".js")"></script>
     }
-    @if(backLink.isDefined) {
-        <p><a href="@backLink.get" class="link-back" id="back">@messages("companyDetails.button.back")</a></p>
+
+    @if(hasTimeOut && appConfig.enableRefresh) {
+        @hmrcTimeoutDialogHelper(
+            signOutUrl = controllers.routes.SessionController.onPageLoad.url,
+            keepAliveUrl = Some(controllers.routes.SessionController.keepAlive.url),
+            timeout = Some(appConfig.timeOutSeconds),
+            countdown = Some(appConfig.timeOutCountDownSeconds),
+            title = Some(messages("ctutr.timeoutDialog.title")),
+            message = Some(messages("ctutr.timeoutDialog.p1")),
+            keepAliveButtonText = Some(messages("ctutr.timeoutDialog.button")),
+            signOutButtonText = Some(messages("ctutr.timeoutDialog.signOutButtonText"))
+        )
     }
 }
 
-@mainContentHeader = {
-    @if(contentHeader.isDefined) {
-        main_content_header(contentHeader = contentHeader.get)
-    }
+@beforeContentWithLanguageToggle = {
+    @hmrcLanguageSelectHelper()
+    @beforeContentHtml
 }
 
-@getHelpForm = {@reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl)}
+@scripts = {
+    <script src='@controllers.routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.js")'></script>
+}
 
 @content = {
-    @main_content(
-      article = mainContent,
-      mainClass = mainClass,
-      mainDataAttributes = mainDataAttributes,
-      mainContentHeader = mainContentHeader,
-      serviceInfo = serviceInfoBlock,
-      getHelpForm = getHelpForm,
-      sidebar = sidebar)
+        <div id="content">
+            <div class="content__body">
+                @if(backLink.isDefined) {
+                    @govukBackLink(BackLink(
+                        href = backLink.get,
+                        content = Text(messages("companyDetails.button.back")),
+                        classes = "js-visible link-back",
+                        attributes = Map("id" -> "back")
+                    ))
+                }
+
+                @mainContent
+
+                <div class="govuk-form-group">
+                @hmrcReportTechnicalIssueHelper()
+                </div>
+            </div>
+        </div>
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footer_links()), nav = true)(content)
+@govukLayout(
+    pageTitle = Some(title),
+    headBlock = Some(hmrcHead(
+        headBlock = Some(head))),
+    headerBlock = Some(hmrcStandardHeader(
+        serviceName = Some(messages("service.name")),
+        serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url)
+    )),
+    beforeContentBlock = Some(beforeContentWithLanguageToggle),
+    scriptsBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),
+    footerBlock = Some(hmrcStandardFooter())
+)(content)

@@ -18,19 +18,19 @@
 
 @(row: AnswerRow)(implicit messages: Messages)
 
-<div>
-    <dt class="tabular-data__data tabular-data__data--6-12 bold-small">@messages(row.label)</dt>
-    <dd class="cya-answer" style="word-break: break-all">
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key tabular-data__data tabular-data__data--6-12 bold-small">@messages(row.label)</dt>
+    <dd class="govuk-summary-list__value">
     @if(row.answerIsMessageKey){
         @messages(row.answer)
     } else{
         @row.answer
     }
     </dd>
-    <dd class="cya-change">
-        <a href='@row.changeUrl'>
+    <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href='@row.changeUrl'>
             <span aria-hidden="true">@messages("site.edit")</span>
-            <span class="visually-hidden">@messages("site.hidden-edit", messages(row.label))</span>
+            <span class="govuk-visually-hidden">@messages("site.hidden-edit", messages(row.label))</span>
         </a>
     </dd>
 </div>

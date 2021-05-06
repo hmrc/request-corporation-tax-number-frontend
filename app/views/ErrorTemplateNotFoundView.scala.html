@@ -18,7 +18,7 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        main_template: MainTemplate
+        govukWrapper: GovukWrapper
 )
 
 @(
@@ -29,12 +29,12 @@
         message3: String,
         messageLink: String)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = pageTitle) {
+@govukWrapper(title = pageTitle) {
 
-    <h1 class="heading-large">@heading</h1>
+    <h1 class="govuk-heading-l">@heading</h1>
 
-    <p>@message1</p>
-    <p>@message2</p>
-    <p>@message3 <a href="@appConfig.contactUsUrl">@messageLink</a>.</p>
+    <p class="govuk-body">@message1</p>
+    <p class="govuk-body">@message2</p>
+    <p class="govuk-body">@message3 <a class="govuk-link" href="@appConfig.contactUsUrl">@messageLink</a>.</p>
 
 }

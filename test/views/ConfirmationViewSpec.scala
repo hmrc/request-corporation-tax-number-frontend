@@ -33,7 +33,9 @@ class ConfirmationViewSpec extends ViewBehaviours {
   "have its title in a highlight box" in {
     val doc = asDocument(createView())
     val h1 = doc.getElementsByTag("h1").first
-    h1.parent.hasClass("govuk-box-highlight") mustBe true
+    h1.parent.hasClass("govuk-panel govuk-panel--confirmation") mustBe true
+    h1.hasClass("govuk-panel__title") mustBe true
+
   }
 
   "page should have all what happens next text" in {

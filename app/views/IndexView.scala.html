@@ -17,48 +17,53 @@
 @import config.FrontendAppConfig
 
 @this(
-    appConfig: FrontendAppConfig,
-    main_template: MainTemplate
-)
+        appConfig: FrontendAppConfig,
+        govukWrapper: GovukWrapper,
+        govukErrorSummary : GovukErrorSummary,
+        govukButton : GovukButton,
+        govukWarningText : GovukWarningText)
 
 @(call: Call)(implicit request: Request[_], messages: Messages)
 
-@main_template(title = messages("index.title")) {
+@govukWrapper(title = messages("index.title")) {
 
-    <h1 class="heading-xlarge">@messages("index.heading")</h1>
+    @components.heading("index.heading")
 
     <div class="form-group">
-        <p>@messages("index.guidance")</p>
-        <p>@messages("index.youWillNeed.title")</p>
-        <ul class="list list-bullet">
+        <p class="govuk-body">@messages("index.guidance")</p>
+        <p class="govuk-body">@messages("index.youWillNeed.title")</p>
+        <ul class="govuk-list govuk-list--bullet">
             <li>@messages("index.youWillNeed.item1")</li>
             <li>@messages("index.youWillNeed.item2")</li>
         </ul>
-        <p>@messages("index.useForm.title")</p>
-        <ul class="list list-bullet">
+        <p class="govuk-body">@messages("index.useForm.title")</p>
+        <ul class="govuk-list govuk-list--bullet">
             <li>@messages("index.useForm.item1")</li>
             <li>@messages("index.useForm.item2")</li>
             <li>@messages("index.useForm.item3")</li>
             <li>@messages("index.useForm.item4")</li>
         </ul>
 
-        <h2>@messages("index.beforeYouStart.title")</h2>
-        <p>@messages("index.beforeYouStart.p")</p>
-        <ul class="list list-bullet">
+        <h2 class="govuk-heading-m">@messages("index.beforeYouStart.title")</h2>
+        <p class="govuk-body">@messages("index.beforeYouStart.p")</p>
+        <ul class="govuk-list govuk-list--bullet">
             <li>@messages("index.beforeYouStart.item1")</li>
             <li>@messages("index.beforeYouStart.item2")</li>
         </ul>
     </div>
 
-    <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning Alert</span>
-            @messages("index.warning")
-        </strong>
-    </div>
+    @govukWarningText(WarningText(
+        iconFallbackText = "Warning Alert",
+        content = Text(messages("index.warning"))
+    ))
 
     <div class="form-field">
-        <a href="@call" id="start-now" class="button button--get-started" role="button">@messages("global.start_now")</a>
+    @govukButton(Button(
+        classes = "button button--get-started",
+        value = Some(messages("global.start_now")),
+        href = Some(call.url),
+        content = Text(messages("global.start_now")),
+        attributes = Map("id" -> "start-now", "role" -> "button")
+    ))
     </div>
 }

@@ -17,16 +17,16 @@
 @import config.FrontendAppConfig
 
 @this(
-    appConfig: FrontendAppConfig,
-    main_template: MainTemplate
+        appConfig: FrontendAppConfig,
+        govukWrapper: GovukWrapper
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-@main_template(title = messages("failed_to_submit.title")) {
+@govukWrapper(title = messages("failed_to_submit.title")) {
 
     @components.heading("failed_to_submit.heading")
 
-    <p>@messages("failed_to_submit.guidance1")</p>
+    <p class="govuk-body">@messages("failed_to_submit.guidance1")</p>
 
 }

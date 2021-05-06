@@ -15,45 +15,87 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import utils.FormHelpers
-@import models.{Mode, CompanyDetails}
+@import models.Mode
+@import uk.gov.hmrc.govukfrontend.views.html.helpers.{formWithCSRF => GovukCSRFForm}
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 @this(
-    appConfig: FrontendAppConfig,
-    main_template: MainTemplate,
-    formHelper: FormWithCSRF
+        appConfig: FrontendAppConfig,
+        govukWrapper: GovukWrapper,
+        formHelper: GovukCSRFForm,
+        govukInput : GovukInput,
+        govukButton : GovukButton,
+        govukErrorSummary : GovukErrorSummary
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@main_template(
+@govukWrapper(
     title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title"),
     backLink = Some(routes.IndexController.onPageLoad().toString)
 ) {
 
-    @formHelper(action = CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
 
-        @components.error_summary(form.errors)
+        @if(form.hasErrors) {
+            @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.summary.title"))))
+        }
 
-        @components.heading("companyDetails.heading", "heading-xlarge")
+        @components.heading("companyDetails.heading")
+
         <div>
-            <p> @messages("companyDetails.hint.first") <a id="company-house-register-link" target="_blank" href="@appConfig.companyHouseRegisterUrl">@messages("companyDetails.hint.second")</a> @messages("companyDetails.hint.third")</p>
+            <p class="govuk-body"> @messages("companyDetails.hint.first") <a id="company-house-register-link" class="govuk-link" target="_blank" href="@appConfig.companyHouseRegisterUrl">@messages("companyDetails.hint.second")</a> @messages("companyDetails.hint.third")</p>
         </div>
 
-        @components.input_text(
-            field = form("companyReferenceNumber"),
-            label = messages("companyDetails.companyReferenceNumber"),
-            hint = Some(messages("companyDetails.companyReferenceNumber.hint"))
-        )
+        @govukInput(Input(
+            id = "companyReferenceNumber",
+            name = "companyReferenceNumber",
+            classes = "govuk-input--width-20",
+            value = form("companyReferenceNumber").value,
+            errorMessage = if(form("companyReferenceNumber").hasErrors){
+                Some(ErrorMessage(
+                    content = Text(messages(form("companyReferenceNumber").errors.head.message)),
+                    attributes = Map("for" -> "companyReferenceNumber")
+                ))
+            } else { None },
+            label = Label(
+                isPageHeading = false,
+                content = Text(messages("companyDetails.companyReferenceNumber")),
+                classes = "bold"
+            ),
+            hint = Some(Hint(
+                content = Text(messages("companyDetails.companyReferenceNumber.hint"))
+            ))
+        ))
 
-        @components.input_text(
-            field = form("companyName"),
-            label = messages("companyDetails.companyName"),
-            hint = Some(messages("companyDetails.companyName.hint"))
-        )
+        @govukInput(Input(
+            id = "companyName",
+            name = "companyName",
+            classes = "govuk-input--width-20",
+            value = form("companyName").value,
+            errorMessage = if(form("companyName").hasErrors){
+                Some(ErrorMessage(
+                    content = Text(messages(form("companyName").errors.head.message)),
+                    attributes = Map("for" -> "companyName")
+                ))
+            } else { None },
+            label = Label(
+                isPageHeading = false,
+                content = Text(messages("companyDetails.companyName")),
+                classes = "bold"
+            ),
+            hint = Some(Hint(
+                content = Text(messages("companyDetails.companyName.hint"))
+            ))
+        ))
 
-        @components.submit_button()
+        <div class="section">
+        @govukButton(Button(
+            inputType = Some("submit"),
+            value = Some(messages("site.continue")),
+            content = Text(messages("site.continue")),
+            attributes = Map("id" -> "submit")
+        ))
+        </div>
     }
 }
