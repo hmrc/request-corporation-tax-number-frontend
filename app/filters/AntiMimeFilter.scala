@@ -16,12 +16,15 @@
 
 package filters
 
+import akka.stream.Materializer
 import com.google.inject.Inject
-import play.api.http.DefaultHttpFilters
-import uk.gov.hmrc.play.bootstrap.frontend.filters.FrontendFilters
+import play.api.mvc.{Filter, RequestHeader, Result}
 
-class Filters @Inject() (
-                          sessionIdFilter: SessionIdFilter,
-                          frontendFilters: FrontendFilters,
-                          antiMimeFilter: AntiMimeFilter
-                        ) extends DefaultHttpFilters(frontendFilters.filters :+ sessionIdFilter :+ antiMimeFilter: _*)
+import scala.concurrent.{ExecutionContext, Future}
+
+class AntiMimeFilter @Inject()(val mat: Materializer)(implicit ec: ExecutionContext) extends Filter {
+
+  override def apply(f: RequestHeader ⇒ Future[Result])(rh: RequestHeader): Future[Result] =
+    f(rh).map(_.withHeaders("X-Content-Type-Options" → "nosniff"))
+
+}
