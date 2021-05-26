@@ -17,26 +17,26 @@
 package controllers
 
 import models.NormalMode
-import play.api.mvc.{Call, MessagesControllerComponents, Request}
+import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
 import views.html.IndexView
 
 class IndexControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view = app.injector.instanceOf[IndexView]
+  val indexView: IndexView = app.injector.instanceOf[IndexView]
 
-  def call(implicit request: Request[_]) : Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
+  def call : Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
   "Index Controller" must {
     "return 200 for a GET" in {
-      val result = new IndexController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
+      val result = new IndexController(frontendAppConfig, cc, indexView, messagesApi).onPageLoad()(fakeRequest)
       status(result) mustBe OK
     }
 
     "return the correct view for a GET" in {
-      val result = new IndexController(frontendAppConfig, cc, view, messagesApi).onPageLoad()(fakeRequest)
-      contentAsString(result) mustBe view(call(fakeRequest))(fakeRequest, messages).toString
+      val result = new IndexController(frontendAppConfig, cc, indexView, messagesApi).onPageLoad()(fakeRequest)
+      contentAsString(result) mustBe indexView(call)(fakeRequest, messages).toString
     }
   }
 }

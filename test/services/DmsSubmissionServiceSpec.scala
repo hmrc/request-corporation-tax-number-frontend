@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.CtutrConnector
 import models._
 import org.mockito.ArgumentCaptor
-import org.mockito.Matchers._
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
@@ -31,8 +31,6 @@ import utils.MockUserAnswers
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.{ExecutionContext, Future}
 import scala.language.postfixOps
-import org.mockito.Mockito._
-import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 
 class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
 
@@ -52,9 +50,8 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(Some(SubmissionResponse("id", "filename")))
 
         val service = new DmsSubmissionService(frontendAppConfig, mockCtutrConnector, mockAuditConnector)
-        implicit val hc = new HeaderCarrier
+        implicit val hc: HeaderCarrier = new HeaderCarrier
 
-        val eventCaptor = ArgumentCaptor.forClass(classOf[SubmissionEvent])
         val futureResult = service.ctutrSubmission(answers)
 
         whenReady(futureResult, Timeout(5 seconds)) { result =>
@@ -74,9 +71,8 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(None)
 
         val service = new DmsSubmissionService(frontendAppConfig, mockCtutrConnector, mockAuditConnector)
-        implicit val hc = new HeaderCarrier
+        implicit val hc: HeaderCarrier = new HeaderCarrier
 
-        val eventCaptor = ArgumentCaptor.forClass(classOf[SubmissionEvent])
         val futureResult = service.ctutrSubmission(answers)
 
         whenReady(futureResult) { result =>

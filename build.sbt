@@ -2,25 +2,21 @@ import play.sbt.routes.RoutesKeys
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
-import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
-import uk.gov.hmrc.SbtAutoBuildPlugin
 
 val appName = "request-corporation-tax-number-frontend"
-lazy val appDependencies: Seq[ModuleID] = AppDependencies.all
-lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin)
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
     ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
     ".*ControllerConfiguration;.*LanguageSwitchController",
-    ScoverageKeys.coverageMinimum := 75,
+    ScoverageKeys.coverageMinimum := 85,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true
   )
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(plugins : _*)
+  .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
   .settings(
     RoutesKeys.routesImport ++= Seq("models._"),
     TwirlKeys.templateImports ++= Seq(
@@ -37,11 +33,10 @@ lazy val microservice = Project(appName, file("."))
     defaultSettings(),
     scoverageSettings,
     scalacOptions ++= Seq("-feature"),
-    libraryDependencies ++= appDependencies,
+    libraryDependencies ++= AppDependencies.all,
     dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
-    evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
     // concatenate js
     Concat.groups := Seq(
       "javascripts/requestcorporationtaxnumberfrontend-app.js" -> group(Seq("javascripts/show-hide-content.js", "javascripts/requestcorporationtaxnumberfrontend.js", "javascripts/timeoutDialog.js"))
@@ -59,7 +54,7 @@ lazy val microservice = Project(appName, file("."))
   scalaVersion := "2.12.12"
 
 // Silence unused import in views and routes
-val silencerVersion = "1.7.0"
+val silencerVersion = "1.7.1"
 libraryDependencies ++= Seq(
   compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
   "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
