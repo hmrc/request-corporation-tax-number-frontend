@@ -21,8 +21,6 @@ import controllers.routes
 import identifiers._
 import models._
 import org.mockito.Mockito._
-import org.mockito.Mockito._
-import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 
 class NavigatorSpec extends SpecBase {
 

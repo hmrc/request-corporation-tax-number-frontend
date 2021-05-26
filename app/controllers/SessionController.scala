@@ -35,6 +35,7 @@ class SessionController @Inject()(val appConfig: FrontendAppConfig,
   }
 
   def keepAlive(): Action[AnyContent] = Action.async {
-    implicit request => Future.successful(Ok("OK"))
+    Future.successful(Ok("OK"))
   }
+
 }

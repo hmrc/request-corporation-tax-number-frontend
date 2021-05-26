@@ -21,15 +21,15 @@ import play.api.libs.json.{Format, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import repositories.SessionRepository
 import utils.CascadeUpsert
-import scala.concurrent.ExecutionContext.Implicits.global
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert) extends DataCacheConnector {
+class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert)
+                                      (implicit val ec: ExecutionContext) extends DataCacheConnector {
 
   def save[A](cacheId: String, key: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
+      val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(CacheMap(cacheId, Map())))
       sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
     }
   }
@@ -54,7 +54,7 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
 
   def addToCollection[A](cacheId: String, collectionKey: String, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      val updatedCacheMap = cascadeUpsert.addRepeatedValue(collectionKey, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
+      val updatedCacheMap = cascadeUpsert.addRepeatedValue(collectionKey, value, optionalCacheMap.getOrElse(CacheMap(cacheId, Map())))
       sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
     }
   }
