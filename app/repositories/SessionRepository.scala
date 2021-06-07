@@ -75,9 +75,8 @@ class MongoRepository(config: Configuration, mongo: MongoComponent)
 
   def get(id: String): Future[Option[CacheMap]] = {
     collection.find(equal("id", id)).headOption().map { datedCacheMap =>
-      Try(datedCacheMap.get.toCacheMap) match {
-        case Success(value) => Some(value)
-        case _ => None
+      datedCacheMap.map { value: DatedCacheMap =>
+        value.toCacheMap
       }
     }
   }
