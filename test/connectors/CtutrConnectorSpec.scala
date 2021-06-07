@@ -21,14 +21,14 @@ import models.{Submission, SubmissionResponse}
 import org.scalatest.concurrent.ScalaFutures
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 import utils.MockUserAnswers
 
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import org.mockito.Mockito._
-import org.mockito.ArgumentMatchers.{any, eq => eqTo}
+import org.mockito.ArgumentMatchers.any
 
 class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
@@ -44,7 +44,12 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
       val httpMock = mock(classOf[HttpClient])
       when(httpMock.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
-        .thenReturn(Future.successful(HttpResponse(200, Some(Json.parse("""{"id":"id","filename":"filename"}""")))))
+        .thenReturn(Future.successful(
+          HttpResponse(200,
+          """ |{
+              |  "id": "id",
+              |  "filename": "filename"
+              |}""".stripMargin)))
 
       val connector = new CtutrConnector(frontendAppConfig, httpMock)
       val futureResult = connector.ctutrSubmission(Json.toJson(submission))
@@ -63,7 +68,7 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
       val httpMock = mock(classOf[HttpClient])
       when(httpMock.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
-        .thenReturn(Future.successful(HttpResponse(500, None)))
+        .thenReturn(Future.successful(HttpResponse(500, "")))
 
       val connector = new CtutrConnector(frontendAppConfig, httpMock)
       val futureResult = connector.ctutrSubmission(Json.toJson(enrolment))
