@@ -13,7 +13,7 @@ object AppDependencies {
     "uk.gov.hmrc"       %% "play-conditional-form-mapping" % "1.9.0-play-27",
     "uk.gov.hmrc"       %% "bootstrap-frontend-play-27"    % "5.3.0",
     "uk.gov.hmrc"       %% "play-allowlist-filter"          % "1.0.0-play-27",
-    "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "0.69.0-play-27"
+    "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "0.71.0-play-27"
   )
 
   val test: Seq[ModuleID] = Seq(
