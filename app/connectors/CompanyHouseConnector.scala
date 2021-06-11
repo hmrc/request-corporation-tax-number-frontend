@@ -21,8 +21,8 @@ import http.ProxyHttpClient
 import models.CompanyDetails
 import play.api.Logger
 import play.api.http.Status._
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -37,23 +37,22 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
 
   def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
     implicit val hc: HeaderCarrier = HeaderCarrier().withExtraHeaders(("Authorization", appConfig.companyHouseRequestAuth))
-
     val httpClient = if (appConfig.proxyRequired) proxyHttp else http
 
-    httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber)
+    httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber, headers = Seq("Authorization" -> appConfig.companyHouseRequestAuth))
       .map { response =>
       response.status match {
         case OK =>
-          logger.debug("[CompanyHouseConnector][validateCRN] " + "CRN found")
+          logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
           Some(getName(response) == data.companyName.toLowerCase.replace(" ",""))
         case NOT_FOUND =>
-          logger.debug("[CompanyHouseConnector][validateCRN] " + " CRN not found")
+          logger.warn(s"[CompanyHouseConnector][validateCRN] CRN not found - $response")
           Some(false)
         case TOO_MANY_REQUESTS =>
-          logger.error("[CompanyHouseConnector][validateCRN] " + "request limit exceeded")
+          logger.error(s"[CompanyHouseConnector][validateCRN] request limit exceeded - $response")
           None
-        case _=>
-          logger.error("[CompanyHouseConnector][validateCRN] " + response)
+        case _ =>
+          logger.error(s"[CompanyHouseConnector][validateCRN] $response")
           None
       }
     }.recover{

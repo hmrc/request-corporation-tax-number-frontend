@@ -16,16 +16,15 @@
 
 package controllers
 
-import config.FrontendAppConfig
-import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.SessionExpiredView
-import scala.concurrent.Future
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import views.html.SessionExpiredView
 
-class SessionController @Inject()(val appConfig: FrontendAppConfig,
-                                  cc: MessagesControllerComponents,
+import javax.inject.Inject
+import scala.concurrent.Future
+
+class SessionController @Inject()(cc: MessagesControllerComponents,
                                   view: SessionExpiredView,
                                   override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {

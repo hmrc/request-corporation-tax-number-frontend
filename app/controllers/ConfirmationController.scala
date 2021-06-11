@@ -16,21 +16,20 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import controllers.actions._
-import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.ConfirmationView
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import views.html.ConfirmationView
 
-class ConfirmationController @Inject()(appConfig: FrontendAppConfig,
-                                       override val messagesApi: MessagesApi,
+import javax.inject.Inject
+
+class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                        getData: DataRetrievalAction,
                                        cc: MessagesControllerComponents,
                                        requireData: DataRequiredAction,
-                                       view: ConfirmationView)
-  extends FrontendController(cc) with I18nSupport {
+                                       view: ConfirmationView
+                                      ) extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>

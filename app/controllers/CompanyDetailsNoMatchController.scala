@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import controllers.actions._
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -25,8 +24,7 @@ import views.html.CompanyDetailsNoMatchView
 
 import javax.inject.Inject
 
-class CompanyDetailsNoMatchController @Inject()(appConfig: FrontendAppConfig,
-                                                override val messagesApi: MessagesApi,
+class CompanyDetailsNoMatchController @Inject()(override val messagesApi: MessagesApi,
                                                 getData: DataRetrievalAction,
                                                 cc: MessagesControllerComponents,
                                                 requireData: DataRequiredAction,
