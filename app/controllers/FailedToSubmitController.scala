@@ -16,15 +16,14 @@
 
 package controllers
 
-import config.FrontendAppConfig
-import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.FailedToSubmitView
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import views.html.FailedToSubmitView
 
-class FailedToSubmitController @Inject()(appConfig: FrontendAppConfig,
-                                         cc: MessagesControllerComponents,
+import javax.inject.Inject
+
+class FailedToSubmitController @Inject()(cc: MessagesControllerComponents,
                                          view: FailedToSubmitView,
                                          override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {

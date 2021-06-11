@@ -16,16 +16,15 @@
 
 package controllers
 
-import config.FrontendAppConfig
-import javax.inject.Inject
 import models.NormalMode
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.IndexView
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import views.html.IndexView
 
-class IndexController @Inject()(val appConfig: FrontendAppConfig,
-                                cc: MessagesControllerComponents,
+import javax.inject.Inject
+
+class IndexController @Inject()(cc: MessagesControllerComponents,
                                 view: IndexView,
                                 override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {

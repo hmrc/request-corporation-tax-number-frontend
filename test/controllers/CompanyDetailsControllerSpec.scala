@@ -34,10 +34,10 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
 
   val formProvider: CompanyDetailsFormProvider = new CompanyDetailsFormProvider()
   val form: Form[CompanyDetails] = formProvider()
-  val view = app.injector.instanceOf[CompanyDetailsView]
+  val view: CompanyDetailsView = app.injector.instanceOf[CompanyDetailsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CompanyDetailsController(frontendAppConfig,
+    new CompanyDetailsController(
       messagesApi,
       FakeDataCacheConnector,
       new FakeNavigator(desiredRoute = onwardRoute),

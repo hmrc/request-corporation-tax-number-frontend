@@ -37,7 +37,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       val answers = MockUserAnswers.minimalValidUserAnswers
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       val httpMock = mock(classOf[HttpClient])
-      when(httpMock.GET[HttpResponse](any())(any(), any(), any()))
+      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
         .thenReturn(Future.successful(
           HttpResponse(200,
           """
@@ -104,7 +104,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       val answers = MockUserAnswers.minimalValidUserAnswers
       val httpMock = mock(classOf[HttpClient])
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
-      when(httpMock.GET[HttpResponse](any())(any(), any(), any()))
+      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
         .thenReturn(Future.successful(
           HttpResponse(200,
             """
@@ -171,7 +171,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       val answers = MockUserAnswers.minimalValidUserAnswers
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       val httpMock = mock(classOf[HttpClient])
-      when(httpMock.GET[HttpResponse](any())(any(), any(), any()))
+      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
         .thenReturn(Future.successful(
           HttpResponse(404,
           """
@@ -197,7 +197,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       val answers = MockUserAnswers.minimalValidUserAnswers
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       val httpMock = mock(classOf[HttpClient])
-      when(httpMock.GET[HttpResponse](any())(any(), any(), any()))
+      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
         .thenReturn(Future.successful(
           HttpResponse(429,
           """

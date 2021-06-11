@@ -16,7 +16,6 @@
 
 package controllers
 
-import controllers.actions._
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
 import views.html.FailedToSubmitView
@@ -24,16 +23,11 @@ import views.html.FailedToSubmitView
 class FailedToSubmitControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view = app.injector.instanceOf[FailedToSubmitView]
+  val view: FailedToSubmitView = app.injector.instanceOf[FailedToSubmitView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new FailedToSubmitController(frontendAppConfig,
-      cc,
-      view,
-      messagesApi
-      )
+  def controller() = new FailedToSubmitController(cc, view, messagesApi)
 
-  def viewAsString() = view()(fakeRequest, messages).toString
+  def viewAsString(): String = view()(fakeRequest, messages).toString
 
   "FailedToSubmit Controller" must {
 

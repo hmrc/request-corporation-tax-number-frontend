@@ -24,9 +24,9 @@ import views.html.ConfirmationView
 class ConfirmationControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view = app.injector.instanceOf[ConfirmationView]
+  val view: ConfirmationView = app.injector.instanceOf[ConfirmationView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ConfirmationController(frontendAppConfig,
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ConfirmationController(
     messagesApi,
     dataRetrievalAction,
     cc,

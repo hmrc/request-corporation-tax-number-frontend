@@ -19,7 +19,7 @@ package http
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
 import javax.inject.Inject
-import play.api.libs.ws
+import play.api.libs.ws.{WSRequest => PlayWSRequest}
 import play.api.libs.ws.{WSClient, WSProxyServer}
 import play.api.{Configuration, Logger}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
@@ -34,21 +34,18 @@ class ProxyHttpClient @Inject()(
                                  val auditConnector: AuditConnector,
                                  val actorSystem: ActorSystem,
                                  config: Configuration,
-                                 client: WSClient
+                                 client: WSClient,
                                ) extends HttpClient with WSHttp with HttpAuditing with WSProxy {
 
-  val logger = Logger(this.getClass.getName)
+  val logger: Logger = Logger(this.getClass.getName)
 
-  override def buildRequest[A](url: String, headers: Seq[(String, String)] = Seq.empty)(
-    implicit hc: HeaderCarrier): ws.WSRequest =
-    wsProxyServer match {
-      case Some(proxy) =>
-        logger.info("proxy enabled with configuration")
-        super.buildRequest(url, headers).withRequestTimeout(60.seconds).withProxyServer(proxy)
-      case None => super.buildRequest(url, headers).withRequestTimeout(60.seconds)
-    }
+  def buildRequest[A](url: String, headers: Seq[(String, String)] = Seq.empty)
+                              (implicit hc: HeaderCarrier): PlayWSRequest = {
+    if(wsProxyServer.nonEmpty) logger.info("proxy enabled with configuration")
+    super.buildRequest(url, headers).withRequestTimeout(60.seconds)
+  }
 
-  override lazy val configuration: Option[Config] = Option(config.underlying)
+  override def configuration: Config = config.underlying
 
   override val appName: String = config.get[String]("appName")
 

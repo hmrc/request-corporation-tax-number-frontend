@@ -30,6 +30,14 @@ import scala.concurrent.Future
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
+  object FakeSuccessfulSubmissionService extends SubmissionService {
+    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = Future.successful(SubmissionSuccessful)
+  }
+
+  object FakeFailingSubmissionService extends SubmissionService {
+    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = Future.successful(SubmissionFailed)
+  }
+
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
   val checkYourAnswersView: CheckYourAnswersView = app.injector.instanceOf[CheckYourAnswersView]
   val noMatchView: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
@@ -38,7 +46,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
 
   def testController(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap, submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
-                new CheckYourAnswersController(frontendAppConfig,
+                new CheckYourAnswersController(
                   messagesApi,
                   dataRetrievalAction,
                   new DataRequiredActionImpl,
@@ -99,12 +107,4 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
     }
   }
-}
-
-object FakeSuccessfulSubmissionService extends SubmissionService {
-  override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = Future.successful(SubmissionSuccessful)
-}
-
-object FakeFailingSubmissionService extends SubmissionService {
-  override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = Future.successful(SubmissionFailed)
 }

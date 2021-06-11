@@ -38,7 +38,7 @@ trait ControllerSpecBase extends SpecBase {
 
   val cacheMapId = "id"
 
-  def emptyCacheMap = CacheMap(cacheMapId, Map())
+  def emptyCacheMap: CacheMap = CacheMap(cacheMapId, Map())
 
   def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), ec, parser)
 

@@ -16,25 +16,22 @@
 
 package repositories
 
-import java.time.{LocalDateTime, ZoneId}
-import java.util.concurrent.TimeUnit
-
-import javax.inject.{Inject, Singleton}
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Indexes.ascending
 import org.mongodb.scala.model.{IndexModel, IndexOptions, ReplaceOptions}
 import play.api.Configuration
-import play.api.libs.json.{Format, JsValue, Json, OFormat, Reads}
-import uk.gov.hmrc.http.cache.client.{CacheMap, KeyStoreEntryValidationException}
+import play.api.libs.json.{Format, JsValue, Json, OFormat}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
-import uk.gov.hmrc.mongo.play.json.formats.MongoJavatimeFormats
-import uk.gov.hmrc.mongo.play.json.formats.MongoFormats
+import uk.gov.hmrc.mongo.play.json.formats.{MongoFormats, MongoJavatimeFormats}
 
+import java.time.{LocalDateTime, ZoneId}
+import java.util.concurrent.TimeUnit
+import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.language.implicitConversions
-import scala.util.{Try, Success}
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],

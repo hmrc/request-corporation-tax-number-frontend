@@ -16,23 +16,22 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.CompanyDetailsFormProvider
 import identifiers.CompanyDetailsId
-import javax.inject.Inject
 import models.{CompanyDetails, Mode}
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.{Navigator, UserAnswers}
 import views.html.CompanyDetailsView
+
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class CompanyDetailsController @Inject()(
-                                          appConfig: FrontendAppConfig,
                                           override val messagesApi: MessagesApi,
                                           dataCacheConnector: DataCacheConnector,
                                           navigator: Navigator,
@@ -43,7 +42,7 @@ class CompanyDetailsController @Inject()(
                                         )(implicit executionContext: ExecutionContext)
   extends FrontendController(cc) with I18nSupport {
 
-  val form = formProvider()
+  val form: Form[CompanyDetails] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = getData {
     implicit request =>
