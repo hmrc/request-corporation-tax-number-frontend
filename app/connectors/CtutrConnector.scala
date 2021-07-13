@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import models.SubmissionResponse
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.JsValue
 import play.api.http.Status._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -29,9 +29,7 @@ import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) {
-
-  val logger = Logger(classOf[CtutrConnector])
+class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging {
 
   def ctutrSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
 

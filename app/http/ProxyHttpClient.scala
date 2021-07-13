@@ -21,7 +21,7 @@ import com.typesafe.config.Config
 import javax.inject.Inject
 import play.api.libs.ws.{WSRequest => PlayWSRequest}
 import play.api.libs.ws.{WSClient, WSProxyServer}
-import play.api.{Configuration, Logger}
+import play.api.{Configuration, Logging}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.http.hooks.HttpHook
 import uk.gov.hmrc.play.audit.http.HttpAuditing
@@ -30,14 +30,11 @@ import uk.gov.hmrc.play.http.ws.{WSHttp, WSProxy, WSProxyConfiguration}
 
 import scala.concurrent.duration._
 
-class ProxyHttpClient @Inject()(
-                                 val auditConnector: AuditConnector,
+class ProxyHttpClient @Inject()(val auditConnector: AuditConnector,
                                  val actorSystem: ActorSystem,
                                  config: Configuration,
-                                 client: WSClient,
-                               ) extends HttpClient with WSHttp with HttpAuditing with WSProxy {
-
-  val logger: Logger = Logger(this.getClass.getName)
+                                 client: WSClient
+                               ) extends HttpClient with WSHttp with HttpAuditing with WSProxy with Logging {
 
   def buildRequest[A](url: String, headers: Seq[(String, String)] = Seq.empty)
                               (implicit hc: HeaderCarrier): PlayWSRequest = {

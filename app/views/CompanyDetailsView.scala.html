@@ -32,7 +32,7 @@
 
 @govukWrapper(
     title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title"),
-    backLink = Some(routes.IndexController.onPageLoad().toString)
+    backLink = Some(routes.IndexController.onPageLoad.toString)
 ) {
 
     @formHelper(action = routes.CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {

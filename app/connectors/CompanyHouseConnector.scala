@@ -19,7 +19,7 @@ package connectors
 import config.FrontendAppConfig
 import http.ProxyHttpClient
 import models.CompanyDetails
-import play.api.Logger
+import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
@@ -27,9 +27,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) {
-
-  val logger: Logger = Logger(classOf[CompanyHouseConnector])
+class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) extends Logging {
 
   def getName(response: HttpResponse): String ={
     (response.json \ "company_name").as[String].toLowerCase.replace(" ","")

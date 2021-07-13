@@ -29,7 +29,7 @@
 @(answerSection: AnswerSection)(implicit request: Request[_], messages: Messages)
 
 @govukWrapper(title = messages("checkYourAnswers.title"), backLink = Some(routes.CompanyDetailsController.onPageLoad(NormalMode).toString)) {
-    @formHelper(action = routes.CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = routes.CheckYourAnswersController.onSubmit, 'autoComplete -> "off") {
 
         @components.heading("checkYourAnswers.heading")
 

@@ -27,7 +27,6 @@ lazy val microservice = Project(appName, file("."))
       "uk.gov.hmrc.hmrcfrontend.views.html.components._",
       "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
     ),
-    parallelExecution in Test := false,
     scalaSettings,
     publishingSettings,
     defaultSettings(),
@@ -51,10 +50,10 @@ lazy val microservice = Project(appName, file("."))
   )
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(majorVersion := 1)
-  scalaVersion := "2.12.12"
+  scalaVersion := "2.12.14"
 
 // Silence unused import in views and routes
-val silencerVersion = "1.7.1"
+val silencerVersion = "1.7.5"
 libraryDependencies ++= Seq(
   compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
   "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
