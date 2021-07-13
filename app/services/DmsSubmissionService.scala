@@ -18,10 +18,9 @@ package services
 
 import javax.inject.Inject
 
-import config.FrontendAppConfig
 import connectors.CtutrConnector
 import models._
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.audit.DefaultAuditConnector
@@ -30,11 +29,8 @@ import utils.UserAnswers
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DmsSubmissionService @Inject()(appConfig: FrontendAppConfig,
-                                     ctutrConnector: CtutrConnector,
-                                     auditConnector: DefaultAuditConnector) extends SubmissionService {
-
-  val logger = Logger(classOf[DmsSubmissionService])
+class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
+                                     auditConnector: DefaultAuditConnector) extends SubmissionService with Logging {
 
   override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = {
 

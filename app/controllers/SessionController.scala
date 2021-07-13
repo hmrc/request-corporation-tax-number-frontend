@@ -30,7 +30,7 @@ class SessionController @Inject()(cc: MessagesControllerComponents,
   extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(view(routes.IndexController.onPageLoad()))
+    Ok(view(routes.IndexController.onPageLoad))
   }
 
   def keepAlive(): Action[AnyContent] = Action.async {

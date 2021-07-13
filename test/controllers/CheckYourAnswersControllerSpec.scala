@@ -41,7 +41,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
   val checkYourAnswersView: CheckYourAnswersView = app.injector.instanceOf[CheckYourAnswersView]
   val noMatchView: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
-  def sessionExpired: Call = routes.SessionController.onPageLoad()
+  def sessionExpired: Call = routes.SessionController.onPageLoad
 
 
 

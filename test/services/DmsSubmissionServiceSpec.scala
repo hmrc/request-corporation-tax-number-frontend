@@ -49,7 +49,7 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
         val mockCtutrConnector = mock(classOf[CtutrConnector])
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(Some(SubmissionResponse("id", "filename")))
 
-        val service = new DmsSubmissionService(frontendAppConfig, mockCtutrConnector, mockAuditConnector)
+        val service = new DmsSubmissionService(mockCtutrConnector, mockAuditConnector)
         implicit val hc: HeaderCarrier = new HeaderCarrier
 
         val futureResult = service.ctutrSubmission(answers)
@@ -70,7 +70,7 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
         val mockCtutrConnector = mock(classOf[CtutrConnector])
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(None)
 
-        val service = new DmsSubmissionService(frontendAppConfig, mockCtutrConnector, mockAuditConnector)
+        val service = new DmsSubmissionService(mockCtutrConnector, mockAuditConnector)
         implicit val hc: HeaderCarrier = new HeaderCarrier
 
         val futureResult = service.ctutrSubmission(answers)

@@ -57,7 +57,7 @@ class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi
         Ok(view(answerSection))
       }
 
-      result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
+      result.getOrElse(Redirect(routes.SessionController.onPageLoad))
   }
 
   def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {

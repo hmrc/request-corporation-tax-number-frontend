@@ -18,7 +18,7 @@ package generators
 
 import org.scalacheck.{Arbitrary, Gen, Shrink}
 import Gen._
-import Arbitrary._
+import Arbitrary.arbitrary
 
 trait Generators {
 
