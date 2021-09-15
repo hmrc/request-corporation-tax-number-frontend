@@ -16,16 +16,16 @@
 
 @import config.FrontendAppConfig
 @import models.Mode
-@import uk.gov.hmrc.govukfrontend.views.html.helpers.{formWithCSRF => GovukCSRFForm}
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 @this(
         appConfig: FrontendAppConfig,
         govukWrapper: GovukWrapper,
-        formHelper: GovukCSRFForm,
+        formHelper: FormWithCSRF,
         govukInput : GovukInput,
         govukButton : GovukButton,
-        govukErrorSummary : GovukErrorSummary
+        govukErrorSummary : GovukErrorSummary,
+        hmrcNewTabLink: HmrcNewTabLink
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
@@ -44,7 +44,14 @@
         @components.heading("companyDetails.heading")
 
         <div>
-            <p class="govuk-body"> @messages("companyDetails.hint.first") <a id="company-house-register-link" class="govuk-link" target="_blank" href="@appConfig.companyHouseRegisterUrl">@messages("companyDetails.hint.second")</a> @messages("companyDetails.hint.third")</p>
+            <p class="govuk-body"> @messages("companyDetails.hint.first")
+                @hmrcNewTabLink(NewTabLink(
+                    text = messages("companyDetails.hint.second"),
+                    href = Some(appConfig.companyHouseRegisterUrl),
+                    language = Some(messages.lang.toString)
+                ))
+
+                @messages("companyDetails.hint.third")</p>
         </div>
 
         @govukInput(Input(

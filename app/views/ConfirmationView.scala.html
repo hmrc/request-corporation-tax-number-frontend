@@ -18,7 +18,8 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper
+        govukWrapper: GovukWrapper,
+        hmrcNewTabLink: HmrcNewTabLink
 )
 
 @()(implicit request: Request[_], messages: Messages)
@@ -36,9 +37,11 @@
 
     <div>
         <p class="govuk-body">@messages("confirmation.whatHappensNext.line2")
-            <a target="_blank" id="companies-house-search" class="govuk-link" href="@appConfig.companyHouseRegisterUrl">
-            @messages("confirmation.whatHappensNext.line3")
-        </a>.
+            @hmrcNewTabLink(NewTabLink(
+                text = messages("confirmation.whatHappensNext.line3"),
+                href = Some(appConfig.companyHouseRegisterUrl),
+                language = Some(messages.lang.toString)
+            )).
         </p>
     </div>
 
