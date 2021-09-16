@@ -18,7 +18,8 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper
+        govukWrapper: GovukWrapper,
+        hmrcNewTabLink: HmrcNewTabLink
 )
 
 @()(implicit request: Request[_], messages: Messages)
@@ -28,7 +29,12 @@
     @components.heading("companyDetailsNoMatch.heading")
 
     <div>
-        <p class="govuk-body"> @messages("companyDetailsNoMatch.hint.first") <a id="get-information-about-a-company-link" target="_blank" href="@appConfig.getCompanyInformationUrl">@messages("companyDetailsNoMatch.hint.second")</a>.
+        <p class="govuk-body"> @messages("companyDetailsNoMatch.hint.first")
+            @hmrcNewTabLink(NewTabLink(
+                text = messages("companyDetailsNoMatch.hint.second"),
+                href = Some(appConfig.getCompanyInformationUrl),
+                language = Some(messages.lang.toString)
+            )).
     </div>
 
     <p class="govuk-body"><a class="govuk-link" id=try-again-link" href="@routes.CompanyDetailsController.onPageLoad(NormalMode)">@messages("companyDetailsNoMatch.button")</a>}</p>
