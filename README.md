@@ -13,7 +13,7 @@ Service has nginx limiter set, this is available in:
 
 Example for this is here: https://github.com/hmrc/aws-ami-public-routing-proxy/blob/5322a3f66bbb73d1034a61f71d93e4516ab2488b/files/nginx/frontend-conf/frontend-external-production.conf#L9
 
-This is set via the location in: https://github.com/hmrc/mdtp-frontend-routes/blob/master/{environment}/frontend-proxy-application-rules.conf
+This is set via the location in: https://github.com/hmrc/mdtp-frontend-routes/blob/main/{environment}/frontend-proxy-application-rules.conf
 
 ## Running the service
 
