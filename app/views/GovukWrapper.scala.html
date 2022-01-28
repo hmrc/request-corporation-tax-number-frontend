@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,18 @@
 }
 
 @beforeContentWithLanguageToggle = {
-    @hmrcLanguageSelectHelper()
+
+    <div>
+        @hmrcLanguageSelectHelper()
+        @if(backLink.isDefined) {
+            @govukBackLink(BackLink(
+                href = backLink.get,
+                content = Text(messages("companyDetails.button.back")),
+                classes = "js-visible govuk-back-link",
+                attributes = Map("id" -> "back")
+            ))
+        }
+    </div>
     @beforeContentHtml
 }
 
@@ -73,15 +84,6 @@
 @content = {
         <div id="content">
             <div class="content__body">
-                @if(backLink.isDefined) {
-                    @govukBackLink(BackLink(
-                        href = backLink.get,
-                        content = Text(messages("companyDetails.button.back")),
-                        classes = "js-visible link-back",
-                        attributes = Map("id" -> "back")
-                    ))
-                }
-
                 @mainContent
 
                 <div class="govuk-form-group">
@@ -95,10 +97,10 @@
     pageTitle = Some(title),
     headBlock = Some(hmrcHead(
         headBlock = Some(head))),
-    headerBlock = Some(hmrcStandardHeader(
-        serviceName = Some(messages("service.name")),
-        serviceUrl = Some(controllers.routes.IndexController.onPageLoad.url)
-    )),
+        headerBlock = Some(hmrcStandardHeader(
+            serviceName = Some(messages("service.name")),
+            serviceUrl = Some(controllers.routes.IndexController.onPageLoad.url)
+        )),
     beforeContentBlock = Some(beforeContentWithLanguageToggle),
     scriptsBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),
     footerBlock = Some(hmrcStandardFooter())
