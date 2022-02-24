@@ -52,7 +52,7 @@ lazy val microservice = Project(appName, file("."))
   scalaVersion := "2.12.14"
 
 // Silence unused import in views and routes
-val silencerVersion = "1.7.5"
+val silencerVersion = "1.7.8"
 libraryDependencies ++= Seq(
   compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
   "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
