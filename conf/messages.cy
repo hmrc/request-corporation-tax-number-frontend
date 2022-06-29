@@ -1,5 +1,5 @@
 global.start_now = Dechrau nawr
-service.name = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth
+service.name = Gofynnwch am gopi o’ch UTR ar gyfer Treth Gorfforaeth
 
 checkYourAnswers.title = Gwiriwch eich atebion – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 checkYourAnswers.heading = Gwiriwch eich atebion cyn anfon eich cais
@@ -23,10 +23,10 @@ error.number = Rhowch rif dilys
 error.required = Nodwch werth
 error.summary.title = Mae problem wedi codi
 
-index.title = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
-index.heading = Gofynnwch am gopi o’ch UTR Treth Gorfforaeth
-index.guidance = Byddwn yn anfon copi o’r UTR Treth Gorfforaeth drwy’r post i gyfeiriad cofrestredig y cwmni fel y’i dangosir yn Nhŷ’r Cwmnïau. Bydd yn eich cyrraedd drwy’r post er mwyn cadw’ch manylion yn ddiogel.
-index.useForm.title = Ni fyddwch yn gallu gwneud cais am gopi o UTR Treth Gorfforaeth ar gyfer cwmni sydd:
+index.title = Gofynnwch am gopi o’ch UTR ar gyfer Treth Gorfforaeth – GOV.UK
+index.heading = Gofynnwch am gopi o’ch UTR ar gyfer Treth Gorfforaeth
+index.guidance = Byddwn yn anfon copi o’ch Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth drwy’r post i gyfeiriad cofrestredig y cwmni fel y’i dangosir yn Nhŷ’r Cwmnïau. Bydd yn eich cyrraedd drwy’r post er mwyn cadw’ch manylion yn ddiogel.
+index.useForm.title = Ni fyddwch yn gallu gwneud cais am gopi o UTR ar gyfer Treth Gorfforaeth ar gyfer cwmni sydd:
 index.useForm.item1 = wedi ei gau’n swyddogol neu ei ddiddymu
 index.useForm.item2 = wedi ei dynnu oddi ar gofrestr Tŷ’r Cwmnïau
 index.useForm.item3 = wedi newid i fath gwahanol o sefydliad ac sydd ddim yn gwmni cofrestredig mwyach
@@ -39,6 +39,9 @@ index.beforeYouStart.p = Efallai y gallwch hefyd ddod o hyd i’ch UTR ar gyfer 
 index.beforeYouStart.item1 = yn eich cyfrif treth busnes - os ydych eisoes wedi cofrestru i ddefnyddio gwasanaethau treth ar-lein ac wedi cysylltu’r UTR â’ch proffil
 index.beforeYouStart.item2 = ar lythyrau blaenorol gennym - megis llythyr i’ch atgoffa i gyflwyno Ffurflen Treth Gorfforaeth neu ar Ffurflen Treth Gorfforaeth flaenorol
 index.warning = Dim ond os yw’r cwmni wedi’i gofrestru gyda Thŷ’r Cwmnïau y gallwch ddefnyddio’r gwasanaeth hwn.
+index.serviceDelay.title = Pwysig
+index.serviceDelay.heading = Mae oedi gyda’r gwasanaeth hwn
+index.serviceDelay.message = Gall gymryd mwy nag 20 diwrnod i’ch UTR ar gyfer Treth Gorfforaeth gyrraedd drwy’r post. Os ydych wedi gofyn am UTR yn ddiweddar, peidiwch â gwneud ceisiadau pellach o fewn yr 20 diwrnod hynny gan y gallai hyn achosi oedi pellach i’r gwasanaeth.
 
 session_expired.title = Dechreuwch eto – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 session_expired.heading = Bydd yn rhaid i chi ddechrau o’r dechrau

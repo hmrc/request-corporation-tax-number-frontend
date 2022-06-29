@@ -39,6 +39,9 @@ index.beforeYouStart.p = You might also find your Corporation Tax UTR:
 index.beforeYouStart.item1 = in your business tax account - if you have already registered for online tax services and attached the UTR to your profile
 index.beforeYouStart.item2 = on previous letters from us - like a reminder to file a Corporation Tax Return or on a previous Corporation Tax Return
 index.warning = You can only use this service if the company is registered with Companies House.
+index.serviceDelay.title = Important
+index.serviceDelay.heading = There is a delay in this service
+index.serviceDelay.message = It may take more than 20 days for your Corporation Tax UTR to arrive by post. If you’ve recently requested a UTR, please do not make further requests within those 20 days as this may cause further delays to the service.
 
 session_expired.title = Start again – Ask for a copy of your Corporation Tax UTR – GOV.UK
 session_expired.heading = You will have to start again
