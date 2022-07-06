@@ -53,6 +53,8 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val refreshInterval: Int = timeOutSeconds + 10
   lazy val enableRefresh: Boolean= configuration.get[Boolean]("sessionTimeout.enableRefresh")
 
+  lazy val showDelayBanner: Boolean = configuration.get[Boolean]("showDelayBanner")
+
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))

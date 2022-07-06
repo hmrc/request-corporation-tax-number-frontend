@@ -21,11 +21,29 @@
         govukWrapper: GovukWrapper,
         govukErrorSummary : GovukErrorSummary,
         govukButton : GovukButton,
-        govukWarningText : GovukWarningText)
+        govukWarningText : GovukWarningText,
+        govukNotificationBanner : GovukNotificationBanner)
+
 
 @(call: Call)(implicit request: Request[_], messages: Messages)
 
+@bannerHtml = {
+    <div class="govuk-notification-banner__heading" id="delay-banner-heading">
+        @messages("index.serviceDelay.heading")
+    </div>
+    <div class="govuk-body">
+        @messages("index.serviceDelay.message")
+    </div>
+}
+
 @govukWrapper(title = messages("index.title")) {
+
+    @if(appConfig.showDelayBanner) {
+        @govukNotificationBanner(NotificationBanner(
+            title = Text(messages("index.serviceDelay.title")),
+            content = HtmlContent(bannerHtml),
+        ))
+    }
 
     @components.heading("index.heading")
 
