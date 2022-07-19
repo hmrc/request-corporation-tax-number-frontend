@@ -43,9 +43,6 @@
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/requestcorporationtaxnumberfrontend-app.css")' />
     <script src='@routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.min.js")'> </script>
-    @if(appConfig.optimizelyId != "N/A") {
-    <script src="https://cdn.optimizely.com/js/@(appConfig.optimizelyId + ".js")"></script>
-    }
 
     @if(hasTimeOut && appConfig.enableRefresh) {
         @hmrcTimeoutDialogHelper(
