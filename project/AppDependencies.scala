@@ -7,12 +7,11 @@ object AppDependencies {
   val compile: Seq[ModuleID] = Seq(
     ws,
     "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-28"            % "0.68.0",
-    "uk.gov.hmrc"       %% "logback-json-logger"           % "5.2.0",
     "uk.gov.hmrc"       %% "http-caching-client"           % "9.6.0-play-28",
     "uk.gov.hmrc"       %% "play-conditional-form-mapping" % "1.11.0-play-28",
     "uk.gov.hmrc"       %% "bootstrap-frontend-play-28"    % "6.2.0",
     "uk.gov.hmrc"       %% "play-allowlist-filter"         % "1.1.0",
-    "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "3.21.0-play-28"
+    "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "6.2.0-play-28"
   )
 
   val test: Seq[ModuleID] = Seq(
