@@ -76,7 +76,7 @@ companyDetails.companyReferenceNumber.hint = Dylai hyn fod yr un peth â’r hyn
 companyDetails.error.companyName.required = Nodwch enw’ch cwmni cofrestredig
 companyDetails.error.companyName.length = Mae’n rhaid i enw’r cwmni cofrestredig fod yn 160 cymeriad neu lai
 companyDetails.error.companyReferenceNumber.regex = Nodwch CRN yn y fformat cywir
-companyDetails.error.companyReferenceNumber.llp.regex = Mae rhif cofrestru’r cwmni hwn ar gyfer Partneriaeth Atebolrwydd Cyfyngedig.Bydd angen i chi gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM ar 0300 200 1900.
+companyDetails.error.companyReferenceNumber.llp.regex = Mae rhif cofrestru’r cwmni hwn ar gyfer Partneriaeth Atebolrwydd Cyfyngedig.Bydd angen i chi gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEF ar 0300 200 1900.
 companyDetails.error.companyReferenceNumber.required = Rhowch eich Rhif Cofrestru’r Cwmni
 companyDetails.button.back = Yn ôl
 
@@ -100,7 +100,7 @@ error.pageNotFound.heading = Heb ddod o hyd i’r dudalen
 error.pageNotFound.message1 = Os gwnaethoch deipio’r cyfeiriad gwe, dylech wirio ei fod yn gywir.
 error.pageNotFound.message2 = Os gwnaethoch bastio’r cyfeiriad we, dylech wirio eich bod wedi copïo’r cyfeiriad yn llawn.
 error.pageNotFound.message3 = Os yw’r cyfeiriad gwe yn gywir neu os ydych wedi dewis cysylltiad neu fotwm,
-error.pageNotFound.messageLink = cysylltwch â CThEM i ofyn am gopi o’ch UTR Treth Gorfforaeth
+error.pageNotFound.messageLink = cysylltwch â CThEF i ofyn am gopi o’ch UTR Treth Gorfforaeth
 
 error.internalError.title = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 error.internalError.heading = Mae’n ddrwg gennym, mae problem gyda’r gwasanaeth
