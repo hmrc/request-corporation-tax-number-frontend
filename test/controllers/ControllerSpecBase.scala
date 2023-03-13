@@ -26,11 +26,10 @@ import play.api.libs.json.Json
 import play.api.mvc.BodyParsers
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase {
 
-  implicit val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
   val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
   val companyDetails: CompanyDetails = CompanyDetails("Big Company", "12345678")
   val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])

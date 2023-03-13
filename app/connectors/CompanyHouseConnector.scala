@@ -35,7 +35,7 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
 
   def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
     implicit val hc: HeaderCarrier = HeaderCarrier()
-    val httpClient = if (appConfig.proxyRequired) proxyHttp else http
+    val httpClient = if (appConfig.proxyEnabled) proxyHttp else http
 
     httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber, headers = Seq("Authorization" -> appConfig.companyHouseRequestAuth))
       .map { response =>

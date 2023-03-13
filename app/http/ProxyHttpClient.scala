@@ -18,16 +18,15 @@ package http
 
 import akka.actor.ActorSystem
 import com.typesafe.config.Config
-import javax.inject.Inject
-import play.api.libs.ws.{WSRequest => PlayWSRequest}
-import play.api.libs.ws.{WSClient, WSProxyServer}
+import play.api.libs.ws.{WSClient, WSProxyServer, WSRequest => PlayWSRequest}
 import play.api.{Configuration, Logging}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.http.hooks.HttpHook
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.http.ws.{WSHttp, WSProxy, WSProxyConfiguration}
 
+import javax.inject.Inject
 import scala.concurrent.duration._
 
 class ProxyHttpClient @Inject()(val auditConnector: AuditConnector,
@@ -48,7 +47,7 @@ class ProxyHttpClient @Inject()(val auditConnector: AuditConnector,
 
   override val hooks: Seq[HttpHook] = Seq(AuditingHook)
 
-  override def wsProxyServer: Option[WSProxyServer] = WSProxyConfiguration("proxy", config)
+  override def wsProxyServer: Option[WSProxyServer] = WSProxyConfiguration.buildWsProxyServer(config)
 
   override def wsClient: WSClient = client
 }

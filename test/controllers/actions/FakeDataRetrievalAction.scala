@@ -22,11 +22,10 @@ import play.api.mvc.{BodyParsers, Request}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap],
-                                        ec: ExecutionContext,
+                                        implicit val ec: ExecutionContext,
                                         val parser: BodyParsers.Default) extends DataRetrievalAction {
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = cacheMapToReturn match {

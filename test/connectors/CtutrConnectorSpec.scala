@@ -18,17 +18,14 @@ package connectors
 
 import base.SpecBase
 import models.{Submission, SubmissionResponse}
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito._
 import org.scalatest.concurrent.ScalaFutures
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import uk.gov.hmrc.http.HttpClient
+import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
 import utils.MockUserAnswers
 
-
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import org.mockito.Mockito._
-import org.mockito.ArgumentMatchers.any
 
 class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
