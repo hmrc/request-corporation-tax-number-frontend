@@ -35,7 +35,7 @@
     backLink = Some(routes.IndexController.onPageLoad.toString)
 ) {
 
-    @formHelper(action = routes.CompanyDetailsController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = routes.CompanyDetailsController.onSubmit(mode), Symbol("autoComplete") -> "off") {
 
         @if(form.hasErrors) {
             @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.summary.title"))))

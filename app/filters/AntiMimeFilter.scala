@@ -24,7 +24,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class AntiMimeFilter @Inject()(val mat: Materializer)(implicit ec: ExecutionContext) extends Filter {
 
-  override def apply(f: RequestHeader ⇒ Future[Result])(rh: RequestHeader): Future[Result] =
-    f(rh).map(_.withHeaders("X-Content-Type-Options" → "nosniff"))
+  override def apply(f: RequestHeader => Future[Result])(rh: RequestHeader): Future[Result] =
+    f(rh).map(_.withHeaders("X-Content-Type-Options" -> "nosniff"))
 
 }

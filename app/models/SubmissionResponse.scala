@@ -16,10 +16,10 @@
 
 package models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 case class SubmissionResponse(id: String, filename : String)
 
 object SubmissionResponse {
-  implicit val format = Json.format[SubmissionResponse]
+  implicit val format: OFormat[SubmissionResponse] = Json.format[SubmissionResponse]
 }

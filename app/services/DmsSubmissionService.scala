@@ -17,20 +17,18 @@
 package services
 
 import javax.inject.Inject
-
 import connectors.CtutrConnector
 import models._
 import play.api.Logging
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.audit.DefaultAuditConnector
+import uk.gov.hmrc.play.audit.DefaultAuditConnector
 import utils.UserAnswers
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
-                                     auditConnector: DefaultAuditConnector) extends SubmissionService with Logging {
+                                     auditConnector: DefaultAuditConnector)(implicit ec: ExecutionContext) extends SubmissionService with Logging {
 
   override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = {
 

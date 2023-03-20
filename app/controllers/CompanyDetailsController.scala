@@ -30,7 +30,7 @@ import views.html.CompanyDetailsView
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.play.bootstrap.controller.WithDefaultFormBinding
+import uk.gov.hmrc.play.bootstrap.controller.WithUnsafeDefaultFormBinding
 
 class CompanyDetailsController @Inject()(
                                           override val messagesApi: MessagesApi,
@@ -41,7 +41,7 @@ class CompanyDetailsController @Inject()(
                                           cc: MessagesControllerComponents,
                                           view: CompanyDetailsView
                                         )(implicit executionContext: ExecutionContext)
-  extends FrontendController(cc) with I18nSupport with WithDefaultFormBinding{
+  extends FrontendController(cc) with I18nSupport with WithUnsafeDefaultFormBinding {
 
   val form: Form[CompanyDetails] = formProvider()
 
@@ -59,7 +59,7 @@ class CompanyDetailsController @Inject()(
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors, mode))),
-        (value) =>
+        value =>
           dataCacheConnector.save[CompanyDetails](request.externalId, CompanyDetailsId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(CompanyDetailsId, mode)(new UserAnswers(cacheMap))))
       )

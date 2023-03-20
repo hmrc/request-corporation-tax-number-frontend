@@ -23,7 +23,6 @@ import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.http.HttpClient
 import utils.MockUserAnswers
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers.any

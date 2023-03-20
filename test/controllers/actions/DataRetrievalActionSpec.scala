@@ -27,7 +27,6 @@ import play.api.mvc.{BodyParsers, Request}
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class DataRetrievalActionSpec extends SpecBase with ScalaFutures with RecoverMethods {

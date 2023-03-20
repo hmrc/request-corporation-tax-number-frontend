@@ -1,18 +1,20 @@
 import play.sbt.routes.RoutesKeys
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "request-corporation-tax-number-frontend"
 
+scalaVersion := "2.13.10"
+
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
     ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
-    ".*ControllerConfiguration;.*LanguageSwitchController",
+    ".*ControllerConfiguration;.*LanguageSwitchController;.*template.scala;",
     ScoverageKeys.coverageMinimumStmtTotal := 86,
     ScoverageKeys.coverageFailOnMinimum := true,
-    ScoverageKeys.coverageHighlighting := true
+    ScoverageKeys.coverageHighlighting := true,
+    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
   )
 
 lazy val microservice = Project(appName, file("."))
@@ -27,10 +29,8 @@ lazy val microservice = Project(appName, file("."))
       "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
     ),
     scalaSettings,
-    publishingSettings,
     defaultSettings(),
     scoverageSettings,
-    scalacOptions ++= Seq("-feature"),
     libraryDependencies ++= AppDependencies.all,
     dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
     retrieveManaged := true,
@@ -49,15 +49,13 @@ lazy val microservice = Project(appName, file("."))
   )
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(majorVersion := 1)
-  scalaVersion := "2.12.16"
+  .settings(
+    scalacOptions -= "-Xmax-classfile-name",
+    scalacOptions ++= Seq(
+      "-feature",
+      "-Wconf:src=routes/.*:s",
+      "-Wconf:cat=unused-imports&src=html/.*:s",
+      "-Wconf:cat=unused-imports&src=xml/.*:s"
+    )
+  )
 
-// Silence unused import in views and routes
-val silencerVersion = "1.7.9"
-libraryDependencies ++= Seq(
-  compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
-  "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
-)
-
-scalacOptions ++= Seq(
-  "-P:silencer:pathFilters=views;routes"
-)
