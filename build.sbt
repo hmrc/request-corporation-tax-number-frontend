@@ -5,7 +5,7 @@ import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "request-corporation-tax-number-frontend"
 
-scalaVersion := "2.13.10"
+scalaVersion := "2.13.11"
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
@@ -22,7 +22,6 @@ lazy val microservice = Project(appName, file("."))
   .settings(
     RoutesKeys.routesImport ++= Seq("models._"),
     TwirlKeys.templateImports ++= Seq(
-      "views.html.GovukWrapper",
       "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
       "uk.gov.hmrc.govukfrontend.views.html.components._",
       "uk.gov.hmrc.hmrcfrontend.views.html.components._",

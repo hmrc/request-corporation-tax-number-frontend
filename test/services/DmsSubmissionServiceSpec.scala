@@ -34,8 +34,8 @@ import scala.language.postfixOps
 
 class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
 
-  implicit val hcCaptor = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-  implicit val ecCaptor = ArgumentCaptor.forClass(classOf[ExecutionContext])
+  implicit val hcCaptor: ArgumentCaptor[_] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+  implicit val ecCaptor: ArgumentCaptor[_] = ArgumentCaptor.forClass(classOf[ExecutionContext])
 
   ".ctutrSubmission" when {
 

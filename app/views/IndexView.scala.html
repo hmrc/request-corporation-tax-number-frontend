@@ -18,7 +18,7 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper,
+        main_template: MainTemplate,
         govukErrorSummary : GovukErrorSummary,
         govukButton : GovukButton,
         govukWarningText : GovukWarningText,
@@ -36,7 +36,7 @@
     </div>
 }
 
-@govukWrapper(title = messages("index.title")) {
+@main_template(title = messages("index.title")) {
 
     @if(appConfig.showDelayBanner) {
         @govukNotificationBanner(NotificationBanner(
@@ -71,7 +71,7 @@
     </div>
 
     @govukWarningText(WarningText(
-        iconFallbackText = "Warning Alert",
+        iconFallbackText = Some("Warning Alert"),
         content = Text(messages("index.warning"))
     ))
 

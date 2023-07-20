@@ -20,7 +20,7 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper,
+        main_template: MainTemplate,
         formHelper: FormWithCSRF,
         govukInput : GovukInput,
         govukButton : GovukButton,
@@ -30,7 +30,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
-@govukWrapper(
+@main_template(
     title = if(form.errors.nonEmpty) "Error: "+messages("companyDetails.title") else messages("companyDetails.title"),
     backLink = Some(routes.IndexController.onPageLoad.toString)
 ) {

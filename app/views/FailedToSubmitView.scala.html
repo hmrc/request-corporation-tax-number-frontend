@@ -18,12 +18,12 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper
+        main_template: MainTemplate
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-@govukWrapper(title = messages("failed_to_submit.title")) {
+@main_template(title = messages("failed_to_submit.title")) {
 
     @components.heading("failed_to_submit.heading")
 

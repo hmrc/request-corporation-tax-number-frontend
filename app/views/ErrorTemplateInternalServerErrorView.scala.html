@@ -18,12 +18,12 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper
+        main_template: MainTemplate
 )
 
 @(pageTitle: String, heading: String, message1: String)(implicit request: Request[_], messages: Messages)
 
-@govukWrapper(title = pageTitle) {
+@main_template(title = pageTitle) {
 
     <h1 class="govuk-heading-l">@heading</h1>
 

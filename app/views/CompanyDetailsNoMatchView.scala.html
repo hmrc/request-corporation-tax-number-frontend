@@ -18,13 +18,13 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper,
+        main_template: MainTemplate,
         hmrcNewTabLink: HmrcNewTabLink
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-@govukWrapper(title = messages("companyDetailsNoMatch.title"), hasTimeOut = false) {
+@main_template(title = messages("companyDetailsNoMatch.title"), hasTimeOut = false) {
 
     @components.heading("companyDetailsNoMatch.heading")
 

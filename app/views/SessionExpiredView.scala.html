@@ -18,13 +18,13 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper,
+        main_template: MainTemplate,
         govukButton : GovukButton
 )
 
 @(startPage : Call)(implicit request: Request[_], messages: Messages)
 
-@govukWrapper(title = messages("session_expired.title"), hasTimeOut = false) {
+@main_template(title = messages("session_expired.title"), hasTimeOut = false) {
 
     @components.heading("session_expired.heading")
 

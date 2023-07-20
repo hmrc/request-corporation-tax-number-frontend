@@ -17,14 +17,14 @@
 package models
 
 import identifiers._
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 import utils.UserAnswers
 
 case class Submission(companyDetails: CompanyDetails)
 
 object Submission {
 
-  implicit val format = Json.format[Submission]
+  implicit val format: OFormat[Submission] = Json.format[Submission]
 
   def apply(answers: UserAnswers): Submission = {
 
