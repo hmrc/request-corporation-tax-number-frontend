@@ -18,13 +18,13 @@
 
 @this(
         appConfig: FrontendAppConfig,
-        govukWrapper: GovukWrapper,
+        main_template: MainTemplate,
         hmrcNewTabLink: HmrcNewTabLink
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-@govukWrapper(title = messages("confirmation.title")){
+@main_template(title = messages("confirmation.title")){
 
 
     <div class="govuk-panel govuk-panel--confirmation">
