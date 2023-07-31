@@ -9,8 +9,7 @@ scalaVersion := "2.13.11"
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
-    ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;" +
-    ".*ControllerConfiguration;.*LanguageSwitchController;.*template.scala;",
+    ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;",
     ScoverageKeys.coverageMinimumStmtTotal := 86,
     ScoverageKeys.coverageFailOnMinimum := true,
     ScoverageKeys.coverageHighlighting := true,
@@ -31,7 +30,6 @@ lazy val microservice = Project(appName, file("."))
     defaultSettings(),
     scoverageSettings,
     libraryDependencies ++= AppDependencies.all,
-    dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
     // concatenate js
@@ -53,8 +51,7 @@ lazy val microservice = Project(appName, file("."))
     scalacOptions ++= Seq(
       "-feature",
       "-Wconf:src=routes/.*:s",
-      "-Wconf:cat=unused-imports&src=html/.*:s",
-      "-Wconf:cat=unused-imports&src=xml/.*:s"
+      "-Wconf:cat=unused-imports&src=views/.*:s"
     )
   )
 
