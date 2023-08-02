@@ -17,7 +17,7 @@ This is set via the location in: https://github.com/hmrc/mdtp-frontend-routes/bl
 
 ## Running the service
 
-Service Manager: CTUTR_ALL 
+`sm2 --start CTUTR_ALL`
 
 |Repositories|Link|
 |------------|----|

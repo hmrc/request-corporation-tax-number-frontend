@@ -26,7 +26,7 @@ import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 import uk.gov.hmrc.mongo.play.json.formats.{MongoFormats, MongoJavatimeFormats}
 
-import java.time.{LocalDateTime, ZoneId}
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -34,7 +34,7 @@ import scala.language.implicitConversions
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
-                         lastUpdated: LocalDateTime = LocalDateTime.now(ZoneId.of("UTC"))) extends MongoFormats {
+                         lastUpdated: Instant = Instant.now()) extends MongoFormats {
 
   def toCacheMap: CacheMap = {
     CacheMap(this.id, this.data)
@@ -44,7 +44,7 @@ case class DatedCacheMap(id: String,
 object DatedCacheMap {
   implicit def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 
-  implicit val dateFormat: Format[LocalDateTime] = MongoJavatimeFormats.localDateTimeFormat
+  implicit val instantFormat: Format[Instant] = MongoJavatimeFormats.instantFormat
   implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 }
 

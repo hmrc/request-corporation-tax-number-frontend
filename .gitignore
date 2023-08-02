@@ -1,4 +1,3 @@
-!.github
 .bsp
 .cache
 /.classpath
@@ -33,5 +32,4 @@ tmp
 bin
 /*.iml
 /*.ipr
-/.classpath
 *.iws
