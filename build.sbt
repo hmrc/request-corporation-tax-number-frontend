@@ -12,9 +12,7 @@ lazy val scoverageSettings =
     ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;",
     ScoverageKeys.coverageMinimumStmtTotal := 86,
     ScoverageKeys.coverageFailOnMinimum := true,
-    ScoverageKeys.coverageHighlighting := true,
-    // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
-    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+    ScoverageKeys.coverageHighlighting := true
   )
 
 lazy val microservice = Project(appName, file("."))
@@ -31,6 +29,10 @@ lazy val microservice = Project(appName, file("."))
     defaultSettings(),
     scoverageSettings,
     libraryDependencies ++= AppDependencies.all,
+    // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
+    dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1",
+    // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
+    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
     // concatenate js
