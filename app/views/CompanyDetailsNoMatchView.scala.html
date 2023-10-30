@@ -28,14 +28,12 @@
 
     @components.heading("companyDetailsNoMatch.heading")
 
-    <div>
-        <p class="govuk-body"> @messages("companyDetailsNoMatch.hint.first")
-            @hmrcNewTabLink(NewTabLink(
-                text = messages("companyDetailsNoMatch.hint.second"),
-                href = Some(appConfig.getCompanyInformationUrl),
-                language = Some(messages.lang.toString)
-            )).
-    </div>
+    <p class="govuk-body"> @messages("companyDetailsNoMatch.hint.first")
+        @hmrcNewTabLink(NewTabLink(
+            text = messages("companyDetailsNoMatch.hint.second"),
+            href = Some(appConfig.getCompanyInformationUrl),
+            language = Some(messages.lang.language))).
+    </p>
 
     <p class="govuk-body">
         <a class="govuk-link" id="try-again-link" href="@routes.CompanyDetailsController.onPageLoad(NormalMode)">@messages("companyDetailsNoMatch.button")</a>
