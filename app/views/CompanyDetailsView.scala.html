@@ -43,16 +43,15 @@
 
         @components.heading("companyDetails.heading")
 
-        <div>
-            <p class="govuk-body"> @messages("companyDetails.hint.first")
-                @hmrcNewTabLink(NewTabLink(
-                    text = messages("companyDetails.hint.second"),
-                    href = Some(appConfig.companyHouseRegisterUrl),
-                    language = Some(messages.lang.toString)
-                ))
 
-                @messages("companyDetails.hint.third")</p>
-        </div>
+        <p class="govuk-body"> @messages("companyDetails.hint.first")
+            @hmrcNewTabLink(NewTabLink(
+                text = messages("companyDetails.hint.second"),
+                href = Some(appConfig.companyHouseRegisterUrl),
+                language = Some(messages.lang.language))).
+
+            @messages("companyDetails.hint.third")
+        </p>
 
         @govukInput(Input(
             id = "companyReferenceNumber",

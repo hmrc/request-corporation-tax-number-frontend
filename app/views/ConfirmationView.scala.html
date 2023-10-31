@@ -26,7 +26,6 @@
 
 @main_template(title = messages("confirmation.title")){
 
-
     <div class="govuk-panel govuk-panel--confirmation">
         @components.heading("confirmation.heading", "govuk-panel__title")
     </div>
@@ -35,15 +34,13 @@
 
     <p class="govuk-body">@messages("confirmation.whatHappensNext.line1")</p>
 
-    <div>
-        <p class="govuk-body">@messages("confirmation.whatHappensNext.line2")
-            @hmrcNewTabLink(NewTabLink(
-                text = messages("confirmation.whatHappensNext.line3"),
-                href = Some(appConfig.companyHouseRegisterUrl),
-                language = Some(messages.lang.toString)
-            )).
-        </p>
-    </div>
+    <p class="govuk-body">@messages("confirmation.whatHappensNext.line2")
+        @hmrcNewTabLink(NewTabLink(
+            text = messages("confirmation.whatHappensNext.line3"),
+            href = Some(appConfig.companyHouseRegisterUrl),
+            language = Some(messages.lang.language)
+        )).
+    </p>
 
     <div class="govuk-form-group">
         <p class="govuk-body"><a id="survey-link" class="govuk-link" href="@appConfig.feedbackSurveyUrl">@messages("confirmation.survey.linkText")</a> @messages("confirmation.survey.time")</p>
