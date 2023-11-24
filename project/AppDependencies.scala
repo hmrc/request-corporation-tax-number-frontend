@@ -1,18 +1,15 @@
-import play.sbt.PlayImport.ws
 import sbt.{ModuleID, *}
 
 object AppDependencies {
 
-  private val bootstrapVersion: String = "7.22.0"
+  private val bootstrapVersion: String = "7.23.0"
 
   val compile: Seq[ModuleID] = Seq(
-    ws,
-    "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-28"            % "1.3.0",
-    "uk.gov.hmrc"       %% "http-caching-client"           % "10.0.0-play-28",
+    "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-28"            % "1.5.0",
     "uk.gov.hmrc"       %% "play-conditional-form-mapping" % "1.13.0-play-28",
     "uk.gov.hmrc"       %% "bootstrap-frontend-play-28"    % bootstrapVersion,
     "uk.gov.hmrc"       %% "play-allowlist-filter"         % "1.2.0",
-    "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "7.23.0-play-28"
+    "uk.gov.hmrc"       %% "play-frontend-hmrc"            % "7.29.0-play-28"
   )
 
   val test: Seq[ModuleID] = Seq(
