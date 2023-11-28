@@ -21,10 +21,10 @@ import connectors.CompanyHouseConnector
 import controllers.actions.FakeDataRetrievalAction
 import identifiers.CompanyDetailsId
 import models.CompanyDetails
+import models.cache.CacheMap
 import org.mockito.Mockito.{mock, when}
 import play.api.libs.json.Json
 import play.api.mvc.BodyParsers
-import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 

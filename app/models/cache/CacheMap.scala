@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-package utils
+package models.cache
 
-import models.cache.CacheMap
-import identifiers._
-import models._
+import play.api.libs.json._
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def companyDetails: Option[CompanyDetails] = cacheMap.getEntry[CompanyDetails](CompanyDetailsId.toString)
+case class CacheMap(id: String, data: Map[String, JsValue]) {
 
+  def getEntry[T](key: String)(implicit fjs: Reads[T]): Option[T] =
+    data
+      .get(key)
+      .map(json =>
+        json
+          .validate[T]
+          .fold(
+            errors => throw new KeyStoreEntryValidationException(key, json, CacheMap.getClass, errors),
+            valid  => valid
+          )
+      )
+}
+
+object CacheMap {
+  implicit val formats: OFormat[CacheMap] = Json.format[CacheMap]
 }

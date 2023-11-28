@@ -17,9 +17,9 @@
 package controllers.actions
 
 import com.google.inject.Inject
+import models.cache.CacheMap
 import models.requests.OptionalDataRequest
 import play.api.mvc.{BodyParsers, Request}
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
 
 import scala.concurrent.{ExecutionContext, Future}
