@@ -5,7 +5,7 @@ import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "request-corporation-tax-number-frontend"
 
-scalaVersion := "2.13.12"
+scalaVersion := "2.13.13"
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
@@ -31,8 +31,6 @@ lazy val microservice = Project(appName, file("."))
     libraryDependencies ++= AppDependencies.all,
     // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
     dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1",
-    // To resolve a bug with version 2.x.x of the scoverage plugin - https://github.com/sbt/sbt/issues/6997
-    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
     // concatenate js
@@ -53,7 +51,8 @@ lazy val microservice = Project(appName, file("."))
     scalacOptions -= "-Xmax-classfile-name",
     scalacOptions ++= Seq(
       "-feature",
-      "-Wconf:src=routes/.*:s",
+      "-Wconf:cat=unused-imports&src=routes/.*:s",
+      "-Wconf:cat=unused-imports&src=html/.*:s",
       "-Wconf:cat=unused-imports&src=views/.*:s"
     )
   )

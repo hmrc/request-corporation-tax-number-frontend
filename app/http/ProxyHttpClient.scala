@@ -16,7 +16,7 @@
 
 package http
 
-import akka.actor.ActorSystem
+import org.apache.pekko.actor.ActorSystem
 import com.typesafe.config.Config
 import play.api.libs.ws.{WSClient, WSProxyServer, WSRequest => PlayWSRequest}
 import play.api.{Configuration, Logging}
