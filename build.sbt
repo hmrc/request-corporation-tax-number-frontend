@@ -29,8 +29,6 @@ lazy val microservice = Project(appName, file("."))
     defaultSettings(),
     scoverageSettings,
     libraryDependencies ++= AppDependencies.all,
-    // To resolve dependency clash between flexmark v0.64.4+ and play-language to run accessibility tests, remove when versions align
-    dependencyOverrides += "com.ibm.icu" % "icu4j" % "69.1",
     retrieveManaged := true,
     PlayKeys.playDefaultPort := 9200,
     // concatenate js
