@@ -17,7 +17,7 @@
 package filters
 
 import java.util.UUID
-import akka.stream.Materializer
+import org.apache.pekko.stream.Materializer
 import com.google.inject.Inject
 import org.scalatest.OptionValues
 import org.scalatestplus.play.components.OneAppPerSuiteWithComponents
