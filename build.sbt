@@ -3,9 +3,7 @@ import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-val appName = "request-corporation-tax-number-frontend"
-
-scalaVersion := "2.13.13"
+scalaVersion := "2.13.14"
 
 lazy val scoverageSettings =
   Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
@@ -15,7 +13,7 @@ lazy val scoverageSettings =
     ScoverageKeys.coverageHighlighting := true
   )
 
-lazy val microservice = Project(appName, file("."))
+lazy val microservice = Project("request-corporation-tax-number-frontend", file("."))
   .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
   .settings(
     RoutesKeys.routesImport ++= Seq("models._"),
