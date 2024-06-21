@@ -20,8 +20,6 @@
     <logger name="connectors" level="INFO"/>
     <logger name="services" level="INFO"/>
 
-    <logger name="org.asynchttpclient.netty" level="INFO"/>
-
     <logger name="akka" level="INFO"/>
     <logger name="play" level="INFO"/>
     <logger name="org.jose4j" level="INFO"/>
