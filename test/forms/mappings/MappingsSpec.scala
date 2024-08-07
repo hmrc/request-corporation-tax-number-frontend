@@ -73,6 +73,12 @@ class MappingsSpec extends AnyWordSpec with Matchers with OptionValues with Mapp
       val result = testForm.fill("foobar")
       result.apply("value").value.value mustEqual "foobar"
     }
+
+    "filter out smart apostrophes on binding" in {
+      val boundValue = testForm bind Map("value" -> "We’re ‘aving fish ‘n’ chips for tea")
+      boundValue.get mustEqual "We're 'aving fish 'n' chips for tea"
+    }
+
   }
 
   "boolean" must {
