@@ -55,7 +55,6 @@ class CompanyDetailsController @Inject()(
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = getData.async {
-
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>

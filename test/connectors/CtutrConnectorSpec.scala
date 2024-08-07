@@ -35,7 +35,7 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
       implicit val hc: HeaderCarrier = HeaderCarrier()
 
-      val answers = MockUserAnswers.minimalValidUserAnswers
+      val answers = MockUserAnswers.minimalValidUserAnswers()
 
       val submission = Submission(answers)
 
@@ -59,7 +59,7 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
     "return nothing when the HTTP call fails" in {
       implicit val hc: HeaderCarrier = HeaderCarrier()
 
-      val answers = MockUserAnswers.minimalValidUserAnswers
+      val answers = MockUserAnswers.minimalValidUserAnswers()
 
       val enrolment = Submission(answers)
 

@@ -31,11 +31,11 @@ object MockUserAnswers {
     answers
   }
 
-  def minimalValidUserAnswers: UserAnswers = {
+  def minimalValidUserAnswers(companyDetails: CompanyDetails = CompanyDetails("1234567","company name")): UserAnswers = {
 
     val answers = nothingAnswered
 
-    when(answers.companyDetails) thenReturn Some(CompanyDetails("1234567","company name"))
+    when(answers.companyDetails) thenReturn Some(companyDetails)
 
     answers
   }

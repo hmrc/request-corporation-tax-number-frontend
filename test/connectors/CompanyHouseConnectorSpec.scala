@@ -18,6 +18,7 @@ package connectors
 
 import base.SpecBase
 import http.ProxyHttpClient
+import models.CompanyDetails
 import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.http.HttpClient
@@ -33,7 +34,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return true when the HTTP call to CoHo is a match" in {
 
-      val answers = MockUserAnswers.minimalValidUserAnswers
+      val answers = MockUserAnswers.minimalValidUserAnswers()
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       val httpMock = mock(classOf[HttpClient])
       when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
@@ -100,7 +101,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return false when the HTTP call has incorrect name/crn matching" in {
 
-      val answers = MockUserAnswers.minimalValidUserAnswers
+      val answers = MockUserAnswers.minimalValidUserAnswers()
       val httpMock = mock(classOf[HttpClient])
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
@@ -167,7 +168,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return false when the HTTP call returns a not found" in {
 
-      val answers = MockUserAnswers.minimalValidUserAnswers
+      val answers = MockUserAnswers.minimalValidUserAnswers()
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       val httpMock = mock(classOf[HttpClient])
       when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
@@ -193,7 +194,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return None when a 429 gets returned" in {
 
-      val answers = MockUserAnswers.minimalValidUserAnswers
+      val answers = MockUserAnswers.minimalValidUserAnswers()
       val proxyHttpMock = mock(classOf[ProxyHttpClient])
       val httpMock = mock(classOf[HttpClient])
       when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
@@ -216,5 +217,28 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       }
     }
 
+    "replace smart apostrophes with straight on company_name check" in {
+      val answers = MockUserAnswers.minimalValidUserAnswers(CompanyDetails("1234567","’’’t’es‘t‘‘‘"))
+      val proxyHttpMock = mock(classOf[ProxyHttpClient])
+      val httpMock = mock(classOf[HttpClient])
+
+      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
+        .thenReturn(Future.successful(
+          HttpResponse(200,
+            """
+              |{
+              |   "company_name": "'''t'es't'''"
+              |}"""
+              .stripMargin
+          )
+        ))
+
+      val connector = new CompanyHouseConnector(frontendAppConfig, httpMock, proxyHttpMock)
+      val futureResult = connector.validateCRN(answers.companyDetails.get)
+
+      whenReady(futureResult) { result =>
+        result mustBe Some(true)
+      }
+    }
   }
 }

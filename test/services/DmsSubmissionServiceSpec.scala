@@ -44,7 +44,7 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
       "return success" in {
         val mockAuditConnector = mock(classOf[DefaultAuditConnector])
 
-        val answers = MockUserAnswers.minimalValidUserAnswers
+        val answers = MockUserAnswers.minimalValidUserAnswers()
 
         val mockCtutrConnector = mock(classOf[CtutrConnector])
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(Some(SubmissionResponse("id", "filename")))
@@ -65,7 +65,7 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
       "return failure" in {
         val mockAuditConnector = mock(classOf[DefaultAuditConnector])
 
-        val answers = MockUserAnswers.minimalValidUserAnswers
+        val answers = MockUserAnswers.minimalValidUserAnswers()
 
         val mockCtutrConnector = mock(classOf[CtutrConnector])
         when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(None)
