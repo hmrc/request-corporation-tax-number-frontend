@@ -30,7 +30,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) {
 
   def companyDetailsName: Option[AnswerRow] = userAnswers.companyDetails map {
     x => AnswerRow("companyDetailsName.checkYourAnswersLabel",
-      s"${x.companyName}", answerIsMessageKey = false,
+      s"${x.companyName.replace("‘", "'").replace("’", "'")}", answerIsMessageKey = false,
       routes.CompanyDetailsController.onPageLoad(CheckMode).url)
   }
 }

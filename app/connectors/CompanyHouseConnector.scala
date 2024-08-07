@@ -30,7 +30,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) extends Logging {
 
   def getName(response: HttpResponse): String ={
-    (response.json \ "company_name").as[String].toLowerCase.replace(" ","").replaceAll("'","").replaceAll("`","")
+    (response.json \ "company_name").as[String].toLowerCase.replace(" ","")
   }
 
   def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
@@ -42,7 +42,7 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
       response.status match {
         case OK =>
           logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
-          Some(getName(response) == data.companyName.toLowerCase.replace(" ","").replaceAll("'","").replaceAll("`",""))
+          Some(getName(response) == data.companyName.toLowerCase.replace(" ",""))
         case NOT_FOUND =>
           logger.warn(s"[CompanyHouseConnector][validateCRN] CRN not found - $response")
           Some(false)

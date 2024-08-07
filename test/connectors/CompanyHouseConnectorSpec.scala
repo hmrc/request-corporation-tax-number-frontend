@@ -216,21 +216,5 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       }
     }
 
-    "filter out smart apostrophes on binding" in {
-      val answers = MockUserAnswers.minimalValidUserAnswers
-      val proxyHttpMock = mock(classOf[ProxyHttpClient])
-      val httpMock = mock(classOf[HttpClient])
-
-      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
-        .thenReturn(Future.successful(
-          HttpResponse(200, "".stripMargin)))
-
-      val connector = new CompanyHouseConnector(frontendAppConfig, httpMock, proxyHttpMock)
-      val futureResult = connector.validateCRN(answers.companyDetails.get)
-
-      whenReady(futureResult) { result =>
-        result mustBe Some(true)
-      }
-    }
   }
 }

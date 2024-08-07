@@ -57,7 +57,6 @@ class CompanyDetailsController @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = getData.async {
 
     implicit request =>
-      println("this is  submit "+CompanyDetails.toString)
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors, mode))),
