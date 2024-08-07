@@ -73,7 +73,6 @@ class MappingsSpec extends AnyWordSpec with Matchers with OptionValues with Mapp
       val result = testForm.fill("foobar")
       result.apply("value").value.value mustEqual "foobar"
     }
-
   }
 
   "boolean" must {
