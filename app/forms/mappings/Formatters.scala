@@ -84,8 +84,7 @@ trait Formatters {
 
       override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], A] =
         baseFormatter.bind(key, data).flatMap {
-          str =>
-            ev.withName(str).map(Right.apply).getOrElse(Left(Seq(FormError(key, invalidKey))))
+          str => ev.withName(str).toRight(Seq(FormError(key, invalidKey)))
         }
 
       override def unbind(key: String, value: A): Map[String, String] =
