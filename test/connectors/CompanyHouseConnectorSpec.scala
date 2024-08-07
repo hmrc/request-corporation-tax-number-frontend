@@ -27,6 +27,7 @@ import utils.MockUserAnswers
 import scala.concurrent.Future
 import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers.any
+import org.scalatest.prop.TableDrivenPropertyChecks._
 
 class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
@@ -217,27 +218,38 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       }
     }
 
-    "replace smart apostrophes with straight on company_name check" in {
-      val answers = MockUserAnswers.minimalValidUserAnswers(CompanyDetails("1234567","’’’t’es‘t‘‘‘"))
-      val proxyHttpMock = mock(classOf[ProxyHttpClient])
-      val httpMock = mock(classOf[HttpClient])
+    forAll(
+      Table(
+        ("userAnswer", "expectedResult"),
+        ("'''t'es't'''", "'''t'es't'''"),
+        ("’’’t’es‘t‘‘‘", "'''t'es't'''"),
+        ("’’’t’es‘t‘‘‘", "’’’t’es‘t‘‘‘"),
+        ("'''t'es't'''", "’’’t’es‘t‘‘‘"),
+      )
+    ){
+      (userAnswer: String, expectedResult: String) =>
+      s"Assert $userAnswer and $expectedResult match given they contain replace smart apostrophes" in {
+        val answers = MockUserAnswers.minimalValidUserAnswers(CompanyDetails("1234567", userAnswer))
+        val proxyHttpMock = mock(classOf[ProxyHttpClient])
+        val httpMock = mock(classOf[HttpClient])
 
-      when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
-        .thenReturn(Future.successful(
-          HttpResponse(200,
-            """
-              |{
-              |   "company_name": "'''t'es't'''"
-              |}"""
-              .stripMargin
-          )
-        ))
+        when(httpMock.GET[HttpResponse](any(), any(), any[Seq[(String, String)]]())(any(), any(), any()))
+          .thenReturn(Future.successful(
+            HttpResponse(200,
+              s"""
+                |{
+                |   "company_name": "$expectedResult"
+                |}"""
+                .stripMargin
+            )
+          ))
 
-      val connector = new CompanyHouseConnector(frontendAppConfig, httpMock, proxyHttpMock)
-      val futureResult = connector.validateCRN(answers.companyDetails.get)
+        val connector = new CompanyHouseConnector(frontendAppConfig, httpMock, proxyHttpMock)
+        val futureResult = connector.validateCRN(answers.companyDetails.get)
 
-      whenReady(futureResult) { result =>
-        result mustBe Some(true)
+        whenReady(futureResult) { result =>
+          result mustBe Some(true)
+        }
       }
     }
   }
