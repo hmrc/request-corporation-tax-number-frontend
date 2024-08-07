@@ -25,7 +25,7 @@ object CompanyDetails {
 
   def answeredLines(companyDetails: CompanyDetails): Seq[String] = Seq(
     Some(companyDetails.companyReferenceNumber),
-    Some(companyDetails.companyName)).flatten
+    Some(companyDetails.companyName.replace("‘", "'").replace("’", "'"))).flatten
 
   def asString(companyDetails: CompanyDetails): String = answeredLines(companyDetails).mkString(", ")
 }
