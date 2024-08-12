@@ -29,10 +29,13 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) extends Logging {
 
-  def lowerCaseAndReplaceSmartChars(s: String): String = s.toLowerCase
+  val smartApostrophesOpen="‘"
+  val smartApostrophesClose="’"
+
+  private def lowerCaseAndReplaceSmartChars(s: String): String = s.toLowerCase
     .replace(" ","")
-    .replace("‘", "'")
-    .replace("’", "'")
+    .replace(smartApostrophesOpen, "'")
+    .replace(smartApostrophesClose, "'")
 
   def getName(response: HttpResponse): String = lowerCaseAndReplaceSmartChars((response.json \ "company_name").as[String])
 

@@ -228,7 +228,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       )
     ){
       (userAnswer: String, expectedResult: String) =>
-      s"Assert $userAnswer and $expectedResult match given they contain replace smart apostrophes" in {
+      s"Assert $userAnswer and $expectedResult match given smart apostrophes should be replaced" in {
         val answers = MockUserAnswers.minimalValidUserAnswers(CompanyDetails("1234567", userAnswer))
         val proxyHttpMock = mock(classOf[ProxyHttpClient])
         val httpMock = mock(classOf[HttpClient])
