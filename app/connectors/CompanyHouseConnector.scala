@@ -23,21 +23,14 @@ import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import utils.FormHelpers.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) extends Logging {
 
-  val smartApostrophesOpen="‘"
-  val smartApostrophesClose="’"
-
-  private def lowerCaseAndReplaceSmartChars(s: String): String = s.toLowerCase
-    .replace(" ","")
-    .replace(smartApostrophesOpen, "'")
-    .replace(smartApostrophesClose, "'")
-
-  def getName(response: HttpResponse): String = lowerCaseAndReplaceSmartChars((response.json \ "company_name").as[String])
+  def getName(response: HttpResponse): String = toLowerCaseRemoveSpacesAndReplaceSmartChars((response.json \ "company_name").as[String])
 
   def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
     implicit val hc: HeaderCarrier = HeaderCarrier()
@@ -48,7 +41,7 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
       response.status match {
         case OK =>
           logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
-          Some(getName(response) == lowerCaseAndReplaceSmartChars(data.companyName))
+          Some(getName(response) == toLowerCaseRemoveSpacesAndReplaceSmartChars(data.companyName))
         case NOT_FOUND =>
           logger.warn(s"[CompanyHouseConnector][validateCRN] CRN not found - $response")
           Some(false)
