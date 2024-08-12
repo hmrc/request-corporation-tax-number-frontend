@@ -16,14 +16,14 @@
 
 package utils
 
-import play.api.data.Form
-
 object FormHelpers {
 
-  def getErrorByKey[A](form: Form[_], errorKey: String): String = {
-    form.error(errorKey) match {
-      case None => ""
-      case Some(error) => error.message
-    }
-  }
+  private val smartApostrophesOpen: String = "‘"
+  private val smartApostrophesClose: String = "’"
+
+  def toLowerCaseRemoveSpacesAndReplaceSmartChars(s: String): String = s
+    .toLowerCase
+    .replace(" ","")
+    .replace(smartApostrophesOpen, "'")
+    .replace(smartApostrophesClose, "'")
 }
