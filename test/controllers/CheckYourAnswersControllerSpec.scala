@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models.{SubmissionFailed, SubmissionResult, SubmissionSuccessful}
+import models.{Mode, NormalMode, SubmissionFailed, SubmissionResult, SubmissionSuccessful}
 import org.mockito.Mockito.when
 import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
@@ -42,6 +42,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
   val checkYourAnswersView: CheckYourAnswersView = app.injector.instanceOf[CheckYourAnswersView]
   val noMatchView: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
   def sessionExpired: Call = routes.SessionController.onPageLoad
+  def companyDetailsController : Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
 
 
@@ -66,15 +67,15 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       val result = testController(dontGetAnyData).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(sessionExpired.url)
+      redirectLocation(result) mustBe Some(companyDetailsController.url)
     }
 
-    "redirect to session expired for a POST if no existing data is found" in {
+    "redirect to Company Details for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
       val result = testController(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(sessionExpired.url)
+      redirectLocation(result) mustBe Some(companyDetailsController.url)
     }
 
     "Redirect to Confirmation page on a POST when submission is successful" in {
