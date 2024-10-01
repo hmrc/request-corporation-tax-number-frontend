@@ -27,7 +27,7 @@
         message1: String,
         message2: String,
         message3: String,
-        messageLink: String)(implicit request: Request[_], messages: Messages)
+        messageLink: String)(implicit request: RequestHeader, messages: Messages)
 
 @main_template(title = pageTitle) {
 

@@ -16,38 +16,18 @@
 
 package http
 
-import org.apache.pekko.actor.ActorSystem
-import com.typesafe.config.Config
-import play.api.libs.ws.{WSClient, WSProxyServer, WSRequest => PlayWSRequest}
 import play.api.{Configuration, Logging}
-import uk.gov.hmrc.http.hooks.HttpHook
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
+import uk.gov.hmrc.http.client.{HttpClientV2, RequestBuilder}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.HttpAuditing
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import uk.gov.hmrc.play.http.ws.{WSHttp, WSProxy, WSProxyConfiguration}
 
+import java.net.URL
 import javax.inject.Inject
-import scala.concurrent.duration._
-
-class ProxyHttpClient @Inject()(val auditConnector: AuditConnector,
-                                 val actorSystem: ActorSystem,
-                                 config: Configuration,
-                                 client: WSClient
-                               ) extends HttpClient with WSHttp with HttpAuditing with WSProxy with Logging {
-
-  def buildRequest[A](url: String, headers: Seq[(String, String)] = Seq.empty)
-                              (implicit hc: HeaderCarrier): PlayWSRequest = {
-    if(wsProxyServer.nonEmpty) logger.info("proxy enabled with configuration")
-    super.buildRequest(url, headers).withRequestTimeout(60.seconds)
-  }
-
-  override def configuration: Config = config.underlying
-
-  override val appName: String = config.get[String]("appName")
-
-  override val hooks: Seq[HttpHook] = Seq(AuditingHook)
-
-  override def wsProxyServer: Option[WSProxyServer] = WSProxyConfiguration.buildWsProxyServer(config)
-
-  override def wsClient: WSClient = client
-}
+//
+//class ProxyHttpClient @Inject()(val auditConnector: AuditConnector,
+//                                config: Configuration,
+//                               ) extends HttpClientV2 with HttpAuditing with Logging {
+//  override val appName: String = config.get[String]("appName")
+//  override def mkRequestBuilder(url: URL, method: String)(implicit hc: HeaderCarrier): RequestBuilder = ???
+//}

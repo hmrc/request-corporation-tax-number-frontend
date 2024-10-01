@@ -17,39 +17,37 @@
 package connectors
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import models.SubmissionResponse
 import play.api.Logging
+import play.api.http.Status.OK
 import play.api.libs.json.JsValue
-import play.api.http.Status._
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.HttpClient
-import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
-
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
+import uk.gov.hmrc.http.client.HttpClientV2
 import scala.concurrent.{ExecutionContext, Future}
 
-class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient) extends Logging {
+class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
   def ctutrSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
 
     val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/submission"
+    http.post(url"$submissionUrl")
+      .withBody(submissionJson)
+      .execute[HttpResponse]
+      .map {
+        response =>
+          response.status match {
+            case OK =>
+              response.json.asOpt[SubmissionResponse]
 
-    http.POST(submissionUrl, submissionJson).map {
-      response =>
-
-        response.status match {
-          case OK =>
-            response.json.asOpt[SubmissionResponse]
-
-          case other =>
-            logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
-            None
-        }
-    }.recover {
-      case e: Exception =>
-        logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
-        None
-    }
+            case other =>
+              logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
+              None
+          }
+      }.recover {
+        case e: Exception =>
+          logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
+          None
+      }
   }
 }

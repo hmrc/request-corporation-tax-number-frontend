@@ -20,59 +20,66 @@ import base.SpecBase
 import models.{Submission, SubmissionResponse}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
+import org.mockito.stubbing.OngoingStubbing
+import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.ScalaFutures
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.client.{HttpClientV2, RequestBuilder}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
 import utils.MockUserAnswers
 
-import scala.concurrent.Future
+import scala.concurrent.duration.DurationInt
+import scala.concurrent.{Await, Future}
 
-class CtutrConnectorSpec extends SpecBase with ScalaFutures {
+class CtutrConnectorSpec extends SpecBase with ScalaFutures with BeforeAndAfterEach{
+
+  val mockRequestBuilderPost: RequestBuilder = mock(classOf[RequestBuilder])
+  val mockHttpClient = mock(classOf[HttpClientV2])
+
+  private def mockExecute(
+                           builder: RequestBuilder,
+                           expectedResponse: Future[HttpResponse]
+                         ): OngoingStubbing[Future[HttpResponse]] =
+    when(builder.execute(any[HttpReads[HttpResponse]], any())).thenReturn(expectedResponse)
+
+  def mockPostEndpoint(expectedResponse: Future[HttpResponse]): OngoingStubbing[RequestBuilder] = {
+    mockExecute(mockRequestBuilderPost, expectedResponse)
+    when(mockRequestBuilderPost.withBody(any[JsValue])(any(), any(), any())).thenReturn(mockRequestBuilderPost)
+  }
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    reset(mockHttpClient)
+    reset(mockRequestBuilderPost)
+    when(mockHttpClient.post(any())(any())).thenReturn(mockRequestBuilderPost)
+    when(mockRequestBuilderPost.setHeader(any())).thenReturn(mockRequestBuilderPost)
+  }
 
   "submission" must {
 
     "return an Submission Response when the HTTP call succeeds" in {
-
       implicit val hc: HeaderCarrier = HeaderCarrier()
-
       val answers = MockUserAnswers.minimalValidUserAnswers()
-
       val submission = Submission(answers)
-
-      val httpMock = mock(classOf[HttpClient])
-      when(httpMock.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
-        .thenReturn(Future.successful(
-          HttpResponse(200,
+      mockPostEndpoint(Future.successful(
+        HttpResponse(200,
           """ |{
-              |  "id": "id",
-              |  "filename": "filename"
-              |}""".stripMargin)))
-
-      val connector = new CtutrConnector(frontendAppConfig, httpMock)
+            |  "id": "id",
+            |  "filename": "filename"
+            |}""".stripMargin)))
+      val connector = new CtutrConnector(frontendAppConfig, mockHttpClient)
       val futureResult = connector.ctutrSubmission(Json.toJson(submission))
-
-      whenReady(futureResult) { result =>
-        result mustBe Some(SubmissionResponse("id", "filename"))
-      }
+      Await.result(futureResult, 5.seconds) mustBe Some(SubmissionResponse("id", "filename"))
     }
 
     "return nothing when the HTTP call fails" in {
       implicit val hc: HeaderCarrier = HeaderCarrier()
-
       val answers = MockUserAnswers.minimalValidUserAnswers()
-
       val enrolment = Submission(answers)
-
-      val httpMock = mock(classOf[HttpClient])
-      when(httpMock.POST[JsValue, HttpResponse](any(), any(), any())(any(), any(), any(), any()))
-        .thenReturn(Future.successful(HttpResponse(500, "")))
-
-      val connector = new CtutrConnector(frontendAppConfig, httpMock)
+      mockPostEndpoint(Future.successful(HttpResponse(500, "")))
+      val connector = new CtutrConnector(frontendAppConfig, mockHttpClient)
       val futureResult = connector.ctutrSubmission(Json.toJson(enrolment))
-
-      whenReady(futureResult) { result =>
-        result mustBe None
-      }
+      Await.result(futureResult, 5.seconds) mustBe None
     }
 
   }
