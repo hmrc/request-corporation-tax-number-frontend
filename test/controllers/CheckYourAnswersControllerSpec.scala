@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models.{CheckMode, NormalMode, SubmissionFailed, SubmissionResult, SubmissionSuccessful}
+import models.{NormalMode, SubmissionFailed, SubmissionResult, SubmissionSuccessful}
 import org.mockito.Mockito.when
 import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
