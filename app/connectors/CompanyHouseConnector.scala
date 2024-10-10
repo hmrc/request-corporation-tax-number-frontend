@@ -17,26 +17,28 @@
 package connectors
 
 import config.FrontendAppConfig
-import http.ProxyHttpClient
 import models.CompanyDetails
 import play.api.Logging
 import play.api.http.Status._
-import uk.gov.hmrc.http.HttpReads.Implicits.readRaw
-import uk.gov.hmrc.http.{HeaderCarrier, HttpClient, HttpResponse}
+import uk.gov.hmrc.http.client.HttpClientV2
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 import utils.FormHelpers.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.http.HttpReads.Implicits._
 
-class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClient, proxyHttp: ProxyHttpClient) extends Logging {
+
+class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
   def getName(response: HttpResponse): String = toLowerCaseRemoveSpacesAndReplaceSmartChars((response.json \ "company_name").as[String])
 
   def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
     implicit val hc: HeaderCarrier = HeaderCarrier()
-    val httpClient = if (appConfig.proxyEnabled) proxyHttp else http
-
-    httpClient.GET(appConfig.companyHouseRequestUrl + data.companyReferenceNumber, headers = Seq("Authorization" -> appConfig.companyHouseRequestAuth))
+    val fullUrl = appConfig.companyHouseRequestUrl + data.companyReferenceNumber
+    http.get(url"$fullUrl").withProxy
+      .setHeader("Authorization" -> appConfig.companyHouseRequestAuth)
+      .execute[HttpResponse]
       .map { response =>
       response.status match {
         case OK =>

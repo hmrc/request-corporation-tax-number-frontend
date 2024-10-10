@@ -25,7 +25,7 @@
         govukButton : GovukButton
 )
 
-@(answerSection: AnswerSection)(implicit request: Request[_], messages: Messages)
+@(answerSection: AnswerSection)(implicit request: RequestHeader, messages: Messages)
 
 @main_template(title = messages("checkYourAnswers.title"), backLink = Some(routes.CompanyDetailsController.onPageLoad(NormalMode).toString)) {
     @formHelper(action = routes.CheckYourAnswersController.onSubmit, Symbol("autoComplete") -> "off") {

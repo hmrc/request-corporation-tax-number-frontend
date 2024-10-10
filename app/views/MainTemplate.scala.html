@@ -38,7 +38,7 @@
         beforeContentHtml: Option[Html] = None,
         hasTimeOut: Boolean = true,
         backLink: Option[String] = None
-)(mainContent: Html)(implicit request: Request[_], messages: Messages)
+)(mainContent: Html)(implicit request: RequestHeader, messages: Messages)
 
 @head = {
     <meta name="format-detection" content="telephone=no" />

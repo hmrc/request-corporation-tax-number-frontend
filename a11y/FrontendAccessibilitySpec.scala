@@ -3,6 +3,7 @@ import models.{CompanyDetails, Mode, NormalMode}
 import org.scalacheck.Arbitrary
 import play.api.data.Form
 import play.api.data.Forms.{boolean, text}
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 import uk.gov.hmrc.scalatestaccessibilitylinter.views.AutomaticAccessibilitySpec
 import views.html._
@@ -18,10 +19,12 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
   implicit val arbFormString: Arbitrary[Form[String]] = fixed(stringForm)
   implicit val arbCompanyDetailsForm: Arbitrary[Form[CompanyDetails]] = fixed(companyDetailsForm)
   implicit val arbMode: Arbitrary[Mode] = fixed(NormalMode)
+  implicit val arbRequest1: Arbitrary[RequestHeader] = fixed(fakeRequest)
 
   val viewPackageName = "views.html"
 
   val layoutClasses: Seq[Class[MainTemplate]] = Seq(classOf[views.html.MainTemplate])
+
 
   override def renderViewByClass: PartialFunction[Any, Html] = {
     case checkYourAnswersView: CheckYourAnswersView => render(checkYourAnswersView)

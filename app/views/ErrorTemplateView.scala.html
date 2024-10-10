@@ -21,7 +21,7 @@
         main_template: MainTemplate,
 )
 
-@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages)
+@(pageTitle: String, heading: String, message: String)(implicit request: RequestHeader, messages: Messages)
 
 @main_template(title = pageTitle){
 

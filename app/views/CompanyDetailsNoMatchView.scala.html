@@ -22,7 +22,7 @@
         hmrcNewTabLink: HmrcNewTabLink
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@()(implicit request: RequestHeader, messages: Messages)
 
 @main_template(title = messages("companyDetailsNoMatch.title"), hasTimeOut = false) {
 
