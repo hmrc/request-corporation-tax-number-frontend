@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import models.CompanyDetails
 import play.api.Logging
 import play.api.http.Status._
-import uk.gov.hmrc.http.client.{HttpClientV2}
+import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 import utils.FormHelpers.toLowerCaseRemoveSpacesAndReplaceSmartChars
 

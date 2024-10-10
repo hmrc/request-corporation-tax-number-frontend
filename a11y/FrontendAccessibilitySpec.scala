@@ -3,7 +3,7 @@ import models.{CompanyDetails, Mode, NormalMode}
 import org.scalacheck.Arbitrary
 import play.api.data.Form
 import play.api.data.Forms.{boolean, text}
-import play.api.mvc.{ RequestHeader}
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 import uk.gov.hmrc.scalatestaccessibilitylinter.views.AutomaticAccessibilitySpec
 import views.html._
