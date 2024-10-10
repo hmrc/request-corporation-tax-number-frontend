@@ -35,14 +35,9 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures with BeforeAn
   val httpMock: HttpClientV2 = mock(classOf[HttpClientV2])
   val mockRequestBuilderGet: RequestBuilder = mock(classOf[RequestBuilder])
 
-  private def mockExecute(
-                           builder: RequestBuilder,
-                           expectedResponse: Future[HttpResponse]
-                         ): OngoingStubbing[Future[HttpResponse]] =
-    when(builder.execute(any[HttpReads[HttpResponse]], any())).thenReturn(expectedResponse)
-
   def mockGetEndpoint(expectedResponse: Future[HttpResponse]): OngoingStubbing[Future[HttpResponse]] =
-    mockExecute(mockRequestBuilderGet, expectedResponse)
+    when(mockRequestBuilderGet.execute(any[HttpReads[HttpResponse]], any())).thenReturn(expectedResponse)
+
 
   override def beforeEach(): Unit = {
     super.beforeEach()
