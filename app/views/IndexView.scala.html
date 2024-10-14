@@ -25,7 +25,7 @@
         govukNotificationBanner : GovukNotificationBanner)
 
 
-@(call: Call)(implicit request: Request[_], messages: Messages)
+@(call: Call)(implicit request: RequestHeader, messages: Messages)
 
 @bannerHtml = {
     <div class="govuk-notification-banner__heading" id="delay-banner-heading">

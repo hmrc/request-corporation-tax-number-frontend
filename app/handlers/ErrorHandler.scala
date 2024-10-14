@@ -18,10 +18,13 @@ package handlers
 
 import javax.inject.{Inject, Singleton}
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
-import play.api.mvc.Request
+import play.api.mvc.RequestHeader
 import play.twirl.api.Html
 import views.html.{ErrorTemplateInternalServerErrorView, ErrorTemplateNotFoundView, ErrorTemplateView}
 import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
+
+import scala.concurrent.{ExecutionContext, Future}
+
 
 @Singleton
 class ErrorHandler @Inject()(
@@ -29,9 +32,10 @@ class ErrorHandler @Inject()(
                               internalServerErrorView: ErrorTemplateInternalServerErrorView,
                               view: ErrorTemplateView,
                               val messagesApi: MessagesApi
-                            ) extends FrontendErrorHandler with I18nSupport {
+                            )(implicit val ec: ExecutionContext) extends FrontendErrorHandler with I18nSupport {
 
-  override def notFoundTemplate(implicit request: Request[_]): Html = {
+
+  override def notFoundTemplate(implicit request: RequestHeader): Future[Html] = Future.successful {
     notFoundView(
       Messages("error.pageNotFound.title"),
       Messages("error.pageNotFound.heading"),
@@ -41,7 +45,7 @@ class ErrorHandler @Inject()(
       Messages("error.pageNotFound.messageLink"))
   }
 
-  override def internalServerErrorTemplate(implicit request: Request[_]): Html = {
+  override def internalServerErrorTemplate(implicit requestHeader: RequestHeader): Future[Html] = Future.successful {
     internalServerErrorView(
       Messages("error.internalError.title"),
       Messages("error.internalError.heading"),
@@ -49,7 +53,9 @@ class ErrorHandler @Inject()(
   }
 
 
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
-    view(pageTitle, heading, message)
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)
+                                    (implicit requestHeader: RequestHeader): Future[Html] =
+    Future.successful(view(pageTitle, heading, message))
+
 }
 
