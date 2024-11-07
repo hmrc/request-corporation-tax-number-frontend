@@ -11,3 +11,5 @@
 
 # Add all the application routes to the prod.routes file
 ->         /                          prod.Routes
+
+GET     /test-only/download/envelopes/:envelopeId    connectors.testOnly.DownloadEnvelope.downloadEnvelope(envelopeId: String)

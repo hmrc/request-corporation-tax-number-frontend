@@ -45,6 +45,7 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val companyHouseRequestAuth: String = configuration.get[String]("companyHouse.requestAuth")
 
   lazy val ctutrUrl: Service = configuration.get[Service]("microservice.services.request-corporation-tax-number")
+  lazy val fileUploadUrl: String = configuration.get[Service]("microservice.services.file-upload")
 
   lazy val languageTranslationEnabled: Boolean = configuration.get[Boolean]("microservice.services.features.welsh-translation")
 
