@@ -28,7 +28,7 @@
 @(answerSection: AnswerSection)(implicit request: RequestHeader, messages: Messages)
 
 @main_template(title = messages("checkYourAnswers.title"), backLink = Some(routes.CompanyDetailsController.onPageLoad(NormalMode).toString)) {
-    @formHelper(action = routes.CheckYourAnswersController.onSubmit, Symbol("autoComplete") -> "off") {
+    @formHelper(action = routes.CheckYourAnswersController.onSubmit(), Symbol("autoComplete") -> "off") {
 
         @components.heading("checkYourAnswers.heading")
 

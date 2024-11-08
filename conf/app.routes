@@ -1,16 +1,16 @@
 # microservice specific routes
 ->         /hmrc-frontend                               hmrcfrontend.Routes
 
-GET        /                                            controllers.IndexController.onPageLoad
+GET        /                                            controllers.IndexController.onPageLoad()
 
 GET        /assets/*file                                 controllers.Assets.versioned(path="/public", file: Asset)
 
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
-GET        /this-service-has-been-reset                 controllers.SessionController.onPageLoad
+GET        /this-service-has-been-reset                 controllers.SessionController.onPageLoad()
 
-GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
-POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit
+GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
+POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit()
 
 GET        /enter-company-details                       controllers.CompanyDetailsController.onPageLoad(mode: Mode = NormalMode)
 POST       /enter-company-details                       controllers.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
@@ -23,4 +23,6 @@ GET        /company-details-received                    controllers.Confirmation
 
 GET        /not-sent                                    controllers.FailedToSubmitController.onPageLoad()
 
-GET        /keep-alive                                  controllers.SessionController.keepAlive
+GET        /recently-registered                         controllers.CompanyRegisteredController.onPageLoad()
+
+GET        /keep-alive                                  controllers.SessionController.keepAlive()

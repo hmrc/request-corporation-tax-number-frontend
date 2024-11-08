@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,17 @@ package controllers
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import views.html.SessionExpiredView
+import views.html.CompanyRegisteredView
 
 import javax.inject.Inject
-import scala.concurrent.Future
 
-class SessionController @Inject()(cc: MessagesControllerComponents,
-                                  view: SessionExpiredView,
-                                  override val messagesApi: MessagesApi)
+class CompanyRegisteredController @Inject()(cc: MessagesControllerComponents,
+                                            view: CompanyRegisteredView,
+                                            override val messagesApi: MessagesApi)
   extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(view(routes.IndexController.onPageLoad()))
+  def onPageLoad: Action[AnyContent] = Action  {
+    implicit request =>
+      Ok(view())
   }
-
-  def keepAlive(): Action[AnyContent] = Action.async {
-    Future.successful(Ok("OK"))
-  }
-
 }

@@ -30,7 +30,7 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad
+  def onwardRoute: Call = routes.IndexController.onPageLoad()
 
   val formProvider: CompanyDetailsFormProvider = new CompanyDetailsFormProvider()
   val form: Form[CompanyDetails] = formProvider()

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import models.cache.CacheMap
-import identifiers._
-import models._
+import play.api.libs.json._
+import java.time.LocalDate
+import play.api.libs.json.JsonNaming.SnakeCase
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def companyDetails: Option[CompanyDetails] =
-    cacheMap.getEntry[CompanyDetails](CompanyDetailsId.toString)
+case class CompanyNameAndDateOfCreation(companyName: String, dateOfCreation: LocalDate)
+
+object CompanyNameAndDateOfCreation {
+  implicit val config: JsonConfiguration = JsonConfiguration(SnakeCase)
+  implicit val format: OFormat[CompanyNameAndDateOfCreation] = Json.format[CompanyNameAndDateOfCreation]
 }

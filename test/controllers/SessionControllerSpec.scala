@@ -33,7 +33,7 @@ class SessionControllerSpec extends ControllerSpecBase {
 
     "return the correct view for a GET" in {
       val result = new SessionController(cc, view, messagesApi).onPageLoad()(fakeRequest)
-      contentAsString(result) mustBe view(routes.IndexController.onPageLoad)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(routes.IndexController.onPageLoad())(fakeRequest, messages).toString
     }
 
     "keep a session alive" when {

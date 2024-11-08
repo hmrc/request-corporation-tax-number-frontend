@@ -32,6 +32,8 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
+import java.time.{LocalDate, ZoneId}
+
 class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
@@ -57,22 +59,30 @@ class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi
         Ok(view(answerSection))
       }
 
-      result.getOrElse(Redirect(routes.SessionController.onPageLoad))
+      result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
   }
 
   def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
       implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
-      companyHouseConnector.validateCRN(Submission(request.userAnswers).companyDetails).flatMap {
-        case Some(false) => Future.successful(Redirect(routes.CompanyDetailsNoMatchController.onPageLoad()))
-        case Some(true) =>
-          submissionService.ctutrSubmission(request.userAnswers).map {
-            case SubmissionSuccessful => Redirect(routes.ConfirmationController.onPageLoad())
-            case _ =>                    Redirect(routes.FailedToSubmitController.onPageLoad())
-          }
-        case _ => Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
-      }
+      companyHouseConnector.validateCRNAndReturnCompanyDetails(Submission(request.userAnswers).companyDetails).flatMap {
+        case Some((false, _)) =>
+          Future.successful(Redirect(routes.CompanyDetailsNoMatchController.onPageLoad()))
+        case Some((true, Some(companyDetailsWithDateOfCreation)))
+          if companyDetailsWithDateOfCreation.dateOfCreation.compareTo(LocalDate.now(ZoneId.of("GMT"))) <= 7 =>
 
+          Future.successful(Redirect(routes.CompanyRegisteredController.onPageLoad()))
+        case Some((true, _)) =>
+          submissionService.ctutrSubmission(request.userAnswers).map {
+            case SubmissionSuccessful =>
+              Redirect(routes.ConfirmationController.onPageLoad())
+            case _ =>
+              Redirect(routes.FailedToSubmitController.onPageLoad())
+          }
+        case _ =>
+          Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
+      }
   }
+
 }

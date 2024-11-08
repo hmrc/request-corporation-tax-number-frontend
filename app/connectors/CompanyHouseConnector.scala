@@ -17,47 +17,66 @@
 package connectors
 
 import config.FrontendAppConfig
-import models.CompanyDetails
+import models.{CompanyDetails, CompanyNameAndDateOfCreation}
 import play.api.Logging
 import play.api.http.Status._
+import play.api.libs.json.Json
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 import utils.FormHelpers.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.http.HttpReads.Implicits._
+import scala.util.Try
 
 
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
-  def getName(response: HttpResponse): String = toLowerCaseRemoveSpacesAndReplaceSmartChars((response.json \ "company_name").as[String])
-
-  def validateCRN(data: CompanyDetails)(implicit ec: ExecutionContext): Future[Option[Boolean]] = {
+  def validateCRNAndReturnCompanyDetails(data: CompanyDetails)
+                                        (implicit ec: ExecutionContext)
+  : Future[Option[(Boolean, Option[CompanyNameAndDateOfCreation])]] = {
     implicit val hc: HeaderCarrier = HeaderCarrier()
-    val fullUrl = appConfig.companyHouseRequestUrl + data.companyReferenceNumber
-    http.get(url"$fullUrl").withProxy
-      .setHeader("Authorization" -> appConfig.companyHouseRequestAuth)
-      .execute[HttpResponse]
+
+    getCompanyDetails(data.companyReferenceNumber)
       .map { response =>
-      response.status match {
-        case OK =>
-          logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
-          Some(getName(response) == toLowerCaseRemoveSpacesAndReplaceSmartChars(data.companyName))
-        case NOT_FOUND =>
-          logger.warn(s"[CompanyHouseConnector][validateCRN] CRN not found - $response")
-          Some(false)
-        case TOO_MANY_REQUESTS =>
-          logger.error(s"[CompanyHouseConnector][validateCRN] request limit exceeded - $response")
-          None
-        case _ =>
-          logger.error(s"[CompanyHouseConnector][validateCRN] Unexpected status: ${response.status} with body: ${response.body}")
+        response.status match {
+          case OK =>
+            logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
+
+            val companyDetailsWithDateOfCreation =
+              Try(Json.parse(response.body).as[CompanyNameAndDateOfCreation]).toOption
+
+            Some((getName(response) == toLowerCaseRemoveSpacesAndReplaceSmartChars(data.companyName), companyDetailsWithDateOfCreation))
+          case NOT_FOUND =>
+            logger.warn(s"[CompanyHouseConnector][validateCRN] CRN not found - $response")
+            Some((false, None))
+          case TOO_MANY_REQUESTS =>
+            logger.error(s"[CompanyHouseConnector][validateCRN] request limit exceeded - $response")
+            None
+          case _ =>
+            logger.error(s"[CompanyHouseConnector][validateCRN] Unexpected status: ${response.status} with body: ${response.body}")
+            None
+        }
+      }.recover {
+        case e: Exception =>
+          logger.error("[CompanyHouseConnector][validateCRN] submission to CompanyHouse failed: " + e)
           None
       }
-    }.recover{
-      case e:Exception =>
-        logger.error("[CompanyHouseConnector][validateCRN] submission to CompanyHouse failed: " + e)
-        None
-    }
+  }
+
+
+  private def getName(response: HttpResponse): String =
+    toLowerCaseRemoveSpacesAndReplaceSmartChars((response.json \ "company_name").as[String])
+
+  private def getCompanyDetails(companyReferenceNumber: String)
+                               (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val fullUrl = appConfig.companyHouseRequestUrl + companyReferenceNumber
+
+    http
+      .get(url"$fullUrl")
+      .withProxy
+      .setHeader("Authorization" -> appConfig.companyHouseRequestAuth)
+      .execute[HttpResponse]
   }
 }

@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models.{NormalMode, SubmissionFailed, SubmissionResult, SubmissionSuccessful}
+import models.{CompanyNameAndDateOfCreation, NormalMode, SubmissionFailed, SubmissionResult, SubmissionSuccessful}
 import org.mockito.Mockito.when
 import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
@@ -26,16 +26,19 @@ import uk.gov.hmrc.http.HeaderCarrier
 import utils.UserAnswers
 import views.html.{CheckYourAnswersView, CompanyDetailsNoMatchView}
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
   object FakeSuccessfulSubmissionService extends SubmissionService {
-    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = Future.successful(SubmissionSuccessful)
+    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] =
+      Future.successful(SubmissionSuccessful)
   }
 
   object FakeFailingSubmissionService extends SubmissionService {
-    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = Future.successful(SubmissionFailed)
+    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] =
+      Future.successful(SubmissionFailed)
   }
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
@@ -44,16 +47,17 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
   def sessionExpired: Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
 
-
-  def testController(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap, submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
-                new CheckYourAnswersController(
-                  messagesApi,
-                  dataRetrievalAction,
-                  new DataRequiredActionImpl,
-                  cc,
-                  companyHouseConnector,
-                  submissionService,
-                  checkYourAnswersView)
+  def testController(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
+                     submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
+    new CheckYourAnswersController(
+      messagesApi,
+      dataRetrievalAction,
+      new DataRequiredActionImpl,
+      cc,
+      companyHouseConnector,
+      submissionService,
+      checkYourAnswersView
+    )
 
   "Check Your Answers Controller" must {
     "return 200 for a GET" in {
@@ -92,15 +96,27 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     }
 
     "Redirect to CompanyDetailsNoMatch on when details do not match" in {
-      when(companyHouseConnector.validateCRN(companyDetails)) thenReturn Future(Some(false))
+      when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)) thenReturn Future(Some((false, None)))
       val result = testController(someData, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.CompanyDetailsNoMatchController.onPageLoad().url)
     }
 
+    "Redirect to CompanyRegisteredController when company created less than or equal to seven days ago" in {
+      val numberOfDaysSinceCompanyCreated = 7
+      val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("companyName", LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated))
+      when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)).thenReturn(
+        Future.successful(Some((true, Some(companyNameAndDateOfCreation)))))
+
+      val result = testController(someData).onSubmit()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.CompanyRegisteredController.onPageLoad().url)
+    }
+
     "Redirect to Failed to submit when an exception is returned" in {
-      when(companyHouseConnector.validateCRN(companyDetails)) thenReturn Future(None)
+      when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)) thenReturn Future(None)
       val result = testController(someData, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER

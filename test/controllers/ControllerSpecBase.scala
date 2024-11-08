@@ -20,20 +20,24 @@ import base.SpecBase
 import connectors.CompanyHouseConnector
 import controllers.actions.FakeDataRetrievalAction
 import identifiers.CompanyDetailsId
-import models.CompanyDetails
+import models.{CompanyDetails, CompanyNameAndDateOfCreation}
 import models.cache.CacheMap
 import org.mockito.Mockito.{mock, when}
 import play.api.libs.json.Json
 import play.api.mvc.BodyParsers
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase {
 
   val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
   val companyDetails: CompanyDetails = CompanyDetails("Big Company", "12345678")
+  val companyNameAndDateOfCreation: CompanyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", LocalDate.now().minusDays(4))
+
   val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])
-  when(companyHouseConnector.validateCRN(companyDetails)) thenReturn Future(Some(true))
+
+  when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)) thenReturn Future(Some((true, None)))
 
   val cacheMapId = "id"
 
@@ -46,5 +50,6 @@ trait ControllerSpecBase extends SpecBase {
   def someData = new FakeDataRetrievalAction(
     Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(companyDetails)))),
     ec,
-    parser)
+    parser
+  )
 }

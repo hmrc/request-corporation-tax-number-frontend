@@ -17,7 +17,7 @@
 package connectors
 
 import base.SpecBase
-import models.CompanyDetails
+import models.{CompanyDetails, CompanyNameAndDateOfCreation}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.mockito.stubbing.OngoingStubbing
@@ -27,6 +27,7 @@ import uk.gov.hmrc.http.client.{HttpClientV2, RequestBuilder}
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 import utils.{MockUserAnswers, UserAnswers}
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
@@ -102,10 +103,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |   "can_file": true
             |}""".stripMargin)))
 
-      val futureResult = connector.validateCRN(answers.companyDetails.get)
+      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe Some(false)
+        result mustBe Some((false, Some(CompanyNameAndDateOfCreation("Company 15428444 LIMITED", LocalDate.parse("2021-03-24")))))
       }
     }
 
@@ -163,10 +164,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |   "can_file": true
             |}""".stripMargin)))
 
-      val futureResult = connector.validateCRN(answers.companyDetails.get)
+      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe Some(true)
+        result mustBe Some((true, Some(CompanyNameAndDateOfCreation("company name", LocalDate.parse("2021-03-24")))))
       }
     }
 
@@ -183,10 +184,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |   ]
             |}""".stripMargin)))
 
-      val futureResult = connector.validateCRN(answers.companyDetails.get)
+      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe Some(false)
+        result mustBe Some((false, None))
       }
     }
 
@@ -203,7 +204,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |}""".stripMargin)))
 
       val connector = new CompanyHouseConnector(frontendAppConfig, httpMock)
-      val futureResult = connector.validateCRN(answers.companyDetails.get)
+      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
         result mustBe None
@@ -232,10 +233,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
           ))
 
           val answers = MockUserAnswers.minimalValidUserAnswers(CompanyDetails("1234567", userAnswer))
-          val futureResult = connector.validateCRN(answers.companyDetails.get)
+          val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
 
           whenReady(futureResult) { result =>
-            result mustBe Some(true)
+            result mustBe Some((true, None))
           }
         }
     }
