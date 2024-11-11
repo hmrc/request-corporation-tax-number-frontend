@@ -16,9 +16,15 @@
 
 package models
 
-trait CompaniesHouseConnectorError
+trait CompaniesHouseConnectorFailure
 
-case class CompaniesHouseJsonResponseParseError(message: String) extends CompaniesHouseConnectorError
+case class CompaniesHouseJsonResponseParseError(message: String) extends CompaniesHouseConnectorFailure
 
-case object CompaniesHouseResponseError extends CompaniesHouseConnectorError
+case object CompaniesHouseNotFoundResponse extends CompaniesHouseConnectorFailure
+
+case object CompaniesHouseTooManyRequestsResponse extends CompaniesHouseConnectorFailure
+
+case object CompaniesHouseFailureResponse extends CompaniesHouseConnectorFailure
+
+case object CompaniesHouseExceptionError extends CompaniesHouseConnectorFailure
 

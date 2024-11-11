@@ -84,7 +84,9 @@ class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi
     val isRecentlyCreated =
       companyNameAndDateOfCreation
         .dateOfCreation
-        .exists(dateOfCreation => dateOfCreation.compareTo(LocalDate.now(ZoneId.of("GMT"))) <= recentlyCreatedCompanyThresholdDays)
+        .exists(dateOfCreation =>
+          LocalDate.now(ZoneId.of("GMT")).compareTo(dateOfCreation) <= recentlyCreatedCompanyThresholdDays
+        )
 
     val nameMatches =
       toLowerCaseRemoveSpacesAndReplaceSmartChars(companyDetailsFromUserAnswers.companyName) ==

@@ -31,10 +31,11 @@ import scala.util.{Failure, Success, Try}
 
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
-  def getCompanyDetails(data: CompanyDetails)(implicit ec: ExecutionContext)
-  : Future[Either[CompaniesHouseConnectorError, CompanyNameAndDateOfCreation]] = {
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    implicit val hc: HeaderCarrier = HeaderCarrier()
+  def getCompanyDetails(data: CompanyDetails)(implicit ec: ExecutionContext)
+  : Future[Either[CompaniesHouseConnectorFailure, CompanyNameAndDateOfCreation]] = {
+
 
     requestCompanyDetails(data.companyReferenceNumber).map { response =>
       response.status match {
@@ -49,7 +50,11 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
               // some companies do not have a date of creation, try to retrieve the just the company name from the response
               Try((response.json \ "company_name").as[String]) match {
                 case Failure(_) =>
-                  logger.warn(s"[CompanyHouseConnector][requestCompanyDetails] Error parsing JSON - $response")
+                  logger.warn(
+                    s"[CompanyHouseConnector][requestCompanyDetails] Error parsing JSON - " +
+                      s"response: $response, parseErrors: $companyNameAndDateOfCreationJsParseException"
+                  )
+
                   Left(CompaniesHouseJsonResponseParseError(companyNameAndDateOfCreationJsParseException.getMessage))
 
                 case Success(companyName: String) =>
@@ -58,24 +63,25 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
           }
         case NOT_FOUND =>
           logger.warn(s"[CompanyHouseConnector][requestCompanyDetails] CRN not found - $response")
-          Left(CompaniesHouseResponseError)
+          Left(CompaniesHouseNotFoundResponse)
         case TOO_MANY_REQUESTS =>
           logger.error(s"[CompanyHouseConnector][requestCompanyDetails] request limit exceeded - $response")
-          Left(CompaniesHouseResponseError)
+          Left(CompaniesHouseTooManyRequestsResponse)
         case _ =>
           logger.error(s"[CompanyHouseConnector][requestCompanyDetails] Unexpected status: ${response.status} with body: ${response.body}")
-          Left(CompaniesHouseResponseError)
+          Left(CompaniesHouseFailureResponse)
       }
     }.recover {
       case e: Exception =>
         logger.error("[CompanyHouseConnector][requestCompanyDetails] submission to CompanyHouse failed: " + e)
-        Left(CompaniesHouseResponseError)
+        Left(CompaniesHouseExceptionError)
     }
   }
 
 
   private def requestCompanyDetails(companyReferenceNumber: String)
-                           (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+                           (implicit ec: ExecutionContext): Future[HttpResponse] = {
+
     val fullUrl = appConfig.companyHouseRequestUrl + companyReferenceNumber
 
     http
