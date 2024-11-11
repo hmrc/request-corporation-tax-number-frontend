@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import org.apache.pekko.stream.scaladsl.Source
 import org.apache.pekko.util.ByteString
 import play.api.Logging
-import uk.gov.hmrc.http.{HeaderCarrier, StringContextOps}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.client.HttpClientV2
 
 import javax.inject.Inject
@@ -30,7 +30,9 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 class DownloadEnvelope @Inject()(appConfig: FrontendAppConfig,
                                  http: HttpClientV2,
-                                 cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends FrontendController(cc) with Logging {
+                                 cc: MessagesControllerComponents,
+                                 executeDownloadEnvelopeRequest: ExecuteDownloadEnvelopeRequest
+                                )(implicit ec: ExecutionContext, hc: HeaderCarrier) extends FrontendController(cc) with Logging {
 
   def downloadEnvelope(envelopeId: String): Action[AnyContent] =
     Action.async { implicit request: MessagesRequest[AnyContent] =>
@@ -45,10 +47,8 @@ class DownloadEnvelope @Inject()(appConfig: FrontendAppConfig,
       }
     }
 
-  private def downloadEnvelopeRequest(envelopeId: String)(implicit hc: HeaderCarrier): Future[Either[String, Source[ByteString, _]]] =
-    http
-      .get(url"${appConfig.fileUploadUrl}/file-transfer/envelopes/${envelopeId}")
-      .execute
+  def downloadEnvelopeRequest(envelopeId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Either[String, Source[ByteString, _]]] =
+    executeDownloadEnvelopeRequest.executeGetRequest(envelopeId)
       .map { response =>
         if (response.status == 200) Right(response.bodyAsSource) else Left(response.body)
       }
