@@ -26,7 +26,7 @@ class CompanyDetailsNoMatchControllerSpec extends ControllerSpecBase {
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
   val view: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CompanyDetailsNoMatchController(
+  def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) = new CompanyDetailsNoMatchController(
     messagesApi,
     dataRetrievalAction,
     cc,

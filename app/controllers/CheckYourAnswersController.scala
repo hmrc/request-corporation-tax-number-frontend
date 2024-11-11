@@ -19,18 +19,19 @@ package controllers
 import com.google.inject.Inject
 import connectors.CompanyHouseConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
-import models.{Submission, SubmissionSuccessful}
+import models.requests.DataRequest
+import models.{CompanyDetails, CompanyNameAndDateOfCreation, Submission, SubmissionSuccessful}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 import java.time.{LocalDate, ZoneId}
 
@@ -62,27 +63,46 @@ class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi
       result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
   }
 
-  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-      implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async { implicit request: DataRequest[AnyContent] =>
 
-      companyHouseConnector.validateCRNAndReturnCompanyDetails(Submission(request.userAnswers).companyDetails).flatMap {
-        case Some((false, _)) =>
-          Future.successful(Redirect(routes.CompanyDetailsNoMatchController.onPageLoad()))
-        case Some((true, Some(companyDetailsWithDateOfCreation)))
-          if companyDetailsWithDateOfCreation.dateOfCreation.compareTo(LocalDate.now(ZoneId.of("GMT"))) <= 7 =>
+    val companyDetailsFromUserAnswers: CompanyDetails = Submission(request.userAnswers).companyDetails
 
-          Future.successful(Redirect(routes.CompanyRegisteredController.onPageLoad()))
-        case Some((true, _)) =>
-          submissionService.ctutrSubmission(request.userAnswers).map {
-            case SubmissionSuccessful =>
-              Redirect(routes.ConfirmationController.onPageLoad())
-            case _ =>
-              Redirect(routes.FailedToSubmitController.onPageLoad())
-          }
-        case _ =>
-          Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
-      }
+    companyHouseConnector.getCompanyDetails(companyDetailsFromUserAnswers).flatMap {
+      case Right(companyNameAndDateOfCreation) =>
+        processCompaniesHouseResponse(companyDetailsFromUserAnswers, companyNameAndDateOfCreation)
+      case Left(_) =>
+        Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
+    }
+  }
+
+  private def processCompaniesHouseResponse(companyDetailsFromUserAnswers: CompanyDetails,
+                                            companyNameAndDateOfCreation: CompanyNameAndDateOfCreation)
+                                           (implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Result] = {
+
+    val recentlyCreatedCompanyThresholdDays = 7
+
+    val isRecentlyCreated =
+      companyNameAndDateOfCreation
+        .dateOfCreation
+        .exists(dateOfCreation => dateOfCreation.compareTo(LocalDate.now(ZoneId.of("GMT"))) <= recentlyCreatedCompanyThresholdDays)
+
+    val nameMatches =
+      toLowerCaseRemoveSpacesAndReplaceSmartChars(companyDetailsFromUserAnswers.companyName) ==
+        toLowerCaseRemoveSpacesAndReplaceSmartChars(companyNameAndDateOfCreation.companyName)
+
+    (nameMatches, isRecentlyCreated) match {
+      case (true, false) =>
+        submissionService.ctutrSubmission(request.userAnswers).map {
+          case SubmissionSuccessful =>
+            Redirect(routes.ConfirmationController.onPageLoad())
+          case _ =>
+            Redirect(routes.FailedToSubmitController.onPageLoad())
+        }
+      case (true, true) =>
+        Future.successful(Redirect(routes.CompanyRegisteredController.onPageLoad()))
+      case (false, _) =>
+        Future.successful(Redirect(routes.CompanyDetailsNoMatchController.onPageLoad()))
+    }
   }
 
 }

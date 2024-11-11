@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models.{CompanyNameAndDateOfCreation, NormalMode, SubmissionFailed, SubmissionResult, SubmissionSuccessful}
+import models._
 import org.mockito.Mockito.when
 import play.api.mvc.{Call, MessagesControllerComponents}
 import play.api.test.Helpers._
@@ -44,10 +44,11 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
   val checkYourAnswersView: CheckYourAnswersView = app.injector.instanceOf[CheckYourAnswersView]
   val noMatchView: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
+
   def sessionExpired: Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
 
-  def testController(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap,
+  def testController(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap,
                      submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
     new CheckYourAnswersController(
       messagesApi,
@@ -61,13 +62,13 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
   "Check Your Answers Controller" must {
     "return 200 for a GET" in {
-      val result = testController(someData).onPageLoad()(fakeRequest)
+      val result = testController(fakeDataRetrievalActionWithCacheMap).onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
 
     "return 303 and correct view for a GET if no existing data is found" in {
-      val result = testController(dontGetAnyData).onPageLoad()(fakeRequest)
+      val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpired.url)
@@ -75,29 +76,34 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     "redirect to session expired for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
-      val result = testController(dontGetAnyData).onSubmit()(postRequest)
+      val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpired.url)
     }
 
     "Redirect to Confirmation page on a POST when submission is successful" in {
-      val result = testController(someData, FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
+      val result = testController(fakeDataRetrievalActionWithCacheMap, FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
     }
 
     "Redirect to Failed to submit on a POST when submission fails" in {
-      val result = testController(someData, FakeFailingSubmissionService).onSubmit()(fakeRequest)
+      val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
     }
 
     "Redirect to CompanyDetailsNoMatch on when details do not match" in {
-      when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)) thenReturn Future(Some((false, None)))
-      val result = testController(someData, FakeFailingSubmissionService).onSubmit()(fakeRequest)
+      val numberOfDaysSinceCompanyCreated = 5
+
+      val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Company Name That Does Not Match",
+        Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+
+      when(companyHouseConnector.getCompanyDetails(companyDetails)) thenReturn Future(Right(companyNameAndDateOfCreation))
+      val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.CompanyDetailsNoMatchController.onPageLoad().url)
@@ -105,19 +111,19 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     "Redirect to CompanyRegisteredController when company created less than or equal to seven days ago" in {
       val numberOfDaysSinceCompanyCreated = 7
-      val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("companyName", LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated))
-      when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)).thenReturn(
-        Future.successful(Some((true, Some(companyNameAndDateOfCreation)))))
+      val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+      when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
-      val result = testController(someData).onSubmit()(fakeRequest)
+      val result = testController(fakeDataRetrievalActionWithCacheMap).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.CompanyRegisteredController.onPageLoad().url)
     }
 
     "Redirect to Failed to submit when an exception is returned" in {
-      when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)) thenReturn Future(None)
-      val result = testController(someData, FakeFailingSubmissionService).onSubmit()(fakeRequest)
+      when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Left(CompaniesHouseJsonResponseParseError("some JS errors"))))
+
+      val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)

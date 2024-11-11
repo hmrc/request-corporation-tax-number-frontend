@@ -32,22 +32,21 @@ import scala.concurrent.Future
 trait ControllerSpecBase extends SpecBase {
 
   val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
-  val companyDetails: CompanyDetails = CompanyDetails("Big Company", "12345678")
-  val companyNameAndDateOfCreation: CompanyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", LocalDate.now().minusDays(4))
+  val companyDetails: CompanyDetails = CompanyDetails("12345678", "Big Company")
+  val companyNameAndDateOfCreation: CompanyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(4)))
 
   val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])
 
-  when(companyHouseConnector.validateCRNAndReturnCompanyDetails(companyDetails)) thenReturn Future(Some((true, None)))
-
+  when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future(Right(CompanyNameAndDateOfCreation("Big Company", None))))
   val cacheMapId = "id"
 
   def emptyCacheMap: CacheMap = CacheMap(cacheMapId, Map())
 
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), ec, parser)
+  def fakeDataRetrievalActionWithEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), ec, parser)
 
-  def dontGetAnyData = new FakeDataRetrievalAction(None, ec, parser)
+  def fakeDataRetrievalActionWithUndefinedCacheMap = new FakeDataRetrievalAction(None, ec, parser)
 
-  def someData = new FakeDataRetrievalAction(
+  def fakeDataRetrievalActionWithCacheMap = new FakeDataRetrievalAction(
     Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(companyDetails)))),
     ec,
     parser

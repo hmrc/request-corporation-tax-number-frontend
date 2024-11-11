@@ -18,9 +18,9 @@ package utils
 
 import base.SpecBase
 import org.scalatest.prop.TableDrivenPropertyChecks._
-import utils.FormHelpers.toLowerCaseRemoveSpacesAndReplaceSmartChars
+import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
-class FormHelpersSpec extends SpecBase {
+class StringUtilsSpec extends SpecBase {
   forAll(
     Table(
       ("userAnswerWithoutFormatting", "expectedResultAfterFormattingApplied"),

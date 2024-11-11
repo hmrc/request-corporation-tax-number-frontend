@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,11 @@
 package connectors
 
 import base.SpecBase
-import models.{CompanyDetails, CompanyNameAndDateOfCreation}
+import models.{CompanyNameAndDateOfCreation, CompaniesHouseResponseError}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.mockito.stubbing.OngoingStubbing
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.prop.TableDrivenPropertyChecks._
 import uk.gov.hmrc.http.client.{HttpClientV2, RequestBuilder}
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 import utils.{MockUserAnswers, UserAnswers}
@@ -103,10 +102,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |   "can_file": true
             |}""".stripMargin)))
 
-      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
+      val futureResult = connector.getCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe Some((false, Some(CompanyNameAndDateOfCreation("Company 15428444 LIMITED", LocalDate.parse("2021-03-24")))))
+        result mustBe Right(CompanyNameAndDateOfCreation("Company 15428444 LIMITED", Some(LocalDate.parse("2021-03-24"))))
       }
     }
 
@@ -164,10 +163,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |   "can_file": true
             |}""".stripMargin)))
 
-      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
+      val futureResult = connector.getCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe Some((true, Some(CompanyNameAndDateOfCreation("company name", LocalDate.parse("2021-03-24")))))
+        result mustBe Right(CompanyNameAndDateOfCreation("company name", Some(LocalDate.parse("2021-03-24"))))
       }
     }
 
@@ -184,10 +183,10 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |   ]
             |}""".stripMargin)))
 
-      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
+      val futureResult = connector.getCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe Some((false, None))
+        result mustBe Left(CompaniesHouseResponseError)
       }
     }
 
@@ -204,41 +203,12 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
             |}""".stripMargin)))
 
       val connector = new CompanyHouseConnector(frontendAppConfig, httpMock)
-      val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
+      val futureResult = connector.getCompanyDetails(answers.companyDetails.get)
 
       whenReady(futureResult) { result =>
-        result mustBe None
+        result mustBe Left(CompaniesHouseResponseError)
       }
     }
 
-    forAll(
-      Table(
-        ("userAnswer", "mockCompanyName"),
-        ("'''t'es't'''", "'''t'es't'''"),
-        ("’’’t’es‘t‘‘‘", "'''t'es't'''"),
-        ("’’’t’es‘t‘‘‘", "’’’t’es‘t‘‘‘"),
-        ("'''t'es't'''", "’’’t’es‘t‘‘‘"),
-      )
-    ) {
-      (userAnswer: String, mockCompanyName: String) =>
-        s"return Some(true) given userAnswer: $userAnswer and companyName: $mockCompanyName" in {
-          mockGetEndpoint(Future.successful(
-            HttpResponse(200,
-              s"""
-                 |{
-                 |   "company_name": "$mockCompanyName"
-                 |}"""
-                .stripMargin
-            )
-          ))
-
-          val answers = MockUserAnswers.minimalValidUserAnswers(CompanyDetails("1234567", userAnswer))
-          val futureResult = connector.validateCRNAndReturnCompanyDetails(answers.companyDetails.get)
-
-          whenReady(futureResult) { result =>
-            result mustBe Some((true, None))
-          }
-        }
-    }
   }
 }

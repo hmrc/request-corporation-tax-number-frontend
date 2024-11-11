@@ -17,60 +17,65 @@
 package connectors
 
 import config.FrontendAppConfig
-import models.{CompanyDetails, CompanyNameAndDateOfCreation}
+import models._
 import play.api.Logging
 import play.api.http.Status._
-import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
-import utils.FormHelpers.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 
 class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
-  def validateCRNAndReturnCompanyDetails(data: CompanyDetails)
-                                        (implicit ec: ExecutionContext)
-  : Future[Option[(Boolean, Option[CompanyNameAndDateOfCreation])]] = {
+  def getCompanyDetails(data: CompanyDetails)(implicit ec: ExecutionContext)
+  : Future[Either[CompaniesHouseConnectorError, CompanyNameAndDateOfCreation]] = {
+
     implicit val hc: HeaderCarrier = HeaderCarrier()
 
-    getCompanyDetails(data.companyReferenceNumber)
-      .map { response =>
-        response.status match {
-          case OK =>
-            logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
+    requestCompanyDetails(data.companyReferenceNumber).map { response =>
+      response.status match {
+        case OK =>
+          logger.debug(s"[CompanyHouseConnector][validateCRN] CRN found")
 
-            val companyDetailsWithDateOfCreation =
-              Try(Json.parse(response.body).as[CompanyNameAndDateOfCreation]).toOption
+          CompanyNameAndDateOfCreation.parseJsonWithValidation(response.body) match {
+            case Success(companyNameAndDateOfCreation) =>
+              Right(companyNameAndDateOfCreation)
 
-            Some((getName(response) == toLowerCaseRemoveSpacesAndReplaceSmartChars(data.companyName), companyDetailsWithDateOfCreation))
-          case NOT_FOUND =>
-            logger.warn(s"[CompanyHouseConnector][validateCRN] CRN not found - $response")
-            Some((false, None))
-          case TOO_MANY_REQUESTS =>
-            logger.error(s"[CompanyHouseConnector][validateCRN] request limit exceeded - $response")
-            None
-          case _ =>
-            logger.error(s"[CompanyHouseConnector][validateCRN] Unexpected status: ${response.status} with body: ${response.body}")
-            None
-        }
-      }.recover {
-        case e: Exception =>
-          logger.error("[CompanyHouseConnector][validateCRN] submission to CompanyHouse failed: " + e)
-          None
+            case Failure(companyNameAndDateOfCreationJsParseException) =>
+              // some companies do not have a date of creation, try to retrieve the just the company name from the response
+              Try((response.json \ "company_name").as[String]) match {
+                case Failure(_) =>
+                  logger.warn(s"[CompanyHouseConnector][requestCompanyDetails] Error parsing JSON - $response")
+                  Left(CompaniesHouseJsonResponseParseError(companyNameAndDateOfCreationJsParseException.getMessage))
+
+                case Success(companyName: String) =>
+                  Right(CompanyNameAndDateOfCreation(companyName, dateOfCreation = None))
+              }
+          }
+        case NOT_FOUND =>
+          logger.warn(s"[CompanyHouseConnector][requestCompanyDetails] CRN not found - $response")
+          Left(CompaniesHouseResponseError)
+        case TOO_MANY_REQUESTS =>
+          logger.error(s"[CompanyHouseConnector][requestCompanyDetails] request limit exceeded - $response")
+          Left(CompaniesHouseResponseError)
+        case _ =>
+          logger.error(s"[CompanyHouseConnector][requestCompanyDetails] Unexpected status: ${response.status} with body: ${response.body}")
+          Left(CompaniesHouseResponseError)
       }
+    }.recover {
+      case e: Exception =>
+        logger.error("[CompanyHouseConnector][requestCompanyDetails] submission to CompanyHouse failed: " + e)
+        Left(CompaniesHouseResponseError)
+    }
   }
 
 
-  private def getName(response: HttpResponse): String =
-    toLowerCaseRemoveSpacesAndReplaceSmartChars((response.json \ "company_name").as[String])
-
-  private def getCompanyDetails(companyReferenceNumber: String)
-                               (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+  private def requestCompanyDetails(companyReferenceNumber: String)
+                           (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
     val fullUrl = appConfig.companyHouseRequestUrl + companyReferenceNumber
 
     http
