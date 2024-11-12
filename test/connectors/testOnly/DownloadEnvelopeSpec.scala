@@ -38,7 +38,7 @@ import play.api.test.Helpers._
 class DownloadEnvelopeSpec extends SpecBase with ScalaFutures {
 
   val fakeRequestDownloadEnvelope: FakeRequest[AnyContentAsEmpty.type] =
-    FakeRequest("GET", "/test-only/download/envelopes/TestEnvelope")
+    FakeRequest("GET", "/ask-for-copy-of-your-corporation-tax-utr/test-only/download/envelopes/TestEnvelope")
 
   val mockHttpClientV2: HttpClientV2 = mock[HttpClientV2]
   val executeDownloadEnvelopeRequest: ExecuteDownloadEnvelopeRequest = mock[ExecuteDownloadEnvelopeRequest]
