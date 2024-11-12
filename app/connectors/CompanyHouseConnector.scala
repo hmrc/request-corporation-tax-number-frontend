@@ -50,6 +50,7 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
               Try((response.json \ "company_name").as[String]) match {
                 case Success(companyName: String) =>
                   Right(CompanyNameAndDateOfCreation(companyName, dateOfCreation = None))
+
                 case Failure(_) =>
                   logger.warn(
                     s"[CompanyHouseConnector][requestCompanyDetails] Error parsing JSON - " +
@@ -78,7 +79,7 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
 
 
   private def requestCompanyDetails(companyReferenceNumber: String)
-                           (implicit ec: ExecutionContext): Future[HttpResponse] = {
+                                   (implicit ec: ExecutionContext): Future[HttpResponse] = {
 
     val fullUrl = appConfig.companyHouseRequestUrl + companyReferenceNumber
 
