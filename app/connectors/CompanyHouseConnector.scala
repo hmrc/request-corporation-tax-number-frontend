@@ -19,7 +19,7 @@ package connectors
 import config.FrontendAppConfig
 import models._
 import play.api.Logging
-import play.api.http.Status._
+import play.api.http.Status.{OK, NOT_FOUND, TOO_MANY_REQUESTS}
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
@@ -36,7 +36,6 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
   def getCompanyDetails(data: CompanyDetails)(implicit ec: ExecutionContext)
   : Future[Either[CompaniesHouseConnectorFailure, CompanyNameAndDateOfCreation]] = {
 
-
     requestCompanyDetails(data.companyReferenceNumber).map { response =>
       response.status match {
         case OK =>
@@ -49,6 +48,8 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
             case Failure(companyNameAndDateOfCreationJsParseException) =>
               // some companies do not have a date of creation, try to retrieve the just the company name from the response
               Try((response.json \ "company_name").as[String]) match {
+                case Success(companyName: String) =>
+                  Right(CompanyNameAndDateOfCreation(companyName, dateOfCreation = None))
                 case Failure(_) =>
                   logger.warn(
                     s"[CompanyHouseConnector][requestCompanyDetails] Error parsing JSON - " +
@@ -56,9 +57,6 @@ class CompanyHouseConnector @Inject()(appConfig: FrontendAppConfig, http: HttpCl
                   )
 
                   Left(CompaniesHouseJsonResponseParseError(companyNameAndDateOfCreationJsParseException.getMessage))
-
-                case Success(companyName: String) =>
-                  Right(CompanyNameAndDateOfCreation(companyName, dateOfCreation = None))
               }
           }
         case NOT_FOUND =>

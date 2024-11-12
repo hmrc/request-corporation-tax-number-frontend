@@ -22,8 +22,9 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.mockito.stubbing.OngoingStubbing
 import org.scalatest.concurrent.ScalaFutures
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, NOT_FOUND, OK, TOO_MANY_REQUESTS}
 import uk.gov.hmrc.http.client.{HttpClientV2, RequestBuilder}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse, StringContextOps}
+import uk.gov.hmrc.http.{HttpReads, HttpResponse, StringContextOps}
 import utils.{MockUserAnswers, UserAnswers}
 
 import java.net.URL
@@ -51,7 +52,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
     "return Right[CompanyNameAndDateOfCreation] with a defined date of creation, given JSON containing a company name and date of creation" in {
 
       mockGetEndpoint(Future.successful(
-        HttpResponse(200,
+        HttpResponse(OK,
           """
             |{
             |   "links": {
@@ -110,8 +111,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return Right[CompanyNameAndDateOfCreation] with am empty date of creation, given JSON containing just a company name" in {
       mockGetEndpoint(Future.successful(
-        HttpResponse(200,
-          """{ "company_name": "Company 15428444 LIMITED"}""".stripMargin)
+        HttpResponse(OK, """{ "company_name": "Company 15428444 LIMITED"}""".stripMargin)
       ))
 
       val result = connector.getCompanyDetails(answers.companyDetails.get).futureValue
@@ -119,8 +119,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
     }
 
     "return Left[CompaniesHouseJsonResponseParseError] when the company name and date of creation are not in JSON response" in {
-      mockGetEndpoint(Future.successful(
-        HttpResponse(200, "{}")))
+      mockGetEndpoint(Future.successful(HttpResponse(OK, "{}")))
 
       val result = connector.getCompanyDetails(answers.companyDetails.get).futureValue
 
@@ -133,7 +132,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return Left[CompaniesHouseResponseError] when the HTTP call returns a not found" in {
       mockGetEndpoint(Future.successful(
-        HttpResponse(404,
+        HttpResponse(NOT_FOUND,
           """
             |{
             |   "errors": [
@@ -151,7 +150,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return Left[CompaniesHouseResponseError] when a 429 gets returned" in {
       mockGetEndpoint(Future.successful(
-        HttpResponse(429,
+        HttpResponse(TOO_MANY_REQUESTS,
           """
             |{
             |   "errors": [
@@ -168,10 +167,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
     "return Left[CompaniesHouseResponseError] when a 500 gets returned" in {
       mockGetEndpoint(Future.successful(
-        HttpResponse(500,
-          """
-            | { "some_error_key" : "some_error_value" }
-            |""".stripMargin)
+        HttpResponse(INTERNAL_SERVER_ERROR, """{ "some_error_key" : "some_error_value" }""".stripMargin)
       ))
 
       val result = connector.getCompanyDetails(answers.companyDetails.get).futureValue
@@ -179,7 +175,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       result mustBe Left(CompaniesHouseFailureResponse)
     }
 
-    "return Left(CompaniesHouseResponseError) when .requestCompanyDetails throws " in {
+    "return Left[CompaniesHouseResponseError] when .requestCompanyDetails throws " in {
       mockGetEndpoint(Future(
         throw new Exception("unreasonably obtuse exception from http call")
       ))
@@ -194,8 +190,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       clearInvocations(httpMock)
 
       mockGetEndpoint(Future.successful(
-        HttpResponse(200,
-          """{ "company_name": "Company 15428444 LIMITED"}""".stripMargin)
+        HttpResponse(OK, """{ "company_name": "Company 15428444 LIMITED"}""".stripMargin)
       ))
 
       connector.getCompanyDetails(answers.companyDetails.get).futureValue

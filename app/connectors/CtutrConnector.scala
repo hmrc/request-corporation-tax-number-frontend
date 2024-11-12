@@ -16,14 +16,16 @@
 
 package connectors
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import models.SubmissionResponse
 import play.api.Logging
 import play.api.http.Status.OK
 import play.api.libs.json.JsValue
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
+import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
+
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
