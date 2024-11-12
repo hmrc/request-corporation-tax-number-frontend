@@ -23,6 +23,7 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "companyRegistered"
   val view = app.injector.instanceOf[CompanyRegisteredView]
+  val doc = asDocument(createView())
 
   def createView = () => view()(fakeRequest, messages)
 
@@ -30,8 +31,6 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
-
-  val doc = asDocument(createView())
 
   "contain all expected text" in {
     val messages: Array[String] = Array(
