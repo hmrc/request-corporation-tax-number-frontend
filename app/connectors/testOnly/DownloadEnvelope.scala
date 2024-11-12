@@ -32,7 +32,7 @@ class DownloadEnvelope @Inject()(appConfig: FrontendAppConfig,
                                  http: HttpClientV2,
                                  cc: MessagesControllerComponents,
                                  executeDownloadEnvelopeRequest: ExecuteDownloadEnvelopeRequest
-                                )(implicit ec: ExecutionContext, hc: HeaderCarrier) extends FrontendController(cc) with Logging {
+                                )(implicit ec: ExecutionContext) extends FrontendController(cc) with Logging {
 
   def downloadEnvelope(envelopeId: String): Action[AnyContent] =
     Action.async { implicit request: MessagesRequest[AnyContent] =>
