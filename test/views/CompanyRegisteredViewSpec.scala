@@ -49,7 +49,7 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
   }
 
   "have a link to Companies House register" in {
-    val link = doc.getElementById("test")
+    val link = doc.getElementById("companies-house-link")
     link.text mustBe messages("companyRegistered.line3LinkText")
     link.attr("href") mustBe "https://find-and-update.company-information.service.gov.uk/"
   }
