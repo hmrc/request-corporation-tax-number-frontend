@@ -62,13 +62,13 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     ".onPageLoad" must {
 
-      "return 200 for a GET" in {
+      "Return 200 for a GET" in {
         val result = testController(fakeDataRetrievalActionWithCacheMap).onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
       }
 
-      "return 303 and correct view for a GET if no existing data is found" in {
+      "Return 303 and correct view for a GET if no existing data is found" in {
         val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
@@ -78,7 +78,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     ".onSubmit" must {
 
-      "redirect to session expired for a POST if no existing data is found" in {
+      "Redirect to session expired for a POST if no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
         val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onSubmit()(postRequest)
 
@@ -106,7 +106,9 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
         val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Company Name That Does Not Match",
           Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
 
-        when(companyHouseConnector.getCompanyDetails(companyDetails)) thenReturn Future(Right(companyNameAndDateOfCreation))
+        when(companyHouseConnector.getCompanyDetails(companyDetails))
+          .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
+
         val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
@@ -115,8 +117,11 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
       "Redirect to CompanyRegistered when company created less than or equal to seven days ago" in {
         val numberOfDaysSinceCompanyCreated = 7
-        val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
-        when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
+        val companyNameAndDateOfCreation =
+          CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+
+        when(companyHouseConnector.getCompanyDetails(companyDetails))
+          .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
         val result = testController(fakeDataRetrievalActionWithCacheMap).onSubmit()(fakeRequest)
 
@@ -126,7 +131,9 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
       "Redirect to Confirmation when company created over seven days ago" in {
         val numberOfDaysSinceCompanyCreated = 8
-        val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+        val companyNameAndDateOfCreation =
+          CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+
         when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
         val result = testController(fakeDataRetrievalActionWithCacheMap).onSubmit()(fakeRequest)
@@ -136,7 +143,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       }
 
       "Redirect to Failed to submit when an exception is returned" in {
-        when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Left(CompaniesHouseJsonResponseParseError("some JS errors"))))
+        when(companyHouseConnector.getCompanyDetails(companyDetails))
+          .thenReturn(Future.successful(Left(CompaniesHouseJsonResponseParseError("some JS errors"))))
 
         val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
 

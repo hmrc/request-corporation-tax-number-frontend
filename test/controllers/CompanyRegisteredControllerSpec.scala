@@ -29,7 +29,7 @@ class CompanyRegisteredControllerSpec extends ControllerSpecBase {
 
   def viewAsString(): String = view()(fakeRequest, messages).toString
 
-  "FailedToSubmit Controller" must {
+  "CompanyRegisteredController Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)

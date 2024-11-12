@@ -33,7 +33,7 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
 
   val doc = asDocument(createView())
 
-  "page should have all what happens next text" in {
+  "contain all expected text" in {
     val messages: Array[String] = Array(
       "companyRegistered.line1",
       "companyRegistered.line2",

@@ -37,7 +37,9 @@ trait ControllerSpecBase extends SpecBase {
 
   val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])
 
-  when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future(Right(CompanyNameAndDateOfCreation("Big Company", None))))
+  when(companyHouseConnector.getCompanyDetails(companyDetails))
+    .thenReturn(Future.successful(Right(CompanyNameAndDateOfCreation("Big Company", None))))
+
   val cacheMapId = "id"
 
   def emptyCacheMap: CacheMap = CacheMap(cacheMapId, Map())
