@@ -40,7 +40,7 @@ class DownloadEnvelope @Inject()(appConfig: FrontendAppConfig,
         case Right(source: Source[ByteString, _]) =>
           Ok.streamed(source, None)
             .withHeaders(
-              CONTENT_TYPE        -> "application/zip",
+              CONTENT_TYPE -> "application/zip",
               CONTENT_DISPOSITION -> s"""attachment; filename = "${envelopeId}.zip""""
             )
         case Left(error) => BadRequest(error)
@@ -50,7 +50,9 @@ class DownloadEnvelope @Inject()(appConfig: FrontendAppConfig,
   def downloadEnvelopeRequest(envelopeId: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[Either[String, Source[ByteString, _]]] =
     executeDownloadEnvelopeRequest.executeGetRequest(envelopeId)
       .map { response =>
-        if (response.status == 200) Right(response.bodyAsSource) else Left(response.body)
+        if (response.status == 200) Right(response.bodyAsSource) else {
+          Left(s"Failed to download file with envelopId: $envelopeId")
+        }
       }
       .recover { case ex =>
         Left(s"Unknown problem when trying to download an envelopeId $envelopeId: " + ex.getMessage)
