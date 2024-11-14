@@ -85,7 +85,7 @@ class DownloadEnvelopeSpec extends SpecBase with ScalaFutures {
       val result: Either[String, Source[ByteString, _]] = Await.result(downloadEnvelope.downloadEnvelopeRequest("TestEnvelope"), Duration.Inf)
 
       result.isLeft mustBe true
-      assert(result.swap.exists(_.contains("file does not exist")))
+      assert(result.swap.exists(_.contains("Failed to download file with envelopId: TestEnvelope")))
     }
 
     "return Ok and Download the envelope when the envelop exists when downloadEnvelope is called" in {
@@ -126,7 +126,7 @@ class DownloadEnvelopeSpec extends SpecBase with ScalaFutures {
       )
 
       status(result) mustBe Status.BAD_REQUEST
-      contentAsString(result) must include("file does not exist")
+      contentAsString(result) must include("Failed to download file with envelopId: TestEnvelope")
     }
   }
 }

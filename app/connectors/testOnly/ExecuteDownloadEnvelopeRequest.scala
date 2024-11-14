@@ -30,5 +30,5 @@ class ExecuteDownloadEnvelopeRequest @Inject()(http: HttpClientV2,
                        (implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] =
     http
       .get(url"${appConfig.fileUploadUrl}/file-transfer/envelopes/${envelopeId}")
-      .execute
+      .stream
 }
