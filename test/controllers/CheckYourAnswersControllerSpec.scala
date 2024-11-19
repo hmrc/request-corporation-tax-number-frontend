@@ -119,7 +119,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       }
 
 
-      "Redirect to CompanyDetailsNoMatch on when details do not match" in {
+      "Redirect to CompanyDetailsNoMatch when the company name does not match" in {
         val numberOfDaysSinceCompanyCreated = 10
 
         val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Company Name That Does Not Match",
