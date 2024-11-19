@@ -58,7 +58,7 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val result = controller(fakeDataRetrievalActionWithCacheMap).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(fakeDataRetrievalActionWithCacheMap()).onPageLoad(NormalMode)(fakeRequest)
 
       contentAsString(result) mustBe viewAsString(form.fill(CompanyDetails("12345678", "Big Company" )))
     }

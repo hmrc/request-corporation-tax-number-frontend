@@ -33,6 +33,7 @@ trait ControllerSpecBase extends SpecBase {
 
   val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
   val companyDetails: CompanyDetails = CompanyDetails("12345678", "Big Company")
+  val companyDetailsWithNameFormatIssues: CompanyDetails = CompanyDetails("12345678", "  ’‘   B ‘i ’‘G Company  ’‘  ")
   val companyNameAndDateOfCreation: CompanyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(4)))
 
   val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])
@@ -48,9 +49,12 @@ trait ControllerSpecBase extends SpecBase {
 
   def fakeDataRetrievalActionWithUndefinedCacheMap = new FakeDataRetrievalAction(None, ec, parser)
 
-  def fakeDataRetrievalActionWithCacheMap = new FakeDataRetrievalAction(
-    Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(companyDetails)))),
-    ec,
-    parser
-  )
+  def fakeDataRetrievalActionWithCacheMap(withNameFormatIssues: Boolean = false): FakeDataRetrievalAction = {
+    val finalCompanyDetails = if (withNameFormatIssues) companyDetailsWithNameFormatIssues else companyDetails
+    new FakeDataRetrievalAction(
+      Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(finalCompanyDetails)))),
+      ec,
+      parser
+    )
+  }
 }

@@ -25,11 +25,14 @@
 
 @main_template(title = messages("companyRegistered.title")) {
 
-    @components.heading("companyRegistered.heading")
+    @components.heading("companyRegistered.heading", headingSize="govuk-heading-l")
 
     <p class="govuk-body">@messages("companyRegistered.line1")</p>
 
     <p class="govuk-body">@messages("companyRegistered.line2")</p>
+
+    @components.heading("companyRegistered.heading2", headingSize="govuk-heading-m")
+
     <p class="govuk-body">
         @messages("companyRegistered.line3Text")
         <a href="https://find-and-update.company-information.service.gov.uk/" id="companies-house-link" class="govuk-link" rel="noreferrer noopener" target="_blank">@messages("companyRegistered.line3LinkText")</a>

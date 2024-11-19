@@ -63,7 +63,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     ".onPageLoad" must {
 
       "Return 200 for a GET" in {
-        val result = testController(fakeDataRetrievalActionWithCacheMap).onPageLoad()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap()).onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
       }
@@ -87,18 +87,37 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       }
 
       "Redirect to Confirmation page on a POST when submission is successful" in {
-        val result = testController(fakeDataRetrievalActionWithCacheMap, FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
       }
 
+
+
       "Redirect to Failed to submit on a POST when submission fails" in {
-        val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
       }
+
+
+      "Redirect to Confirmation page on a POST given the company name from user answers, and name from companies house " +
+        "have smart apostrophe and formatting issues" in {
+
+        val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("   ’ ‘    B ’ i ’’ G  Company  ’‘  ", None)
+
+        when(companyHouseConnector.getCompanyDetails(companyDetailsWithNameFormatIssues))
+          .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
+
+        val result =
+          testController(fakeDataRetrievalActionWithCacheMap(withNameFormatIssues = true), FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
+      }
+
 
       "Redirect to CompanyDetailsNoMatch on when details do not match" in {
         val numberOfDaysSinceCompanyCreated = 10
@@ -109,7 +128,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
         when(companyHouseConnector.getCompanyDetails(companyDetails))
           .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
-        val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.CompanyDetailsNoMatchController.onPageLoad().url)
@@ -123,7 +142,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
         when(companyHouseConnector.getCompanyDetails(companyDetails))
           .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
-        val result = testController(fakeDataRetrievalActionWithCacheMap).onSubmit()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap()).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.CompanyRegisteredController.onPageLoad().url)
@@ -136,7 +155,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
         when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
-        val result = testController(fakeDataRetrievalActionWithCacheMap).onSubmit()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap()).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
@@ -146,7 +165,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
         when(companyHouseConnector.getCompanyDetails(companyDetails))
           .thenReturn(Future.successful(Left(CompaniesHouseJsonResponseParseError("some JS errors"))))
 
-        val result = testController(fakeDataRetrievalActionWithCacheMap, FakeFailingSubmissionService).onSubmit()(fakeRequest)
+        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)

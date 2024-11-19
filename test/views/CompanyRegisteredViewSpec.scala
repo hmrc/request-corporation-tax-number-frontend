@@ -34,14 +34,14 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
 
   "contain all expected text" in {
     val messages: Array[String] = Array(
+      "companyRegistered.heading",
       "companyRegistered.line1",
       "companyRegistered.line2",
+      "companyRegistered.heading2",
       "companyRegistered.line3Text",
       "companyRegistered.line3LinkText",
       "companyRegistered.line4",
-      "companyRegistered.line5Bullet",
-      "companyRegistered.line6Bullet",
-      "companyRegistered.line7"
+      "companyRegistered.line5Bullet"
     )
 
     assertContainsMessages(doc, messages.toIndexedSeq: _*)
