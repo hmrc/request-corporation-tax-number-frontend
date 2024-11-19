@@ -86,6 +86,19 @@ companyDetailsNoMatch.hint.first = Gallwch
 companyDetailsNoMatch.hint.second = bori drwy gofrestr Tŷ’r Cwmnïau i wirio’r CRN ac enw cofrestredig y cwmni
 companyDetailsNoMatch.button = Rhowch gynnig arall arni
 
+companyRegistered.title = Placeholder for Welsh
+companyRegistered.heading = Placeholder for Welsh
+companyRegistered.line1 = Placeholder for Welsh
+companyRegistered.line2 = Placeholder for Welsh
+companyRegistered.heading2 = Placeholder for Welsh
+companyRegistered.line3Text = Placeholder for Welsh
+companyRegistered.line3LinkText = Placeholder for Welsh
+companyRegistered.line4 = Placeholder for Welsh
+companyRegistered.line5Bullet = Placeholder for Welsh
+companyRegistered.line6Bullet = Placeholder for Welsh
+companyRegistered.line7 = Placeholder for Welsh
+
+
 confirmation.title = Manylion y cwmni wedi dod i law – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 confirmation.heading = Manylion y cwmni wedi dod i law
 confirmation.whatHappensNext.title = Yr hyn sy’n digwydd nesaf
