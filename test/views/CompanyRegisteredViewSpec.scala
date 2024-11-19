@@ -41,7 +41,9 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
       "companyRegistered.line3Text",
       "companyRegistered.line3LinkText",
       "companyRegistered.line4",
-      "companyRegistered.line5Bullet"
+      "companyRegistered.line5Bullet",
+      "companyRegistered.line6Bullet",
+      "companyRegistered.line7"
     )
 
     assertContainsMessages(doc, messages.toIndexedSeq: _*)

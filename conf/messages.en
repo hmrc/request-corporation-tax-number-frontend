@@ -95,7 +95,7 @@ companyRegistered.heading2 = Where to find the UTR for your new company
 companyRegistered.line3Text = When you register a new company HMRC will automatically send a letter to the company''s registered office address. You can
 companyRegistered.line3LinkText = check the company''s registered office address on the Companies House register (opens in a new tab).
 companyRegistered.line4 = The letter contains your company''s:
-companyRegistered.line5Bullet = Corporation Tax (UTR)
+companyRegistered.line5Bullet = Corporation Tax UTR
 companyRegistered.line6Bullet = Tax Office number
 companyRegistered.line7 = You should receive this within 15 working days of registering your company.
 
