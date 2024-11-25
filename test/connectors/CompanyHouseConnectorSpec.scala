@@ -130,7 +130,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       result mustBe Left(CompaniesHouseJsonResponseParseError(expectedParseErrorMessage))
     }
 
-    "return Left[CompaniesHouseResponseError] when the HTTP call returns a not found" in {
+    "return Left[CompaniesHouseNotFoundResponse] when the HTTP call returns a not found" in {
       mockGetEndpoint(Future.successful(
         HttpResponse(NOT_FOUND,
           """
@@ -148,7 +148,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       result mustBe Left(CompaniesHouseNotFoundResponse)
     }
 
-    "return Left[CompaniesHouseResponseError] when a 429 gets returned" in {
+    "return Left[CompaniesHouseTooManyRequestsResponse] when a 429 gets returned" in {
       mockGetEndpoint(Future.successful(
         HttpResponse(TOO_MANY_REQUESTS,
           """
@@ -165,7 +165,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       result mustBe Left(CompaniesHouseTooManyRequestsResponse)
     }
 
-    "return Left[CompaniesHouseResponseError] when a 500 gets returned" in {
+    "return Left[CompaniesHouseFailureResponse] when a 500 gets returned" in {
       mockGetEndpoint(Future.successful(
         HttpResponse(INTERNAL_SERVER_ERROR, """{ "some_error_key" : "some_error_value" }""".stripMargin)
       ))
@@ -175,7 +175,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
       result mustBe Left(CompaniesHouseFailureResponse)
     }
 
-    "return Left[CompaniesHouseResponseError] when .requestCompanyDetails throws " in {
+    "return Left[CompaniesHouseExceptionError] when .requestCompanyDetails throws " in {
       mockGetEndpoint(Future(
         throw new Exception("unreasonably obtuse exception from http call")
       ))

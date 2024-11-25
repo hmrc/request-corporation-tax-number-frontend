@@ -86,18 +86,17 @@ companyDetailsNoMatch.hint.first = Gallwch
 companyDetailsNoMatch.hint.second = bori drwy gofrestr Tŷ’r Cwmnïau i wirio’r CRN ac enw cofrestredig y cwmni
 companyDetailsNoMatch.button = Rhowch gynnig arall arni
 
-companyRegistered.title = Placeholder for Welsh
-companyRegistered.heading = Placeholder for Welsh
-companyRegistered.line1 = Placeholder for Welsh
-companyRegistered.line2 = Placeholder for Welsh
-companyRegistered.heading2 = Placeholder for Welsh
-companyRegistered.line3Text = Placeholder for Welsh
-companyRegistered.line3LinkText = Placeholder for Welsh
-companyRegistered.line4 = Placeholder for Welsh
-companyRegistered.line5Bullet = Placeholder for Welsh
-companyRegistered.line6Bullet = Placeholder for Welsh
-companyRegistered.line7 = Placeholder for Welsh
-
+companyRegistered.title = Ni allwch ddefnyddio’r gwasanaeth hwn – Gofynnwch am gopi o’ch UTR ar gyfer Treth Gorfforaeth - GOV.UK
+companyRegistered.heading = Ni allwch ddefnyddio’r gwasanaeth hwn
+companyRegistered.line1 = Ni allwch ddefnyddio’r gwasanaeth hwn i gael copi o’ch Cyfeirnod Unigryw y Trethdalwr (UTR) ar gyfer Treth Gorfforaeth.
+companyRegistered.line2 = Gallwch ddefnyddio’r gwasanaeth hwn dim ond os yw’ch cwmni wedi’i gofrestru am fwy na 7 diwrnod.
+companyRegistered.heading2 = Ble i ddod o hyd i’r UTR ar gyfer eich cwmni newydd
+companyRegistered.line3Text = Pan fyddwch yn cofrestru cwmni newydd, bydd CThEF yn anfon llythyr i gyfeiriad swyddfa gofrestredig y cwmni yn awtomatig. Gallwch
+companyRegistered.line3LinkText = wirio cyfeiriad swyddfa gofrestredig y cwmni ar gofrestr Tŷ’r Cwmnïau (yn agor tab newydd)
+companyRegistered.line4 = Mae’r llythyr yn cynnwys manylion canlynol y cwmni:
+companyRegistered.line5Bullet = UTR ar gyfer Treth Gorfforaeth
+companyRegistered.line6Bullet = Rhif y Swyddfa Dreth
+companyRegistered.line7 = Dylech gael hwn cyn pen 15 diwrnod gwaith o gofrestru’ch cwmni.
 
 confirmation.title = Manylion y cwmni wedi dod i law – Gofynnwch am gopi o’ch UTR Treth Gorfforaeth – GOV.UK
 confirmation.heading = Manylion y cwmni wedi dod i law
