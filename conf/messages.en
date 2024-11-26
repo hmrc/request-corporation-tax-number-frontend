@@ -87,6 +87,18 @@ companyDetailsNoMatch.hint.first = You can
 companyDetailsNoMatch.hint.second = search the Companies House register to check the CRN and registered company name
 companyDetailsNoMatch.button = Try again
 
+companyRegistered.title = You cannot use this service - Ask for a copy of your Corporation Tax UTR – GOV.UK
+companyRegistered.heading = You cannot use this service
+companyRegistered.line1 = You cannot use this service to get a copy of your Corporation Tax Unique Taxpayer Reference (UTR).
+companyRegistered.line2 = You can only use this service if your company has been registered for more than 7 days.
+companyRegistered.heading2 = Where to find the UTR for your new company
+companyRegistered.line3Text = When you register a new company HMRC will automatically send a letter to the company''s registered office address. You can
+companyRegistered.line3LinkText = check the company''s registered office address on the Companies House register (opens in a new tab).
+companyRegistered.line4 = The letter contains your company''s:
+companyRegistered.line5Bullet = Corporation Tax UTR
+companyRegistered.line6Bullet = Tax Office number
+companyRegistered.line7 = You should receive this within 15 working days of registering your company.
+
 confirmation.title = Company details received – Ask for a copy of your Corporation Tax UTR – GOV.UK
 confirmation.heading = Company details received
 confirmation.whatHappensNext.title = What happens next

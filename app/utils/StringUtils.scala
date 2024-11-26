@@ -16,10 +16,14 @@
 
 package utils
 
-import models.cache.CacheMap
-import identifiers._
-import models._
+object StringUtils {
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def companyDetails: Option[CompanyDetails] = cacheMap.getEntry[CompanyDetails](CompanyDetailsId.toString)
+  private val smartApostrophesOpen: String = "‘"
+  private val smartApostrophesClose: String = "’"
+
+  def toLowerCaseRemoveSpacesAndReplaceSmartChars(s: String): String = s
+    .toLowerCase
+    .replace(" ", "")
+    .replace(smartApostrophesOpen, "'")
+    .replace(smartApostrophesClose, "'")
 }

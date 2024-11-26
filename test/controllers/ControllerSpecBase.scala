@@ -20,31 +20,41 @@ import base.SpecBase
 import connectors.CompanyHouseConnector
 import controllers.actions.FakeDataRetrievalAction
 import identifiers.CompanyDetailsId
-import models.CompanyDetails
+import models.{CompanyDetails, CompanyNameAndDateOfCreation}
 import models.cache.CacheMap
 import org.mockito.Mockito.{mock, when}
 import play.api.libs.json.Json
 import play.api.mvc.BodyParsers
 
+import java.time.LocalDate
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase {
 
   val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
-  val companyDetails: CompanyDetails = CompanyDetails("Big Company", "12345678")
+  val companyDetails: CompanyDetails = CompanyDetails("12345678", "Big Company")
+  val companyDetailsWithNameFormatIssues: CompanyDetails = CompanyDetails("12345678", "  ’‘   B ‘i ’‘G Company  ’‘  ")
+  val companyNameAndDateOfCreation: CompanyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(4)))
+
   val companyHouseConnector: CompanyHouseConnector = mock(classOf[CompanyHouseConnector])
-  when(companyHouseConnector.validateCRN(companyDetails)) thenReturn Future(Some(true))
+
+  when(companyHouseConnector.getCompanyDetails(companyDetails))
+    .thenReturn(Future.successful(Right(CompanyNameAndDateOfCreation("Big Company", None))))
 
   val cacheMapId = "id"
 
   def emptyCacheMap: CacheMap = CacheMap(cacheMapId, Map())
 
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), ec, parser)
+  def fakeDataRetrievalActionWithEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap), ec, parser)
 
-  def dontGetAnyData = new FakeDataRetrievalAction(None, ec, parser)
+  def fakeDataRetrievalActionWithUndefinedCacheMap = new FakeDataRetrievalAction(None, ec, parser)
 
-  def someData = new FakeDataRetrievalAction(
-    Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(companyDetails)))),
-    ec,
-    parser)
+  def fakeDataRetrievalActionWithCacheMap(withNameFormatIssues: Boolean = false): FakeDataRetrievalAction = {
+    val finalCompanyDetails = if (withNameFormatIssues) companyDetailsWithNameFormatIssues else companyDetails
+    new FakeDataRetrievalAction(
+      Some(CacheMap(cacheMapId, Map(CompanyDetailsId.toString -> Json.toJson(finalCompanyDetails)))),
+      ec,
+      parser
+    )
+  }
 }

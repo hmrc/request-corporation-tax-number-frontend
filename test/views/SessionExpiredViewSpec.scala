@@ -22,7 +22,7 @@ import views.html.SessionExpiredView
 
 class SessionExpiredViewSpec extends ViewBehaviours {
 
-  def call = routes.IndexController.onPageLoad
+  def call = routes.IndexController.onPageLoad()
   val view = app.injector.instanceOf[SessionExpiredView]
 
   def createView = () => view(call)(fakeRequest, messages)

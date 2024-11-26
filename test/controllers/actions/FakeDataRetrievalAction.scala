@@ -30,7 +30,7 @@ class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap],
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = cacheMapToReturn match {
     case None => Future(OptionalDataRequest(request, "id", None))
-    case Some(cacheMap)=> Future(OptionalDataRequest(request, "id", Some(new UserAnswers(cacheMap))))
+    case Some(cacheMap) => Future(OptionalDataRequest(request, "id", Some(new UserAnswers(cacheMap))))
   }
 
   override protected def executionContext: ExecutionContext = ec

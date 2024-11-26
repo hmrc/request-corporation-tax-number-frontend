@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-object FormHelpers {
+trait CompaniesHouseConnectorFailure
 
-  private val smartApostrophesOpen: String = "‘"
-  private val smartApostrophesClose: String = "’"
+case class CompaniesHouseJsonResponseParseError(message: String) extends CompaniesHouseConnectorFailure
 
-  def toLowerCaseRemoveSpacesAndReplaceSmartChars(s: String): String = s
-    .toLowerCase
-    .replace(" ","")
-    .replace(smartApostrophesOpen, "'")
-    .replace(smartApostrophesClose, "'")
-}
+case object CompaniesHouseNotFoundResponse extends CompaniesHouseConnectorFailure
+
+case object CompaniesHouseTooManyRequestsResponse extends CompaniesHouseConnectorFailure
+
+case object CompaniesHouseFailureResponse extends CompaniesHouseConnectorFailure
+
+case object CompaniesHouseExceptionError extends CompaniesHouseConnectorFailure
+

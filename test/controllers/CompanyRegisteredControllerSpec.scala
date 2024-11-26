@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +16,20 @@
 
 package controllers
 
-import controllers.actions._
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.Helpers._
-import views.html.CompanyDetailsNoMatchView
+import views.html.CompanyRegisteredView
 
-class CompanyDetailsNoMatchControllerSpec extends ControllerSpecBase {
+class CompanyRegisteredControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
+  val view: CompanyRegisteredView = app.injector.instanceOf[CompanyRegisteredView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) = new CompanyDetailsNoMatchController(
-    messagesApi,
-    dataRetrievalAction,
-    cc,
-    new DataRequiredActionImpl,
-    view)
+  def controller() = new CompanyRegisteredController(cc, view, messagesApi)
 
   def viewAsString(): String = view()(fakeRequest, messages).toString
 
-  "CompanyDetailsNoMatch Controller" must {
+  "CompanyRegisteredController Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
@@ -44,4 +38,5 @@ class CompanyDetailsNoMatchControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString()
     }
   }
+
 }
