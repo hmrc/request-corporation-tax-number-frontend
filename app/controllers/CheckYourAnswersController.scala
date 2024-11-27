@@ -33,9 +33,6 @@ import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
-import java.time.temporal.ChronoUnit
-import java.time.{LocalDate, ZoneId}
-
 class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
