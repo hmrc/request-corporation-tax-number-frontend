@@ -37,6 +37,7 @@ class FrontendAccessibilitySpec extends AutomaticAccessibilitySpec {
     case failedToSubmitView: FailedToSubmitView => render(failedToSubmitView)
     case indexView: IndexView => render(indexView)
     case sessionExpiredView: SessionExpiredView => render(sessionExpiredView)
+    case companyRegisteredView: CompanyRegisteredView => render(companyRegisteredView)
   }
 
   runAccessibilityTests()

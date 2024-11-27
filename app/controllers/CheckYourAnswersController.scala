@@ -25,15 +25,13 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.CheckYourAnswersHelper
+import utils.{CheckYourAnswersHelper, DateUtils}
 import viewmodels.AnswerSection
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
-
-import java.time.{LocalDate, ZoneId}
 
 class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi,
                                            getData: DataRetrievalAction,
@@ -79,14 +77,7 @@ class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi
                                             companyNameAndDateOfCreation: CompanyNameAndDateOfCreation)
                                            (implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Result] = {
 
-    val recentlyCreatedCompanyThresholdDays = 7
-
-    val isRecentlyCreated =
-      companyNameAndDateOfCreation
-        .dateOfCreation
-        .exists(dateOfCreation =>
-          LocalDate.now(ZoneId.of("GMT")).compareTo(dateOfCreation) <= recentlyCreatedCompanyThresholdDays
-        )
+    val isRecentlyCreated = DateUtils.isCompanyRecentlyCreated(companyNameAndDateOfCreation)
 
     val nameMatches =
       toLowerCaseRemoveSpacesAndReplaceSmartChars(companyDetailsFromUserAnswers.companyName) ==
