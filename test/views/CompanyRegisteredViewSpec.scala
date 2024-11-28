@@ -31,6 +31,15 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
   }
 
+  "have expected headings" in {
+    val h1 = doc.getElementsByTag("h1")
+    val h2 = doc.getElementsByTag("h2")
+    val firstH2ElementIndex = 0
+
+    h1.size() mustBe 1
+    h1.text() mustBe messages("companyRegistered.heading")
+    h2.get(firstH2ElementIndex).text() mustBe messages("companyRegistered.heading2")
+  }
 
   "contain all expected text" in {
     val messages: Array[String] = Array(
