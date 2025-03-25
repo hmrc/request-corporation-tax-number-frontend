@@ -41,7 +41,7 @@ class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
           Submission.asMap(submission) ++
             Map(
               "filename" -> submissionResponse.filename,
-              "envelopeId" -> submissionResponse.id
+              "id" -> submissionResponse.id
             )
 
         val event = new SubmissionEvent(detailToAudit)
