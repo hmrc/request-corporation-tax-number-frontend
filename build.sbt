@@ -35,6 +35,7 @@ lazy val microservice = Project("request-corporation-tax-number-frontend", file(
     ),
     // prevent removal of unused code which generates warning errors due to use of third-party libs
     uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
+    uglifyOps := UglifyOps.singleFile,
     pipelineStages := Seq(digest),
     // below line required to force asset pipeline to operate in dev rather than only prod
     Assets / pipelineStages := Seq(concat,uglify),
