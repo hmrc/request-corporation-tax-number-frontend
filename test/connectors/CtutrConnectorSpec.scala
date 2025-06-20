@@ -16,56 +16,111 @@
 
 package connectors
 
-import base.SpecBase
-import models.{Submission, SubmissionResponse}
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
-import org.mockito.stubbing.OngoingStubbing
-import org.scalatest.concurrent.ScalaFutures
+import models.{CompanyDetails, Submission, SubmissionResponse}
+import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.http.client.{HttpClientV2, RequestBuilder}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpReads, HttpResponse}
-import utils.MockUserAnswers
+import uk.gov.hmrc.http.HeaderCarrier
+import utils.{MockUserAnswers, WireMockHelper}
 
 import scala.concurrent.duration.DurationInt
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{Await, ExecutionContext, Future}
+import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import play.api.http.Status
+import org.scalatestplus.play.PlaySpec
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.api.inject.Injector
 
-class CtutrConnectorSpec extends SpecBase with ScalaFutures {
+import scala.concurrent.ExecutionContext.Implicits.global
 
-  val mockRequestBuilderPost: RequestBuilder = mock(classOf[RequestBuilder])
-  val mockHttpClient: HttpClientV2 = mock(classOf[HttpClientV2])
 
-  when(mockRequestBuilderPost.withBody(any[JsValue])(any(), any(), any())).thenReturn(mockRequestBuilderPost)
-  when(mockHttpClient.post(any())(any())).thenReturn(mockRequestBuilderPost)
-  when(mockRequestBuilderPost.setHeader(any())).thenReturn(mockRequestBuilderPost)
+//class CtutrConnectorSpec extends SpecBase with ScalaFutures with WireMockHelper {
+class CtutrConnectorSpec extends PlaySpec with WireMockHelper with ScalaFutures with ScalaCheckPropertyChecks with IntegrationPatience {
 
-  def mockPostEndpoint(expectedResponse: Future[HttpResponse]): OngoingStubbing[Future[HttpResponse]] =
-    when(mockRequestBuilderPost.execute(any[HttpReads[HttpResponse]], any())).thenReturn(expectedResponse)
+  def injector: Injector = app.injector
 
-  "submission" must {
+  implicit private lazy val hc: HeaderCarrier = HeaderCarrier()
 
-    implicit val hc: HeaderCarrier = HeaderCarrier()
-    val answers = MockUserAnswers.minimalValidUserAnswers()
-    val submission = Submission(answers)
-    val connector = new CtutrConnector(frontendAppConfig, mockHttpClient)
+  val connector: CtutrConnector = app.injector.instanceOf[CtutrConnector]
 
-    "return an Submission Response when the HTTP call succeeds" in {
-      mockPostEndpoint(Future.successful(
-        HttpResponse(200,
-          """ |{
-            |  "id": "id",
-            |  "filename": "filename"
-            |}""".stripMargin)))
+  def mockPostEndpoint(url: String, requestBody: String, responseBody: String, expectedResponse: Int): StubMapping = {
+    WireMock.stubFor(
+      post(urlEqualTo(url))
+        .withRequestBody(equalToJson(requestBody))
+        .willReturn(
+          aResponse()
+            .withBody(responseBody)
+            .withStatus(expectedResponse)
+        )
+    )
+  }
 
-      val futureResult = connector.ctutrSubmission(Json.toJson(submission))
+  val submission: Submission = Submission(
+    companyDetails = CompanyDetails(
+      companyReferenceNumber = "1234",
+      companyName = "company"
+    )
+  )
+
+  val submissionResponse: SubmissionResponse = SubmissionResponse(
+    id = "id",
+    filename = "filename"
+  )
+
+  val objectId: JsValue = Json.parse(s"\"684ffb301ec3e3567ca327fb\"")
+
+  "processSubmission" must {
+
+    "return an Submission Response when the store-submission and submission calls succeed" in {
+
+      mockPostEndpoint(
+        url = "/request-corporation-tax-number/store-submission",
+        requestBody = Json.stringify(Json.toJson(submission)),
+        responseBody = Json.stringify(Json.toJson(Some(objectId))),
+        expectedResponse = Status.CREATED
+      )
+
+      mockPostEndpoint(
+        url = "/request-corporation-tax-number/submission",
+        requestBody = Json.stringify(Json.toJson(objectId)),
+        responseBody = Json.stringify(Json.toJson(Some(submissionResponse))),
+        expectedResponse = Status.OK
+      )
+
+      val futureResult = connector.processSubmission(Json.toJson(submission))
       Await.result(futureResult, 5.seconds) mustBe Some(SubmissionResponse("id", "filename"))
     }
 
-    "return nothing when the HTTP call fails" in {
-      val enrolment = Submission(answers)
-      mockPostEndpoint(Future.successful(HttpResponse(500, "")))
+    "return None when the store-submission fails" in {
 
-      val futureResult = connector.ctutrSubmission(Json.toJson(enrolment))
+      mockPostEndpoint(
+        url = "/request-corporation-tax-number/store-submission",
+        requestBody = Json.stringify(Json.toJson(submission)),
+        responseBody = Json.stringify(Json.toJson(None)),
+        expectedResponse = Status.INTERNAL_SERVER_ERROR
+      )
+
+      val futureResult = connector.processSubmission(Json.toJson(submission))
+      Await.result(futureResult, 5.seconds) mustBe None
+    }
+
+    "return nothing when the store-submission succeeds but submission fails" in {
+      mockPostEndpoint(
+        url = "/request-corporation-tax-number/store-submission",
+        requestBody = Json.stringify(Json.toJson(submission)),
+        responseBody = Json.stringify(Json.toJson(Some(objectId))),
+        expectedResponse = Status.CREATED
+      )
+
+      mockPostEndpoint(
+        url = "/request-corporation-tax-number/submission",
+        requestBody = Json.stringify(Json.toJson(objectId)),
+        responseBody = Json.stringify(Json.toJson("")),
+        expectedResponse = Status.INTERNAL_SERVER_ERROR
+      )
+
+      val futureResult = connector.processSubmission(Json.toJson(submission))
       Await.result(futureResult, 5.seconds) mustBe None
     }
 

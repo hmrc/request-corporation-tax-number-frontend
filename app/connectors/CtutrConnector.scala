@@ -19,8 +19,8 @@ package connectors
 import config.FrontendAppConfig
 import models.SubmissionResponse
 import play.api.Logging
-import play.api.http.Status.OK
-import play.api.libs.json.JsValue
+import play.api.http.Status.{CREATED, INTERNAL_SERVER_ERROR, OK}
+import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
@@ -30,26 +30,57 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
-  def ctutrSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
+  def processSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
+    for {
+      storeSubmissionResult: Option[String] <- storeSubmission(submissionJson)
+      ctutrSubmissionResult: Option[SubmissionResponse] <- ctutrSubmission(storeSubmissionResult)
+    } yield (ctutrSubmissionResult)
+  }.recover {
+    case e: Exception =>
+      logger.warn(s"[CtutrConnector][ctutrSubmission] - processing submission failed - $e")
+      None
+  }
 
-    val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/submission"
-    http.post(url"$submissionUrl")
+  def storeSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[String]] = {
+    val storeSubmissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/store-submission"
+    http
+      .post(url"$storeSubmissionUrl")
       .withBody(submissionJson)
       .execute[HttpResponse]
-      .map {
-        response =>
-          response.status match {
-            case OK =>
-              response.json.asOpt[SubmissionResponse]
+      .map { response: HttpResponse =>
+        response.status match {
+          case CREATED =>
+            logger.warn(s"[CtutrConnector][storeSubmission] - received 201 (CREATED) status from $storeSubmissionUrl")
+            response.json.asOpt[String]
+          case INTERNAL_SERVER_ERROR =>
+            logger.warn(s"[CtutrConnector][storeSubmission] - received 500 status from $storeSubmissionUrl, while trying to store submission")
+            None
+        }
 
-            case other =>
-              logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
-              None
-          }
-      }.recover {
-        case e: Exception =>
-          logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
-          None
       }
   }
+
+    def ctutrSubmission(storeSubmissionResult: Option[String])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
+      val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/submission"
+      storeSubmissionResult match {
+        case Some(submissionId: String) => {
+          http.post(url"$submissionUrl")
+            .withBody(Json.toJson(submissionId))
+            .execute[HttpResponse]
+            .map {
+              response: HttpResponse =>
+                response.status match {
+                  case OK =>
+                    response.json.asOpt[SubmissionResponse]
+                  case other =>
+                    logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
+                    None
+                }
+            }
+        }
+        case None =>
+          logger.warn(s"[CtutrConnector][ctutrSubmission] - storeSubmission returned None for the submissionId not sending submission")
+          Future.successful(None)
+      }
+    }
 }
