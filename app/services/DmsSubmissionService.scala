@@ -34,7 +34,7 @@ class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
 
     val submission = Submission(answers)
 
-    ctutrConnector.ctutrSubmission(Json.toJson(submission)).map {
+    ctutrConnector.processSubmission(Json.toJson(submission)).map {
       case Some(submissionResponse) =>
 
         val detailToAudit =
