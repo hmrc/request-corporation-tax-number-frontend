@@ -20,10 +20,10 @@ import models.{CompanyDetails, Submission, SubmissionResponse}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.HeaderCarrier
-import utils.{MockUserAnswers, WireMockHelper}
+import utils.WireMockHelper
 
 import scala.concurrent.duration.DurationInt
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.Await
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
@@ -35,7 +35,6 @@ import play.api.inject.Injector
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
-//class CtutrConnectorSpec extends SpecBase with ScalaFutures with WireMockHelper {
 class CtutrConnectorSpec extends PlaySpec with WireMockHelper with ScalaFutures with ScalaCheckPropertyChecks with IntegrationPatience {
 
   def injector: Injector = app.injector
