@@ -55,6 +55,9 @@ class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2)
           case INTERNAL_SERVER_ERROR =>
             logger.warn(s"[CtutrConnector][storeSubmission] - received 500 status from $storeSubmissionUrl, while trying to store submission")
             None
+          case status: Int =>
+            logger.warn(s"[CtutrConnector][storeSubmission] - received ${status} status from $storeSubmissionUrl, while trying to store submission")
+            None
         }
 
       }
@@ -72,8 +75,8 @@ class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2)
                 response.status match {
                   case OK =>
                     response.json.asOpt[SubmissionResponse]
-                  case other =>
-                    logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
+                  case status: Int =>
+                    logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $status from $submissionUrl")
                     None
                 }
             }

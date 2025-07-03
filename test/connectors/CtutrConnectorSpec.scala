@@ -91,13 +91,26 @@ class CtutrConnectorSpec extends PlaySpec with WireMockHelper with ScalaFutures 
       Await.result(futureResult, 5.seconds) mustBe Some(SubmissionResponse("id", "filename"))
     }
 
-    "return None when the store-submission fails" in {
+    "return None when the store-submission fails with INTERNAL_SERVER_ERROR" in {
 
       mockPostEndpoint(
         url = "/request-corporation-tax-number/store-submission",
         requestBody = Json.stringify(Json.toJson(submission)),
         responseBody = Json.stringify(Json.toJson(None)),
         expectedResponse = Status.INTERNAL_SERVER_ERROR
+      )
+
+      val futureResult = connector.processSubmission(Json.toJson(submission))
+      Await.result(futureResult, 5.seconds) mustBe None
+    }
+
+    "return None when the store-submission fails with BAD_GATEWAY" in {
+
+      mockPostEndpoint(
+        url = "/request-corporation-tax-number/store-submission",
+        requestBody = Json.stringify(Json.toJson(submission)),
+        responseBody = Json.stringify(Json.toJson(None)),
+        expectedResponse = Status.BAD_GATEWAY
       )
 
       val futureResult = connector.processSubmission(Json.toJson(submission))
