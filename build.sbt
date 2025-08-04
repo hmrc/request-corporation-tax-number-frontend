@@ -1,17 +1,8 @@
 import play.sbt.routes.RoutesKeys
-import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-scalaVersion := "2.13.16"
-
-lazy val scoverageSettings =
-  Seq(ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*models.*;.*repositories.*;" +
-    ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;.*DataCacheConnector;",
-    ScoverageKeys.coverageMinimumStmtTotal := 86,
-    ScoverageKeys.coverageFailOnMinimum := true,
-    ScoverageKeys.coverageHighlighting := true
-  )
+ThisBuild / scalaVersion := "2.13.16"
 
 lazy val microservice = Project("request-corporation-tax-number-frontend", file("."))
   .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
@@ -25,9 +16,7 @@ lazy val microservice = Project("request-corporation-tax-number-frontend", file(
     ),
     scalaSettings,
     defaultSettings(),
-    scoverageSettings,
-    libraryDependencies ++= AppDependencies.all,
-    retrieveManaged := true,
+    libraryDependencies ++= AppDependencies(),
     PlayKeys.playDefaultPort := 9200,
     // concatenate js
     Concat.groups := Seq(
@@ -44,8 +33,8 @@ lazy val microservice = Project("request-corporation-tax-number-frontend", file(
   )
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(majorVersion := 1)
+  .settings(CodeCoverageSettings())
   .settings(
-    scalacOptions -= "-Xmax-classfile-name",
     scalacOptions ++= Seq(
       "-feature",
       "-Wconf:cat=unused-imports&src=routes/.*:s",
@@ -53,4 +42,3 @@ lazy val microservice = Project("request-corporation-tax-number-frontend", file(
       "-Wconf:cat=unused-imports&src=views/.*:s"
     )
   )
-

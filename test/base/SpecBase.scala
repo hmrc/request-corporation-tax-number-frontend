@@ -23,7 +23,8 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
 import play.api.test.FakeRequest
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.DurationInt
+import scala.concurrent.{Await, ExecutionContext, Future}
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
@@ -38,4 +39,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
   def fakeRequest = FakeRequest("", "")
 
   def messages: Messages = messagesApi.preferred(fakeRequest)
+
+  def await[T](futureResult: Future[T]): T = Await.result(futureResult, 1.seconds)
+
 }
