@@ -21,9 +21,10 @@ import controllers.routes
 import play.api.Configuration
 import play.api.i18n.Lang
 import play.api.mvc.Call
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject() (configuration: Configuration) {
+class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig: ServicesConfig) {
 
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "requestcorporationtaxnumberfrontend"
@@ -31,7 +32,6 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
-  lazy val optimizelyId: String = configuration.get[String](s"optimizely.projectId")
 
   lazy val loginUrl: String = configuration.get[String]("urls.login")
   lazy val loginContinueUrl: String = configuration.get[String]("urls.loginContinue")
@@ -39,12 +39,11 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val companyHouseRegisterUrl: String = configuration.get[String]("urls.company-house-register")
   lazy val getCompanyInformationUrl: String = configuration.get[String]("urls.get-information-about-a-company")
   lazy val contactUsUrl: String = configuration.get[String]("urls.contactUs")
-  lazy val proxyEnabled: Boolean = configuration.get[Boolean]("http-verbs.proxy.enabled")
 
   lazy val companyHouseRequestUrl: String = configuration.get[String]("companyHouse.requestUrl")
   lazy val companyHouseRequestAuth: String = configuration.get[String]("companyHouse.requestAuth")
 
-  lazy val ctutrUrl: Service = configuration.get[Service]("microservice.services.request-corporation-tax-number")
+  lazy val ctutrUrl: String = servicesConfig.baseUrl("request-corporation-tax-number")
 
   lazy val languageTranslationEnabled: Boolean = configuration.get[Boolean]("microservice.services.features.welsh-translation")
 
