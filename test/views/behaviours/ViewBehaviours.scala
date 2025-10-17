@@ -53,7 +53,7 @@ trait ViewBehaviours extends ViewSpecBase {
           val doc = asDocument(view())
           val welshToggleSelect = doc.select(".hmrc-language-select__list-item").eachText
           assert(welshToggleSelect.contains("English"), "Element " + welshToggleSelect + " was not rendered on the page.")
-          assert(welshToggleSelect.contains("Newid yr iaith ir Gymraeg Cymraeg"), "Element " + welshToggleSelect + " was not rendered on the page.")
+          assert(welshToggleSelect.contains("Newid yr iaith i’r Gymraeg Cymraeg"), "Element " + welshToggleSelect + " was not rendered on the page.")
         }
       }
     }
