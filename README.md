@@ -69,13 +69,6 @@ Run this script before raising a PR to ensure your code changes pass the Jenkins
 ./run_all_tests.sh
 ```
 
-For the accessibility tests Node v12 or above is needed. Details can be found [here](https://github.com/hmrc/sbt-accessibility-linter). 
-
-Run the tests with command:
-```
-sbt clean A11y/test
-```
-
 ---
 
 ## License

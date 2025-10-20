@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ trait ViewBehaviours extends ViewSpecBase {
           val doc = asDocument(view())
           val welshToggleSelect = doc.select(".hmrc-language-select__list-item").eachText
           assert(welshToggleSelect.contains("English"), "Element " + welshToggleSelect + " was not rendered on the page.")
-          assert(welshToggleSelect.contains("Newid yr iaith ir Gymraeg Cymraeg"), "Element " + welshToggleSelect + " was not rendered on the page.")
+          assert(welshToggleSelect.contains("Newid yr iaith i’r Gymraeg Cymraeg"), "Element " + welshToggleSelect + " was not rendered on the page.")
         }
       }
     }
