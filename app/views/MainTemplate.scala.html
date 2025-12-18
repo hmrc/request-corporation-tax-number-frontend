@@ -97,7 +97,8 @@
         headBlock = Some(head))),
         headerBlock = Some(hmrcStandardHeader(
             serviceName = Some(messages("service.name")),
-            serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url)
+            serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url),
+            isWelshTranslationAvailable = true
         )),
     beforeContentBlock = Some(beforeContentWithLanguageToggle),
     scriptsBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),
