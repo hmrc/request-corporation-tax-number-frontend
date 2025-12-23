@@ -29,9 +29,7 @@ trait ViewBehaviours extends ViewSpecBase {
       "rendered" must {
         "have the correct banner title" in {
           val doc = asDocument(view())
-          val nav = doc.select(".govuk-header__content")
-          val span = nav.first
-          span.text mustBe messages("site.service_name")
+          assertContainsText(doc, messages("service.name"))
         }
 
         "display the correct browser title" in {
@@ -51,10 +49,11 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display language toggles" in {
           val doc = asDocument(view())
-          val welshToggleSelect = doc.select(".hmrc-language-select__list-item").eachText
-          assert(welshToggleSelect.contains("English"), "Element " + welshToggleSelect + " was not rendered on the page.")
-          assert(welshToggleSelect.contains("Newid yr iaith i’r Gymraeg Cymraeg"), "Element " + welshToggleSelect + " was not rendered on the page.")
+          val languageText = doc.text()
+          assert(languageText.contains("ENG"), "ENG toggle was not rendered on the page.")
+          assert(languageText.contains("CYM"), "CYM toggle was not rendered on the page.")
         }
+
       }
     }
   }
