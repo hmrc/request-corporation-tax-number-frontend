@@ -29,37 +29,42 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 class MongoRepository(config: Configuration, mongo: MongoComponent)(implicit ec: ExecutionContext)
-  extends PlayMongoRepository[DatedCacheMap](
-    mongoComponent = mongo,
-    collectionName = config.get[String]("appName"),
-    domainFormat = DatedCacheMap.formats,
-    indexes = Seq(IndexModel(
-      ascending(config.get[String]("mongodb.fieldName")),
-      IndexOptions()
-        .name(config.get[String]("mongodb.indexName"))
-        .expireAfter(config.get[Int]("mongodb.timeToLiveInSeconds"), TimeUnit.SECONDS)
-    )),
-    replaceIndexes = false) {
+    extends PlayMongoRepository[DatedCacheMap](
+      mongoComponent = mongo,
+      collectionName = config.get[String]("appName"),
+      domainFormat = DatedCacheMap.formats,
+      indexes = Seq(
+        IndexModel(
+          ascending(config.get[String]("mongodb.fieldName")),
+          IndexOptions()
+            .name(config.get[String]("mongodb.indexName"))
+            .expireAfter(config.get[Int]("mongodb.timeToLiveInSeconds"), TimeUnit.SECONDS)
+        )
+      ),
+      replaceIndexes = false
+    ) {
 
   def upsert(cm: CacheMap): Future[Boolean] = {
     val cmUpdated = DatedCacheMap(cm.id, cm.data)
-    val options = ReplaceOptions().upsert(true)
+    val options   = ReplaceOptions().upsert(true)
     collection.replaceOne(equal("id", cm.id), cmUpdated, options).toFuture().map { result =>
       result.wasAcknowledged()
     }
   }
 
-  def get(id: String): Future[Option[CacheMap]] = {
+  def get(id: String): Future[Option[CacheMap]] =
     collection.find(equal("id", id)).headOption().map { datedCacheMap =>
       datedCacheMap.map { value: DatedCacheMap =>
         value.toCacheMap
       }
     }
-  }
+
 }
 
 @Singleton
-class SessionRepository @Inject()(config: Configuration, mongoComponent: MongoComponent)(implicit ec: ExecutionContext) {
+class SessionRepository @Inject() (config: Configuration, mongoComponent: MongoComponent)(implicit
+  ec: ExecutionContext
+) {
 
   private lazy val sessionRepository = new MongoRepository(config, mongoComponent)
 

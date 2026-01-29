@@ -25,20 +25,18 @@ case class CompanyNameAndDateOfCreation(companyName: String, dateOfCreation: Opt
 
 object CompanyNameAndDateOfCreation {
 
-  val companyNameAndDateOfCreationReads: Reads[CompanyNameAndDateOfCreation] = (json: JsValue) => {
+  val companyNameAndDateOfCreationReads: Reads[CompanyNameAndDateOfCreation] = (json: JsValue) =>
     for {
-      name <- (json \ "company_name").validate[String]
+      name           <- (json \ "company_name").validate[String]
       dateOfCreation <- (json \ "date_of_creation").validate[LocalDate]
     } yield CompanyNameAndDateOfCreation(name, Some(dateOfCreation))
-  }
 
-  def parseJsonWithValidation(jsonString: String): Try[CompanyNameAndDateOfCreation] = {
+  def parseJsonWithValidation(jsonString: String): Try[CompanyNameAndDateOfCreation] =
     Json.parse(jsonString).validate(companyNameAndDateOfCreationReads) match {
       case JsSuccess(companyNameAndDateOfCreation, _) =>
         Success(companyNameAndDateOfCreation)
-      case JsError(errors) =>
+      case JsError(errors)                            =>
         Failure(new Exception("Error parsing CompanyNameAndDateOfCreation: " + errors.mkString))
     }
-  }
 
 }

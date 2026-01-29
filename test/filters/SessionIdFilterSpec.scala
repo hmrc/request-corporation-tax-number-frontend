@@ -40,16 +40,17 @@ object SessionIdFilterSpec {
 
   val sessionId = "28836767-a008-46be-ac18-695ab140e705"
 
-  class Filters @Inject()(sessionId: SessionIdFilter) extends DefaultHttpFilters(sessionId)
+  class Filters @Inject() (sessionId: SessionIdFilter) extends DefaultHttpFilters(sessionId)
 
-  class TestSessionIdFilter @Inject()(override val mat: Materializer, ec: ExecutionContext)
-                            extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
+  class TestSessionIdFilter @Inject() (override val mat: Materializer, ec: ExecutionContext)
+      extends SessionIdFilter(mat, UUID.fromString(sessionId), ec)
+
 }
 
 class SessionIdFilterSpec extends AnyWordSpec with Matchers with OneAppPerSuiteWithComponents with OptionValues {
   import SessionIdFilterSpec.sessionId
 
-     override def components: BuiltInComponents = new BuiltInComponentsFromContext(context) with NoHttpFiltersComponents {
+  override def components: BuiltInComponents = new BuiltInComponentsFromContext(context) with NoHttpFiltersComponents {
 
     val router: Router = {
 
@@ -57,27 +58,26 @@ class SessionIdFilterSpec extends AnyWordSpec with Matchers with OneAppPerSuiteW
 
       Router.from {
 
-        case GET(p"/test") => defaultActionBuilder {
-          request =>
-            val fromHeader = request.headers.get(HeaderNames.xSessionId).getOrElse("")
+        case GET(p"/test")  =>
+          defaultActionBuilder { request =>
+            val fromHeader  = request.headers.get(HeaderNames.xSessionId).getOrElse("")
             val fromSession = request.session.get(SessionKeys.sessionId).getOrElse("")
             Results.Ok(
               Json.obj(
-                "fromHeader" -> fromHeader,
+                "fromHeader"  -> fromHeader,
                 "fromSession" -> fromSession
               )
             )
-        }
-        case GET(p"/test2") => defaultActionBuilder {
-          implicit request =>
+          }
+        case GET(p"/test2") =>
+          defaultActionBuilder { implicit request =>
             Results.Ok.addingToSession("foo" -> "bar")
-        }
+          }
       }
     }
   }
 
-  override lazy val app: Application = {
-
+  override lazy val app: Application =
     new GuiceApplicationBuilder()
       .overrides(
         bind[HttpFilters].to[SessionIdFilterSpec.Filters],
@@ -85,11 +85,10 @@ class SessionIdFilterSpec extends AnyWordSpec with Matchers with OneAppPerSuiteW
       )
       .router(components.router)
       .build()
-  }
 
   ".apply" must {
 
-    "add a sessionId if one doesn't already exist" in  {
+    "add a sessionId if one doesn't already exist" in {
 
       val result = route(app, FakeRequest("GET", "/test")).value
 
@@ -121,4 +120,5 @@ class SessionIdFilterSpec extends AnyWordSpec with Matchers with OneAppPerSuiteW
       session(result).data must contain("foo" -> "bar")
     }
   }
+
 }

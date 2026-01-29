@@ -24,10 +24,11 @@ import views.html.SessionExpiredView
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class SessionController @Inject()(cc: MessagesControllerComponents,
-                                  view: SessionExpiredView,
-                                  override val messagesApi: MessagesApi)
-  extends FrontendController(cc) with I18nSupport {
+class SessionController @Inject() (
+  cc: MessagesControllerComponents,
+  view: SessionExpiredView,
+  override val messagesApi: MessagesApi
+) extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(view(routes.IndexController.onPageLoad()))

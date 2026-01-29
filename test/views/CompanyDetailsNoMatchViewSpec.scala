@@ -18,7 +18,7 @@ package views
 
 import controllers.routes
 import forms.CompanyDetailsFormProvider
-import models.{CompanyDetails}
+import models.CompanyDetails
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
 import views.html.CompanyDetailsNoMatchView
@@ -28,16 +28,20 @@ class CompanyDetailsNoMatchViewSpec extends QuestionViewBehaviours[CompanyDetail
   val messageKeyPrefix = "companyDetailsNoMatch"
 
   override val form = new CompanyDetailsFormProvider()()
-  val view = app.injector.instanceOf[CompanyDetailsNoMatchView]
-  def createView = () => view()(fakeRequest, messages)
+  val view          = app.injector.instanceOf[CompanyDetailsNoMatchView]
+  def createView    = () => view()(fakeRequest, messages)
 
   def createViewUsingForm = (form: Form[_]) => view()(fakeRequest, messages)
-
 
   "CompanyDetails view" must {
 
     behave like normalPage(createView, messageKeyPrefix)
 
-    behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.CompanyDetailsNoMatchController.onPageLoad().url)
+    behave like pageWithTextFields(
+      createViewUsingForm,
+      messageKeyPrefix,
+      routes.CompanyDetailsNoMatchController.onPageLoad().url
+    )
   }
+
 }

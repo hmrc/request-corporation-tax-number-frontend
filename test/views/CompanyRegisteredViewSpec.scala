@@ -22,8 +22,8 @@ import views.html.CompanyRegisteredView
 class CompanyRegisteredViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "companyRegistered"
-  val view = app.injector.instanceOf[CompanyRegisteredView]
-  val doc = asDocument(createView())
+  val view             = app.injector.instanceOf[CompanyRegisteredView]
+  val doc              = asDocument(createView())
 
   def createView = () => view()(fakeRequest, messages)
 
@@ -32,12 +32,12 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
   }
 
   "have expected headings" in {
-    val h1 = doc.getElementsByTag("h1")
-    val h2 = doc.getElementsByTag("h2")
+    val h1                  = doc.getElementsByTag("h1")
+    val h2                  = doc.getElementsByTag("h2")
     val firstH2ElementIndex = 0
 
-    h1.size() mustBe 1
-    h1.text() mustBe messages("companyRegistered.heading")
+    h1.size()                          mustBe 1
+    h1.text()                          mustBe messages("companyRegistered.heading")
     h2.get(firstH2ElementIndex).text() mustBe messages("companyRegistered.heading2")
   }
 
@@ -60,7 +60,8 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
 
   "have a link to Companies House register" in {
     val link = doc.getElementById("companies-house-link")
-    link.text mustBe messages("companyRegistered.line3LinkText")
+    link.text         mustBe messages("companyRegistered.line3LinkText")
     link.attr("href") mustBe "https://find-and-update.company-information.service.gov.uk/"
   }
+
 }

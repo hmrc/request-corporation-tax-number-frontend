@@ -31,23 +31,22 @@ class LanguageSwitchControllerSpec extends ControllerSpecBase with GuiceOneAppPe
   object TestLanguageSwitchController extends LanguageSwitchController(langUtils, cc, messagesApi)
 
   def testLanguageSelection(language: String, expectedCookieValue: String): Unit = {
-    val request = FakeRequest()
-    val result = TestLanguageSwitchController.switchToLanguage(language)(request)
+    val request                = FakeRequest()
+    val result                 = TestLanguageSwitchController.switchToLanguage(language)(request)
     val resultCookies: Cookies = cookies(result)
     resultCookies.size mustBe 1
     val cookie: Cookie = resultCookies.head
-    cookie.name mustBe "PLAY_LANG"
+    cookie.name  mustBe "PLAY_LANG"
     cookie.value mustBe expectedCookieValue
   }
 
   "Hitting language selection endpoint" must {
 
-    "redirect to English translated start page if English language is selected" in {
+    "redirect to English translated start page if English language is selected" in
       testLanguageSelection("english", "en")
-    }
 
-    "redirect to Welsh translated start page if Welsh language is selected" in {
+    "redirect to Welsh translated start page if Welsh language is selected" in
       testLanguageSelection("cymraeg", "cy")
-    }
   }
+
 }

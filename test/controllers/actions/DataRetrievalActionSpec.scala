@@ -43,7 +43,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures with RecoverMet
       "set userAnswers to 'None' in the request" in {
         val dataCacheConnector = mock(classOf[DataCacheConnector])
         when(dataCacheConnector.fetch(any())) thenReturn Future(None)
-        val action = new Harness(dataCacheConnector)
+        val action             = new Harness(dataCacheConnector)
 
         val futureResult = action.callTransform(fakeRequest.withSession(SessionKeys.sessionId -> "id"))
 
@@ -57,7 +57,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures with RecoverMet
       "build a userAnswers object and add it to the request" in {
         val dataCacheConnector = mock(classOf[DataCacheConnector])
         when(dataCacheConnector.fetch(any())) thenReturn Future(Some(new CacheMap("id", Map())))
-        val action = new Harness(dataCacheConnector)
+        val action             = new Harness(dataCacheConnector)
 
         val futureResult = action.callTransform(fakeRequest.withSession(SessionKeys.sessionId -> "id"))
 
@@ -70,7 +70,7 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures with RecoverMet
     "there is no session Id in the request" must {
       "throw an exception" in {
         val dataCacheConnector = mock(classOf[DataCacheConnector])
-        val action = new Harness(dataCacheConnector)
+        val action             = new Harness(dataCacheConnector)
 
         recoverToSucceededIf[IllegalStateException] {
           action.callTransform(fakeRequest)
@@ -78,4 +78,5 @@ class DataRetrievalActionSpec extends SpecBase with ScalaFutures with RecoverMet
       }
     }
   }
+
 }

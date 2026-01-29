@@ -20,15 +20,11 @@ import play.api.data.{Form, FormError}
 
 class OptionFieldBehaviours extends FieldBehaviours {
 
-  def optionsField[T](form: Form[_],
-                      fieldName: String,
-                      validValues: Set[T],
-                      invalidError: FormError): Unit = {
-
+  def optionsField[T](form: Form[_], fieldName: String, validValues: Set[T], invalidError: FormError): Unit = {
 
     "bind all valid values" in {
 
-      for(value <- validValues) {
+      for (value <- validValues) {
 
         val result = form.bind(Map(fieldName -> value.toString)).apply(fieldName)
         result.value.value shouldEqual value.toString
@@ -39,12 +35,11 @@ class OptionFieldBehaviours extends FieldBehaviours {
 
       val generator = stringsExceptSpecificValues(validValues.map(_.toString))
 
-      forAll(generator -> "invalidValue") {
-        value =>
-
-          val result = form.bind(Map(fieldName -> value)).apply(fieldName)
-          result.errors shouldEqual Seq(invalidError)
+      forAll(generator -> "invalidValue") { value =>
+        val result = form.bind(Map(fieldName -> value)).apply(fieldName)
+        result.errors shouldEqual Seq(invalidError)
       }
     }
   }
+
 }

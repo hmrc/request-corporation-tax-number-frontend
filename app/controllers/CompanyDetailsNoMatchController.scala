@@ -24,15 +24,16 @@ import views.html.CompanyDetailsNoMatchView
 
 import javax.inject.Inject
 
-class CompanyDetailsNoMatchController @Inject()(override val messagesApi: MessagesApi,
-                                                getData: DataRetrievalAction,
-                                                cc: MessagesControllerComponents,
-                                                requireData: DataRequiredAction,
-                                                view: CompanyDetailsNoMatchView)
-  extends FrontendController(cc) with I18nSupport {
+class CompanyDetailsNoMatchController @Inject() (
+  override val messagesApi: MessagesApi,
+  getData: DataRetrievalAction,
+  cc: MessagesControllerComponents,
+  requireData: DataRequiredAction,
+  view: CompanyDetailsNoMatchView
+) extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Ok(view())
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) { implicit request =>
+    Ok(view())
   }
+
 }

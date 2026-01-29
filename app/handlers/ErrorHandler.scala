@@ -25,15 +25,14 @@ import uk.gov.hmrc.play.bootstrap.frontend.http.FrontendErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
-
 @Singleton
-class ErrorHandler @Inject()(
-                              notFoundView: ErrorTemplateNotFoundView,
-                              internalServerErrorView: ErrorTemplateInternalServerErrorView,
-                              view: ErrorTemplateView,
-                              val messagesApi: MessagesApi
-                            )(implicit val ec: ExecutionContext) extends FrontendErrorHandler with I18nSupport {
-
+class ErrorHandler @Inject() (
+  notFoundView: ErrorTemplateNotFoundView,
+  internalServerErrorView: ErrorTemplateInternalServerErrorView,
+  view: ErrorTemplateView,
+  val messagesApi: MessagesApi
+)(implicit val ec: ExecutionContext)
+    extends FrontendErrorHandler with I18nSupport {
 
   override def notFoundTemplate(implicit request: RequestHeader): Future[Html] = Future.successful {
     notFoundView(
@@ -42,20 +41,21 @@ class ErrorHandler @Inject()(
       Messages("error.pageNotFound.message1"),
       Messages("error.pageNotFound.message2"),
       Messages("error.pageNotFound.message3"),
-      Messages("error.pageNotFound.messageLink"))
+      Messages("error.pageNotFound.messageLink")
+    )
   }
 
   override def internalServerErrorTemplate(implicit requestHeader: RequestHeader): Future[Html] = Future.successful {
     internalServerErrorView(
       Messages("error.internalError.title"),
       Messages("error.internalError.heading"),
-      Messages("error.internalError.message1"))
+      Messages("error.internalError.message1")
+    )
   }
 
-
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)
-                                    (implicit requestHeader: RequestHeader): Future[Html] =
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit
+    requestHeader: RequestHeader
+  ): Future[Html] =
     Future.successful(view(pageTitle, heading, message))
 
 }
-

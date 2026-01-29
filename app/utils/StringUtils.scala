@@ -18,12 +18,12 @@ package utils
 
 object StringUtils {
 
-  private val smartApostrophesOpen: String = "‘"
+  private val smartApostrophesOpen: String  = "‘"
   private val smartApostrophesClose: String = "’"
 
-  def toLowerCaseRemoveSpacesAndReplaceSmartChars(s: String): String = s
-    .toLowerCase
+  def toLowerCaseRemoveSpacesAndReplaceSmartChars(s: String): String = s.toLowerCase
     .replace(" ", "")
     .replace(smartApostrophesOpen, "'")
     .replace(smartApostrophesClose, "'")
+
 }

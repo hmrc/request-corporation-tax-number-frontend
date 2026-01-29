@@ -26,15 +26,15 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBeha
 
   val validData: Map[String, String] = Map(
     "companyReferenceNumber" -> "AB123123",
-    "companyName" -> "qwerty"
+    "companyName"            -> "qwerty"
   )
 
   ".companyName" must {
 
-    val fieldName = "companyName"
+    val fieldName   = "companyName"
     val requiredKey = "companyDetails.error.companyName.required"
-    val lengthKey = "companyDetails.error.companyName.length"
-    val maxLength = 160
+    val lengthKey   = "companyDetails.error.companyName.length"
+    val maxLength   = 160
 
     behave like fieldThatBindsValidData(
       form = form,
@@ -60,9 +60,9 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBeha
 
   ".companyReferenceNumber" must {
 
-    val fieldName = "companyReferenceNumber"
-    val requiredKey = "companyDetails.error.companyReferenceNumber.required"
-    val invalidRegexKey = "companyDetails.error.companyReferenceNumber.regex"
+    val fieldName          = "companyReferenceNumber"
+    val requiredKey        = "companyDetails.error.companyReferenceNumber.required"
+    val invalidRegexKey    = "companyDetails.error.companyReferenceNumber.regex"
     val invalidLLPRegexKey = "companyDetails.error.companyReferenceNumber.llp.regex"
 
     val maxLength = 8
@@ -73,7 +73,6 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBeha
     val invalidCrnLL =
       Seq("SL123123", "OC123123", "SO123123", "LP123123", "NC123123", "NL123123")
 
-
     behave like fieldThatBindsValidData(
       form = form,
       fieldName = fieldName,
@@ -81,22 +80,26 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBeha
     )
 
     invalidCrnFormat.zipWithIndex.foreach(invalidCrn =>
-    behave like formWithRegex(invalidCrn._2,
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidRegexKey,
-        invalidValue = invalidCrn._1
+      behave like formWithRegex(
+        invalidCrn._2,
+        RegexField(
+          fieldName = fieldName,
+          errorMessageKey = invalidRegexKey,
+          invalidValue = invalidCrn._1
+        )
       )
-    ))
+    )
 
     invalidCrnLL.zipWithIndex.foreach(invalidCrn =>
-    behave like formWithRegex(invalidCrn._2,
-      RegexField(
-        fieldName = fieldName,
-        errorMessageKey = invalidLLPRegexKey,
-        invalidValue = invalidCrn._1
+      behave like formWithRegex(
+        invalidCrn._2,
+        RegexField(
+          fieldName = fieldName,
+          errorMessageKey = invalidLLPRegexKey,
+          invalidValue = invalidCrn._1
+        )
       )
-    ))
+    )
 
     behave like formWithMandatoryTextFields(
       MandatoryField(
@@ -105,4 +108,5 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBeha
       )
     )
   }
+
 }

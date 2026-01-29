@@ -31,7 +31,8 @@ class NavigatorSpec extends SpecBase {
     "in Normal mode" must {
       "go to Index from an identifier that doesn't exist in the route map" in {
         case object UnknownIdentifier extends Identifier
-        navigator.nextPage(UnknownIdentifier, NormalMode)(mock(classOf[UserAnswers])) mustBe routes.IndexController.onPageLoad()
+        navigator.nextPage(UnknownIdentifier, NormalMode)(mock(classOf[UserAnswers])) mustBe routes.IndexController
+          .onPageLoad()
       }
 
       "go to EmployerName from CapacityRegistering when personalBudgetHolderDirect is selected" in {
@@ -44,8 +45,11 @@ class NavigatorSpec extends SpecBase {
     "in Check mode" must {
       "go to CheckYourAnswers from an identifier that doesn't exist in the edit route map" in {
         case object UnknownIdentifier extends Identifier
-        navigator.nextPage(UnknownIdentifier, CheckMode)(mock(classOf[UserAnswers])) mustBe routes.CheckYourAnswersController.onPageLoad()
+        navigator.nextPage(UnknownIdentifier, CheckMode)(
+          mock(classOf[UserAnswers])
+        ) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
     }
   }
+
 }

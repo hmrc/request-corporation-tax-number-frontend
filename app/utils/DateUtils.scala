@@ -26,8 +26,7 @@ object DateUtils {
   def isCompanyRecentlyCreated(companyNameAndDateOfCreation: CompanyNameAndDateOfCreation): Boolean = {
     val recentlyCreatedCompanyThresholdDays = 7L
 
-    companyNameAndDateOfCreation
-      .dateOfCreation
+    companyNameAndDateOfCreation.dateOfCreation
       .exists(dateOfCreation =>
         ChronoUnit.DAYS.between(dateOfCreation, LocalDate.now(ZoneId.of("GMT"))) <= recentlyCreatedCompanyThresholdDays
       )

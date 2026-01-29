@@ -20,6 +20,8 @@ import com.google.inject.AbstractModule
 import services.{DmsSubmissionService, SubmissionService}
 
 class DmsSubmissionModule extends AbstractModule {
+
   override def configure(): Unit =
-  bind(classOf[SubmissionService]).to(classOf[DmsSubmissionService])
+    bind(classOf[SubmissionService]).to(classOf[DmsSubmissionService])
+
 }

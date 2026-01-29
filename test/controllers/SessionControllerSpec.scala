@@ -23,7 +23,7 @@ import views.html.SessionExpiredView
 class SessionControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: SessionExpiredView = app.injector.instanceOf[SessionExpiredView]
+  val view: SessionExpiredView                  = app.injector.instanceOf[SessionExpiredView]
 
   "SessionExpired Controller" must {
     "return 200 for a GET" in {
@@ -43,4 +43,5 @@ class SessionControllerSpec extends ControllerSpecBase {
       }
     }
   }
+
 }

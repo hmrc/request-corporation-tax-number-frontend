@@ -32,24 +32,29 @@ import scala.concurrent.Future
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
   object FakeSuccessfulSubmissionService extends SubmissionService {
+
     override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] =
       Future.successful(SubmissionSuccessful)
+
   }
 
   object FakeFailingSubmissionService extends SubmissionService {
+
     override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] =
       Future.successful(SubmissionFailed)
+
   }
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  implicit val cc: MessagesControllerComponents  = injector.instanceOf[MessagesControllerComponents]
   val checkYourAnswersView: CheckYourAnswersView = app.injector.instanceOf[CheckYourAnswersView]
-  val noMatchView: CompanyDetailsNoMatchView = app.injector.instanceOf[CompanyDetailsNoMatchView]
+  val noMatchView: CompanyDetailsNoMatchView     = app.injector.instanceOf[CompanyDetailsNoMatchView]
 
   def sessionExpired: Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
-
-  def testController(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap,
-                     submissionService: SubmissionService = FakeSuccessfulSubmissionService) =
+  def testController(
+    dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap,
+    submissionService: SubmissionService = FakeSuccessfulSubmissionService
+  ) =
     new CheckYourAnswersController(
       messagesApi,
       dataRetrievalAction,
@@ -60,51 +65,51 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
       checkYourAnswersView
     )
 
-    ".onPageLoad" must {
+  ".onPageLoad" must {
 
-      "Return 200 for a GET" in {
-        val result = testController(fakeDataRetrievalActionWithCacheMap()).onPageLoad()(fakeRequest)
+    "Return 200 for a GET" in {
+      val result = testController(fakeDataRetrievalActionWithCacheMap()).onPageLoad()(fakeRequest)
 
-        status(result) mustBe OK
-      }
-
-      "Return 303 and correct view for a GET if no existing data is found" in {
-        val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onPageLoad()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(sessionExpired.url)
-      }
+      status(result) mustBe OK
     }
 
-    ".onSubmit" must {
+    "Return 303 and correct view for a GET if no existing data is found" in {
+      val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onPageLoad()(fakeRequest)
 
-      "Redirect to session expired for a POST if no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
-        val result = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onSubmit()(postRequest)
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(sessionExpired.url)
+    }
+  }
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(sessionExpired.url)
-      }
+  ".onSubmit" must {
 
-      "Redirect to Confirmation page on a POST when submission is successful" in {
-        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
+    "Redirect to session expired for a POST if no existing data is found" in {
+      val postRequest =
+        fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
+      val result      = testController(fakeDataRetrievalActionWithUndefinedCacheMap).onSubmit()(postRequest)
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
-      }
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(sessionExpired.url)
+    }
 
+    "Redirect to Confirmation page on a POST when submission is successful" in {
+      val result =
+        testController(fakeDataRetrievalActionWithCacheMap(), FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
 
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
+    }
 
-      "Redirect to Failed to submit on a POST when submission fails" in {
-        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
+    "Redirect to Failed to submit on a POST when submission fails" in {
+      val result =
+        testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
-      }
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
+    }
 
-
-      "Redirect to Confirmation page on a POST given the company name from user answers, and name from companies house " +
-        "have smart apostrophe and formatting issues" in {
+    "Redirect to Confirmation page on a POST given the company name from user answers, and name from companies house " +
+      "have smart apostrophe and formatting issues" in {
 
         val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("   ’ ‘    B ’ i ’’ G  Company  ’‘  ", None)
 
@@ -112,63 +117,71 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
           .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
         val result =
-          testController(fakeDataRetrievalActionWithCacheMap(withNameFormatIssues = true), FakeSuccessfulSubmissionService).onSubmit()(fakeRequest)
+          testController(
+            fakeDataRetrievalActionWithCacheMap(withNameFormatIssues = true),
+            FakeSuccessfulSubmissionService
+          ).onSubmit()(fakeRequest)
 
-        status(result) mustBe SEE_OTHER
+        status(result)           mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
       }
 
+    "Redirect to CompanyDetailsNoMatch when the company name does not match" in {
+      val numberOfDaysSinceCompanyCreated = 10
 
-      "Redirect to CompanyDetailsNoMatch when the company name does not match" in {
-        val numberOfDaysSinceCompanyCreated = 10
+      val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation(
+        "Company Name That Does Not Match",
+        Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated))
+      )
 
-        val companyNameAndDateOfCreation = CompanyNameAndDateOfCreation("Company Name That Does Not Match",
-          Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+      when(companyHouseConnector.getCompanyDetails(companyDetails))
+        .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
 
-        when(companyHouseConnector.getCompanyDetails(companyDetails))
-          .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
+      val result =
+        testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
 
-        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.CompanyDetailsNoMatchController.onPageLoad().url)
-      }
-
-      "Redirect to CompanyRegistered when company created less than or equal to seven days ago" in {
-        val numberOfDaysSinceCompanyCreated = 7
-        val companyNameAndDateOfCreation =
-          CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
-
-        when(companyHouseConnector.getCompanyDetails(companyDetails))
-          .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
-
-        val result = testController(fakeDataRetrievalActionWithCacheMap()).onSubmit()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.CompanyRegisteredController.onPageLoad().url)
-      }
-
-      "Redirect to Confirmation when company created over seven days ago" in {
-        val numberOfDaysSinceCompanyCreated = 8
-        val companyNameAndDateOfCreation =
-          CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
-
-        when(companyHouseConnector.getCompanyDetails(companyDetails)).thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
-
-        val result = testController(fakeDataRetrievalActionWithCacheMap()).onSubmit()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
-      }
-
-      "Redirect to Failed to submit when an exception is returned" in {
-        when(companyHouseConnector.getCompanyDetails(companyDetails))
-          .thenReturn(Future.successful(Left(CompaniesHouseJsonResponseParseError("some JS errors"))))
-
-        val result = testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
-
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
-      }
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.CompanyDetailsNoMatchController.onPageLoad().url)
     }
+
+    "Redirect to CompanyRegistered when company created less than or equal to seven days ago" in {
+      val numberOfDaysSinceCompanyCreated = 7
+      val companyNameAndDateOfCreation    =
+        CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+
+      when(companyHouseConnector.getCompanyDetails(companyDetails))
+        .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
+
+      val result = testController(fakeDataRetrievalActionWithCacheMap()).onSubmit()(fakeRequest)
+
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.CompanyRegisteredController.onPageLoad().url)
+    }
+
+    "Redirect to Confirmation when company created over seven days ago" in {
+      val numberOfDaysSinceCompanyCreated = 8
+      val companyNameAndDateOfCreation    =
+        CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(numberOfDaysSinceCompanyCreated)))
+
+      when(companyHouseConnector.getCompanyDetails(companyDetails))
+        .thenReturn(Future.successful(Right(companyNameAndDateOfCreation)))
+
+      val result = testController(fakeDataRetrievalActionWithCacheMap()).onSubmit()(fakeRequest)
+
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.ConfirmationController.onPageLoad().url)
+    }
+
+    "Redirect to Failed to submit when an exception is returned" in {
+      when(companyHouseConnector.getCompanyDetails(companyDetails))
+        .thenReturn(Future.successful(Left(CompaniesHouseJsonResponseParseError("some JS errors"))))
+
+      val result =
+        testController(fakeDataRetrievalActionWithCacheMap(), FakeFailingSubmissionService).onSubmit()(fakeRequest)
+
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.FailedToSubmitController.onPageLoad().url)
+    }
+  }
+
 }

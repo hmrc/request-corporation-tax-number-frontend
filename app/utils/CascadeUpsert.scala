@@ -27,13 +27,14 @@ class CascadeUpsert {
     Map()
 
   def apply[A](key: String, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
-    funcMap.get(key).fold(store(key, value, originalCacheMap)) { fn => fn(Json.toJson(value), originalCacheMap)}
+    funcMap.get(key).fold(store(key, value, originalCacheMap))(fn => fn(Json.toJson(value), originalCacheMap))
 
   def addRepeatedValue[A](key: String, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
     val values = originalCacheMap.getEntry[Seq[A]](key).getOrElse(Seq()) :+ value
-    originalCacheMap copy(data = originalCacheMap.data + (key -> Json.toJson(values)))
+    originalCacheMap copy (data = originalCacheMap.data + (key -> Json.toJson(values)))
   }
 
-  private def store[A](key:String, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
+  private def store[A](key: String, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
     cacheMap copy (data = cacheMap.data + (key -> Json.toJson(value)))
+
 }

@@ -24,12 +24,14 @@ import views.html.IndexView
 
 import javax.inject.Inject
 
-class IndexController @Inject()(cc: MessagesControllerComponents,
-                                view: IndexView,
-                                override val messagesApi: MessagesApi)
-  extends FrontendController(cc) with I18nSupport {
+class IndexController @Inject() (
+  cc: MessagesControllerComponents,
+  view: IndexView,
+  override val messagesApi: MessagesApi
+) extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(view(routes.CompanyDetailsController.onPageLoad(NormalMode)))
   }
+
 }

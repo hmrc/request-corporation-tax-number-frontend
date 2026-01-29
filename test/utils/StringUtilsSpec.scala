@@ -21,6 +21,7 @@ import org.scalatest.prop.TableDrivenPropertyChecks._
 import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 class StringUtilsSpec extends SpecBase {
+
   forAll(
     Table(
       ("userAnswerWithoutFormatting", "expectedResultAfterFormattingApplied"),
@@ -52,11 +53,12 @@ class StringUtilsSpec extends SpecBase {
       // Multiple formatting issues test cases
       ("  ’‘   T ‘e ’‘S t  ’‘  ", "''t'e''st''")
     )
-  ){
-    (userAnswerWithoutFormatting: String, expectedResultAfterFormattingApplied: String) =>
-      s"Apply the correct formatting to: $userAnswerWithoutFormatting" in {
-        toLowerCaseRemoveSpacesAndReplaceSmartChars(userAnswerWithoutFormatting) mustBe expectedResultAfterFormattingApplied
-      }
+  ) { (userAnswerWithoutFormatting: String, expectedResultAfterFormattingApplied: String) =>
+    s"Apply the correct formatting to: $userAnswerWithoutFormatting" in {
+      toLowerCaseRemoveSpacesAndReplaceSmartChars(
+        userAnswerWithoutFormatting
+      ) mustBe expectedResultAfterFormattingApplied
+    }
   }
 
 }

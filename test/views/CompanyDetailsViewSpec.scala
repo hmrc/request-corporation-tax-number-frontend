@@ -28,21 +28,27 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetails] {
   val messageKeyPrefix = "companyDetails"
 
   override val form = new CompanyDetailsFormProvider()()
-  val view = app.injector.instanceOf[CompanyDetailsView]
+  val view          = app.injector.instanceOf[CompanyDetailsView]
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages)
 
   def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages)
 
-
   "CompanyDetails view" must {
 
     behave like normalPage(createView, messageKeyPrefix)
 
-    behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.CompanyDetailsController.onSubmit(NormalMode).url, "companyName", "companyReferenceNumber")
+    behave like pageWithTextFields(
+      createViewUsingForm,
+      messageKeyPrefix,
+      routes.CompanyDetailsController.onSubmit(NormalMode).url,
+      "companyName",
+      "companyReferenceNumber"
+    )
 
     behave like pageWithBackLink(createView)
 
     behave like pageWithCorrectHeadingSize(createView)
   }
+
 }

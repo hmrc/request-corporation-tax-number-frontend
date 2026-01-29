@@ -23,11 +23,13 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.AuditExtensions._
 import uk.gov.hmrc.play.audit.model.DataEvent
 
-class SubmissionEvent @Inject()(data: Map[String, String])(implicit hc: HeaderCarrier)
-  extends DataEvent(
-    auditSource = "request-corporation-tax-number",
-    auditType = "submission",
-    detail = hc.toAuditDetails(data.toSeq :_*),
-    tags = hc.toAuditTags(
-      "Submission from Request Corporation Tax number Frontend",
-      routes.CheckYourAnswersController.onPageLoad().url))
+class SubmissionEvent @Inject() (data: Map[String, String])(implicit hc: HeaderCarrier)
+    extends DataEvent(
+      auditSource = "request-corporation-tax-number",
+      auditType = "submission",
+      detail = hc.toAuditDetails(data.toSeq: _*),
+      tags = hc.toAuditTags(
+        "Submission from Request Corporation Tax number Frontend",
+        routes.CheckYourAnswersController.onPageLoad().url
+      )
+    )

@@ -22,7 +22,6 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class ConstraintsSpec extends AnyWordSpec with Matchers with Constraints {
 
-
   "firstError" must {
 
     "return Valid when all constraints pass" in {
@@ -31,17 +30,17 @@ class ConstraintsSpec extends AnyWordSpec with Matchers with Constraints {
     }
 
     "return Invalid when the first constraint fails" in {
-      val result = firstError(maxLength(10, "error.length"),  nonEmpty())("a" * 11)
+      val result = firstError(maxLength(10, "error.length"), nonEmpty())("a" * 11)
       result mustEqual Invalid("error.length", 10)
     }
 
     "return Invalid when the second constraint fails" in {
-      val result = firstError(maxLength(10, "error.length"),  nonEmpty())("")
+      val result = firstError(maxLength(10, "error.length"), nonEmpty())("")
       result mustEqual Invalid("error.required")
     }
 
     "return Invalid for the first error when both constraints fail" in {
-      val result = firstError(maxLength(-1, "error.length"),  nonEmpty())("")
+      val result = firstError(maxLength(-1, "error.length"), nonEmpty())("")
       result mustEqual Invalid("error.length", -1)
     }
   }
@@ -117,4 +116,5 @@ class ConstraintsSpec extends AnyWordSpec with Matchers with Constraints {
       result mustEqual Invalid("error.length", 10)
     }
   }
+
 }

@@ -22,18 +22,17 @@ import scala.language.implicitConversions
 
 import java.time.Instant
 
-case class DatedCacheMap(id: String,
-                         data: Map[String, JsValue],
-                         lastUpdated: Instant = Instant.now()) extends MongoFormats {
+case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: Instant = Instant.now())
+    extends MongoFormats {
 
-  def toCacheMap: CacheMap = {
+  def toCacheMap: CacheMap =
     CacheMap(this.id, this.data)
-  }
+
 }
 
 object DatedCacheMap {
   implicit def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 
-  implicit val instantFormat: Format[Instant] = MongoJavatimeFormats.instantFormat
+  implicit val instantFormat: Format[Instant]  = MongoJavatimeFormats.instantFormat
   implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 }

@@ -24,9 +24,9 @@ import views.html.IndexView
 class IndexControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val indexView: IndexView = app.injector.instanceOf[IndexView]
+  val indexView: IndexView                      = app.injector.instanceOf[IndexView]
 
-  def call : Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
+  def call: Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
   "Index Controller" must {
     "return 200 for a GET" in {
@@ -39,4 +39,5 @@ class IndexControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe indexView(call)(fakeRequest, messages).toString
     }
   }
+
 }

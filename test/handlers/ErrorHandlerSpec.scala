@@ -22,20 +22,26 @@ import views.html.{ErrorTemplateInternalServerErrorView, ErrorTemplateNotFoundVi
 
 class ErrorHandlerSpec extends SpecBase {
 
-  private val messageApi: MessagesApi = app.injector.instanceOf[MessagesApi]
-  private val errorTemplate: ErrorTemplateView = app.injector.instanceOf[ErrorTemplateView]
-  private val errorNotFoundTemplate: ErrorTemplateNotFoundView = app.injector.instanceOf[ErrorTemplateNotFoundView]
-  private val errorInternalServerTemplate: ErrorTemplateInternalServerErrorView = app.injector.instanceOf[ErrorTemplateInternalServerErrorView]
-  private val errorHandler: ErrorHandler = new ErrorHandler(errorNotFoundTemplate, errorInternalServerTemplate, errorTemplate, messageApi)
+  private val messageApi: MessagesApi                                           = app.injector.instanceOf[MessagesApi]
+  private val errorTemplate: ErrorTemplateView                                  = app.injector.instanceOf[ErrorTemplateView]
+  private val errorNotFoundTemplate: ErrorTemplateNotFoundView                  = app.injector.instanceOf[ErrorTemplateNotFoundView]
+
+  private val errorInternalServerTemplate: ErrorTemplateInternalServerErrorView =
+    app.injector.instanceOf[ErrorTemplateInternalServerErrorView]
+
+  private val errorHandler: ErrorHandler                                        =
+    new ErrorHandler(errorNotFoundTemplate, errorInternalServerTemplate, errorTemplate, messageApi)
 
   "ErrorHandler" must {
 
     "return an error page" in {
-      val result = await(errorHandler.standardErrorTemplate(
-        pageTitle = "pageTitle",
-        heading = "heading",
-        message = "message"
-      )(fakeRequest))
+      val result = await(
+        errorHandler.standardErrorTemplate(
+          pageTitle = "pageTitle",
+          heading = "heading",
+          message = "message"
+        )(fakeRequest)
+      )
 
       result.body must include("pageTitle")
       result.body must include("heading")
@@ -45,11 +51,11 @@ class ErrorHandlerSpec extends SpecBase {
     "return a not found template" in {
       val result = await(errorHandler.notFoundTemplate(fakeRequest))
 
-      val pageNotFoundTitle = Messages("error.pageNotFound.title")(messages)
-      val pageNotFoundHeading = Messages("error.pageNotFound.heading")(messages)
-      val pageNotFoundMessage1 = Messages("error.pageNotFound.message1")(messages)
-      val pageNotFoundMessage2 = Messages("error.pageNotFound.message2")(messages)
-      val pageNotFoundMessage3 = Messages("error.pageNotFound.message3")(messages)
+      val pageNotFoundTitle       = Messages("error.pageNotFound.title")(messages)
+      val pageNotFoundHeading     = Messages("error.pageNotFound.heading")(messages)
+      val pageNotFoundMessage1    = Messages("error.pageNotFound.message1")(messages)
+      val pageNotFoundMessage2    = Messages("error.pageNotFound.message2")(messages)
+      val pageNotFoundMessage3    = Messages("error.pageNotFound.message3")(messages)
       val pageNotFoundMessageLink = Messages("error.pageNotFound.messageLink")(messages)
 
       result.body must include(pageNotFoundTitle)
@@ -63,8 +69,8 @@ class ErrorHandlerSpec extends SpecBase {
     "return an internal server error template" in {
       val result = await(errorHandler.internalServerErrorTemplate(fakeRequest))
 
-      val internalErrorTitle = Messages("error.internalError.title")(messages)
-      val internalErrorHeading = Messages("error.internalError.heading")(messages)
+      val internalErrorTitle    = Messages("error.internalError.title")(messages)
+      val internalErrorHeading  = Messages("error.internalError.heading")(messages)
       val internalErrorMessage1 = Messages("error.internalError.message1")(messages)
 
       result.body must include(internalErrorTitle)
@@ -72,4 +78,5 @@ class ErrorHandlerSpec extends SpecBase {
       result.body must include(internalErrorMessage1)
     }
   }
+
 }

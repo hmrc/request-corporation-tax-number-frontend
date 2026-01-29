@@ -35,4 +35,5 @@ class CompanyDetailsSpec extends SpecBase {
       CompanyDetails.asString(companyDetails) mustBe "Big Company, 12345678"
     }
   }
+
 }

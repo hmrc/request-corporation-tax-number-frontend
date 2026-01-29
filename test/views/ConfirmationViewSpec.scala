@@ -22,7 +22,7 @@ import views.html.ConfirmationView
 class ConfirmationViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "confirmation"
-  val view = app.injector.instanceOf[ConfirmationView]
+  val view             = app.injector.instanceOf[ConfirmationView]
 
   def createView = () => view()(fakeRequest, messages)
 
@@ -32,9 +32,9 @@ class ConfirmationViewSpec extends ViewBehaviours {
 
   "have its title in a highlight box" in {
     val doc = asDocument(createView())
-    val h1 = doc.getElementsByTag("h1").first
+    val h1  = doc.getElementsByTag("h1").first
     h1.parent.hasClass("govuk-panel govuk-panel--confirmation") mustBe true
-    h1.hasClass("govuk-panel__title") mustBe true
+    h1.hasClass("govuk-panel__title")                           mustBe true
 
   }
 
@@ -47,9 +47,10 @@ class ConfirmationViewSpec extends ViewBehaviours {
   }
 
   "have a link to an exit survey" in {
-    val doc = asDocument(createView())
+    val doc  = asDocument(createView())
     val link = doc.getElementById("survey-link")
-    link.text mustBe messages("confirmation.survey.linkText")
+    link.text       mustBe messages("confirmation.survey.linkText")
     link.attr("href") must include("/feedback/CTUTR")
   }
+
 }

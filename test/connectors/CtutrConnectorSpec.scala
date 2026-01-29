@@ -33,7 +33,7 @@ import scala.concurrent.{Await, Future}
 class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
   val mockRequestBuilderPost: RequestBuilder = mock(classOf[RequestBuilder])
-  val mockHttpClient: HttpClientV2 = mock(classOf[HttpClientV2])
+  val mockHttpClient: HttpClientV2           = mock(classOf[HttpClientV2])
 
   when(mockRequestBuilderPost.withBody(any[JsValue])(any(), any(), any())).thenReturn(mockRequestBuilderPost)
   when(mockHttpClient.post(any())(any())).thenReturn(mockRequestBuilderPost)
@@ -45,17 +45,22 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
   "submission" must {
 
     implicit val hc: HeaderCarrier = HeaderCarrier()
-    val answers = MockUserAnswers.minimalValidUserAnswers()
-    val submission = Submission(answers)
-    val connector = new CtutrConnector(frontendAppConfig, mockHttpClient)
+    val answers                    = MockUserAnswers.minimalValidUserAnswers()
+    val submission                 = Submission(answers)
+    val connector                  = new CtutrConnector(frontendAppConfig, mockHttpClient)
 
     "return an Submission Response when the HTTP call succeeds" in {
-      mockPostEndpoint(Future.successful(
-        HttpResponse(200,
-          """ |{
+      mockPostEndpoint(
+        Future.successful(
+          HttpResponse(
+            200,
+            """ |{
             |  "id": "id",
             |  "filename": "filename"
-            |}""".stripMargin)))
+            |}""".stripMargin
+          )
+        )
+      )
 
       val futureResult = connector.ctutrSubmission(Json.toJson(submission))
       Await.result(futureResult, 5.seconds) mustBe Some(SubmissionResponse("id", "filename"))
@@ -70,4 +75,5 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
     }
 
   }
+
 }

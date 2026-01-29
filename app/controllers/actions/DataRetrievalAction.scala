@@ -26,22 +26,27 @@ import utils.UserAnswers
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnector,
-                                        override val parser: BodyParsers.Default)(implicit val executionContext: ExecutionContext) extends DataRetrievalAction {
+class DataRetrievalActionImpl @Inject() (
+  val dataCacheConnector: DataCacheConnector,
+  override val parser: BodyParsers.Default
+)(implicit val executionContext: ExecutionContext)
+    extends DataRetrievalAction {
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     hc.sessionId match {
-      case None => Future.failed(new IllegalStateException())
+      case None            => Future.failed(new IllegalStateException())
       case Some(sessionId) =>
         dataCacheConnector.fetch(sessionId.toString).map {
-          case None => OptionalDataRequest(request, sessionId.toString, None)
+          case None       => OptionalDataRequest(request, sessionId.toString, None)
           case Some(data) => OptionalDataRequest(request, sessionId.toString, Some(new UserAnswers(data)))
         }
     }
   }
+
 }
 
 @ImplementedBy(classOf[DataRetrievalActionImpl])
-trait DataRetrievalAction extends ActionTransformer[Request, OptionalDataRequest] with ActionBuilder[OptionalDataRequest, AnyContent]
+trait DataRetrievalAction
+    extends ActionTransformer[Request, OptionalDataRequest] with ActionBuilder[OptionalDataRequest, AnyContent]

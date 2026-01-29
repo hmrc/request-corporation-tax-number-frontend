@@ -32,37 +32,37 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.controller.WithUnsafeDefaultFormBinding
 
-class CompanyDetailsController @Inject()(
-                                          override val messagesApi: MessagesApi,
-                                          dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          getData: DataRetrievalAction,
-                                          formProvider: CompanyDetailsFormProvider,
-                                          cc: MessagesControllerComponents,
-                                          view: CompanyDetailsView
-                                        )(implicit executionContext: ExecutionContext)
-  extends FrontendController(cc) with I18nSupport with WithUnsafeDefaultFormBinding {
+class CompanyDetailsController @Inject() (
+  override val messagesApi: MessagesApi,
+  dataCacheConnector: DataCacheConnector,
+  navigator: Navigator,
+  getData: DataRetrievalAction,
+  formProvider: CompanyDetailsFormProvider,
+  cc: MessagesControllerComponents,
+  view: CompanyDetailsView
+)(implicit executionContext: ExecutionContext)
+    extends FrontendController(cc) with I18nSupport with WithUnsafeDefaultFormBinding {
 
   val form: Form[CompanyDetails] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = getData {
-    implicit request =>
-      val preparedForm = request.userAnswers.flatMap(x => x.companyDetails) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm, mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = getData { implicit request =>
+    val preparedForm = request.userAnswers.flatMap(x => x.companyDetails) match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm, mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = getData.async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
+  def onSubmit(mode: Mode): Action[AnyContent] = getData.async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, mode))),
         value =>
-          dataCacheConnector.save[CompanyDetails](request.externalId, CompanyDetailsId.toString, value).map(cacheMap =>
-            Redirect(navigator.nextPage(CompanyDetailsId, mode)(new UserAnswers(cacheMap))))
+          dataCacheConnector
+            .save[CompanyDetails](request.externalId, CompanyDetailsId.toString, value)
+            .map(cacheMap => Redirect(navigator.nextPage(CompanyDetailsId, mode)(new UserAnswers(cacheMap))))
       )
   }
-}
 
+}
