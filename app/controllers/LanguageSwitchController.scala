@@ -21,17 +21,16 @@ import play.api.i18n.{Lang, MessagesApi}
 import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.play.language.{LanguageController, LanguageUtils}
 
-
 class LanguageSwitchController @Inject() (
-                        languageUtils: LanguageUtils,
-                        cc: MessagesControllerComponents,
-                        override val messagesApi: MessagesApi
-                        ) extends LanguageController(languageUtils, cc) {
+  languageUtils: LanguageUtils,
+  cc: MessagesControllerComponents,
+  override val messagesApi: MessagesApi
+) extends LanguageController(languageUtils, cc) {
 
-      override def languageMap: Map[String, Lang] = Map(
-        "english" -> Lang("en"),
-        "cymraeg" -> Lang("cy")
-      )
+  override def languageMap: Map[String, Lang] = Map(
+    "english" -> Lang("en"),
+    "cymraeg" -> Lang("cy")
+  )
 
-      override def fallbackURL: String = routes.IndexController.onPageLoad().url
+  override def fallbackURL: String = routes.IndexController.onPageLoad().url
 }

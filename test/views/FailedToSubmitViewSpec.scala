@@ -22,11 +22,12 @@ import views.html.FailedToSubmitView
 class FailedToSubmitViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "failed_to_submit"
-  val view = app.injector.instanceOf[FailedToSubmitView]
+  val view             = app.injector.instanceOf[FailedToSubmitView]
 
   def createView = () => view()(fakeRequest, messages)
 
   "FailedToSubmit view" must {
     behave like normalPage(createView, messageKeyPrefix)
   }
+
 }

@@ -19,11 +19,15 @@ package models.cache
 import play.api.libs.json._
 
 class KeyStoreEntryValidationException(
-                                        val key        : String,
-                                        val invalidJson: JsValue,
-                                        val readingAs  : Class[_],
-                                        val errors     : scala.collection.Seq[(JsPath, scala.collection.Seq[JsonValidationError])] // default Seq for Scala 2.13 is scala.collection.immutable.Seq - this keeps it the same as JsResult
-                                      ) extends Exception {
+  val key: String,
+  val invalidJson: JsValue,
+  val readingAs: Class[_],
+  val errors: scala.collection.Seq[
+    (JsPath, scala.collection.Seq[JsonValidationError])
+  ] // default Seq for Scala 2.13 is scala.collection.immutable.Seq - this keeps it the same as JsResult
+) extends Exception {
+
   override def getMessage: String =
     s"KeyStore entry for key '$key' was '${Json.stringify(invalidJson)}'. Attempt to convert to ${readingAs.getName} gave errors: $errors"
+
 }

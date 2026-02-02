@@ -23,7 +23,7 @@ import views.html.FailedToSubmitView
 class FailedToSubmitControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: FailedToSubmitView = app.injector.instanceOf[FailedToSubmitView]
+  val view: FailedToSubmitView                  = app.injector.instanceOf[FailedToSubmitView]
 
   def controller() = new FailedToSubmitController(cc, view, messagesApi)
 
@@ -34,7 +34,7 @@ class FailedToSubmitControllerSpec extends ControllerSpecBase {
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 
-      status(result) mustBe OK
+      status(result)          mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
   }

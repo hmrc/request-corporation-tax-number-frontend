@@ -28,8 +28,12 @@ class IndexViewSpec extends ViewBehaviours with GuiceOneAppPerSuite {
 
   def applicationBuilder: GuiceApplicationBuilder = GuiceApplicationBuilder().configure("metrics.enabled" -> false)
 
-  val viewWithBanner: IndexView = applicationBuilder.configure("showDelayBanner" -> true).build().injector.instanceOf[IndexView]
-  val viewWithoutBanner: IndexView = applicationBuilder.configure("showDelayBanner" -> false).build().injector.instanceOf[IndexView]
+  val viewWithBanner: IndexView =
+    applicationBuilder.configure("showDelayBanner" -> true).build().injector.instanceOf[IndexView]
+
+  val viewWithoutBanner: IndexView =
+    applicationBuilder.configure("showDelayBanner" -> false).build().injector.instanceOf[IndexView]
+
   val call: Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 
   "Index view" must {

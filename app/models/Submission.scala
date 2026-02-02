@@ -33,10 +33,10 @@ object Submission {
     Submission(answers.companyDetails.get)
   }
 
-  def asMap(e: Submission): Map[String, String] = {
+  def asMap(e: Submission): Map[String, String] =
 
     Map(
       CompanyDetailsId.toString -> e.companyDetails.toString
     )
-  }
+
 }

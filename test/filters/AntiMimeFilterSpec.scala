@@ -33,7 +33,7 @@ class AntiMimeFilterSpec extends SpecBase {
   "AntiMimeFilter" must {
 
     "allow requests without mime type headers" in {
-      val request = FakeRequest("GET", "/test")
+      val request                                     = FakeRequest("GET", "/test")
       val nextFilter: RequestHeader => Future[Result] = _ => Future.successful(Results.Ok)
 
       val result = filter.apply(nextFilter)(request)
@@ -43,4 +43,5 @@ class AntiMimeFilterSpec extends SpecBase {
     }
 
   }
+
 }

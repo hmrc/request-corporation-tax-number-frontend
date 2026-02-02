@@ -23,13 +23,14 @@ import views.html.FailedToSubmitView
 
 import javax.inject.Inject
 
-class FailedToSubmitController @Inject()(cc: MessagesControllerComponents,
-                                         view: FailedToSubmitView,
-                                         override val messagesApi: MessagesApi)
-  extends FrontendController(cc) with I18nSupport {
+class FailedToSubmitController @Inject() (
+  cc: MessagesControllerComponents,
+  view: FailedToSubmitView,
+  override val messagesApi: MessagesApi
+) extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action  {
-    implicit request =>
-      Ok(view())
+  def onPageLoad: Action[AnyContent] = Action { implicit request =>
+    Ok(view())
   }
+
 }

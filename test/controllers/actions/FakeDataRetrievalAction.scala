@@ -24,12 +24,14 @@ import utils.UserAnswers
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap],
-                                        implicit val ec: ExecutionContext,
-                                        val parser: BodyParsers.Default) extends DataRetrievalAction {
+class FakeDataRetrievalAction @Inject() (
+  cacheMapToReturn: Option[CacheMap],
+  implicit val ec: ExecutionContext,
+  val parser: BodyParsers.Default
+) extends DataRetrievalAction {
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = cacheMapToReturn match {
-    case None => Future(OptionalDataRequest(request, "id", None))
+    case None           => Future(OptionalDataRequest(request, "id", None))
     case Some(cacheMap) => Future(OptionalDataRequest(request, "id", Some(new UserAnswers(cacheMap))))
   }
 

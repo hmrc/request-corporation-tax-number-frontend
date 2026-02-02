@@ -23,13 +23,14 @@ import views.html.CompanyRegisteredView
 
 import javax.inject.Inject
 
-class CompanyRegisteredController @Inject()(cc: MessagesControllerComponents,
-                                            view: CompanyRegisteredView,
-                                            override val messagesApi: MessagesApi)
-  extends FrontendController(cc) with I18nSupport {
+class CompanyRegisteredController @Inject() (
+  cc: MessagesControllerComponents,
+  view: CompanyRegisteredView,
+  override val messagesApi: MessagesApi
+) extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action  {
-    implicit request =>
-      Ok(view())
+  def onPageLoad: Action[AnyContent] = Action { implicit request =>
+    Ok(view())
   }
+
 }

@@ -16,16 +16,14 @@
 
 package utils
 
-
 import base.SpecBase
 import models.CompanyNameAndDateOfCreation
 
 import java.time.{LocalDate, ZoneId}
 
-
 class DateUtilsSpec extends SpecBase {
 
-  val now: LocalDate = LocalDate.now(ZoneId.of("GMT"))
+  val now: LocalDate  = LocalDate.now(ZoneId.of("GMT"))
   val testCompanyName = "test"
 
   "DateUtils.isCompanyRecentlyCreated" must {
@@ -66,6 +64,5 @@ class DateUtilsSpec extends SpecBase {
     }
 
   }
-
 
 }

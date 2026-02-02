@@ -23,9 +23,11 @@ trait IntViewBehaviours extends QuestionViewBehaviours[Int] {
 
   val number = 123
 
-  def intPage(createView: Form[Int] => HtmlFormat.Appendable,
-              messageKeyPrefix: String,
-              expectedFormAction: String): Unit = {
+  def intPage(
+    createView: Form[Int] => HtmlFormat.Appendable,
+    messageKeyPrefix: String,
+    expectedFormAction: String
+  ): Unit =
 
     "behave like a page with an integer value field" when {
       "rendered" must {
@@ -56,11 +58,11 @@ trait IntViewBehaviours extends QuestionViewBehaviours[Int] {
         }
 
         "show an error in the value field's label" in {
-          val doc = asDocument(createView(form.withError(error)))
+          val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("error-notification").first
           errorSpan.text mustBe messages(errorMessage)
         }
       }
     }
-  }
+
 }

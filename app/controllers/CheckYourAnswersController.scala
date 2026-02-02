@@ -33,49 +33,49 @@ import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
-class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi,
-                                           getData: DataRetrievalAction,
-                                           requireData: DataRequiredAction,
-                                           cc: MessagesControllerComponents,
-                                           companyHouseConnector: CompanyHouseConnector,
-                                           submissionService: SubmissionService,
-                                           view: CheckYourAnswersView)
-                                          (implicit executionContext: ExecutionContext)
-  extends FrontendController(cc) with I18nSupport {
+class CheckYourAnswersController @Inject() (
+  override val messagesApi: MessagesApi,
+  getData: DataRetrievalAction,
+  requireData: DataRequiredAction,
+  cc: MessagesControllerComponents,
+  companyHouseConnector: CompanyHouseConnector,
+  submissionService: SubmissionService,
+  view: CheckYourAnswersView
+)(implicit executionContext: ExecutionContext)
+    extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad(): Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
+  def onPageLoad(): Action[AnyContent] = (getData andThen requireData) { implicit request =>
+    val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
 
-      val cyaHelper = new CheckYourAnswersHelper(request.userAnswers)
+    val result: Option[Result] = for {
+      reference <- cyaHelper.companyDetailsReference
+      name      <- cyaHelper.companyDetailsName
+    } yield {
 
-      val result: Option[Result] = for {
-        reference <- cyaHelper.companyDetailsReference
-        name      <- cyaHelper.companyDetailsName
-      } yield {
+      val answerSection = AnswerSection(None, Seq(reference, name))
 
-        val answerSection = AnswerSection(None, Seq(reference, name))
-
-        Ok(view(answerSection))
-      }
-
-      result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
-  }
-
-  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async { implicit request: DataRequest[AnyContent] =>
-
-    val companyDetailsFromUserAnswers: CompanyDetails = Submission(request.userAnswers).companyDetails
-
-    companyHouseConnector.getCompanyDetails(companyDetailsFromUserAnswers).flatMap {
-      case Right(companyNameAndDateOfCreation) =>
-        processCompaniesHouseResponse(companyDetailsFromUserAnswers, companyNameAndDateOfCreation)
-      case Left(_) =>
-        Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
+      Ok(view(answerSection))
     }
+
+    result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
   }
 
-  private def processCompaniesHouseResponse(companyDetailsFromUserAnswers: CompanyDetails,
-                                            companyNameAndDateOfCreation: CompanyNameAndDateOfCreation)
-                                           (implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Result] = {
+  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
+    implicit request: DataRequest[AnyContent] =>
+      val companyDetailsFromUserAnswers: CompanyDetails = Submission(request.userAnswers).companyDetails
+
+      companyHouseConnector.getCompanyDetails(companyDetailsFromUserAnswers).flatMap {
+        case Right(companyNameAndDateOfCreation) =>
+          processCompaniesHouseResponse(companyDetailsFromUserAnswers, companyNameAndDateOfCreation)
+        case Left(_)                             =>
+          Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
+      }
+  }
+
+  private def processCompaniesHouseResponse(
+    companyDetailsFromUserAnswers: CompanyDetails,
+    companyNameAndDateOfCreation: CompanyNameAndDateOfCreation
+  )(implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Result] = {
 
     val isRecentlyCreated = DateUtils.isCompanyRecentlyCreated(companyNameAndDateOfCreation)
 
@@ -88,12 +88,12 @@ class CheckYourAnswersController @Inject()(override val messagesApi: MessagesApi
         submissionService.ctutrSubmission(request.userAnswers).map {
           case SubmissionSuccessful =>
             Redirect(routes.ConfirmationController.onPageLoad())
-          case _ =>
+          case _                    =>
             Redirect(routes.FailedToSubmitController.onPageLoad())
         }
-      case (true, true) =>
+      case (true, true)  =>
         Future.successful(Redirect(routes.CompanyRegisteredController.onPageLoad()))
-      case (false, _) =>
+      case (false, _)    =>
         Future.successful(Redirect(routes.CompanyDetailsNoMatchController.onPageLoad()))
     }
   }

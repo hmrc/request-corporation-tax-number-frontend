@@ -23,7 +23,7 @@ import views.html.CompanyRegisteredView
 class CompanyRegisteredControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: CompanyRegisteredView = app.injector.instanceOf[CompanyRegisteredView]
+  val view: CompanyRegisteredView               = app.injector.instanceOf[CompanyRegisteredView]
 
   def controller() = new CompanyRegisteredController(cc, view, messagesApi)
 
@@ -34,7 +34,7 @@ class CompanyRegisteredControllerSpec extends ControllerSpecBase {
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 
-      status(result) mustBe OK
+      status(result)          mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
   }

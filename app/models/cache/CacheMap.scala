@@ -28,9 +28,10 @@ case class CacheMap(id: String, data: Map[String, JsValue]) {
           .validate[T]
           .fold(
             errors => throw new KeyStoreEntryValidationException(key, json, CacheMap.getClass, errors),
-            valid  => valid
+            valid => valid
           )
       )
+
 }
 
 object CacheMap {

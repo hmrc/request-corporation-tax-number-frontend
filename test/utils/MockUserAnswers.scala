@@ -19,7 +19,6 @@ package utils
 import models.CompanyDetails
 import org.mockito.Mockito.{when, _}
 
-
 object MockUserAnswers {
 
   def nothingAnswered: UserAnswers = {
@@ -30,7 +29,9 @@ object MockUserAnswers {
     answers
   }
 
-  def minimalValidUserAnswers(companyDetails: CompanyDetails = CompanyDetails("1234567", "company name")): UserAnswers = {
+  def minimalValidUserAnswers(
+    companyDetails: CompanyDetails = CompanyDetails("1234567", "company name")
+  ): UserAnswers = {
 
     val answers = nothingAnswered
 
@@ -38,4 +39,5 @@ object MockUserAnswers {
 
     answers
   }
+
 }

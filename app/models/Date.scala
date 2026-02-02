@@ -18,7 +18,7 @@ package models
 
 import play.api.libs.json._
 
-case class Date (day: Int, month: Int, year: Int) {}
+case class Date(day: Int, month: Int, year: Int) {}
 
 object Date {
   implicit val format: OFormat[Date] = Json.format[Date]

@@ -33,8 +33,8 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
   def onwardRoute: Call = routes.IndexController.onPageLoad()
 
   val formProvider: CompanyDetailsFormProvider = new CompanyDetailsFormProvider()
-  val form: Form[CompanyDetails] = formProvider()
-  val view: CompanyDetailsView = app.injector.instanceOf[CompanyDetailsView]
+  val form: Form[CompanyDetails]               = formProvider()
+  val view: CompanyDetailsView                 = app.injector.instanceOf[CompanyDetailsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) =
     new CompanyDetailsController(
@@ -44,7 +44,8 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
       dataRetrievalAction,
       formProvider,
       cc,
-      view)
+      view
+    )
 
   def viewAsString(form: Form[_] = form): String = view(form, NormalMode)(fakeRequest, messages).toString
 
@@ -53,48 +54,51 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe OK
+      status(result)          mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val result = controller(fakeDataRetrievalActionWithCacheMap()).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(CompanyDetails("12345678", "Big Company" )))
+      contentAsString(result) mustBe viewAsString(form.fill(CompanyDetails("12345678", "Big Company")))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
+      val postRequest =
+        fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
+      status(result)           mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+      val boundForm   = form.bind(Map("value" -> "invalid value"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe BAD_REQUEST
+      status(result)          mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "return OK and correct view for a GET if no existing data is found" in {
       val result = controller(fakeDataRetrievalActionWithUndefinedCacheMap).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe OK
+      status(result)          mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
-      val result = controller(fakeDataRetrievalActionWithUndefinedCacheMap).onSubmit(NormalMode)(postRequest)
+      val postRequest =
+        fakeRequest.withFormUrlEncodedBody(("companyName", "Big Company"), ("companyReferenceNumber", "12345678"))
+      val result      = controller(fakeDataRetrievalActionWithUndefinedCacheMap).onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
+      status(result)           mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
+
 }

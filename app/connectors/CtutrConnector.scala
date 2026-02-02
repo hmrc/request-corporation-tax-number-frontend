@@ -28,28 +28,31 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CtutrConnector @Inject()(appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
+class CtutrConnector @Inject() (appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
-  def ctutrSubmission(submissionJson: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
+  def ctutrSubmission(
+    submissionJson: JsValue
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
 
     val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/submission"
-    http.post(url"$submissionUrl")
+    http
+      .post(url"$submissionUrl")
       .withBody(submissionJson)
       .execute[HttpResponse]
-      .map {
-        response =>
-          response.status match {
-            case OK =>
-              response.json.asOpt[SubmissionResponse]
+      .map { response =>
+        response.status match {
+          case OK =>
+            response.json.asOpt[SubmissionResponse]
 
-            case other =>
-              logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
-              None
-          }
-      }.recover {
-        case e: Exception =>
-          logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
-          None
+          case other =>
+            logger.warn(s"[CtutrConnector][ctutrSubmission] - received HTTP status $other from $submissionUrl")
+            None
+        }
+      }
+      .recover { case e: Exception =>
+        logger.warn(s"[CtutrConnector][ctutrSubmission] - submission to $submissionUrl failed - $e")
+        None
       }
   }
+
 }

@@ -26,12 +26,12 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
   val view = app.injector.instanceOf[CheckYourAnswersView]
 
-  val answerRow = AnswerRow(label = "dummyLabel", answer = "dummyAnswer", answerIsMessageKey = true, changeUrl = "dummyChangeUrl")
+  val answerRow =
+    AnswerRow(label = "dummyLabel", answer = "dummyAnswer", answerIsMessageKey = true, changeUrl = "dummyChangeUrl")
 
   val answerSection = AnswerSection(None, Seq(answerRow))
 
   def createView = () => view(answerSection)(fakeRequest, messages)
-
 
   "checkYourAnswers view" must {
 

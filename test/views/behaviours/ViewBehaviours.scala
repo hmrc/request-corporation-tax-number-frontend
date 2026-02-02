@@ -21,9 +21,7 @@ import views.ViewSpecBase
 
 trait ViewBehaviours extends ViewSpecBase {
 
-  def normalPage(view: () => HtmlFormat.Appendable,
-                 messageKeyPrefix: String,
-                 expectedGuidanceKeys: String*) = {
+  def normalPage(view: () => HtmlFormat.Appendable, messageKeyPrefix: String, expectedGuidanceKeys: String*) =
 
     "behave like a normal page" when {
       "rendered" must {
@@ -48,7 +46,7 @@ trait ViewBehaviours extends ViewSpecBase {
         }
 
         "display language toggles" in {
-          val doc = asDocument(view())
+          val doc          = asDocument(view())
           val languageText = doc.text()
           assert(languageText.contains("ENG"), "ENG toggle was not rendered on the page.")
           assert(languageText.contains("CYM"), "CYM toggle was not rendered on the page.")
@@ -56,9 +54,8 @@ trait ViewBehaviours extends ViewSpecBase {
 
       }
     }
-  }
 
-  def pageWithBackLink(view: () => HtmlFormat.Appendable) = {
+  def pageWithBackLink(view: () => HtmlFormat.Appendable) =
 
     "behave like a page with a back link" must {
       "have a back link" in {
@@ -66,11 +63,11 @@ trait ViewBehaviours extends ViewSpecBase {
         assertRenderedById(doc, "back")
       }
     }
-  }
-  def pageWithCorrectHeadingSize(view: () => HtmlFormat.Appendable) = {
+
+  def pageWithCorrectHeadingSize(view: () => HtmlFormat.Appendable) =
     "display the correct size of page heading" in {
       val doc = asDocument(view())
       assertH1HasClass(doc, "h1", "govuk-heading-xl")
     }
-  }
+
 }

@@ -23,18 +23,17 @@ import org.scalatest.wordspec.AnyWordSpec
 
 trait FormSpec extends AnyWordSpec with OptionValues with Matchers {
 
-  def checkForError(form: Form[_], data: Map[String, String], expectedErrors: Seq[FormError]) = {
+  def checkForError(form: Form[_], data: Map[String, String], expectedErrors: Seq[FormError]) =
 
-    form.bind(data).fold(
-      formWithErrors => {
-        for (error <- expectedErrors) formWithErrors.errors should contain(error)
-        formWithErrors.errors.size shouldBe expectedErrors.size
-      },
-      form => {
-        fail("Expected a validation error when binding the form, but it was bound successfully.")
-      }
-    )
-  }
+    form
+      .bind(data)
+      .fold(
+        formWithErrors => {
+          for (error <- expectedErrors) formWithErrors.errors should contain(error)
+          formWithErrors.errors.size                        shouldBe expectedErrors.size
+        },
+        form => fail("Expected a validation error when binding the form, but it was bound successfully.")
+      )
 
   def error(key: String, value: String, args: Any*) = Seq(FormError(key, value, args))
 

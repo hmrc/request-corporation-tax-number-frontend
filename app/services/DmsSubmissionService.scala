@@ -27,8 +27,9 @@ import utils.UserAnswers
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
-                                     auditConnector: DefaultAuditConnector)(implicit ec: ExecutionContext) extends SubmissionService with Logging {
+class DmsSubmissionService @Inject() (ctutrConnector: CtutrConnector, auditConnector: DefaultAuditConnector)(implicit
+  ec: ExecutionContext
+) extends SubmissionService with Logging {
 
   override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] = {
 
@@ -40,7 +41,7 @@ class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
         val detailToAudit =
           Submission.asMap(submission) ++
             Map(
-              "filename" -> submissionResponse.filename,
+              "filename"   -> submissionResponse.filename,
               "envelopeId" -> submissionResponse.id
             )
 
@@ -56,4 +57,5 @@ class DmsSubmissionService @Inject()(ctutrConnector: CtutrConnector,
         SubmissionFailed
     }
   }
+
 }

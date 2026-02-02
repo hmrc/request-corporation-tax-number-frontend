@@ -24,14 +24,10 @@ import views.html.ConfirmationView
 class ConfirmationControllerSpec extends ControllerSpecBase {
 
   implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: ConfirmationView = app.injector.instanceOf[ConfirmationView]
+  val view: ConfirmationView                    = app.injector.instanceOf[ConfirmationView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) = new ConfirmationController(
-    messagesApi,
-    dataRetrievalAction,
-    cc,
-    new DataRequiredActionImpl,
-    view)
+  def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) =
+    new ConfirmationController(messagesApi, dataRetrievalAction, cc, new DataRequiredActionImpl, view)
 
   def viewAsString(): String = view()(fakeRequest, messages).toString
 
@@ -40,8 +36,9 @@ class ConfirmationControllerSpec extends ControllerSpecBase {
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
 
-      status(result) mustBe OK
+      status(result)          mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
   }
+
 }

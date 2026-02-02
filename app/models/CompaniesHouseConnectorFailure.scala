@@ -27,4 +27,3 @@ case object CompaniesHouseTooManyRequestsResponse extends CompaniesHouseConnecto
 case object CompaniesHouseFailureResponse extends CompaniesHouseConnectorFailure
 
 case object CompaniesHouseExceptionError extends CompaniesHouseConnectorFailure
-

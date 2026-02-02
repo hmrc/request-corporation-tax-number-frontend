@@ -24,15 +24,16 @@ import views.html.ConfirmationView
 
 import javax.inject.Inject
 
-class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                       getData: DataRetrievalAction,
-                                       cc: MessagesControllerComponents,
-                                       requireData: DataRequiredAction,
-                                       view: ConfirmationView
-                                      ) extends FrontendController(cc) with I18nSupport {
+class ConfirmationController @Inject() (
+  override val messagesApi: MessagesApi,
+  getData: DataRetrievalAction,
+  cc: MessagesControllerComponents,
+  requireData: DataRequiredAction,
+  view: ConfirmationView
+) extends FrontendController(cc) with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Ok(view())
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) { implicit request =>
+    Ok(view())
   }
+
 }

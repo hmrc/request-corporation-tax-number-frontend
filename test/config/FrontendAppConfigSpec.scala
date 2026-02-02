@@ -114,6 +114,6 @@ class FrontendAppConfigSpec extends SpecBase {
       cyCall.url mustBe "/ask-for-copy-of-your-corporation-tax-utr/language/cy"
     }
 
-
   }
+
 }
