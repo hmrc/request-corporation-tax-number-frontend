@@ -31,9 +31,9 @@ import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase {
 
-  val parser: BodyParsers.Default                                = injector.instanceOf[BodyParsers.Default]
-  val companyDetails: CompanyDetails                             = CompanyDetails("12345678", "Big Company")
-  val companyDetailsWithNameFormatIssues: CompanyDetails         = CompanyDetails("12345678", "  ’‘   B ‘i ’‘G Company  ’‘  ")
+  val parser: BodyParsers.Default                        = injector.instanceOf[BodyParsers.Default]
+  val companyDetails: CompanyDetails                     = CompanyDetails("12345678", "Big Company")
+  val companyDetailsWithNameFormatIssues: CompanyDetails = CompanyDetails("12345678", "  ’‘   B ‘i ’‘G Company  ’‘  ")
 
   val companyNameAndDateOfCreation: CompanyNameAndDateOfCreation =
     CompanyNameAndDateOfCreation("Big Company", Some(LocalDate.now().minusDays(4)))

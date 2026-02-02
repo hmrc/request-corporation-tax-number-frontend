@@ -22,14 +22,14 @@ import views.html.{ErrorTemplateInternalServerErrorView, ErrorTemplateNotFoundVi
 
 class ErrorHandlerSpec extends SpecBase {
 
-  private val messageApi: MessagesApi                                           = app.injector.instanceOf[MessagesApi]
-  private val errorTemplate: ErrorTemplateView                                  = app.injector.instanceOf[ErrorTemplateView]
-  private val errorNotFoundTemplate: ErrorTemplateNotFoundView                  = app.injector.instanceOf[ErrorTemplateNotFoundView]
+  private val messageApi: MessagesApi                          = app.injector.instanceOf[MessagesApi]
+  private val errorTemplate: ErrorTemplateView                 = app.injector.instanceOf[ErrorTemplateView]
+  private val errorNotFoundTemplate: ErrorTemplateNotFoundView = app.injector.instanceOf[ErrorTemplateNotFoundView]
 
   private val errorInternalServerTemplate: ErrorTemplateInternalServerErrorView =
     app.injector.instanceOf[ErrorTemplateInternalServerErrorView]
 
-  private val errorHandler: ErrorHandler                                        =
+  private val errorHandler: ErrorHandler =
     new ErrorHandler(errorNotFoundTemplate, errorInternalServerTemplate, errorTemplate, messageApi)
 
   "ErrorHandler" must {
