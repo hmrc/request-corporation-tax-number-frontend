@@ -2,7 +2,7 @@ import play.sbt.routes.RoutesKeys
 import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "2.13.18"
 
 lazy val microservice = Project("request-corporation-tax-number-frontend", file("."))
   .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
