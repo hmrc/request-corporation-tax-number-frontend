@@ -17,10 +17,10 @@
 package connectors
 
 import config.FrontendAppConfig
-import models._
+import models.*
 import play.api.Logging
 import play.api.http.Status.{NOT_FOUND, OK, TOO_MANY_REQUESTS}
-import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 
@@ -30,11 +30,11 @@ import scala.util.{Failure, Success, Try}
 
 class CompanyHouseConnector @Inject() (appConfig: FrontendAppConfig, http: HttpClientV2) extends Logging {
 
-  implicit val hc: HeaderCarrier = HeaderCarrier()
+  given hc: HeaderCarrier = HeaderCarrier()
 
   def getCompanyDetails(
     data: CompanyDetails
-  )(implicit ec: ExecutionContext): Future[Either[CompaniesHouseConnectorFailure, CompanyNameAndDateOfCreation]] =
+  )(using ec: ExecutionContext): Future[Either[CompaniesHouseConnectorFailure, CompanyNameAndDateOfCreation]] =
 
     requestCompanyDetails(data.companyReferenceNumber)
       .map { response =>
@@ -81,7 +81,7 @@ class CompanyHouseConnector @Inject() (appConfig: FrontendAppConfig, http: HttpC
 
   private def requestCompanyDetails(
     companyReferenceNumber: String
-  )(implicit ec: ExecutionContext): Future[HttpResponse] = {
+  )(using ec: ExecutionContext): Future[HttpResponse] = {
 
     val fullUrl = appConfig.companyHouseRequestUrl + companyReferenceNumber
 

@@ -55,13 +55,17 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
       "companyRegistered.line7"
     )
 
-    assertContainsMessages(doc, messages.toIndexedSeq: _*)
+    assertContainsMessages(doc, messages.toIndexedSeq*)
   }
 
   "have a link to Companies House register" in {
     val link = doc.getElementById("companies-house-link")
     link.text         mustBe messages("companyRegistered.line3LinkText")
     link.attr("href") mustBe "https://find-and-update.company-information.service.gov.uk/"
+  }
+
+  "ref must return the view itself" in {
+    view.ref mustBe view
   }
 
 }

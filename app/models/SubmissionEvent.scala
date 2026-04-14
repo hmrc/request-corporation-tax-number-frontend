@@ -20,14 +20,14 @@ import javax.inject.Inject
 
 import controllers.routes
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.audit.AuditExtensions._
+import uk.gov.hmrc.play.audit.AuditExtensions.*
 import uk.gov.hmrc.play.audit.model.DataEvent
 
-class SubmissionEvent @Inject() (data: Map[String, String])(implicit hc: HeaderCarrier)
+class SubmissionEvent @Inject() (data: Map[String, String])(using hc: HeaderCarrier)
     extends DataEvent(
       auditSource = "request-corporation-tax-number",
       auditType = "submission",
-      detail = hc.toAuditDetails(data.toSeq: _*),
+      detail = hc.toAuditDetails(data.toSeq*),
       tags = hc.toAuditTags(
         "Submission from Request Corporation Tax number Frontend",
         routes.CheckYourAnswersController.onPageLoad().url

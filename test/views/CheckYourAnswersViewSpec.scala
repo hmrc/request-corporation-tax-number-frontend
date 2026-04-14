@@ -39,6 +39,10 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
     behave like pageWithCorrectHeadingSize(createView)
 
+    "ref must return the view itself" in {
+      view.ref mustBe view
+    }
+
   }
 
 }

@@ -18,7 +18,7 @@ package base
 
 import config.FrontendAppConfig
 import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
+import org.scalatestplus.play.guice.*
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
 import play.api.test.FakeRequest
@@ -30,7 +30,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def injector: Injector = app.injector
 
-  implicit val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
+  given ec: ExecutionContext = injector.instanceOf[ExecutionContext]
 
   def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 

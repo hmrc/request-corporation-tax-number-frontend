@@ -17,13 +17,13 @@
 package controllers
 
 import play.api.mvc.MessagesControllerComponents
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import views.html.CompanyRegisteredView
 
 class CompanyRegisteredControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: CompanyRegisteredView               = app.injector.instanceOf[CompanyRegisteredView]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view: CompanyRegisteredView        = app.injector.instanceOf[CompanyRegisteredView]
 
   def controller() = new CompanyRegisteredController(cc, view, messagesApi)
 

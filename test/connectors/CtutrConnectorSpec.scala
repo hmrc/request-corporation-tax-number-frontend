@@ -19,7 +19,7 @@ package connectors
 import base.SpecBase
 import models.{Submission, SubmissionResponse}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.mockito.stubbing.OngoingStubbing
 import org.scalatest.concurrent.ScalaFutures
 import play.api.libs.json.{JsValue, Json}
@@ -44,10 +44,10 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
 
   "submission" must {
 
-    implicit val hc: HeaderCarrier = HeaderCarrier()
-    val answers                    = MockUserAnswers.minimalValidUserAnswers()
-    val submission                 = Submission(answers)
-    val connector                  = new CtutrConnector(frontendAppConfig, mockHttpClient)
+    given hc: HeaderCarrier = HeaderCarrier()
+    val answers             = MockUserAnswers.minimalValidUserAnswers()
+    val submission          = Submission(answers)
+    val connector           = new CtutrConnector(frontendAppConfig, mockHttpClient)
 
     "return an Submission Response when the HTTP call succeeds" in {
       mockPostEndpoint(
@@ -71,6 +71,13 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
       mockPostEndpoint(Future.successful(HttpResponse(500, "")))
 
       val futureResult = connector.ctutrSubmission(Json.toJson(enrolment))
+      Await.result(futureResult, 5.seconds) mustBe None
+    }
+
+    "return None when the HTTP call throws an exception" in {
+      mockPostEndpoint(Future.failed(new RuntimeException("connection refused")))
+
+      val futureResult = connector.ctutrSubmission(Json.toJson(submission))
       Await.result(futureResult, 5.seconds) mustBe None
     }
 

@@ -22,7 +22,7 @@ import play.api.data.Form
 
 class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with FormBehaviours {
 
-  override val form: Form[_] = new CompanyDetailsFormProvider()()
+  override val form: Form[?] = new CompanyDetailsFormProvider()()
 
   val validData: Map[String, String] = Map(
     "companyReferenceNumber" -> "AB123123",

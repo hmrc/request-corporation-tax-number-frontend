@@ -17,7 +17,7 @@
 package utils
 
 import base.SpecBase
-import org.scalatest.prop.TableDrivenPropertyChecks._
+import org.scalatest.prop.TableDrivenPropertyChecks.*
 import utils.StringUtils.toLowerCaseRemoveSpacesAndReplaceSmartChars
 
 class StringUtilsSpec extends SpecBase {

@@ -20,7 +20,7 @@ import java.util.UUID
 
 import org.apache.pekko.stream.Materializer
 import com.google.inject.Inject
-import play.api.mvc._
+import play.api.mvc.*
 import play.api.mvc.request.{Cell, RequestAttrKey}
 import uk.gov.hmrc.http.{HeaderNames => HMRCHeaderNames, SessionKeys}
 
@@ -29,8 +29,10 @@ import scala.concurrent.{ExecutionContext, Future}
 class SessionIdFilter(
   override val mat: Materializer,
   uuid: => UUID,
-  implicit val ec: ExecutionContext
+  val ec: ExecutionContext
 ) extends Filter {
+
+  private given ExecutionContext = ec
 
   @Inject
   def this(mat: Materializer, ec: ExecutionContext) =

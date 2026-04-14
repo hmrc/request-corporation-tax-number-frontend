@@ -41,7 +41,7 @@ class CheckYourAnswersController @Inject() (
   companyHouseConnector: CompanyHouseConnector,
   submissionService: SubmissionService,
   view: CheckYourAnswersView
-)(implicit executionContext: ExecutionContext)
+)(using executionContext: ExecutionContext)
     extends FrontendController(cc) with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] = (getData andThen requireData) { implicit request =>
@@ -75,7 +75,7 @@ class CheckYourAnswersController @Inject() (
   private def processCompaniesHouseResponse(
     companyDetailsFromUserAnswers: CompanyDetails,
     companyNameAndDateOfCreation: CompanyNameAndDateOfCreation
-  )(implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Result] = {
+  )(using request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Result] = {
 
     val isRecentlyCreated = DateUtils.isCompanyRecentlyCreated(companyNameAndDateOfCreation)
 

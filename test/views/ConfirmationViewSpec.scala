@@ -53,4 +53,8 @@ class ConfirmationViewSpec extends ViewBehaviours {
     link.attr("href") must include("/feedback/CTUTR")
   }
 
+  "ref must return the view itself" in {
+    view.ref mustBe view
+  }
+
 }

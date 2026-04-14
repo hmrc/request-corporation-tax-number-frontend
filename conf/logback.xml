@@ -2,7 +2,7 @@
 <configuration>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/application.log</file>
+        <file>logs/request-corporation-tax-number-frontend.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%date{ISO8601} level=[%level] logger=[%logger] thread=[%thread] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
         </encoder>
@@ -30,9 +30,6 @@
     <logger name="org.eclipse.jetty" level="INFO"/>
 
     <logger name="org.apache.http" level="INFO"/>
-
-    <logger name="org.jboss" level="INFO"/>
-    <logger name="sun.net.www.protocol.http" level="INFO"/>
 
     <logger name="connector" level="TRACE">
         <appender-ref ref="STDOUT"/>

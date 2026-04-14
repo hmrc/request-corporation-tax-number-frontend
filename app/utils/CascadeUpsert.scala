@@ -18,7 +18,7 @@ package utils
 
 import models.cache.CacheMap
 import javax.inject.Singleton
-import play.api.libs.json._
+import play.api.libs.json.*
 
 @Singleton
 class CascadeUpsert {
@@ -26,15 +26,15 @@ class CascadeUpsert {
   val funcMap: Map[String, (JsValue, CacheMap) => CacheMap] =
     Map()
 
-  def apply[A](key: String, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
+  def apply[A](key: String, value: A, originalCacheMap: CacheMap)(using fmt: Format[A]): CacheMap =
     funcMap.get(key).fold(store(key, value, originalCacheMap))(fn => fn(Json.toJson(value), originalCacheMap))
 
-  def addRepeatedValue[A](key: String, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
+  def addRepeatedValue[A](key: String, value: A, originalCacheMap: CacheMap)(using fmt: Format[A]): CacheMap = {
     val values = originalCacheMap.getEntry[Seq[A]](key).getOrElse(Seq()) :+ value
     originalCacheMap copy (data = originalCacheMap.data + (key -> Json.toJson(values)))
   }
 
-  private def store[A](key: String, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
+  private def store[A](key: String, value: A, cacheMap: CacheMap)(using fmt: Format[A]): CacheMap =
     cacheMap copy (data = cacheMap.data + (key -> Json.toJson(value)))
 
 }

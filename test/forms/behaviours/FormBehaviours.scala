@@ -18,13 +18,13 @@ package forms.behaviours
 
 import play.api.data.Form
 import forms.FormSpec
-import models._
+import models.*
 
 trait FormBehaviours extends FormSpec {
 
   val validData: Map[String, String]
 
-  val form: Form[_]
+  val form: Form[?]
 
   def questionForm[A](expectedResult: A) =
     "bind valid values correctly" in {

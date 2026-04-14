@@ -32,8 +32,8 @@ object MappingsSpec {
 
     val values: Set[Foo] = Set(Bar, Baz)
 
-    implicit val fooEnumerable: Enumerable[Foo] =
-      Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    given fooEnumerable: Enumerable[Foo] =
+      Enumerable(values.toSeq.map(v => v.toString -> v)*)
 
   }
 
@@ -41,7 +41,7 @@ object MappingsSpec {
 
 class MappingsSpec extends AnyWordSpec with Matchers with OptionValues with Mappings {
 
-  import MappingsSpec._
+  import MappingsSpec.*
 
   "text" must {
 
@@ -137,6 +137,16 @@ class MappingsSpec extends AnyWordSpec with Matchers with OptionValues with Mapp
       result.errors must contain(FormError("value", "error.required"))
     }
 
+    "not bind a decimal number" in {
+      val result = testForm.bind(Map("value" -> "1.5"))
+      result.errors must contain(FormError("value", "error.wholeNumber"))
+    }
+
+    "not bind a non-numeric value" in {
+      val result = testForm.bind(Map("value" -> "abc"))
+      result.errors must contain(FormError("value", "error.nonNumeric"))
+    }
+
     "unbind a valid value" in {
       val result = testForm.fill(123)
       result.apply("value").value.value mustEqual "123"
@@ -162,6 +172,11 @@ class MappingsSpec extends AnyWordSpec with Matchers with OptionValues with Mapp
     "not bind an empty map" in {
       val result = testForm.bind(Map.empty[String, String])
       result.errors must contain(FormError("value", "error.required"))
+    }
+
+    "unbind a valid value" in {
+      val result = testForm.fill(Bar)
+      result.apply("value").value.value mustEqual "Bar"
     }
   }
 

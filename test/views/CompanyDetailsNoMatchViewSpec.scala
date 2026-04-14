@@ -31,7 +31,7 @@ class CompanyDetailsNoMatchViewSpec extends QuestionViewBehaviours[CompanyDetail
   val view          = app.injector.instanceOf[CompanyDetailsNoMatchView]
   def createView    = () => view()(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => view()(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[?]) => view()(fakeRequest, messages)
 
   "CompanyDetails view" must {
 
@@ -42,6 +42,10 @@ class CompanyDetailsNoMatchViewSpec extends QuestionViewBehaviours[CompanyDetail
       messageKeyPrefix,
       routes.CompanyDetailsNoMatchController.onPageLoad().url
     )
+
+    "ref must return the view itself" in {
+      view.ref mustBe view
+    }
   }
 
 }

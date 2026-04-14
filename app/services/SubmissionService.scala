@@ -23,5 +23,5 @@ import utils.UserAnswers
 import scala.concurrent.Future
 
 trait SubmissionService {
-  def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult]
+  def ctutrSubmission(answers: UserAnswers)(using hc: HeaderCarrier): Future[SubmissionResult]
 }

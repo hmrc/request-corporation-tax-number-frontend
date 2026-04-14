@@ -18,13 +18,13 @@ package controllers
 
 import models.NormalMode
 import play.api.mvc.{Call, MessagesControllerComponents}
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import views.html.IndexView
 
 class IndexControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val indexView: IndexView                      = app.injector.instanceOf[IndexView]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val indexView: IndexView               = app.injector.instanceOf[IndexView]
 
   def call: Call = routes.CompanyDetailsController.onPageLoad(NormalMode)
 

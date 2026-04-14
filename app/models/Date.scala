@@ -16,12 +16,12 @@
 
 package models
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 case class Date(day: Int, month: Int, year: Int) {}
 
 object Date {
-  implicit val format: OFormat[Date] = Json.format[Date]
+  given format: OFormat[Date] = Json.format[Date]
 }
 
 sealed abstract class DatePart
