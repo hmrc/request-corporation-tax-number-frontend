@@ -17,8 +17,8 @@
 package utils
 
 import models.cache.CacheMap
-import identifiers._
-import models._
+import identifiers.*
+import models.*
 
 class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
   def companyDetails: Option[CompanyDetails] = cacheMap.getEntry[CompanyDetails](CompanyDetailsId.toString)

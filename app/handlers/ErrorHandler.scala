@@ -31,7 +31,7 @@ class ErrorHandler @Inject() (
   internalServerErrorView: ErrorTemplateInternalServerErrorView,
   view: ErrorTemplateView,
   val messagesApi: MessagesApi
-)(implicit val ec: ExecutionContext)
+)(using val ec: ExecutionContext)
     extends FrontendErrorHandler with I18nSupport {
 
   override def notFoundTemplate(implicit request: RequestHeader): Future[Html] = Future.successful {

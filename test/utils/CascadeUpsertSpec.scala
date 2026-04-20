@@ -18,7 +18,7 @@ package utils
 
 import base.SpecBase
 import models.cache.CacheMap
-import play.api.libs.json._
+import play.api.libs.json.*
 
 class CascadeUpsertSpec extends SpecBase {
 
@@ -38,6 +38,20 @@ class CascadeUpsertSpec extends SpecBase {
         val cascadeUpsert    = new CascadeUpsert
         val result           = cascadeUpsert("key", "new value", originalCacheMap)
         result.data mustBe Map("key" -> JsString("new value"))
+      }
+    }
+  }
+
+  "using the apply method for a key that has a custom function" when {
+    "the key has a custom function in funcMap" must {
+      "apply that custom function instead of the default store" in {
+        val originalCacheMap    = new CacheMap("id", Map())
+        val customCascadeUpsert = new CascadeUpsert {
+          override val funcMap: Map[String, (JsValue, CacheMap) => CacheMap] =
+            Map("customKey" -> ((json: JsValue, cm: CacheMap) => cm copy (data = cm.data + ("processed" -> json))))
+        }
+        val result              = customCascadeUpsert("customKey", "value", originalCacheMap)
+        result.data mustBe Map("processed" -> JsString("value"))
       }
     }
   }

@@ -21,7 +21,8 @@ import models.SubmissionResponse
 import play.api.Logging
 import play.api.http.Status.OK
 import play.api.libs.json.JsValue
-import uk.gov.hmrc.http.HttpReads.Implicits._
+import play.api.libs.ws.writeableOf_JsValue
+import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 
@@ -32,7 +33,7 @@ class CtutrConnector @Inject() (appConfig: FrontendAppConfig, http: HttpClientV2
 
   def ctutrSubmission(
     submissionJson: JsValue
-  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
+  )(using hc: HeaderCarrier, ec: ExecutionContext): Future[Option[SubmissionResponse]] = {
 
     val submissionUrl = s"${appConfig.ctutrUrl}/request-corporation-tax-number/submission"
     http

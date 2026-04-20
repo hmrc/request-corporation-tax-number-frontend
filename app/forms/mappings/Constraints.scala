@@ -36,10 +36,9 @@ trait Constraints {
         Valid
     }
 
-  protected def minimumValue[A](minimum: A, errorKey: String)(implicit ev: Ordering[A]): Constraint[A] =
+  protected def minimumValue[A](minimum: A, errorKey: String)(using ev: Ordering[A]): Constraint[A] =
     Constraint { input =>
-      import ev._
-
+      import ev.*
       if (input >= minimum) {
         Valid
       } else {
@@ -47,10 +46,9 @@ trait Constraints {
       }
     }
 
-  protected def maximumValue[A](maximum: A, errorKey: String)(implicit ev: Ordering[A]): Constraint[A] =
+  protected def maximumValue[A](maximum: A, errorKey: String)(using ev: Ordering[A]): Constraint[A] =
     Constraint { input =>
-      import ev._
-
+      import ev.*
       if (input <= maximum) {
         Valid
       } else {

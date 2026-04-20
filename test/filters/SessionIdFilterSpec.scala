@@ -22,13 +22,13 @@ import com.google.inject.Inject
 import org.scalatest.OptionValues
 import org.scalatestplus.play.components.OneAppPerSuiteWithComponents
 import play.api.http.{DefaultHttpFilters, HttpFilters}
-import play.api.inject._
+import play.api.inject.*
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.mvc.Results
 import play.api.routing.Router
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import play.api.{Application, BuiltInComponents, BuiltInComponentsFromContext, NoHttpFiltersComponents}
 import uk.gov.hmrc.http.{HeaderNames, SessionKeys}
 
@@ -54,8 +54,7 @@ class SessionIdFilterSpec extends AnyWordSpec with Matchers with OneAppPerSuiteW
 
     val router: Router = {
 
-      import play.api.routing.sird._
-
+      import play.api.routing.sird.*
       Router.from {
 
         case GET(p"/test")  =>

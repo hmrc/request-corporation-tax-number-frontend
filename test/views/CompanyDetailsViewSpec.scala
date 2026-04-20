@@ -32,7 +32,7 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetails] {
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[?]) => view(form, NormalMode)(fakeRequest, messages)
 
   "CompanyDetails view" must {
 
@@ -49,6 +49,10 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetails] {
     behave like pageWithBackLink(createView)
 
     behave like pageWithCorrectHeadingSize(createView)
+
+    "ref must return the view itself" in {
+      view.ref mustBe view
+    }
   }
 
 }

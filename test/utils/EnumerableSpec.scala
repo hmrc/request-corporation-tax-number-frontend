@@ -17,7 +17,7 @@
 package utils
 
 import org.scalatest.{EitherValues, OptionValues}
-import play.api.libs.json._
+import play.api.libs.json.*
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -31,8 +31,8 @@ object EnumerableSpec {
 
     val values: Set[Foo] = Set(Bar, Baz)
 
-    implicit val fooEnumerable: Enumerable[Foo] =
-      Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    given fooEnumerable: Enumerable[Foo] =
+      Enumerable(values.toSeq.map(v => v.toString -> v)*)
 
   }
 
@@ -40,7 +40,7 @@ object EnumerableSpec {
 
 class EnumerableSpec extends AnyWordSpec with Matchers with EitherValues with OptionValues with Enumerable.Implicits {
 
-  import EnumerableSpec._
+  import EnumerableSpec.*
 
   ".reads" must {
 
@@ -56,6 +56,12 @@ class EnumerableSpec extends AnyWordSpec with Matchers with EitherValues with Op
 
     "fail to bind for invalid values" in {
       Json.fromJson[Foo](JsString("invalid")).asEither.left.value must contain(
+        JsPath -> Seq(JsonValidationError("error.invalid"))
+      )
+    }
+
+    "fail to bind for non-string JSON values" in {
+      Json.fromJson[Foo](JsNumber(1)).asEither.left.value must contain(
         JsPath -> Seq(JsonValidationError("error.invalid"))
       )
     }

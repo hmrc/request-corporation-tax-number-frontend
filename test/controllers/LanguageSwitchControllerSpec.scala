@@ -19,12 +19,12 @@ package controllers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.{Cookie, Cookies, MessagesControllerComponents}
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import uk.gov.hmrc.play.language.LanguageUtils
 
 class LanguageSwitchControllerSpec extends ControllerSpecBase with GuiceOneAppPerSuite {
 
-  implicit val cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
+  given cc: MessagesControllerComponents = app.injector.instanceOf[MessagesControllerComponents]
 
   val langUtils: LanguageUtils = app.injector.instanceOf[LanguageUtils]
 

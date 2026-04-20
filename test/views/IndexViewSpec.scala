@@ -83,4 +83,8 @@ class IndexViewSpec extends ViewBehaviours with GuiceOneAppPerSuite {
     assertNotRenderedByClass(doc, "govuk-notification-banner")
   }
 
+  "ref must return the view itself" in {
+    viewWithoutBanner.ref mustBe viewWithoutBanner
+  }
+
 }

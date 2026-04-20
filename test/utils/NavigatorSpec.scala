@@ -18,9 +18,9 @@ package utils
 
 import base.SpecBase
 import controllers.routes
-import identifiers._
-import models._
-import org.mockito.Mockito._
+import identifiers.*
+import models.*
+import org.mockito.Mockito.*
 
 class NavigatorSpec extends SpecBase {
 

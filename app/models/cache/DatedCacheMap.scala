@@ -18,7 +18,6 @@ package models.cache
 
 import play.api.libs.json.{Format, JsValue, Json, OFormat}
 import uk.gov.hmrc.mongo.play.json.formats.{MongoFormats, MongoJavatimeFormats}
-import scala.language.implicitConversions
 
 import java.time.Instant
 
@@ -31,8 +30,8 @@ case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: In
 }
 
 object DatedCacheMap {
-  implicit def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
+  given Conversion[CacheMap, DatedCacheMap] = cacheMap => DatedCacheMap(cacheMap.id, cacheMap.data)
 
-  implicit val instantFormat: Format[Instant]  = MongoJavatimeFormats.instantFormat
-  implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
+  given instantFormat: Format[Instant]  = MongoJavatimeFormats.instantFormat
+  given formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 }

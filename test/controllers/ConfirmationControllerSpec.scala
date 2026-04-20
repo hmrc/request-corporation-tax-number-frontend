@@ -16,15 +16,15 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.*
 import play.api.mvc.MessagesControllerComponents
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import views.html.ConfirmationView
 
 class ConfirmationControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: ConfirmationView                    = app.injector.instanceOf[ConfirmationView]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view: ConfirmationView             = app.injector.instanceOf[ConfirmationView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) =
     new ConfirmationController(messagesApi, dataRetrievalAction, cc, new DataRequiredActionImpl, view)

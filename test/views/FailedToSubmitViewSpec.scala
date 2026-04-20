@@ -28,6 +28,10 @@ class FailedToSubmitViewSpec extends ViewBehaviours {
 
   "FailedToSubmit view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    "ref must return the view itself" in {
+      view.ref mustBe view
+    }
   }
 
 }

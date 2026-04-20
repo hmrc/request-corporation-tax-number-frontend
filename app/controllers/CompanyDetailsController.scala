@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.CompanyDetailsFormProvider
 import identifiers.CompanyDetailsId
 import models.{CompanyDetails, Mode}
@@ -40,7 +40,7 @@ class CompanyDetailsController @Inject() (
   formProvider: CompanyDetailsFormProvider,
   cc: MessagesControllerComponents,
   view: CompanyDetailsView
-)(implicit executionContext: ExecutionContext)
+)(using executionContext: ExecutionContext)
     extends FrontendController(cc) with I18nSupport with WithUnsafeDefaultFormBinding {
 
   val form: Form[CompanyDetails] = formProvider()
@@ -57,7 +57,7 @@ class CompanyDetailsController @Inject() (
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, mode))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors, mode))),
         value =>
           dataCacheConnector
             .save[CompanyDetails](request.externalId, CompanyDetailsId.toString, value)

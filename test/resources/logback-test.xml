@@ -4,7 +4,13 @@
             <pattern>%date{ISO8601} level=[%level] logger=[%logger] thread=[%thread] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
         </encoder>
     </appender>
-    <root level="WARN">
+
+    <logger name="org.apache" level="INFO"/>
+    <logger name="org.shaded" level="INFO"/>
+    <logger name="org.mongodb" level="INFO"/>
+
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>
+
 </configuration>

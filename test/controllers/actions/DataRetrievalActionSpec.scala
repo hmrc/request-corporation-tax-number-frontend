@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import models.requests.OptionalDataRequest
 import models.cache.CacheMap
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.RecoverMethods
 import org.scalatest.concurrent.ScalaFutures
 import play.api.mvc.{BodyParsers, Request}
@@ -31,7 +31,7 @@ import scala.concurrent.Future
 
 class DataRetrievalActionSpec extends SpecBase with ScalaFutures with RecoverMethods {
 
-  implicit val parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
+  given parser: BodyParsers.Default = injector.instanceOf[BodyParsers.Default]
 
   class Harness(dataCacheConnector: DataCacheConnector) extends DataRetrievalActionImpl(dataCacheConnector, parser) {
     def callTransform[A](request: Request[A]): Future[OptionalDataRequest[A]] = transform(request)

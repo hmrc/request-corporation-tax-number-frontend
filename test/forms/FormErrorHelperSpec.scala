@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package filters
+package forms
 
-import org.apache.pekko.stream.Materializer
-import com.google.inject.Inject
-import play.api.mvc.{Filter, RequestHeader, Result}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import play.api.data.FormError
 
-import scala.concurrent.{ExecutionContext, Future}
+class FormErrorHelperSpec extends AnyWordSpec with Matchers {
 
-class AntiMimeFilter @Inject() (val mat: Materializer)(implicit ec: ExecutionContext) extends Filter {
+  object TestHelper extends FormErrorHelper
 
-  override def apply(f: RequestHeader => Future[Result])(rh: RequestHeader): Future[Result] =
-    f(rh).map(_.withHeaders("X-Content-Type-Options" -> "nosniff"))
+  "produceError" must {
+
+    "return a Left containing the correct FormError" in {
+      val result = TestHelper.produceError("fieldName", "error.key")
+      result mustBe Left(Seq(FormError("fieldName", "error.key")))
+    }
+  }
 
 }

@@ -17,18 +17,18 @@
 package controllers
 
 import connectors.FakeDataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.CompanyDetailsFormProvider
 import models.{CompanyDetails, NormalMode}
 import play.api.data.Form
 import play.api.mvc.{Call, MessagesControllerComponents}
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import utils.FakeNavigator
 import views.html.CompanyDetailsView
 
 class CompanyDetailsControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
   def onwardRoute: Call = routes.IndexController.onPageLoad()
 
@@ -47,7 +47,7 @@ class CompanyDetailsControllerSpec extends ControllerSpecBase {
       view
     )
 
-  def viewAsString(form: Form[_] = form): String = view(form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[?] = form): String = view(form, NormalMode)(fakeRequest, messages).toString
 
   "CompanyDetails Controller" must {
 

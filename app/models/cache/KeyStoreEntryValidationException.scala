@@ -16,12 +16,12 @@
 
 package models.cache
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 class KeyStoreEntryValidationException(
   val key: String,
   val invalidJson: JsValue,
-  val readingAs: Class[_],
+  val readingAs: Class[?],
   val errors: scala.collection.Seq[
     (JsPath, scala.collection.Seq[JsonValidationError])
   ] // default Seq for Scala 2.13 is scala.collection.immutable.Seq - this keeps it the same as JsResult

@@ -17,9 +17,9 @@
 package connectors
 
 import base.SpecBase
-import models._
+import models.*
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.mockito.stubbing.OngoingStubbing
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status.{INTERNAL_SERVER_ERROR, NOT_FOUND, OK, TOO_MANY_REQUESTS}
@@ -132,7 +132,7 @@ class CompanyHouseConnectorSpec extends SpecBase with ScalaFutures {
 
       val expectedParseErrorMessage =
         "Error parsing CompanyNameAndDateOfCreation: " +
-          "(,List(JsonValidationError(List('company_name' is undefined on object. Available keys are ''),List())))"
+          "(,List(JsonValidationError(List('company_name' is undefined on object. Available keys are ''),ArraySeq())))"
 
       result mustBe Left(CompaniesHouseJsonResponseParseError(expectedParseErrorMessage))
     }

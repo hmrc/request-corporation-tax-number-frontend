@@ -17,10 +17,10 @@
 package controllers
 
 import controllers.actions.{DataRequiredActionImpl, DataRetrievalAction}
-import models._
+import models.*
 import org.mockito.Mockito.when
 import play.api.mvc.{Call, MessagesControllerComponents}
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import services.SubmissionService
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.UserAnswers
@@ -33,19 +33,19 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
   object FakeSuccessfulSubmissionService extends SubmissionService {
 
-    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] =
+    override def ctutrSubmission(answers: UserAnswers)(using hc: HeaderCarrier): Future[SubmissionResult] =
       Future.successful(SubmissionSuccessful)
 
   }
 
   object FakeFailingSubmissionService extends SubmissionService {
 
-    override def ctutrSubmission(answers: UserAnswers)(implicit hc: HeaderCarrier): Future[SubmissionResult] =
+    override def ctutrSubmission(answers: UserAnswers)(using hc: HeaderCarrier): Future[SubmissionResult] =
       Future.successful(SubmissionFailed)
 
   }
 
-  implicit val cc: MessagesControllerComponents  = injector.instanceOf[MessagesControllerComponents]
+  given cc: MessagesControllerComponents         = injector.instanceOf[MessagesControllerComponents]
   val checkYourAnswersView: CheckYourAnswersView = app.injector.instanceOf[CheckYourAnswersView]
   val noMatchView: CompanyDetailsNoMatchView     = app.injector.instanceOf[CompanyDetailsNoMatchView]
 
@@ -78,6 +78,13 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
       status(result)           mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpired.url)
+    }
+
+    "Return 303 to session controller when user answers are present but incomplete" in {
+      val result = testController(fakeDataRetrievalActionWithEmptyCacheMap).onPageLoad()(fakeRequest)
+
+      status(result)           mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.SessionController.onPageLoad().url)
     }
   }
 

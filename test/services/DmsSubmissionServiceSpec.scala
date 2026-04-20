@@ -18,10 +18,10 @@ package services
 
 import base.SpecBase
 import connectors.CtutrConnector
-import models._
+import models.*
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.http.HeaderCarrier
@@ -30,12 +30,12 @@ import utils.MockUserAnswers
 
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.{ExecutionContext, Future}
-import scala.language.postfixOps
 
 class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
 
-  implicit val hcCaptor: ArgumentCaptor[_] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-  implicit val ecCaptor: ArgumentCaptor[_] = ArgumentCaptor.forClass(classOf[ExecutionContext])
+  given hcCaptor: ArgumentCaptor[?] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+  given ecCaptor: ArgumentCaptor[?] = ArgumentCaptor.forClass(classOf[ExecutionContext])
+  given hc: HeaderCarrier           = HeaderCarrier()
 
   ".ctutrSubmission" when {
 
@@ -47,16 +47,15 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
         val answers = MockUserAnswers.minimalValidUserAnswers()
 
         val mockCtutrConnector = mock(classOf[CtutrConnector])
-        when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(
+        when(mockCtutrConnector.ctutrSubmission(any())(using any(), any())) thenReturn Future.successful(
           Some(SubmissionResponse("id", "filename"))
         )
 
-        val service                    = new DmsSubmissionService(mockCtutrConnector, mockAuditConnector)
-        implicit val hc: HeaderCarrier = new HeaderCarrier
+        val service = new DmsSubmissionService(mockCtutrConnector, mockAuditConnector)
 
         val futureResult = service.ctutrSubmission(answers)
 
-        whenReady(futureResult, Timeout(5 seconds)) { result =>
+        whenReady(futureResult, Timeout(5.seconds)) { result =>
           result mustBe SubmissionSuccessful
         }
       }
@@ -70,10 +69,9 @@ class DmsSubmissionServiceSpec extends SpecBase with ScalaFutures {
         val answers = MockUserAnswers.minimalValidUserAnswers()
 
         val mockCtutrConnector = mock(classOf[CtutrConnector])
-        when(mockCtutrConnector.ctutrSubmission(any())(any(), any())) thenReturn Future.successful(None)
+        when(mockCtutrConnector.ctutrSubmission(any())(using any(), any())) thenReturn Future.successful(None)
 
-        val service                    = new DmsSubmissionService(mockCtutrConnector, mockAuditConnector)
-        implicit val hc: HeaderCarrier = new HeaderCarrier
+        val service = new DmsSubmissionService(mockCtutrConnector, mockAuditConnector)
 
         val futureResult = service.ctutrSubmission(answers)
 

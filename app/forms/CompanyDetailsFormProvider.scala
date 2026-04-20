@@ -19,7 +19,7 @@ package forms
 import javax.inject.Inject
 import forms.mappings.Constraints
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.*
 import models.CompanyDetails
 
 class CompanyDetailsFormProvider @Inject() extends FormErrorHelper with Constraints {
@@ -46,7 +46,7 @@ class CompanyDetailsFormProvider @Inject() extends FormErrorHelper with Constrai
       "companyName"            -> text.verifying(
         firstError(nonEmpty(companyNameBlank), maxLength(companyNameMaxLength, companyNameLengthError))
       )
-    )(CompanyDetails.apply)(CompanyDetails.unapply)
+    )(CompanyDetails.apply)(cd => Some((cd.companyReferenceNumber, cd.companyName)))
   )
 
 }

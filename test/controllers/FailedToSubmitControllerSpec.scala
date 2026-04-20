@@ -17,13 +17,13 @@
 package controllers
 
 import play.api.mvc.MessagesControllerComponents
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import views.html.FailedToSubmitView
 
 class FailedToSubmitControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: FailedToSubmitView                  = app.injector.instanceOf[FailedToSubmitView]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view: FailedToSubmitView           = app.injector.instanceOf[FailedToSubmitView]
 
   def controller() = new FailedToSubmitController(cc, view, messagesApi)
 

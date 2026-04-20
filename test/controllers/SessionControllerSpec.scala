@@ -17,13 +17,13 @@
 package controllers
 
 import play.api.mvc.MessagesControllerComponents
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import views.html.SessionExpiredView
 
 class SessionControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: SessionExpiredView                  = app.injector.instanceOf[SessionExpiredView]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view: SessionExpiredView           = app.injector.instanceOf[SessionExpiredView]
 
   "SessionExpired Controller" must {
     "return 200 for a GET" in {

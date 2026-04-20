@@ -30,6 +30,10 @@ class SessionExpiredViewSpec extends ViewBehaviours {
   "Session Expired view" must {
 
     behave like normalPage(createView, "session_expired", "guidance")
+
+    "ref must return the view itself" in {
+      view.ref mustBe view
+    }
   }
 
 }

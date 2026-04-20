@@ -16,15 +16,15 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.*
 import play.api.mvc.MessagesControllerComponents
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import views.html.CompanyDetailsNoMatchView
 
 class CompanyDetailsNoMatchControllerSpec extends ControllerSpecBase {
 
-  implicit val cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-  val view: CompanyDetailsNoMatchView           = app.injector.instanceOf[CompanyDetailsNoMatchView]
+  given cc: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  val view: CompanyDetailsNoMatchView    = app.injector.instanceOf[CompanyDetailsNoMatchView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = fakeDataRetrievalActionWithEmptyCacheMap) =
     new CompanyDetailsNoMatchController(messagesApi, dataRetrievalAction, cc, new DataRequiredActionImpl, view)
