@@ -17,7 +17,6 @@
 @import config.FrontendAppConfig
 
 @this(
-        appConfig: FrontendAppConfig,
         main_template: MainTemplate,
         govukButton : GovukButton
 )
@@ -30,13 +29,9 @@
 
     <p class="govuk-body">@messages("session_expired.guidance")</p>
 
-    <div class="section">
-     @govukButton(Button(
-      inputType = Some("submit"),
-      value = Some(messages("session_expired.button")),
+    @govukButton(Button(
       content = Text(messages("session_expired.button")),
       attributes = Map("id" -> "continue"),
       href = Some(startPage.url)
-     ))
-    </div>
+    ))
 }

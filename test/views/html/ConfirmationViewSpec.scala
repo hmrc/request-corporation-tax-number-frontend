@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package views
+package views.html
 
+import play.twirl.api.Html
 import views.behaviours.ViewBehaviours
 import views.html.ConfirmationView
 
 class ConfirmationViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "confirmation"
-  val view             = app.injector.instanceOf[ConfirmationView]
+  val messageKeyPrefix: String = "confirmation"
+  val view: ConfirmationView   = app.injector.instanceOf[ConfirmationView]
 
-  def createView = () => view()(fakeRequest, messages)
+  def createView: () => Html = () => view()(fakeRequest, messages)
 
   "Confirmation view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -55,6 +56,16 @@ class ConfirmationViewSpec extends ViewBehaviours {
 
   "ref must return the view itself" in {
     view.ref mustBe view
+  }
+
+  "render via render" in {
+    val html = view.render(fakeRequest, messages)
+    html.toString must include(messages("confirmation.heading"))
+  }
+
+  "render via f" in {
+    val html = view.f()(fakeRequest, messages)
+    html.toString must include(messages("confirmation.heading"))
   }
 
 }

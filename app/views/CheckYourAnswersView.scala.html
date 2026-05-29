@@ -19,7 +19,6 @@
 @import models.NormalMode
 
 @this(
-        appConfig: FrontendAppConfig,
         main_template: MainTemplate,
         formHelper: FormWithCSRF,
         govukButton : GovukButton
@@ -34,13 +33,10 @@
 
         @components.answer_section(answerSection)
 
-        <div class="section">
         @govukButton(Button(
             inputType = Some("submit"),
-            value = Some(messages("site.submit")),
             content = Text(messages("site.submit")),
             attributes = Map("id" -> "submit")
         ))
-        </div>
     }
 }

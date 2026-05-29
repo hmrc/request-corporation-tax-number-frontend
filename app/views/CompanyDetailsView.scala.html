@@ -67,7 +67,7 @@
             label = Label(
                 isPageHeading = false,
                 content = Text(messages("companyDetails.companyReferenceNumber")),
-                classes = "bold"
+                classes = "govuk-!-font-weight-bold"
             ),
             hint = Some(Hint(
                 content = Text(messages("companyDetails.companyReferenceNumber.hint"))
@@ -88,20 +88,17 @@
             label = Label(
                 isPageHeading = false,
                 content = Text(messages("companyDetails.companyName")),
-                classes = "bold"
+                classes = "govuk-!-font-weight-bold"
             ),
             hint = Some(Hint(
                 content = Text(messages("companyDetails.companyName.hint"))
             ))
         ))
 
-        <div class="section">
         @govukButton(Button(
             inputType = Some("submit"),
-            value = Some(messages("site.continue")),
             content = Text(messages("site.continue")),
             attributes = Map("id" -> "submit")
         ))
-        </div>
     }
 }

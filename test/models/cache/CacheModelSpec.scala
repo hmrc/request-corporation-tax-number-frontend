@@ -16,6 +16,7 @@
 
 package models.cache
 
+import scala.language.implicitConversions
 import base.SpecBase
 import play.api.libs.json.{JsNumber, JsString, Json}
 

@@ -19,6 +19,7 @@
 @this(
         appConfig: FrontendAppConfig,
         main_template: MainTemplate,
+        govukPanel: GovukPanel,
         hmrcNewTabLink: HmrcNewTabLink
 )
 
@@ -26,11 +27,11 @@
 
 @main_template(title = messages("confirmation.title")){
 
-    <div class="govuk-panel govuk-panel--confirmation">
-        @components.heading("confirmation.heading", "govuk-panel__title")
-    </div>
+    @govukPanel(Panel(
+        title = Text(messages("confirmation.heading"))
+    ))
 
-    <h2 class="govuk-heading-m govuk-form-group">@messages("confirmation.whatHappensNext.title")</h2>
+    <h2 class="govuk-heading-m">@messages("confirmation.whatHappensNext.title")</h2>
 
     <p class="govuk-body">@messages("confirmation.whatHappensNext.line1")</p>
 
@@ -42,7 +43,5 @@
         )).
     </p>
 
-    <div class="govuk-form-group">
-        <p class="govuk-body"><a id="survey-link" class="govuk-link" href="@appConfig.feedbackSurveyUrl">@messages("confirmation.survey.linkText")</a> @messages("confirmation.survey.time")</p>
-    </div>
+    <p class="govuk-body"><a id="survey-link" class="govuk-link" href="@appConfig.feedbackSurveyUrl">@messages("confirmation.survey.linkText")</a> @messages("confirmation.survey.time")</p>
 }

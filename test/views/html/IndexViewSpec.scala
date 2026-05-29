@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package views
+package views.html
 
 import controllers.routes
 import models.NormalMode
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Call
-import views.behaviours.ViewBehaviours
+import views.ViewSpecBase
+import views.behaviours.*
 import views.html.IndexView
 
 class IndexViewSpec extends ViewBehaviours with GuiceOneAppPerSuite {
@@ -85,6 +86,16 @@ class IndexViewSpec extends ViewBehaviours with GuiceOneAppPerSuite {
 
   "ref must return the view itself" in {
     viewWithoutBanner.ref mustBe viewWithoutBanner
+  }
+
+  "render via render" in {
+    val html = viewWithoutBanner.render(call, fakeRequest, messages)
+    html.toString must include(messages("index.heading"))
+  }
+
+  "render via f" in {
+    val html = viewWithoutBanner.f(call)(fakeRequest, messages)
+    html.toString must include(messages("index.heading"))
   }
 
 }

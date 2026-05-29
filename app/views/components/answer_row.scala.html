@@ -19,7 +19,7 @@
 @(row: AnswerRow)(implicit messages: Messages)
 
 <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key tabular-data__data tabular-data__data--6-12 bold-small">@messages(row.label)</dt>
+    <dt class="govuk-summary-list__key govuk-!-width-one-half">@messages(row.label)</dt>
     <dd class="govuk-summary-list__value">
     @if(row.answerIsMessageKey){
         @messages(row.answer)
