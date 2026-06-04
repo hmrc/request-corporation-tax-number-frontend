@@ -73,10 +73,6 @@ class FrontendAppConfigSpec extends SpecBase {
       appConfig.ctutrUrl mustBe "http://localhost:9201"
     }
 
-    "have the correct languageTranslationEnabled" in {
-      appConfig.languageTranslationEnabled mustBe true
-    }
-
     "have the correct timeOutSeconds" in {
       appConfig.timeOutSeconds mustBe 900
     }

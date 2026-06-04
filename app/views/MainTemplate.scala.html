@@ -15,36 +15,22 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukHeader, GovukLayout}
-@import views.html.helper.CSPNonce
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.{HmrcStandardPageParams, ServiceURLs, TemplateOverrides}
 
 @this(
         appConfig: FrontendAppConfig,
-        govukLayout: GovukLayout,
-        header: GovukHeader,
-        hmrcHead: HmrcHead,
-        hmrcStandardHeader: HmrcStandardHeader,
-        hmrcStandardFooter: HmrcStandardFooter,
-        hmrcScripts: HmrcScripts,
-        hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper,
-        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
+        hmrcStandardPage: HmrcStandardPage,
         hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper,
-        hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
-        govukBackLink : GovukBackLink
+        hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper
 )
 
 @(
         title: String,
-        beforeContentHtml: Option[Html] = None,
         hasTimeOut: Boolean = true,
         backLink: Option[String] = None
 )(mainContent: Html)(implicit request: RequestHeader, messages: Messages)
 
-@head = {
-    <meta name="format-detection" content="telephone=no" />
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/requestcorporationtaxnumberfrontend-app.css")' />
-    <script @{CSPNonce.attr} src='@routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.min.js")'> </script>
-
+@additionalHead = {
     @if(hasTimeOut && appConfig.enableRefresh) {
         @hmrcTimeoutDialogHelper(
             signOutUrl = controllers.routes.SessionController.onPageLoad().url,
@@ -59,49 +45,25 @@
     }
 }
 
-@beforeContentWithLanguageToggle = {
-
-    <div>
-        @hmrcLanguageSelectHelper()
-        @if(backLink.isDefined) {
-            @govukBackLink(BackLink(
-                href = backLink.get,
-                content = Text(messages("companyDetails.button.back")),
-                classes = "js-visible govuk-back-link",
-                attributes = Map("id" -> "back")
-            ))
-        }
-    </div>
-    @beforeContentHtml
-}
-
-@scripts = {
-    <script type="module" @{CSPNonce.attr} src='@controllers.routes.Assets.versioned("javascripts/requestcorporationtaxnumberfrontend-app.js")'></script>
-}
-
 @content = {
-        <div id="content">
-            <div class="content__body">
-                @mainContent
-
-                <div class="govuk-form-group">
-                @hmrcReportTechnicalIssueHelper()
-                </div>
-            </div>
-        </div>
+    @mainContent
+    <div class="govuk-!-margin-top-6">
+        @hmrcReportTechnicalIssueHelper()
+    </div>
 }
 
-@govukLayout(
+@hmrcStandardPage(HmrcStandardPageParams(
     pageTitle = Some(title),
-    headBlock = Some(hmrcHead(
-        headBlock = Some(head))),
-        headerBlock = Some(hmrcStandardHeader(
-            phaseBanner = None,
-            serviceName = Some(messages("service.name")),
-            serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url),
-            isWelshTranslationAvailable = true
-        )),
-    beforeContentBlock = Some(beforeContentWithLanguageToggle),
-    scriptsBlock = Some(hmrcScripts(scriptsBlock = Some(scripts))),
-    footerBlock = Some(hmrcStandardFooter())
-)(content)
+    serviceName = Some(messages("service.name")),
+    isWelshTranslationAvailable = true,
+    serviceURLs = ServiceURLs(
+        serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url)
+    ),
+    backLink = backLink.map { href => BackLink(
+        href = href,
+        content = Text(messages("companyDetails.button.back")),
+        attributes = Map("id" -> "back"))},
+    templateOverrides = TemplateOverrides(
+        additionalHeadBlock = Some(additionalHead)
+    )
+))(content)

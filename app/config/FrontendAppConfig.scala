@@ -45,9 +45,6 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
 
   lazy val ctutrUrl: String = servicesConfig.baseUrl("request-corporation-tax-number")
 
-  lazy val languageTranslationEnabled: Boolean =
-    configuration.get[Boolean]("microservice.services.features.welsh-translation")
-
   lazy val timeOutSeconds: Int          = configuration.get[Int]("sessionTimeout.timeoutSeconds")
   lazy val timeOutCountDownSeconds: Int = configuration.get[Int]("sessionTimeout.time-out-countdown-seconds")
   lazy val refreshInterval: Int         = timeOutSeconds + 10

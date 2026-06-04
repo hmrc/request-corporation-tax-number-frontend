@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package views
+package views.html
 
+import org.jsoup.nodes.Document
+import play.twirl.api.Html
 import views.behaviours.ViewBehaviours
 import views.html.CompanyRegisteredView
 
 class CompanyRegisteredViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "companyRegistered"
-  val view             = app.injector.instanceOf[CompanyRegisteredView]
-  val doc              = asDocument(createView())
+  val messageKeyPrefix: String    = "companyRegistered"
+  val view: CompanyRegisteredView = app.injector.instanceOf[CompanyRegisteredView]
+  val doc: Document               = asDocument(createView())
 
-  def createView = () => view()(fakeRequest, messages)
+  def createView: () => Html = () => view()(fakeRequest, messages)
 
   "company registered view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -66,6 +68,16 @@ class CompanyRegisteredViewSpec extends ViewBehaviours {
 
   "ref must return the view itself" in {
     view.ref mustBe view
+  }
+
+  "render via render" in {
+    val html = view.render(fakeRequest, messages)
+    html.toString must include(messages("companyRegistered.heading"))
+  }
+
+  "render via f" in {
+    val html = view.f()(fakeRequest, messages)
+    html.toString must include(messages("companyRegistered.heading"))
   }
 
 }

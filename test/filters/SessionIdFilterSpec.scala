@@ -120,4 +120,13 @@ class SessionIdFilterSpec extends AnyWordSpec with Matchers with OneAppPerSuiteW
     }
   }
 
+  "the  secondary constructor" must {
+    "construct a SessionIdFilter using a randomly generated UUID" in {
+      val mat = app.injector.instanceOf[org.apache.pekko.stream.Materializer]
+      val ec  = app.injector.instanceOf[scala.concurrent.ExecutionContext]
+      val f   = new SessionIdFilter(mat, ec)
+      f.mat mustBe mat
+    }
+  }
+
 }
