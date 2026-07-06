@@ -55,9 +55,9 @@ class CtutrConnectorSpec extends SpecBase with ScalaFutures {
           HttpResponse(
             200,
             """ |{
-            |  "id": "id",
-            |  "filename": "filename"
-            |}""".stripMargin
+              |  "id": "id",
+              |  "filename": "filename"
+              |}""".stripMargin
           )
         )
       )

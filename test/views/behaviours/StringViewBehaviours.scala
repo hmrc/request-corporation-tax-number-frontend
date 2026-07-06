@@ -26,7 +26,6 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
   def stringPage(
     createView: Form[String] => HtmlFormat.Appendable,
     messageKeyPrefix: String,
-    expectedFormAction: String,
     expectedHintKey: Option[String] = None
   ): Unit =
 

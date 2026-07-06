@@ -30,7 +30,6 @@ import views.html.CompanyDetailsView
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.play.bootstrap.controller.WithUnsafeDefaultFormBinding
 
 class CompanyDetailsController @Inject() (
   override val messagesApi: MessagesApi,
@@ -41,7 +40,7 @@ class CompanyDetailsController @Inject() (
   cc: MessagesControllerComponents,
   view: CompanyDetailsView
 )(using executionContext: ExecutionContext)
-    extends FrontendController(cc) with I18nSupport with WithUnsafeDefaultFormBinding {
+    extends FrontendController(cc) with I18nSupport {
 
   val form: Form[CompanyDetails] = formProvider()
 
