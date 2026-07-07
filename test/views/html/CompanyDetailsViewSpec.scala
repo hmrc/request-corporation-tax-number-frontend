@@ -43,8 +43,6 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetails] {
 
     behave like pageWithTextFields(
       createViewUsingForm,
-      messageKeyPrefix,
-      routes.CompanyDetailsController.onSubmit(NormalMode).url,
       "companyName",
       "companyReferenceNumber"
     )

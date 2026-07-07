@@ -26,12 +26,17 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 @Singleton
 class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig: ServicesConfig) {
 
-  private lazy val contactHost             = configuration.get[String]("contact-frontend.host")
-  private val contactFormServiceIdentifier = "requestcorporationtaxnumberfrontend"
+  private val contactFormServiceIdentifier: String = "requestcorporationtaxnumberfrontend"
 
-  lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
-  lazy val reportAProblemNonJSUrl   = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
-  lazy val betaFeedbackUrl          = s"$contactHost/contact/beta-feedback"
+  private lazy val contactHost: String = configuration.get[String]("contact-frontend.host")
+
+  lazy val reportAProblemPartialUrl: String =
+    s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
+
+  lazy val reportAProblemNonJSUrl: String =
+    s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+
+  lazy val betaFeedbackUrl: String = s"$contactHost/contact/beta-feedback"
 
   lazy val loginUrl: String                 = configuration.get[String]("urls.login")
   lazy val loginContinueUrl: String         = configuration.get[String]("urls.loginContinue")

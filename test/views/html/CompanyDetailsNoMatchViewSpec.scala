@@ -38,9 +38,7 @@ class CompanyDetailsNoMatchViewSpec extends QuestionViewBehaviours[CompanyDetail
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithTextFields(
-      createViewUsingForm,
-      messageKeyPrefix,
-      routes.CompanyDetailsNoMatchController.onPageLoad().url
+      createViewUsingForm
     )
 
     "render the try-again link pointing to CompanyDetails NormalMode" in {
