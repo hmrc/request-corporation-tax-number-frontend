@@ -98,4 +98,9 @@ class IndexViewSpec extends ViewBehaviours with GuiceOneAppPerSuite {
     html.toString must include(messages("index.heading"))
   }
 
+  "Page should contain user research banner component" in {
+    val doc = asDocument(viewWithoutBanner(call)(fakeRequest, messages))
+    assertRenderedByClass(doc, "hmrc-user-research-banner")
+  }
+
 }
