@@ -126,3 +126,6 @@ ctutr.timeoutDialog.minute = munud
 ctutr.timeoutDialog.button = Parhau i fod wedi’ch mewngofnodi
 ctutr.timeoutDialog.p1 = Am resymau diogelwch, cewch eich allgofnodi o’r gwasanaeth hwn ymhen:
 ctutr.timeoutDialog.signOutButtonText = Allgofnodi
+
+userzoom.survey.banner.title = Helpu i wella’r gwasanaeth hwn
+userzoom.survey.banner.link.desc = Llenwch arolwg byr (yn agor tab newydd)

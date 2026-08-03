@@ -37,6 +37,7 @@
 
 @main_template(title = messages("index.title")) {
 
+    @components.user_research_banner(appConfig.userZoomSurveyUrl)
     @if(appConfig.showDelayBanner) {
         @govukNotificationBanner(NotificationBanner(
             title = Text(messages("index.serviceDelay.title")),

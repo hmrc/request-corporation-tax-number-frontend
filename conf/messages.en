@@ -129,3 +129,6 @@ ctutr.timeoutDialog.minute= minute
 ctutr.timeoutDialog.button= Stay signed in
 ctutr.timeoutDialog.p1 = For security reasons, you will be signed out of this service in:
 ctutr.timeoutDialog.signOutButtonText= Sign out
+
+userzoom.survey.banner.title = Help to improve this service
+userzoom.survey.banner.link.desc = Fill out a short survey (opens in a new tab)
