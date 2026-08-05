@@ -50,6 +50,8 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
 
   lazy val ctutrUrl: String = servicesConfig.baseUrl("request-corporation-tax-number")
 
+  lazy val userZoomSurveyUrl: String = configuration.get[String]("urls.user-zoom-survey-url")
+
   lazy val timeOutSeconds: Int          = configuration.get[Int]("sessionTimeout.timeoutSeconds")
   lazy val timeOutCountDownSeconds: Int = configuration.get[Int]("sessionTimeout.time-out-countdown-seconds")
   lazy val refreshInterval: Int         = timeOutSeconds + 10
