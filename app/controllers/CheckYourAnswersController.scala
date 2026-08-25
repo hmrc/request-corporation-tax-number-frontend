@@ -60,16 +60,15 @@ class CheckYourAnswersController @Inject() (
     result.getOrElse(Redirect(routes.SessionController.onPageLoad()))
   }
 
-  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async {
-    implicit request: DataRequest[AnyContent] =>
-      val companyDetailsFromUserAnswers: CompanyDetails = Submission(request.userAnswers).companyDetails
+  def onSubmit(): Action[AnyContent] = (getData andThen requireData).async { implicit request =>
+    val companyDetailsFromUserAnswers: CompanyDetails = Submission(request.userAnswers).companyDetails
 
-      companyHouseConnector.getCompanyDetails(companyDetailsFromUserAnswers).flatMap {
-        case Right(companyNameAndDateOfCreation) =>
-          processCompaniesHouseResponse(companyDetailsFromUserAnswers, companyNameAndDateOfCreation)
-        case Left(_)                             =>
-          Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
-      }
+    companyHouseConnector.getCompanyDetails(companyDetailsFromUserAnswers).flatMap {
+      case Right(companyNameAndDateOfCreation) =>
+        processCompaniesHouseResponse(companyDetailsFromUserAnswers, companyNameAndDateOfCreation)
+      case Left(_)                             =>
+        Future.successful(Redirect(routes.FailedToSubmitController.onPageLoad()))
+    }
   }
 
   private def processCompaniesHouseResponse(

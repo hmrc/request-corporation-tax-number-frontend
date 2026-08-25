@@ -17,30 +17,15 @@
 package config
 
 import com.google.inject.{Inject, Singleton}
-import controllers.routes
 import play.api.Configuration
-import play.api.i18n.Lang
-import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
 class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig: ServicesConfig) {
 
-  private val contactFormServiceIdentifier: String = "requestcorporationtaxnumberfrontend"
+  lazy val feedbackSurveyUrl: String =
+    s"${configuration.get[String]("urls.feedback-survey")}?useServiceNavigation"
 
-  private lazy val contactHost: String = configuration.get[String]("contact-frontend.host")
-
-  lazy val reportAProblemPartialUrl: String =
-    s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
-
-  lazy val reportAProblemNonJSUrl: String =
-    s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
-
-  lazy val betaFeedbackUrl: String = s"$contactHost/contact/beta-feedback"
-
-  lazy val loginUrl: String                 = configuration.get[String]("urls.login")
-  lazy val loginContinueUrl: String         = configuration.get[String]("urls.loginContinue")
-  lazy val feedbackSurveyUrl: String        = configuration.get[String]("urls.feedback-survey")
   lazy val companyHouseRegisterUrl: String  = configuration.get[String]("urls.company-house-register")
   lazy val getCompanyInformationUrl: String = configuration.get[String]("urls.get-information-about-a-company")
   lazy val contactUsUrl: String             = configuration.get[String]("urls.contactUs")
@@ -54,11 +39,8 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
 
   lazy val timeOutSeconds: Int          = configuration.get[Int]("sessionTimeout.timeoutSeconds")
   lazy val timeOutCountDownSeconds: Int = configuration.get[Int]("sessionTimeout.time-out-countdown-seconds")
-  lazy val refreshInterval: Int         = timeOutSeconds + 10
   lazy val enableRefresh: Boolean       = configuration.get[Boolean]("sessionTimeout.enableRefresh")
 
   lazy val showDelayBanner: Boolean = configuration.get[Boolean]("showDelayBanner")
 
-  def languageMap: Map[String, Lang]        = Map("english" -> Lang("en"), "cymraeg" -> Lang("cy"))
-  def routeToSwitchLanguage: String => Call = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 }

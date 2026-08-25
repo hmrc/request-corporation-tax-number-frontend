@@ -1,8 +1,7 @@
 import play.sbt.routes.RoutesKeys
-import uk.gov.hmrc.DefaultBuildSettings.{defaultSettings, scalaSettings}
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
-ThisBuild / scalaVersion := "3.3.7"
+ThisBuild / scalaVersion := "3.3.8"
 ThisBuild / majorVersion := 1
 
 lazy val microservice = Project("request-corporation-tax-number-frontend", file("."))

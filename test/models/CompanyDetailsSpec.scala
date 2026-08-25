@@ -17,22 +17,15 @@
 package models
 
 import base.SpecBase
+import play.api.libs.json.Json
 
 class CompanyDetailsSpec extends SpecBase {
 
-  "answered lines" must {
+  "CompanyDetails" must {
 
-    "contain company name and reference number " in {
-      val companyDetails = CompanyDetails("Big Company", "12345678")
-      CompanyDetails.answeredLines(companyDetails) mustBe Seq("Big Company", "12345678")
-    }
-  }
-
-  "as string" must {
-
-    "give a comma-separated string of all of the answered lines" in {
-      val companyDetails = CompanyDetails("Big Company", "12345678")
-      CompanyDetails.asString(companyDetails) mustBe "Big Company, 12345678"
+    "round-trip through its JSON format" in {
+      val companyDetails = CompanyDetails("12345678", "Big Company")
+      Json.toJson(companyDetails).as[CompanyDetails] mustBe companyDetails
     }
   }
 

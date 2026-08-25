@@ -22,9 +22,4 @@ case class CompanyDetails(companyReferenceNumber: String, companyName: String)
 
 object CompanyDetails {
   given format: OFormat[CompanyDetails] = Json.format[CompanyDetails]
-
-  def answeredLines(companyDetails: CompanyDetails): Seq[String] =
-    Seq(Some(companyDetails.companyReferenceNumber), Some(companyDetails.companyName)).flatten
-
-  def asString(companyDetails: CompanyDetails): String = answeredLines(companyDetails).mkString(", ")
 }

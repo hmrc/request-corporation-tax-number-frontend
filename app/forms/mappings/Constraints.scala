@@ -36,26 +36,6 @@ trait Constraints {
         Valid
     }
 
-  protected def minimumValue[A](minimum: A, errorKey: String)(using ev: Ordering[A]): Constraint[A] =
-    Constraint { input =>
-      import ev.*
-      if (input >= minimum) {
-        Valid
-      } else {
-        Invalid(errorKey, minimum)
-      }
-    }
-
-  protected def maximumValue[A](maximum: A, errorKey: String)(using ev: Ordering[A]): Constraint[A] =
-    Constraint { input =>
-      import ev.*
-      if (input <= maximum) {
-        Valid
-      } else {
-        Invalid(errorKey, maximum)
-      }
-    }
-
   def regexValidation(regexString: String, errorMessage: String = "error.invalid"): Constraint[String] =
     Constraint {
       case str if !str.matches(regexString) =>

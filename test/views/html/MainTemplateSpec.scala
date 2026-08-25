@@ -20,6 +20,8 @@ import play.twirl.api.{Html, HtmlFormat}
 import views.ViewSpecBase
 import views.html.MainTemplate
 
+import scala.jdk.CollectionConverters.*
+
 class MainTemplateSpec extends ViewSpecBase {
 
   val view: MainTemplate = app.injector.instanceOf[MainTemplate]
@@ -42,6 +44,31 @@ class MainTemplateSpec extends ViewSpecBase {
     "render the report-technical-issue link" in {
       val doc = asDocument(view(title)(mainContent)(fakeRequest, messages))
       assertRenderedByCssSelector(doc, "a.hmrc-report-technical-issue")
+    }
+
+    "render the service navigation component" in {
+      val doc = asDocument(view(title)(mainContent)(fakeRequest, messages))
+      assertRenderedByCssSelector(doc, ".govuk-service-navigation")
+    }
+
+    "request the service navigation component on every generated link to a shared PlatUI page" in {
+      val doc = asDocument(view(title)(mainContent)(fakeRequest, messages))
+
+      val sharedPagePaths = Seq(
+        "/accessibility-statement/",
+        "/contact/report-technical-problem",
+        "/help/cookies",
+        "/help/privacy",
+        "/help/terms-and-conditions"
+      )
+
+      sharedPagePaths.foreach { path =>
+        withClue(s"links to $path: ") {
+          val hrefs = doc.select(s"""a[href*="$path"]""").eachAttr("href").asScala.toSeq
+          hrefs must not be empty
+          hrefs.foreach(_ must include("useServiceNavigation"))
+        }
+      }
     }
 
     "render the back link when backLink is Some" in {
