@@ -22,7 +22,7 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import models.CompanyDetails
 
-class CompanyDetailsFormProvider @Inject() extends FormErrorHelper with Constraints {
+class CompanyDetailsFormProvider @Inject() extends Constraints {
 
   private val companyReferenceNumberRegex    = "(?i)^([0-9]\\d{6,7}|\\d{6,7}|[A-Z]{2}\\d{6})$"
   private val companyReferenceNumberError    = "companyDetails.error.companyReferenceNumber.regex"

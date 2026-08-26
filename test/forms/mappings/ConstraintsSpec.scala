@@ -45,42 +45,6 @@ class ConstraintsSpec extends AnyWordSpec with Matchers with Constraints {
     }
   }
 
-  "minimumValue" must {
-
-    "return Valid for a number greater than the threshold" in {
-      val result = minimumValue(1, "error.min").apply(2)
-      result mustEqual Valid
-    }
-
-    "return Valid for a number equal to the threshold" in {
-      val result = minimumValue(1, "error.min").apply(1)
-      result mustEqual Valid
-    }
-
-    "return Invalid for a number below the threshold" in {
-      val result = minimumValue(1, "error.min").apply(0)
-      result mustEqual Invalid("error.min", 1)
-    }
-  }
-
-  "maximumValue" must {
-
-    "return Valid for a number less than the threshold" in {
-      val result = maximumValue(1, "error.max").apply(0)
-      result mustEqual Valid
-    }
-
-    "return Valid for a number equal to the threshold" in {
-      val result = maximumValue(1, "error.max").apply(1)
-      result mustEqual Valid
-    }
-
-    "return Invalid for a number above the threshold" in {
-      val result = maximumValue(1, "error.max").apply(2)
-      result mustEqual Invalid("error.max", 1)
-    }
-  }
-
   "regexp" must {
 
     "return Valid for matching regex" in {

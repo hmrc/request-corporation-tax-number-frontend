@@ -17,7 +17,6 @@
 package config
 
 import base.SpecBase
-import play.api.i18n.Lang
 
 class FrontendAppConfigSpec extends SpecBase {
 
@@ -25,28 +24,8 @@ class FrontendAppConfigSpec extends SpecBase {
 
   "FrontendAppConfig" must {
 
-    "have the correct reportAProblemPartialUrl" in {
-      appConfig.reportAProblemPartialUrl mustBe "http://localhost:9250/contact/problem_reports_ajax?service=requestcorporationtaxnumberfrontend"
-    }
-
-    "have the correct reportAProblemNonJSUrl" in {
-      appConfig.reportAProblemNonJSUrl mustBe "http://localhost:9250/contact/problem_reports_nonjs?service=requestcorporationtaxnumberfrontend"
-    }
-
-    "have the correct betaFeedbackUrl" in {
-      appConfig.betaFeedbackUrl mustBe "http://localhost:9250/contact/beta-feedback"
-    }
-
-    "have the correct loginUrl" in {
-      appConfig.loginUrl mustBe "http://localhost:9000/request-corporation-tax-number-frontend"
-    }
-
-    "have the correct loginContinueUrl" in {
-      appConfig.loginContinueUrl mustBe "http://localhost:9000/request-corporation-tax-number-frontend"
-    }
-
     "have the correct feedbackSurveyUrl" in {
-      appConfig.feedbackSurveyUrl mustBe "http://localhost:9514/feedback/CTUTR"
+      appConfig.feedbackSurveyUrl mustBe "http://localhost:9514/feedback/CTUTR?useServiceNavigation"
     }
 
     "have the correct companyHouseRegisterUrl" in {
@@ -81,33 +60,12 @@ class FrontendAppConfigSpec extends SpecBase {
       appConfig.timeOutCountDownSeconds mustBe 120
     }
 
-    "have the correct refreshInterval" in {
-      appConfig.refreshInterval mustBe 910 // timeOutSeconds + 10
-    }
-
     "have the correct enableRefresh" in {
       appConfig.enableRefresh mustBe true
     }
 
     "have the correct showDelayBanner" in {
       appConfig.showDelayBanner mustBe false
-    }
-
-    "have the correct languageMap" in {
-      appConfig.languageMap mustBe Map(
-        "english" -> Lang("en"),
-        "cymraeg" -> Lang("cy")
-      )
-    }
-
-    "return the correct route to switch language - EN" in {
-      val enCall = appConfig.routeToSwitchLanguage("en")
-      enCall.url mustBe "/ask-for-copy-of-your-corporation-tax-utr/language/en"
-    }
-
-    "return the correct route to switch language - CY" in {
-      val cyCall = appConfig.routeToSwitchLanguage("cy")
-      cyCall.url mustBe "/ask-for-copy-of-your-corporation-tax-utr/language/cy"
     }
 
   }

@@ -20,6 +20,6 @@ import models.cache.CacheMap
 import identifiers.*
 import models.*
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
+class UserAnswers(val cacheMap: CacheMap) {
   def companyDetails: Option[CompanyDetails] = cacheMap.getEntry[CompanyDetails](CompanyDetailsId.toString)
 }

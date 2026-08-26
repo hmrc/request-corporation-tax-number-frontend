@@ -54,6 +54,12 @@ class ConfirmationViewSpec extends ViewBehaviours {
     link.attr("href") must include("/feedback/CTUTR")
   }
 
+  "request the service navigation component on the exit survey, so the shared page renders it" in {
+    val doc  = asDocument(createView())
+    val link = doc.getElementById("survey-link")
+    link.attr("href") must include("useServiceNavigation")
+  }
+
   "ref must return the view itself" in {
     view.ref mustBe view
   }

@@ -22,7 +22,7 @@ import org.apache.pekko.stream.Materializer
 import com.google.inject.Inject
 import play.api.mvc.*
 import play.api.mvc.request.{Cell, RequestAttrKey}
-import uk.gov.hmrc.http.{HeaderNames => HMRCHeaderNames, SessionKeys}
+import uk.gov.hmrc.http.{HeaderNames as HMRCHeaderNames, SessionKeys}
 
 import scala.concurrent.{ExecutionContext, Future}
 
