@@ -36,7 +36,7 @@
 }
 
 @main_template(title = messages("index.title")) {
-    @if(appConfig.showDelayBanner) {
+    @if(appConfig.showZoomSurveyBanner) {
         @components.user_research_banner(appConfig.userZoomSurveyUrl)
     }
     @if(appConfig.showDelayBanner) {
