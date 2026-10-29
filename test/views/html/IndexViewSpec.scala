@@ -103,4 +103,20 @@ class IndexViewSpec extends ViewBehaviours with GuiceOneAppPerSuite {
     assertRenderedByClass(doc, "hmrc-user-research-banner")
   }
 
+  val viewWithShowZoomSurveyBanner: IndexView =
+    applicationBuilder.configure("showZoomSurveyBanner" -> true).build().injector.instanceOf[IndexView]
+
+  val viewWithoutShowZoomSurveyBanner: IndexView =
+    applicationBuilder.configure("showZoomSurveyBanner" -> false).build().injector.instanceOf[IndexView]
+
+  "Page should contain service zoom survey banner content" in {
+    val doc = asDocument(viewWithShowZoomSurveyBanner(call)(fakeRequest, messages))
+    assertContainsText(doc, messages("userzoom.survey.banner.title"))
+    assertContainsText(doc, messages("userzoom.survey.banner.link.desc"))
+  }
+
+  "Page should not contain service zoom survey banner content" in {
+    val doc = asDocument(viewWithoutShowZoomSurveyBanner(call)(fakeRequest, messages))
+  }
+
 }
