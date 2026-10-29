@@ -43,4 +43,6 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
 
   lazy val showDelayBanner: Boolean = configuration.get[Boolean]("showDelayBanner")
 
+  lazy val showZoomSurveyBanner: Boolean = configuration.get[Boolean]("showZoomSurveyBanner")
+
 }

@@ -68,6 +68,10 @@ class FrontendAppConfigSpec extends SpecBase {
       appConfig.showDelayBanner mustBe false
     }
 
+    "have the correct showZoomSurveyBanner" in {
+      appConfig.showZoomSurveyBanner mustBe false
+    }
+
   }
 
 }
